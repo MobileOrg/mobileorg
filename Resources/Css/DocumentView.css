@@ -1,0 +1,100 @@
+/*
+ *  Copyright 2009 Richard Moreland.
+ *
+ *  This program is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU General Public License
+ *  as published by the Free Software Foundation; either version 2
+ *  of the License, or (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ *
+ */
+ 
+* {
+    font-family: Arial;
+}
+
+body {
+}
+
+pre {
+    font-family: 'Courier New' !important;
+    font-size: 10px !important;
+    padding-top: 7px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 10px;
+    margin-left: 20px;
+    margin-right: 20px;    
+    margin-top: 10px;
+    margin-bottom: 10px;
+    overflow: auto;
+    background-color: #fdfdfd;
+    border: 1px solid #aaa;
+}
+
+pre a, pre em, pre strong {
+    font-family: 'Courier New' !important;
+    font-size: 10px;
+}
+
+.comment {
+    color: orange;
+}
+
+.drawer {
+    margin: 5px;
+    margin-bottom: 10px;
+}
+
+.drawer-heading {
+    padding: 5px;
+    color: black;
+    background-color: #cfcfcf;
+}
+
+.drawer-body {
+    background-color: #dedede;
+    padding: 10px;
+}
+
+h1 {
+    border-bottom: 1px solid #dddddd;
+}
+
+h2 {
+    border-bottom: 3px solid #dddddd;
+}
+
+h3 {
+    border-bottom: 1px solid #dddddd;
+}
+
+.tags {
+  float: right;
+  color: #aaa;
+  font-size: 75%;
+}
+
+.keyword-todo {
+  color: white;
+  background-color: rgb(128,0,0);
+  -webkit-border-radius: 5px;
+  padding: 3px;
+  font-size: 65%;
+}
+
+.keyword-done {
+  color: white;
+  background-color: rgb(0,128,0);
+  -webkit-border-radius: 5px;
+  padding: 3px;
+  font-size: 65%;
+}

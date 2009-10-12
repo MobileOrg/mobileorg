@@ -181,7 +181,11 @@
 
         if (indexPath.row == 0) {
             [[cell textLabel] setText:@"Version"];
+#ifdef FOR_APP_STORE
+            [cell.detailTextLabel setText:[NSString stringWithFormat:@"MobileOrg %@", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]]];
+#else
             [cell.detailTextLabel setText:[NSString stringWithFormat:@"MobileOrg %@ (build %@)", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"], [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]]];
+#endif
         } else if (indexPath.row == 1) {
             [[cell textLabel] setText:@"Last Sync"];
             NSDate *last_sync = [[Settings instance] lastSync];

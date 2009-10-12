@@ -703,6 +703,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MobileOrg_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = FOR_APP_STORE;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/vendor-libs/include\"";
 				INFOPLIST_FILE = "MobileOrg-Info.plist";
 				INFOPLIST_PREPROCESS = NO;

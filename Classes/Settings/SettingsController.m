@@ -169,22 +169,11 @@
         static NSString *CellIdentifier = @"SettingsSimpleCell";
 
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        UILabel *newLabel;
         if (cell == nil) {
             cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
-
-            newLabel = [[[UILabel alloc] initWithFrame:CGRectMake(100,15,200,20)] autorelease];
-            [newLabel setAdjustsFontSizeToFitWidth:YES];
-            [newLabel setTag:1];
-            [newLabel setFont:[UIFont systemFontOfSize:14.0]];
-            [newLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleRightMargin];
-            [cell addSubview:newLabel];
-
-            CGRect detailFrame = [[cell detailTextLabel] frame];
-            detailFrame.origin.y -= 5;
-            [[cell detailTextLabel] setFrame:detailFrame];
-        } else {
-            newLabel = (UILabel*)[cell.contentView viewWithTag:1];
+            [[cell detailTextLabel] setAdjustsFontSizeToFitWidth:YES];
+            [[cell detailTextLabel] setFont:[UIFont systemFontOfSize:14.0]];
+            [[cell detailTextLabel] setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleRightMargin];
         }
 
         // Set up the cell...
@@ -192,17 +181,17 @@
 
         if (indexPath.row == 0) {
             [[cell textLabel] setText:@"Version"];
-            [newLabel setText:[NSString stringWithFormat:@"MobileOrg %@ (build %@)", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"], [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]]];
+            [cell.detailTextLabel setText:[NSString stringWithFormat:@"MobileOrg %@ (build %@)", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"], [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]]];
         } else if (indexPath.row == 1) {
             [[cell textLabel] setText:@"Last Sync"];
             NSDate *last_sync = [[Settings instance] lastSync];
             if (last_sync) {
                 NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
                 [formatter setDateFormat:@"YYYY-MM-dd EEE HH:mm"];
-                [newLabel setText:[formatter stringFromDate:last_sync]];
+                [cell.detailTextLabel setText:[formatter stringFromDate:last_sync]];
                 [formatter release];
             } else {
-                [newLabel setText:@"Not yet synced"];
+                [cell.detailTextLabel setText:@"Not yet synced"];
             }
         }
 

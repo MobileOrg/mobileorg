@@ -29,6 +29,7 @@
 		793F7FF5107CC38A00674D0A /* Icon-debug.png in Resources */ = {isa = PBXBuildFile; fileRef = 793F7FF3107CC38A00674D0A /* Icon-debug.png */; };
 		793F811F107D381A00674D0A /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 793F811E107D381A00674D0A /* SessionManager.m */; };
 		793F8128107D38C900674D0A /* OutlineState.m in Sources */ = {isa = PBXBuildFile; fileRef = 793F8127107D38C900674D0A /* OutlineState.m */; };
+		796A6A911083E67400D0DB25 /* DocumentView.js in Resources */ = {isa = PBXBuildFile; fileRef = 793F7F0B107C385900674D0A /* DocumentView.js */; };
 		7982F3621073F2FA00AEA6BC /* Node.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F35B1073F2FA00AEA6BC /* Node.m */; };
 		7982F3631073F2FA00AEA6BC /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F35D1073F2FA00AEA6BC /* Note.m */; };
 		7982F3641073F2FA00AEA6BC /* FileChecksum.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F35F1073F2FA00AEA6BC /* FileChecksum.m */; };
@@ -561,6 +562,7 @@
 				7998B0791079847C0000ED49 /* table_gray.png in Resources */,
 				7998B07A1079847C0000ED49 /* up.png in Resources */,
 				793F7F0A107C385200674D0A /* DocumentView.css in Resources */,
+				796A6A911083E67400D0DB25 /* DocumentView.js in Resources */,
 				793F7FF4107CC38A00674D0A /* Icon-beta.png in Resources */,
 				793F7FF5107CC38A00674D0A /* Icon-debug.png in Resources */,
 			);

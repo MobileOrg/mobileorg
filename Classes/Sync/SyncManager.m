@@ -692,8 +692,12 @@ static SyncManager *gInstance = NULL;
             break;
 
         case SyncManagerTransferStateDownloadingOrgFiles:
-            [self processOrgFile:[[[context remoteUrl] path] lastPathComponent] withLocalFile:[context localFile]];
+        {
+            // We want to strip the baseUrl off of the remoteUrl and use that as the org filename
+            NSString *orgFilename = [[[context remoteUrl] absoluteString] stringByReplacingOccurrencesOfString:[[[Settings instance] baseUrl] absoluteString] withString:@""];
+            [self processOrgFile:orgFilename withLocalFile:[context localFile]];
             break;
+        }
     }
 }
 

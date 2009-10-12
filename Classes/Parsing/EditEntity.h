@@ -30,7 +30,6 @@
     NSString *newValue;
     NSString *heading;
     NSString *noteId;
-    NSString *flagAction;
     NSDate *createdAt;
     Node *node;
 }
@@ -40,7 +39,6 @@
 @property (nonatomic, copy) NSString *newValue;
 @property (nonatomic, copy) NSString *heading;
 @property (nonatomic, copy) NSString *noteId;
-@property (nonatomic, copy) NSString *flagAction;
 @property (nonatomic, copy) NSDate *createdAt;
 @property (nonatomic, retain) Node *node;
 

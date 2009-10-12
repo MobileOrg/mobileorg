@@ -83,6 +83,7 @@
         Node *lastNode = nil;
         int sequenceIndex = 1;
         bool readOnlyFile = false;
+        bool addedDefaultTodoStates = false;
 
         lines = [entireFile componentsSeparatedByString:@"\n"];
 
@@ -286,6 +287,14 @@
 
             // Handle headings
             if (numStars > 0) {
+
+                if (isIndex && !addedDefaultTodoStates) {
+                    NSMutableArray *todoStateGroup = [NSMutableArray arrayWithCapacity:2];
+                    [todoStateGroup addObject:[NSMutableArray arrayWithCapacity:0]];
+                    [todoStateGroup addObject:[NSMutableArray arrayWithObject:@"DONEARCHIVE"]];
+                    [[Settings instance] addTodoStateGroup:todoStateGroup];
+                    addedDefaultTodoStates = true;
+                }
 
                 // The title is * THIS PART
                 NSString *title = [[line substringFromIndex:(numStars+1)] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];

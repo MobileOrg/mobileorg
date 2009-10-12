@@ -144,12 +144,6 @@
                     }
                 }
 
-                NSString *flagAction = @"";
-                NSArray *flagActionCaptures = [line captureComponentsMatchedByRegex:@"F\\((.*)\\) .+"];
-                if ([flagActionCaptures count] > 0) {
-                    flagAction = [flagActionCaptures objectAtIndex:1];
-                }
-
                 // This means we are in a note or otherwise non-edit section of the outline
                 // In this case, we want to make a simple edit entry with no actionType, and
                 // get ready to accept the body
@@ -158,7 +152,6 @@
                     EditEntity *entity = [[EditEntity alloc] init];
                     [entity setEditAction:@""];
                     [entity setHeading:[line substringFromIndex:2]];
-                    [entity setFlagAction:flagAction];
                     [editEntities addObject:entity];
                     [entity release];
 

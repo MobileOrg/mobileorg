@@ -28,7 +28,6 @@
 @synthesize oldValue, newValue;
 @synthesize heading;
 @synthesize noteId;
-@synthesize flagAction;
 @synthesize createdAt;
 @synthesize node;
 
@@ -38,7 +37,6 @@
     [newValue release];
     [heading release];
     [noteId release];
-    [flagAction release];
     [createdAt release];
     [node release];
     [super dealloc];

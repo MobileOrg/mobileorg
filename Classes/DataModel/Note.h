@@ -31,7 +31,6 @@
 @property (nonatomic, retain) NSString * text;
 @property (nonatomic, retain) NSDate * createdAt;
 @property (nonatomic, retain) NSString * nodeId;
-@property (nonatomic, retain) NSString * flagAction;
 @property (nonatomic, retain) NSString * noteId;
 @property (nonatomic, retain) NSNumber * locallyModified;
 @property (nonatomic, retain) NSNumber * deleted;

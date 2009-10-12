@@ -29,7 +29,6 @@
 @dynamic text;
 @dynamic createdAt;
 @dynamic nodeId;
-@dynamic flagAction;
 @dynamic noteId;
 @dynamic locallyModified;
 @dynamic deleted;
@@ -38,7 +37,7 @@
     // If it is a flag entry, the flag part is the title, the rest is the body
     if ([self isFlagEntry]) {
         Node *node = ResolveNode(self.nodeId);
-        return [NSString stringWithFormat:@"F(%@) [[%@][%@]]", self.flagAction, self.nodeId, [node headingForDisplay]];
+        return [NSString stringWithFormat:@"F() [[%@][%@]]", self.nodeId, [node headingForDisplay]];
     }
 
     if (!self.text || [self.text length] == 0) {

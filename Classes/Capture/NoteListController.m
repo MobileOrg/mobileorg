@@ -198,11 +198,7 @@
         NSString *createdAtStr = [formatter stringFromDate:[note createdAt]];
         [formatter release];
 
-        if (note.flagAction && [note.flagAction length] > 0) {
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"F(%@) %@", note.flagAction, createdAtStr];
-        } else {
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"F() %@", createdAtStr];
-        }
+        cell.detailTextLabel.text = createdAtStr;
 
         cell.accessoryType = UIButtonTypeDetailDisclosure;
 

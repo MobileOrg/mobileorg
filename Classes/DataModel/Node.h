@@ -65,6 +65,7 @@
 - (void)collectLinks:(NSMutableArray*)links;
 - (NSString*)htmlForDocumentViewLevel:(int)level;
 - (NSString*)ownerFile;
+- (NSString*)bestDoneState;
 
 @end
 

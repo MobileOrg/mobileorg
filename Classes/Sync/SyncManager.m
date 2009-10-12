@@ -620,7 +620,6 @@ static SyncManager *gInstance = NULL;
                 [newNote setCreatedAt:entity.createdAt];
                 [newNote setNoteId:entity.noteId];
                 [newNote setLocallyModified:[NSNumber numberWithBool:false]];
-                [newNote setFlagAction:entity.flagAction];
                 NSString *text = @"";
                 if (entity.newValue && [entity.newValue length] > 0) {
                     text = [NSString stringWithFormat:@"%@\n%@", entity.heading, entity.newValue];

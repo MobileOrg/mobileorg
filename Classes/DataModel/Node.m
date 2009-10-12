@@ -536,4 +536,30 @@ static NSString *kFileLinkRegex = @"\\[\\[file:([a-zA-Z0-9/\\-_]+\\.org)\\]\\[(.
     return nil;
 }
 
+- (NSString*)bestDoneState {
+    NSString *ret = @"DONE";
+
+    // Default to the first DONE entry in the first todo state group
+    NSArray *todoStateGroup = [[[Settings instance] todoStateGroups] objectAtIndex:0];
+    if (todoStateGroup && [todoStateGroup count] > 1) {
+        if ([[todoStateGroup objectAtIndex:1] count] > 0) {
+            ret = [[todoStateGroup objectAtIndex:1] objectAtIndex:0];
+        }
+    }
+
+    // But prefer to use the first DONE entry in the todo state group that owns the current todostate
+    for (NSArray *todoStateGroup in [[Settings instance] todoStateGroups]) {
+        if ([todoStateGroup count] > 1) {
+            if ([[todoStateGroup objectAtIndex:0] containsObject:self.todoState] || [[todoStateGroup objectAtIndex:1] containsObject:self.todoState]) {
+                if ([[todoStateGroup objectAtIndex:1] count] > 0) {
+                    ret = [[todoStateGroup objectAtIndex:1] objectAtIndex:0];
+                    break;
+                }
+            }
+        }
+    }
+
+    return ret;
+}
+
 @end

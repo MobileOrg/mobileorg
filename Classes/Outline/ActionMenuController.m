@@ -28,6 +28,7 @@
 #import "Note.h"
 #import "NoteListController.h"
 #import "OutlineViewController.h"
+#import "LocalEditAction.h"
 
 @implementation ActionMenuController
 
@@ -48,7 +49,6 @@
     Note *note = (Note*)[NSEntityDescription insertNewObjectForEntityForName:@"Note" inManagedObjectContext:[node managedObjectContext]];
     note.nodeId = [node bestId];
     note.createdAt = [NSDate date];
-    note.flagAction = action;
     note.noteId = UUID();
     note.locallyModified = [NSNumber numberWithBool:true];
 
@@ -62,13 +62,28 @@
     }
 }
 
+- (void)setTodoState:(NSString*)newState {
+    bool created;
+    LocalEditAction *action = FindOrCreateLocalEditActionForNode(@"edit:todo", node, &created);
+    if (created) {
+        action.oldValue = [node todoState];
+    }
+
+    action.newValue = newState;
+    action.nodeId = [node bestId];
+
+    node.todoState = newState;
+
+    Save();
+}
+
 - (void)onDone {
-    [self addFlag:@"d" andEdit:false];
+    [self setTodoState:[node bestDoneState]];
     [self close];
 }
 
 - (void)onDoneAndArchive {
-    [self addFlag:@"d-a" andEdit:false];
+    [self setTodoState:@"DONEARCHIVE"];
     [self close];
 }
 

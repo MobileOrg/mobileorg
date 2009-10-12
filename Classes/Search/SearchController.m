@@ -113,7 +113,7 @@
     [scopes addObject: NSLocalizedString(@"All", @"Search everything")];
     [scopes addObject: NSLocalizedString(@"Text", @"Search node text only")];
     [scopes addObject: NSLocalizedString(@"Tags", @"Search tags only")];
-    [scopes addObject: NSLocalizedString(@"Keywords", @"Search keywords only")];
+    [scopes addObject: NSLocalizedString(@"Todo State", @"Search todo state only")];
     search_bar.scopeButtonTitles = scopes;
     search_bar.selectedScopeButtonIndex = 0;
     [scopes release];

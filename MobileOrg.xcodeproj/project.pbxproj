@@ -638,6 +638,7 @@
 					"\"$(SRCROOT)/vendor-libs/lib\"",
 				);
 				PRODUCT_NAME = MobileOrg;
+				SDKROOT = iphoneos3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -675,6 +676,7 @@
 				);
 				PRODUCT_NAME = MobileOrg;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SDKROOT = iphoneos3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = AdHoc;
@@ -713,6 +715,7 @@
 				);
 				PRODUCT_NAME = MobileOrg;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SDKROOT = iphoneos3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = AppStore;

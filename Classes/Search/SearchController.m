@@ -99,12 +99,13 @@
 
     [self setTitle:@"Search"];
 
-    search_bar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 20, 300, 100)];
+    search_bar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 20, 320, 100)];
     search_bar.autocorrectionType = UITextAutocorrectionTypeNo;
     search_bar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     search_bar.delegate = self;
     search_bar.showsCancelButton = YES;
     search_bar.showsScopeBar = YES;
+    search_bar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 
     // TODO: When in a focused search, tint nav bar grey, tint search bar grey, add toolbar icon to 'Remove Filter' or something
     // Or perhaps just show an additional bar under the scope

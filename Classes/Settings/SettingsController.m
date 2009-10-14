@@ -118,6 +118,20 @@
     }
 }
 
+// From Nick @ http://iphoneincubator.com/blog/windows-views/how-to-create-a-data-entry-screen
+- (NSArray*)entryFields {
+    NSMutableArray *ret = [NSMutableArray arrayWithCapacity:3];
+    NSInteger tag = 1;
+    UIView *aView;
+    while (aView = [self.view viewWithTag:tag]) {
+        if (aView && [[aView class] isSubclassOfClass:[UIResponder class]]) {
+            [ret addObject:aView];
+        }
+        tag++;
+    }
+    return ret;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
     if (indexPath.section == 0) {
@@ -129,7 +143,6 @@
         if (cell == nil) {
             cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
             newLabel = [[[UITextField alloc] initWithFrame:CGRectMake(100,13,200,25)] autorelease];
-            [newLabel setTag:1];
             [newLabel setAdjustsFontSizeToFitWidth:YES];
             [newLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleRightMargin];
             [newLabel setAutocorrectionType:UITextAutocorrectionTypeNo];
@@ -152,18 +165,21 @@
                 [newLabel addTarget:self action:@selector(serverUrlChanged:) forControlEvents:(UIControlEventValueChanged | UIControlEventEditingDidEnd)];
                 [newLabel setKeyboardType:UIKeyboardTypeURL];
                 [newLabel setDelegate:self];
+                [newLabel setTag:1];
                 [[cell textLabel] setText:@"URL"];
                 newLabel.text = [[[Settings instance] indexUrl] absoluteString];
                 break;
             case 1:
                 [newLabel addTarget:self action:@selector(usernameChanged:) forControlEvents:(UIControlEventEditingDidEnd | UIControlEventEditingDidEnd)];
                 [newLabel setDelegate:self];
+                [newLabel setTag:2];
                 [[cell textLabel] setText:@"Username"];
                 newLabel.text = [[Settings instance] username];
                 break;
             case 2:
                 [newLabel addTarget:self action:@selector(passwordChanged:) forControlEvents:(UIControlEventEditingDidEnd | UIControlEventEditingDidEnd)];
                 [newLabel setDelegate:self];
+                [newLabel setTag:3];
                 [[cell textLabel] setText:@"Password"];
                 [newLabel setSecureTextEntry:YES];
                 newLabel.text = [[Settings instance] password];
@@ -269,6 +285,9 @@
     [[Settings instance] resetPrimaryTagsAndTodoStates];
     [[Settings instance] resetAllTags];
 
+    // Reset last sync time
+    [[Settings instance] setLastSync:nil];
+
     // Session. Clear the saved state
     [[SessionManager instance] reset];
 }
@@ -356,7 +375,21 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [textField resignFirstResponder];
+
+    bool resign = true;
+
+    // Find the next entry field
+    for (UIView *view in [self entryFields]) {
+        if (view.tag == (textField.tag + 1)) {
+            [view becomeFirstResponder];
+            resign = false;
+            break;
+        }
+    }
+
+    if (resign)
+        [textField resignFirstResponder];
+
     return YES;
 }
 

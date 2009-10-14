@@ -41,6 +41,8 @@
 - (bool)isTopmostOutline;
 - (void)onSync;
 - (void)onSyncComplete;
+- (void)clearHelpWindows;
+- (void)updateHelpWindows;
 @end
 
 @implementation OutlineViewController
@@ -94,6 +96,7 @@
         [[self tableView] scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
     }
     [[SyncManager instance] sync];
+    [self clearHelpWindows];
 }
 
 - (void)onSyncComplete {
@@ -185,6 +188,44 @@
     }
 }
 
+- (void)clearHelpWindows {
+    if (pressSyncView && [pressSyncView superview])
+        [pressSyncView removeFromSuperview];
+    if (offlineCantSyncView && [offlineCantSyncView superview])
+        [offlineCantSyncView removeFromSuperview];
+    if (pleaseConfigureView && [pleaseConfigureView superview])
+        [pleaseConfigureView removeFromSuperview];
+}
+
+- (void)updateHelpWindows {
+
+    [self clearHelpWindows];
+
+    // Don't show any help windows if they've already synced
+    if (self.nodes && [self.nodes count] > 0) {
+        return;
+    }
+
+    // If they aren't configured, let them know they need to do it now
+    if (![[Settings instance] isConfiguredProperly]) {
+        [[[self navigationController] view] addSubview:pleaseConfigureView];
+        [[[self navigationController] view] bringSubviewToFront:pleaseConfigureView];
+        return;
+    }
+
+    // If they are configured and online, tell them to sync
+    if (hasConnectivity) {
+        [[[self navigationController] view] addSubview:pressSyncView];
+        [[[self navigationController] view] bringSubviewToFront:pressSyncView];
+        return;
+    } else {
+        //  Otherwise, tell them they need to wait until they are online to sync
+        [[[self navigationController] view] addSubview:offlineCantSyncView];
+        [[[self navigationController] view] bringSubviewToFront:offlineCantSyncView];
+        return;
+    }
+}
+
 - (void)setHasConnectivity:(bool)flag {
     hasConnectivity = flag;
 
@@ -193,6 +234,8 @@
     } else {
         syncButton.enabled = NO;
     }
+
+    [self updateHelpWindows];
 }
 
 - (void)restore:(NSArray*)outlineStates {
@@ -232,9 +275,6 @@
 - (void)delayedOneFingerTouch:(NSIndexPath*)path {
     Node *node = [[self nodes] objectAtIndex:path.row];
     if (node) {
-
-        // TODO?
-        //[self setFlaggingPath:path];
 
         // TODO: This isn't good, I think this making a whole nother cell.
         UITableViewCell *cell = [[self tableView] cellForRowAtIndexPath:path];
@@ -297,6 +337,15 @@
                                                      name:@"SyncComplete"
                                                    object:nil];
 
+        pressSyncView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"press-sync.png"]];
+        pressSyncView.frame = CGRectMake(46, 130, 228, 200);
+
+        pleaseConfigureView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"please-configure.png"]];
+        pleaseConfigureView.frame = CGRectMake(46, 160, 228, 99);
+
+        offlineCantSyncView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cant-sync-offline.png"]];
+        offlineCantSyncView.frame = CGRectMake(46, 160, 228, 99);
+
     } else {
         if ([self root]) {
 
@@ -306,18 +355,51 @@
     }
 }
 
+- (void)layoutHelpWindows {
+    switch ([[UIDevice currentDevice] orientation]) {
+        case UIDeviceOrientationLandscapeLeft:
+        case UIDeviceOrientationLandscapeRight:
+            pressSyncView.frame = CGRectMake(126, 62, 228, 200);
+            pleaseConfigureView.frame = CGRectMake(126, 106, 228, 99);
+            offlineCantSyncView.frame = CGRectMake(126, 106, 228, 99);
+            break;
+
+        case UIDeviceOrientationUnknown:
+        case UIDeviceOrientationPortrait:
+        case UIDeviceOrientationPortraitUpsideDown:
+        case UIDeviceOrientationFaceUp:
+        case UIDeviceOrientationFaceDown:
+        default:
+            pressSyncView.frame = CGRectMake(46, 130, 228, 200);
+            pleaseConfigureView.frame = CGRectMake(46, 177, 228, 99);
+            offlineCantSyncView.frame = CGRectMake(46, 177, 228, 99);
+            break;
+    }
+}
+
+- (void)didRotate:(UIDeviceOrientation)orientation {
+    [self layoutHelpWindows];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
 
     [super viewWillAppear:animated];
 
-    // Enable/disable sync button if appropriate
-    if (hasConnectivity && [[Settings instance] isConfiguredProperly]) {
-        syncButton.enabled = YES;
-    } else {
-        syncButton.enabled = NO;
-    }
+    if ([self isTopmostOutline]) {
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(didRotate:)
+                                                     name:UIDeviceOrientationDidChangeNotification object:nil];
 
-    // TODO: Show 'you need to set it up' or 'you need to sync' overlay if appropriate
+        // Enable/disable sync button if appropriate
+        if (hasConnectivity && [[Settings instance] isConfiguredProperly]) {
+            syncButton.enabled = YES;
+        } else {
+            syncButton.enabled = NO;
+        }
+
+        [self layoutHelpWindows];
+        [self updateHelpWindows];
+    }
 
     // Save our state by getting rid of anything above us in the session
     [[SessionManager instance] popOutlineStateToLevel:[self.navigationController.viewControllers indexOfObject:self]];
@@ -333,6 +415,15 @@
     // could affect us. (inherited)
     //
     [self refreshData];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+
+    if ([self isTopmostOutline]) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                        name:UIDeviceOrientationDidChangeNotification object:nil];
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -403,6 +494,9 @@
         [[NSNotificationCenter defaultCenter] removeObserver:self
                                                         name:@"SyncComplete"
                                                       object:nil];
+        [pressSyncView release];
+        [pleaseConfigureView release];
+        [offlineCantSyncView release];
     }
 
     [nodes release];

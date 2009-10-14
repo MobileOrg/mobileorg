@@ -44,6 +44,10 @@ typedef enum {
     UIBarButtonItem *syncButton;
     UIBarButtonItem *homeButton;
 
+    UIImageView *pressSyncView;
+    UIImageView *pleaseConfigureView;
+    UIImageView *offlineCantSyncView;
+
     // The app delegate will let us know when we have connectivity, so
     // we can enable/disable sync button
     bool hasConnectivity;

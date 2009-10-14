@@ -103,6 +103,8 @@ static TransferManager *gInstance = NULL;
 }
 
 static int my_auth(void *userdata, const char *realm, int attempts, char *username, char *password) {
+    if (![[Settings instance] username] || ![[Settings instance] password])
+        return attempts;
     strncpy(username, [[[Settings instance] username] cStringUsingEncoding:NSUTF8StringEncoding], NE_ABUFSIZ);
     strncpy(password, [[[Settings instance] password] cStringUsingEncoding:NSUTF8StringEncoding], NE_ABUFSIZ);
     return attempts;

@@ -673,7 +673,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Richard Moreland";
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 18;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -687,7 +687,7 @@
 					"\"$(SRCROOT)/vendor-libs/lib\"",
 				);
 				PRODUCT_NAME = MobileOrg;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "91E33B7C-0AD3-4D9B-BD9D-21EEE91505A4";
 				SDKROOT = iphoneos3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -710,8 +710,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Richard Moreland";
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 18;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -726,7 +725,7 @@
 					"\"$(SRCROOT)/vendor-libs/lib\"",
 				);
 				PRODUCT_NAME = MobileOrg;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "14CB93B6-C248-4B7E-819C-8C1478ACBFC2";
 				SDKROOT = iphoneos3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

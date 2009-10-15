@@ -33,6 +33,7 @@ typedef enum {
     SyncManagerTransferStateUploadingEmptyEditsFile,
     SyncManagerTransferStateUploadingLocalChanges,
     SyncManagerTransferStateDownloadingChecksums,
+    SyncManagerTransferStateRetryDownloadingChecksums,
     SyncManagerTransferStateDownloadingOrgFiles,
 } SyncManagerTransferState;
 

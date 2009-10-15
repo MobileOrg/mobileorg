@@ -688,6 +688,7 @@ static SyncManager *gInstance = NULL;
             break;
 
         case SyncManagerTransferStateDownloadingChecksums:
+        case SyncManagerTransferStateRetryDownloadingChecksums:
             [self processChecksumFile:[context localFile]];
             break;
 
@@ -757,7 +758,24 @@ static SyncManager *gInstance = NULL;
 
         case SyncManagerTransferStateDownloadingChecksums:
             if ([context statusCode] >= 400 && [context statusCode] < 600) {
-                // Fetch the Org files, just assume they don't have a checksum file
+                // Fetch the Org files, just assume they don't have a checksum file since the server
+                // gave us an error code answer
+                [self downloadOrgFiles];
+            } else {
+                // If the error code wasn't a 4 or 600, there was likely some connectivity issue
+                // preventing us from downloading the file.  Some users reported that simply giving
+                // it another go is good enough, so we'll retry here to see if it helps.
+                DeleteFile([context localFile]);
+                currentState = SyncManagerTransferStateRetryDownloadingChecksums;
+                [self downloadChecksumFile];
+            }
+            break;
+
+        case SyncManagerTransferStateRetryDownloadingChecksums:
+
+            if ([context statusCode] >= 400 && [context statusCode] < 600) {
+                // Fetch the Org files, just assume they don't have a checksum file since the server
+                // gave us an error code answer
                 [self downloadOrgFiles];
             } else {
                 DeleteFile([context localFile]);

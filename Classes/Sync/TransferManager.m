@@ -93,6 +93,8 @@ static TransferManager *gInstance = NULL;
             // We are now active, no more transfers until this one is done
             active = true;
 
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+
             // Kick it off in another thread
             [NSThread detachNewThreadSelector:@selector(processRequest:) toTarget:self withObject:context];
         }
@@ -279,6 +281,8 @@ static void my_notify_status(void *userdata, ne_session_status status, const ne_
 }
 
 - (void)requestFinished:(TransferContext*)context {
+
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 
     if (!context.success && context.abortOnFailure) {
         [transfers removeAllObjects];

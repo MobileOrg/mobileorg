@@ -464,7 +464,11 @@
         }
     }
 
-    [delegate performSelectorOnMainThread:completionSelector withObject:nil waitUntilDone:NO];
+    // TODO: When we go back to doing the processing on another thread, we'll need this
+    //[delegate performSelectorOnMainThread:completionSelector withObject:nil waitUntilDone:NO];
+
+    // For now, just make the call the normal way
+    [delegate performSelector:completionSelector withObject:nil];
 
     [nodeStack release];
     [pool release];

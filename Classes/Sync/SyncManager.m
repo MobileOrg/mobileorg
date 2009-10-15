@@ -585,7 +585,7 @@ static SyncManager *gInstance = NULL;
     }
 
     // If there is nothing else to do, call doneDownloadingOrgFiles
-    if (![[TransferManager instance] busy]) {
+    if ([[TransferManager instance] queueSize] == 0) {
         [self doneDownloadingOrgFiles];
     }
 }

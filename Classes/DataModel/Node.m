@@ -24,7 +24,7 @@
 #import "LocalEditAction.h"
 #import "DataUtils.h"
 #import "Settings.h"
-#import "RegexKitLite.h"
+#import "GlobalUtils.h"
 
 @implementation Node
 
@@ -435,8 +435,6 @@ static NSString *kFileLinkRegex = @"\\[\\[file:([a-zA-Z0-9/\\-_]+\\.org)\\]\\[(.
             bool was_pre = false;
             bool in_drawer = false;
 
-            int drawer_count = 0;
-
             while ([theScanner isAtEnd] == NO) {
                 if ([theScanner scanUpToCharactersFromSet:eolSet intoString:&line]) {
 
@@ -455,9 +453,9 @@ static NSString *kFileLinkRegex = @"\\[\\[file:([a-zA-Z0-9/\\-_]+\\.org)\\]\\[(.
                             } else {
                                 // TODO: Make sure drawer_title isn't in a disallowed list
                                 in_drawer = true;
-                                drawer_count++;
-                                formatted_body = [formatted_body stringByAppendingFormat:@"<div class='drawer'><span class='drawer-heading' onclick='toggleDrawer(\"%d-%d\")'><span id='drawer-toggle-%d-%d'>Show</span> %@</span>", level, drawer_count, level, drawer_count, drawer_title];
-                                formatted_body = [formatted_body stringByAppendingFormat:@"<div style='display: none;' class='drawer-body' id='drawer-body-%d-%d'>", level, drawer_count];
+                                NSString *drawerId = UUID();
+                                formatted_body = [formatted_body stringByAppendingFormat:@"<div class='drawer'><span class='drawer-heading' onclick='toggleDrawer(\"%@\")'><span id='drawer-toggle-%@'>Show</span> %@</span>", drawerId, drawerId, drawer_title];
+                                formatted_body = [formatted_body stringByAppendingFormat:@"<div style='display: none;' class='drawer-body' id='drawer-body-%@'>", drawerId];
                                 continue;
                             }
                         }

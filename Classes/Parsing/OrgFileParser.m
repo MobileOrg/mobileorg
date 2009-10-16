@@ -347,7 +347,7 @@
 
                 // Extract tags from the title, if they exist
                 NSString *tags = @"";
-                static NSString *tagRegExp = @"(.+?)[ \\s]+(:([\\w\\.]+:)+)[ \\s]*$";
+                static NSString *tagRegExp = @"(.+?)[ \\s]+(:([@\\w\\.]+:)+)[ \\s]*$";
                 NSArray *splitTagTitleArray = [title captureComponentsMatchedByRegex:tagRegExp];
                 if ([splitTagTitleArray count] >= 2) {
                     title = [splitTagTitleArray objectAtIndex:1];

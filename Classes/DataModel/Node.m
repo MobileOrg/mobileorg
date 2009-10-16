@@ -363,8 +363,7 @@ static NSString *kFileLinkRegex = @"\\[\\[file:([a-zA-Z0-9/\\-_]+\\.org)\\]\\[(.
 - (NSString*)markupLine:(NSString*)line {
     // First, look for links of this form [[http://...][Title]]
     {
-        NSString *regexString = @"\\[\\[(https?://[a-zA-Z0-9\\-.]+(?::(\\d+))?(?:(?:/[a-zA-Z0-9\\-._?,'+\\&%$=~*!():@#\\\\]*)+)?)\\]\\[([a-zA-Z0-9/\\-_\\. '!?]+)\\]\\]";
-        line = [line stringByReplacingOccurrencesOfRegex:regexString withString:@"<a href='$1'>$3</a>"];
+        line = [line stringByReplacingOccurrencesOfRegex:@"\\[\\[(https?:.+?)\\]\\[(.+?)\\]\\]" withString:@"<a href=\"$1\">$2</a>"];
     }
 
     // Then look for standalone links

@@ -62,6 +62,7 @@ typedef enum {
 - (void)refreshData;
 - (void)updateSiblingButtons;
 - (void)showDocumentView;
+- (void)changeNode:(Node*)aNode;
 @end
 
 @implementation DetailsViewController
@@ -121,7 +122,7 @@ typedef enum {
         }
 
         int new_index = (index + which) % [sortedChildren count];
-        node = [sortedChildren objectAtIndex:new_index];
+        [self changeNode:[sortedChildren objectAtIndex:new_index]];
 
         // Save session
         OutlineState *state = [[OutlineState new] autorelease];
@@ -177,23 +178,24 @@ typedef enum {
     [[SessionManager instance] pushOutlineState:state];
 }
 
+- (void)changeNode:(Node*)aNode {
+    self.node = aNode;
+    self.editTarget = aNode;
+
+    if (aNode.referencedNodeId && [aNode.referencedNodeId length] > 0) {
+        Node *targetNode = ResolveNode(aNode.referencedNodeId);
+        if (targetNode) {
+            self.editTarget = targetNode;
+        }
+    }
+}
+
 //
 // Primary methods
 //
 - (id)initWithNode:(Node*)aNode {
     if (self = [super initWithStyle:UITableViewStyleGrouped]) {
-        self.node = aNode;
-
-        if (aNode.referencedNodeId && [aNode.referencedNodeId length] > 0) {
-            Node *targetNode = ResolveNode(aNode.referencedNodeId);
-            if (targetNode) {
-                self.editTarget = targetNode;
-            }
-        }
-
-        if (!self.editTarget) {
-            self.editTarget = aNode;
-        }
+        [self changeNode:aNode];
     }
     return self;
 }

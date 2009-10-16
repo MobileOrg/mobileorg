@@ -46,6 +46,7 @@
 
 - (NSString*)bestId;
 - (NSString*)headingForDisplay;
+- (NSString*)headingForDisplayWithHtmlLinks:(BOOL)withLinks;
 - (NSString*)beforeText;
 - (NSString*)afterText;
 - (NSString*)bodyForDisplay;

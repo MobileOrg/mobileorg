@@ -66,8 +66,11 @@ static NSString *kFileLinkRegex = @"\\[\\[file:([a-zA-Z0-9/\\-_]+\\.org)\\]\\[(.
     }
 }
 
-// Make this handle <break> business, show linked node's title instead, etc
 - (NSString*)headingForDisplay {
+    return [self headingForDisplayWithHtmlLinks:NO];
+}
+
+- (NSString*)headingForDisplayWithHtmlLinks:(BOOL)withLinks {
 
     NSString *ret = [self heading];
 
@@ -85,6 +88,13 @@ static NSString *kFileLinkRegex = @"\\[\\[file:([a-zA-Z0-9/\\-_]+\\.org)\\]\\[(.
             link_text = [link_text substringToIndex:last_location.location+last_location.length];
             ret = [[self heading] stringByReplacingOccurrencesOfString:link_text withString:[self linkTitle]];
         }
+    }
+
+    // Replace normal [[..][Title]] links with Title (or an actual link, based on withLinks)
+    if (withLinks) {
+        ret = [ret stringByReplacingOccurrencesOfRegex:@"\\[\\[(.+?)\\]\\[(.+?)\\]\\]" withString:@"<a href=\"$1\">$2</a>"];
+    } else {
+        ret = [ret stringByReplacingOccurrencesOfRegex:@"\\[\\[.+?\\]\\[(.+?)\\]\\]" withString:@"$1"];
     }
 
     // If the heading has <break> in it, just show the part before <break>
@@ -394,7 +404,7 @@ static NSString *kFileLinkRegex = @"\\[\\[file:([a-zA-Z0-9/\\-_]+\\.org)\\]\\[(.
 - (NSString*)htmlForDocumentViewLevel:(int)level {
     NSString *ret = @"";
     @try {
-        NSString *title = [self headingForDisplay];
+        NSString *title = [self headingForDisplayWithHtmlLinks:YES];
         if ([[self todoState] length] > 0) {
             if ([[Settings instance] isTodoState:[self todoState]]) {
                 title = [NSString stringWithFormat:@"<span class='keyword-todo'>%@</span> %@", [self todoState], title];

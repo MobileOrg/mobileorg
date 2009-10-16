@@ -58,6 +58,13 @@ typedef enum {
     DetailsViewSectionCount
 } DetailsViewSections;
 
+typedef enum {
+    DetailsViewPropertiesTodoState,
+    DetailsViewPropertiesPriority,
+    DetailsViewPropertiesTags,
+    DetailsViewPropertiesCount
+} DetailsViewProperties;
+
 @interface DetailsViewController(private)
 - (void)refreshData;
 - (void)updateSiblingButtons;
@@ -282,7 +289,7 @@ typedef enum {
             return 2; // Maybe 3 if there is a break?
             break;
         case DetailsViewSectionProperties:
-            return 3;
+            return DetailsViewPropertiesCount;
             break;
         case DetailsViewSectionActions:
             return 2;
@@ -369,7 +376,15 @@ typedef enum {
 
         case DetailsViewSectionProperties:
         {
-            static NSString *CellIdentifier = @"DetailsViewPropertyCell";
+            NSString *CellIdentifier = @"DetailsViewPropertyCell";
+
+            if (indexPath.row == DetailsViewPropertiesTodoState && [[editTarget todoState] length] == 0) {
+                CellIdentifier = [CellIdentifier stringByAppendingString:@"Empty"];
+            } else if (indexPath.row == DetailsViewPropertiesPriority && [[editTarget priority] length] == 0) {
+                CellIdentifier = [CellIdentifier stringByAppendingString:@"Empty"];
+            }  else if (indexPath.row == DetailsViewPropertiesTags && [[editTarget tagsForDisplay] length] == 0) {
+                CellIdentifier = [CellIdentifier stringByAppendingString:@"Empty"];
+            }
 
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             if (cell == nil) {
@@ -379,7 +394,7 @@ typedef enum {
 
             }
 
-            if ([indexPath row] == 0) {
+            if ([indexPath row] == DetailsViewPropertiesTodoState) {
                 [[cell textLabel] setText:@"Todo State"];
                 if ([[editTarget todoState] length] > 0) {
                     [[cell detailTextLabel] setText:[editTarget todoState]];
@@ -388,7 +403,7 @@ typedef enum {
                     [[cell detailTextLabel] setTextColor:[UIColor grayColor]];
                     [[cell detailTextLabel] setFont:[UIFont italicSystemFontOfSize:13.0]];
                 }
-            } else if ([indexPath row] == 1) {
+            } else if ([indexPath row] == DetailsViewPropertiesPriority) {
                 [[cell textLabel] setText:@"Priority"];
                 if ([[editTarget priority] length] > 0) {
                     [[cell detailTextLabel] setText:[editTarget priority]];
@@ -397,7 +412,7 @@ typedef enum {
                     [[cell detailTextLabel] setTextColor:[UIColor grayColor]];
                     [[cell detailTextLabel] setFont:[UIFont italicSystemFontOfSize:13.0]];
                 }
-            } else if ([indexPath row] == 2) {
+            } else if ([indexPath row] == DetailsViewPropertiesTags) {
                 [[cell textLabel] setText:@"Tags"];
                 if ([[editTarget tagsForDisplay] length] > 0) {
                     [[cell detailTextLabel] setText:[editTarget tagsForDisplay]];
@@ -470,15 +485,15 @@ typedef enum {
         NodeTextEditController *controller = [[NodeTextEditController alloc] initWithNode:editTarget andEditProperty:NodeTextEditPropertyBody];
         [[self navigationController] pushViewController:controller animated:YES];
         [controller release];
-    } else if ([indexPath section] == DetailsViewSectionProperties && [indexPath row] == 0) {
+    } else if ([indexPath section] == DetailsViewSectionProperties && [indexPath row] == DetailsViewPropertiesTodoState) {
         TodoStateEditController *controller = [[TodoStateEditController alloc] initWithNode:editTarget];
         [[self navigationController] pushViewController:controller animated:YES];
         [controller release];
-    } else if ([indexPath section] == DetailsViewSectionProperties && [indexPath row] == 1) {
+    } else if ([indexPath section] == DetailsViewSectionProperties && [indexPath row] == DetailsViewPropertiesPriority) {
         PriorityEditController *controller = [[PriorityEditController alloc] initWithNode:editTarget];
         [[self navigationController] pushViewController:controller animated:YES];
         [controller release];
-    } else if ([indexPath section] == DetailsViewSectionProperties && [indexPath row] == 2) {
+    } else if ([indexPath section] == DetailsViewSectionProperties && [indexPath row] == DetailsViewPropertiesTags) {
         TagEditController *controller = [[TagEditController alloc] initWithNode:editTarget];
         [[self navigationController] pushViewController:controller animated:YES];
         [controller release];
@@ -493,4 +508,3 @@ typedef enum {
 }
 
 @end
-

@@ -378,15 +378,6 @@ typedef enum {
             }
 
             if ([indexPath row] == 0) {
-                [[cell textLabel] setText:@"Tags"];
-                if ([[editTarget tagsForDisplay] length] > 0) {
-                    [[cell detailTextLabel] setText:[editTarget tagsForDisplay]];
-                } else {
-                    [[cell detailTextLabel] setText:@"None"];
-                    [[cell detailTextLabel] setTextColor:[UIColor grayColor]];
-                    [[cell detailTextLabel] setFont:[UIFont italicSystemFontOfSize:13.0]];
-                }
-            } else if ([indexPath row] == 1) {
                 [[cell textLabel] setText:@"Todo State"];
                 if ([[editTarget todoState] length] > 0) {
                     [[cell detailTextLabel] setText:[editTarget todoState]];
@@ -395,10 +386,19 @@ typedef enum {
                     [[cell detailTextLabel] setTextColor:[UIColor grayColor]];
                     [[cell detailTextLabel] setFont:[UIFont italicSystemFontOfSize:13.0]];
                 }
-            } else if ([indexPath row] == 2) {
+            } else if ([indexPath row] == 1) {
                 [[cell textLabel] setText:@"Priority"];
                 if ([[editTarget priority] length] > 0) {
                     [[cell detailTextLabel] setText:[editTarget priority]];
+                } else {
+                    [[cell detailTextLabel] setText:@"None"];
+                    [[cell detailTextLabel] setTextColor:[UIColor grayColor]];
+                    [[cell detailTextLabel] setFont:[UIFont italicSystemFontOfSize:13.0]];
+                }
+            } else if ([indexPath row] == 2) {
+                [[cell textLabel] setText:@"Tags"];
+                if ([[editTarget tagsForDisplay] length] > 0) {
+                    [[cell detailTextLabel] setText:[editTarget tagsForDisplay]];
                 } else {
                     [[cell detailTextLabel] setText:@"None"];
                     [[cell detailTextLabel] setTextColor:[UIColor grayColor]];
@@ -469,15 +469,15 @@ typedef enum {
         [[self navigationController] pushViewController:controller animated:YES];
         [controller release];
     } else if ([indexPath section] == DetailsViewSectionProperties && [indexPath row] == 0) {
-        TagEditController *controller = [[TagEditController alloc] initWithNode:editTarget];
+        TodoStateEditController *controller = [[TodoStateEditController alloc] initWithNode:editTarget];
         [[self navigationController] pushViewController:controller animated:YES];
         [controller release];
     } else if ([indexPath section] == DetailsViewSectionProperties && [indexPath row] == 1) {
-        TagEditController *controller = [[TodoStateEditController alloc] initWithNode:editTarget];
+        PriorityEditController *controller = [[PriorityEditController alloc] initWithNode:editTarget];
         [[self navigationController] pushViewController:controller animated:YES];
         [controller release];
     } else if ([indexPath section] == DetailsViewSectionProperties && [indexPath row] == 2) {
-        PriorityEditController *controller = [[PriorityEditController alloc] initWithNode:editTarget];
+        TagEditController *controller = [[TagEditController alloc] initWithNode:editTarget];
         [[self navigationController] pushViewController:controller animated:YES];
         [controller release];
     }

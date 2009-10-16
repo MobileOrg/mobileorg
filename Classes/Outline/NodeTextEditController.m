@@ -24,6 +24,7 @@
 #import "Node.h"
 #import "LocalEditAction.h"
 #import "DataUtils.h"
+#import "GlobalUtils.h"
 
 @implementation NodeTextEditController
 
@@ -210,6 +211,8 @@
     } else if (self.editProperty == NodeTextEditPropertyBody) {
         [node setBody:aTextView.text];
     }
+
+    UpdateEditActionCount();
 
     Save();
 }

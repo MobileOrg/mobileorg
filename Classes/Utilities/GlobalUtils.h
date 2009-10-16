@@ -33,3 +33,5 @@ NSString *FileWithName(NSString *name);
 NSString *TemporaryFilename();
 
 void DeleteFile(NSString *filename);
+
+void UpdateEditActionCount();

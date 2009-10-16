@@ -25,6 +25,7 @@
 #import "Settings.h"
 #import "DataUtils.h"
 #import "LocalEditAction.h"
+#import "GlobalUtils.h"
 
 @implementation TodoStateEditController
 
@@ -38,6 +39,8 @@
     self.editAction.newValue = @"";
 
     Save();
+
+    UpdateEditActionCount();
 
     [[self tableView] reloadData];
 }
@@ -193,6 +196,8 @@
 
     self.editAction.newValue = [node todoState];
     Save();
+
+    UpdateEditActionCount();
 
     [tableView reloadData];
 }

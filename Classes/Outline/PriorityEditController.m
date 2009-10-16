@@ -25,6 +25,7 @@
 #import "Settings.h"
 #import "DataUtils.h"
 #import "LocalEditAction.h"
+#import "GlobalUtils.h"
 
 @implementation PriorityEditController
 
@@ -36,6 +37,7 @@
     node.priority = @"";
     self.editAction.newValue = @"";
     Save();
+    UpdateEditActionCount();
     [[self tableView] reloadData];
 }
 
@@ -132,6 +134,8 @@
     self.editAction.newValue = priority;
 
     Save();
+
+    UpdateEditActionCount();
 
     [tableView reloadData];
 }

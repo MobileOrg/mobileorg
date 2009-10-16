@@ -25,6 +25,7 @@
 #import "Settings.h"
 #import "DataUtils.h"
 #import "LocalEditAction.h"
+#import "GlobalUtils.h"
 
 @implementation TagEditController
 
@@ -47,6 +48,8 @@
 
     self.editAction.newValue = [node tags];
     Save();
+
+    UpdateEditActionCount();
 
     [[self tableView] reloadData];
 }
@@ -275,6 +278,8 @@
 
     self.editAction.newValue = [node tags];
     Save();
+
+    UpdateEditActionCount();
 
     [tableView reloadData];
 }

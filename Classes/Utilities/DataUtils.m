@@ -470,6 +470,9 @@ int CountLocalEditActions() {
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity: [NSEntityDescription entityForName:@"LocalEditAction" inManagedObjectContext:managedObjectContext]];
 
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(oldValue != newValue)"];
+    [request setPredicate:predicate];
+
     NSError *error = nil;
     NSUInteger count = [managedObjectContext countForFetchRequest:request error:&error];
 

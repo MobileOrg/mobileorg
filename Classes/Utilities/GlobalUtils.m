@@ -49,3 +49,7 @@ void DeleteFile(NSString *filename) {
         [NSFm removeItemAtPath:filename error:&e];
     }
 }
+
+void UpdateEditActionCount() {
+    [[AppInstance() rootOutlineController] updateBadge];
+}

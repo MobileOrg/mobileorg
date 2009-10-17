@@ -22,6 +22,7 @@
 
 #import "GlobalUtils.h"
 #import "MobileOrgAppDelegate.h"
+#import "OutlineViewController.h"
 
 MobileOrgAppDelegate *AppInstance() {
     return (MobileOrgAppDelegate*)[[UIApplication sharedApplication] delegate];

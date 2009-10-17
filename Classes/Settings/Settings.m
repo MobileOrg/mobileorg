@@ -263,7 +263,7 @@ static NSString *kPrioritiesKey      = @"Priorities";
 - (bool)isConfiguredProperly {
     NSString *indexUrlStr = [indexUrl absoluteString];
     if (indexUrl && [indexUrlStr length] > 0) {
-        if ([indexUrlStr rangeOfRegex:@"http[s]?://.*\\.org"].location == 0) {
+        if ([indexUrlStr rangeOfRegex:@"http[s]?://.*\\.(?:org|txt)"].location == 0) {
             return true;
         }
     }

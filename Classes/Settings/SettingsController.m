@@ -309,7 +309,7 @@
 - (void)serverUrlChanged:(id)sender {
     UITextField *textField = (UITextField*)sender;
 
-    if ([[textField text] rangeOfRegex:@"http.*\\.org$"].location == NSNotFound) {
+    if ([[textField text] rangeOfRegex:@"http.*\\.(?:org|txt)$"].location == NSNotFound) {
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle:@"Invalid path"
                               message:@"This setting should be the complete URL to a .org file on a WebDAV server.  For instance, http://www.example.com/private/org/index.org"

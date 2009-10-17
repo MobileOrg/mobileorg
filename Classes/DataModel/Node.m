@@ -44,7 +44,7 @@
 @dynamic notes;
 @dynamic children;
 
-static NSString *kFileLinkRegex = @"\\[\\[file:([a-zA-Z0-9/\\-_]+\\.org)\\]\\[(.*)\\]\\]";
+static NSString *kFileLinkRegex = @"\\[\\[file:([a-zA-Z0-9/\\-_]+\\.(?:org|txt))\\]\\[(.*)\\]\\]";
 
 - (NSComparisonResult)sequenceIndexCompare:(Node*)obj
 {
@@ -375,7 +375,7 @@ static NSString *kFileLinkRegex = @"\\[\\[file:([a-zA-Z0-9/\\-_]+\\.org)\\]\\[(.
 
     // Any file: links that link to org files?
     {
-        NSString *regexString = @"\\[\\[file:([a-zA-Z0-9/\\-\\._]+\\.org)\\]\\[([a-zA-Z0-9/\\-_\\. '!?]+)\\]\\]";
+        NSString *regexString = @"\\[\\[file:([a-zA-Z0-9/\\-\\._]+\\.(?:org|txt))\\]\\[([a-zA-Z0-9/\\-_\\. '!?]+)\\]\\]";
         line = [line stringByReplacingOccurrencesOfRegex:regexString withString:@"<a href='orgfile:$1'>$2</a>"];
     }
 

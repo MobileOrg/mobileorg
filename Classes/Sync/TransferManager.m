@@ -159,8 +159,6 @@ static TransferManager *gInstance = NULL;
     } else {
         if (activeTransfer.transferType == TransferTypeDownload) {
             activeTransfer.success = [data writeToFile:[activeTransfer localFile] atomically:YES];
-        } else if (activeTransfer.transferType == TransferTypeUpload) {
-            activeTransfer.success = true;
         }
     }
 
@@ -175,9 +173,30 @@ static TransferManager *gInstance = NULL;
     [self requestFinished:activeTransfer];
 }
 
+- (NSURLRequest*)connection:(NSURLConnection*)connection willSendRequest:(NSURLRequest*)request redirectResponse:(NSURLResponse*)redirectResponse {
+    NSURLRequest *newRequest = request;
+    if (redirectResponse) {
+        // If we get a redirect, make a new request with the new location.
+        // From the docs, it seems like this should happen automatically, but it doesn't
+        // appear to work that way.
+        NSDictionary *headerFields = [(NSHTTPURLResponse*)redirectResponse allHeaderFields];
+        NSString *newLocation = [headerFields objectForKey:@"Location"];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:newLocation] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:30];
+        if (activeTransfer.transferType == TransferTypeDownload) {
+            [request setHTTPMethod:@"GET"];
+        } else {
+            [request setHTTPMethod:@"PUT"];
+            [request setHTTPBody:[NSData dataWithContentsOfFile:activeTransfer.localFile]];
+        }
+        newRequest = request;
+    }
+    return newRequest;
+}
+
 - (void)connection:(NSURLConnection*)connection didReceiveResponse:(NSURLResponse*)response {
 
     activeTransfer.statusCode = [ (NSHTTPURLResponse*)response statusCode];
+    activeTransfer.success = !(activeTransfer.statusCode >= 400 && activeTransfer.statusCode < 600);
 
     [data setLength:0];
     self.fileSize = [NSNumber numberWithLongLong:[response expectedContentLength]];

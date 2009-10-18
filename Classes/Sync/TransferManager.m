@@ -89,6 +89,9 @@ static TransferManager *gInstance = NULL;
             // The context at index 0 is what we're about to transfer
             self.activeTransfer = [transfers objectAtIndex:0];
 
+            // Transfers are successful until proven otherwise
+            activeTransfer.success = true;
+
             // Dequeue it off the front
             [transfers removeObjectAtIndex:0];
 
@@ -123,7 +126,8 @@ static TransferManager *gInstance = NULL;
     }
 
     if (!request) {
-        // TODO: Call error
+        activeTransfer.success = false;
+        activeTransfer.errorText = @"Invalid URL";
         return;
     }
 
@@ -131,7 +135,8 @@ static TransferManager *gInstance = NULL;
 
     connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     if (!connection) {
-        // TODO: call error
+        activeTransfer.success = false;
+        activeTransfer.errorText = @"Unable to create connection";
         return;
     }
 }
@@ -157,7 +162,7 @@ static TransferManager *gInstance = NULL;
         }
         activeTransfer.success = false;
     } else {
-        if (activeTransfer.transferType == TransferTypeDownload) {
+        if (activeTransfer.transferType == TransferTypeDownload && activeTransfer.success) {
             activeTransfer.success = [data writeToFile:[activeTransfer localFile] atomically:YES];
         }
     }
@@ -169,7 +174,9 @@ static TransferManager *gInstance = NULL;
     [connection release];
     connection = nil;
 
+    activeTransfer.errorText = @"Failure";
     activeTransfer.success = false;
+
     [self requestFinished:activeTransfer];
 }
 
@@ -181,14 +188,24 @@ static TransferManager *gInstance = NULL;
         // appear to work that way.
         NSDictionary *headerFields = [(NSHTTPURLResponse*)redirectResponse allHeaderFields];
         NSString *newLocation = [headerFields objectForKey:@"Location"];
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:newLocation] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:30];
-        if (activeTransfer.transferType == TransferTypeDownload) {
-            [request setHTTPMethod:@"GET"];
+
+        if ([newLocation rangeOfString:@"http://guide.opendns.com/"].location == 0) {
+            // DNS entry wasn't found, OpenDNS is trying to help us out.  It doesn't help in
+            // this case, so we need to fail.
+            activeTransfer.success = false;
+            activeTransfer.errorText = @"Host not found";
+            newRequest = nil;
         } else {
-            [request setHTTPMethod:@"PUT"];
-            [request setHTTPBody:[NSData dataWithContentsOfFile:activeTransfer.localFile]];
+
+            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:newLocation] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:30];
+            if (activeTransfer.transferType == TransferTypeDownload) {
+                [request setHTTPMethod:@"GET"];
+            } else {
+                [request setHTTPMethod:@"PUT"];
+                [request setHTTPBody:[NSData dataWithContentsOfFile:activeTransfer.localFile]];
+            }
+            newRequest = request;
         }
-        newRequest = request;
     }
     return newRequest;
 }
@@ -196,7 +213,14 @@ static TransferManager *gInstance = NULL;
 - (void)connection:(NSURLConnection*)connection didReceiveResponse:(NSURLResponse*)response {
 
     activeTransfer.statusCode = [ (NSHTTPURLResponse*)response statusCode];
-    activeTransfer.success = !(activeTransfer.statusCode >= 400 && activeTransfer.statusCode < 600);
+    if (activeTransfer.statusCode >= 400 && activeTransfer.statusCode < 600) {
+        activeTransfer.success = false;
+    } else if (activeTransfer.statusCode == 302) {
+        // Handle case where we were redirected to OpenDNS-ish page
+        // If it was a legitimate redirect, it would have resolved to another
+        // status code.
+        activeTransfer.success = false;
+    }
 
     [data setLength:0];
     self.fileSize = [NSNumber numberWithLongLong:[response expectedContentLength]];

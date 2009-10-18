@@ -444,7 +444,7 @@
                 }
 
                 // Append it to the existing node body, if any
-                if ([lastNode body]) {
+                if ([lastNode body] && [[lastNode body] length] > 0) {
 
                     [lastNode setBody:[[lastNode body] stringByAppendingString:@"\n"]];
 
@@ -457,7 +457,7 @@
                     if ([line length] > 0) {
                         [lastNode setBody:line];
                     } else {
-                        [lastNode setBody:@"\n"];
+                        [lastNode setBody:@""];
                     }
                 }
             }

@@ -21,7 +21,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#include <neon/ne_basic.h>
 
 @class TransferContext;
 
@@ -29,12 +28,14 @@
     NSMutableArray *transfers;
     bool active;
     bool paused;
-
-    NSString *lastScheme;
-    NSString *lastHost;
-    int lastPort;
-    ne_session *sess;
+    TransferContext *activeTransfer;
+    NSURLConnection *connection;
+    NSMutableData *data;
+    NSNumber *fileSize;
 }
+
+@property (nonatomic, retain) TransferContext *activeTransfer;
+@property (nonatomic, copy) NSNumber *fileSize;
 
 + (TransferManager*)instance;
 - (void)enqueueTransfer:(TransferContext*)transfer;

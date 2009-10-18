@@ -25,17 +25,20 @@
 #import "StatusUtils.h"
 #import "SyncManager.h"
 #import "Settings.h"
-#include <neon/ne_auth.h>
 
 @interface TransferManager(private)
 - (void)dispatchNextTransfer;
 - (void)processRequest:(TransferContext*)context;
+- (void)requestFinished:(TransferContext *)context;
 @end
 
 // Singleton instance
 static TransferManager *gInstance = NULL;
 
 @implementation TransferManager
+
+@synthesize activeTransfer;
+@synthesize fileSize;
 
 + (TransferManager*)instance {
     @synchronized(self)
@@ -49,10 +52,10 @@ static TransferManager *gInstance = NULL;
 - (id)init {
     if (self = [super init]) {
         transfers = [NSMutableArray new];
-        ne_sock_init();
+        activeTransfer = nil;
         active = false;
         paused = false;
-        sess = nil;
+        data = [[NSMutableData alloc] init];
     }
     return self;
 }
@@ -77,16 +80,13 @@ static TransferManager *gInstance = NULL;
         if (!active) {
 
             // The context at index 0 is what we're about to transfer
-            TransferContext *context = [transfers objectAtIndex:0];
-
-            // Retain it, since we need it to outlive the thread
-            [context retain];
+            self.activeTransfer = [transfers objectAtIndex:0];
 
             // Dequeue it off the front
             [transfers removeObjectAtIndex:0];
 
             // Update status view text
-            [[SyncManager instance] setTransferFilename:[[[context remoteUrl] absoluteString] lastPathComponent]];
+            [[SyncManager instance] setTransferFilename:[[[self.activeTransfer remoteUrl] absoluteString] lastPathComponent]];
             [[SyncManager instance] setProgressTotal:0];
             [[SyncManager instance] updateStatus];
 
@@ -95,8 +95,7 @@ static TransferManager *gInstance = NULL;
 
             [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 
-            // Kick it off in another thread
-            [NSThread detachNewThreadSelector:@selector(processRequest:) toTarget:self withObject:context];
+            [self processRequest:activeTransfer];
         }
     } else {
         // If there are no more transfers, we don't need the status view
@@ -104,180 +103,100 @@ static TransferManager *gInstance = NULL;
     }
 }
 
-static int my_auth(void *userdata, const char *realm, int attempts, char *username, char *password) {
-    if (![[Settings instance] username] || ![[Settings instance] password])
-        return attempts;
-    strncpy(username, [[[Settings instance] username] cStringUsingEncoding:NSUTF8StringEncoding], NE_ABUFSIZ);
-    strncpy(password, [[[Settings instance] password] cStringUsingEncoding:NSUTF8StringEncoding], NE_ABUFSIZ);
-    return attempts;
+- (void)processRequest:(TransferContext *)context {
+
+    connection = nil;
+
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:context.remoteUrl cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:30];
+    if (context.transferType == TransferTypeDownload) {
+        [request setHTTPMethod:@"GET"];
+    } else {
+        [request setHTTPMethod:@"PUT"];
+        [request setHTTPBody:[NSData dataWithContentsOfFile:context.localFile]];
+    }
+
+    if (!request) {
+        // TODO: Call error
+        return;
+    }
+
+    [data setLength:0];
+
+    connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    if (!connection) {
+        // TODO: call error
+        return;
+    }
 }
 
-static int my_verify_ssl(void *userdata, int failures, const ne_ssl_certificate *cert) {
-    return 0;
+- (void)connectionDidFinishLoading:(NSURLConnection*)aConnection {
+    [connection release];
+    connection = nil;
+
+    if (activeTransfer.statusCode >= 400 && activeTransfer.statusCode < 600) {
+        switch (activeTransfer.statusCode) {
+            case 401:
+                activeTransfer.errorText = @"401: Bad username or password";
+                break;
+            case 403:
+                activeTransfer.errorText = [NSString stringWithFormat:@"403: File not found: %@", [[activeTransfer remoteUrl] path]];
+                break;
+            case 404:
+                activeTransfer.errorText = [NSString stringWithFormat:@"404: File not found: %@", [[activeTransfer remoteUrl] path]];
+                break;
+            default:
+                activeTransfer.errorText = [NSString stringWithFormat:@"%d: Unknown error for file: %@", activeTransfer.statusCode, [[activeTransfer remoteUrl] path]];
+                break;
+        }
+        activeTransfer.success = false;
+    } else {
+        if (activeTransfer.transferType == TransferTypeDownload) {
+            activeTransfer.success = [data writeToFile:[activeTransfer localFile] atomically:YES];
+        } else if (activeTransfer.transferType == TransferTypeUpload) {
+            activeTransfer.success = true;
+        }
+    }
+
+    [self requestFinished:activeTransfer];
 }
 
-static void my_notify_status(void *userdata, ne_session_status status, const ne_session_status_info *info) {
+- (void)connection:(NSURLConnection*)aConnection didFailWithError:(NSError*)error {
+    [connection release];
+    connection = nil;
+
+    activeTransfer.success = false;
+    [self requestFinished:activeTransfer];
+}
+
+- (void)connection:(NSURLConnection*)connection didReceiveResponse:(NSURLResponse*)response {
+
+    activeTransfer.statusCode = [ (NSHTTPURLResponse*)response statusCode];
+
+    [data setLength:0];
+    self.fileSize = [NSNumber numberWithLongLong:[response expectedContentLength]];
+}
+
+- (void)connection:(NSURLConnection*)aConnection didReceiveData:(NSData*)someData {
+    [data appendData:someData];
 
     SyncManager *mgr = [SyncManager instance];
-
-    static NSString* statusStrings[6] = {
-        @"Performing DNS lookup",
-        @"Connecting to host",
-        @"Connected to host",
-        @"Sending data",
-        @"Receiving data",
-        @"Disconnected"
-    };
-
-    [mgr setTransferState:statusStrings[status]];
-
-    switch (status) {
-        case ne_status_sending:
-        case ne_status_recving:
-            [mgr setProgressTotal:info->sr.total];
-            [mgr setProgressCurrent:info->sr.progress];
-            break;
-    }
-
-    [mgr performSelectorOnMainThread:@selector(updateStatus) withObject:nil waitUntilDone:NO];
+    [mgr setProgressTotal:[self.fileSize intValue]];
+    [mgr setProgressCurrent:[data length]];
+    [mgr updateStatus];
 }
 
-// TODO: Cleanup
-- (void)processRequest:(TransferContext*)context {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-
-    int port = 80;
-    if ([[[context remoteUrl] scheme] compare:@"https"] == NSOrderedSame) {
-        port = 443;
+-(void)connection:(NSURLConnection*)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge*)challenge {
+    if ([challenge previousFailureCount] == 0) {
+        NSURLCredential *newCredential;
+        newCredential = [NSURLCredential credentialWithUser:[[Settings instance] username]
+                                                   password:[[Settings instance] password]
+                                                persistence:NSURLCredentialPersistenceForSession];
+        [[challenge sender] useCredential:newCredential
+               forAuthenticationChallenge:challenge];
+    } else {
+        [[challenge sender] continueWithoutCredentialForAuthenticationChallenge:challenge];
+        activeTransfer.success = false;
     }
-    if ([[[context remoteUrl] port] intValue] != 0) {
-        port = [[[context remoteUrl] port] intValue];
-    }
-
-    if (!sess ||
-        [[[context remoteUrl] scheme] compare:lastScheme] != NSOrderedSame ||
-        [[[context remoteUrl] host] compare:lastHost] != NSOrderedSame ||
-        port != lastPort) {
-
-        if (sess) {
-            // :( For some reason, if you connect to me.com, then try to destroy the session,
-            // it hangs in the destroy.  I have no idea why.
-            if ([lastHost rangeOfRegex:@"\\.me\\.com$"].location == NSNotFound &&
-                [lastHost rangeOfRegex:@"\\.mac\\.com$"].location == NSNotFound) {
-                ne_session_destroy(sess);
-            }
-        }
-
-        sess = ne_session_create([[[context remoteUrl] scheme] cStringUsingEncoding:NSUTF8StringEncoding],
-                                 [[[context remoteUrl] host] cStringUsingEncoding:NSUTF8StringEncoding],
-                                 port);
-
-        lastScheme = [[[context remoteUrl] scheme] copy];
-        lastHost = [[[context remoteUrl] host] copy];
-        lastPort = port;
-    }
-
-    ne_set_server_auth(sess, my_auth, nil);
-    ne_ssl_set_verify(sess, my_verify_ssl, nil);
-    ne_set_notifier(sess, my_notify_status, nil);
-    ne_set_read_timeout(sess, 30);
-    ne_set_connect_timeout(sess, 30);
-
-    ne_request *req = nil;
-    int ret = NE_ERROR;
-    context.success = false;
-
-    switch (context.transferType) {
-        case TransferTypeDownload:
-        {
-            NSMutableData *outputBuffer = [[NSMutableData alloc] init];
-            size_t count = 0;
-            char buf[8192];
-
-            req = ne_request_create(sess, "GET", [[[context remoteUrl] path] cStringUsingEncoding:NSUTF8StringEncoding]);
-
-        retry:
-            ret = ne_begin_request(req);
-
-            if (ret == NE_OK) {
-                [outputBuffer setLength:0];
-                while ((ret = ne_read_response_block(req, buf, sizeof(buf))) > 0) {
-                    count += ret;
-                    [outputBuffer appendBytes:buf length:ret];
-
-                    if ([[NSThread currentThread] isCancelled]) {
-                        context.errorText = @"User cancelled request";
-                        context.success = false;
-                        ret = NE_ERROR;
-                        goto abort;
-                    }
-                }
-
-                if (ret == NE_OK) {
-                    ret = ne_end_request(req);
-                    if (ret == NE_RETRY) {
-                        goto retry;
-                    } else if (ret == NE_OK) {
-                        if ([outputBuffer writeToFile:[context localFile] atomically:YES]) {
-                            context.success = true;
-                        }
-                    }
-                }
-            }
-
-        abort:
-            [outputBuffer release];
-
-            break;
-        }
-
-        case TransferTypeUpload:
-        {
-            NSData *buffer = [NSData dataWithContentsOfFile:[context localFile]];
-            if (buffer) {
-                req = ne_request_create(sess, "PUT", [[[context remoteUrl] path] cStringUsingEncoding:NSUTF8StringEncoding]);
-                ne_set_request_body_buffer(req, [buffer bytes], [buffer length]);
-                ret = ne_request_dispatch(req);
-                if (ret == NE_OK) {
-                    context.success = true;
-                }
-            }
-            break;
-        }
-        default:
-            assert(0);
-            break;
-    }
-
-    if (ret != NE_OK && [context.errorText length] == 0) {
-        context.errorText = [NSString stringWithCString:ne_get_error(sess) encoding:NSUTF8StringEncoding];
-    }
-
-    context.statusCode = ne_get_status(req)->code;
-    if (context.statusCode >= 400 && context.statusCode < 600) {
-        context.success = false;
-        if ([context.errorText length] == 0) {
-            switch (context.statusCode) {
-                case 404:
-                    context.errorText = [NSString stringWithFormat:@"404: File not found: %@", [context.remoteUrl path]];
-                    break;
-                case 403:
-                    context.errorText = [NSString stringWithFormat:@"403: Forbidden: %@", [context.remoteUrl path]];
-                    break;
-                default:
-                    context.errorText = [NSString stringWithFormat:@"HTTP Error Code: %d for path: %@", context.statusCode, [context.remoteUrl path]];
-                    break;
-            }
-        }
-    }
-
-    if (req) {
-        ne_request_destroy(req);
-    }
-
-    [self performSelectorOnMainThread:@selector(requestFinished:) withObject:context waitUntilDone:NO];
-
-    [pool release];
 }
 
 - (void)requestFinished:(TransferContext*)context {
@@ -296,7 +215,7 @@ static void my_notify_status(void *userdata, ne_session_status status, const ne_
 
     active = false;
 
-    [context release];
+    self.activeTransfer = nil;
 
     [self dispatchNextTransfer];
 }
@@ -319,11 +238,16 @@ static void my_notify_status(void *userdata, ne_session_status status, const ne_
 }
 
 - (void)abort {
+    if (connection) {
+        [connection cancel];
+    }
     [transfers removeAllObjects];
     active = false;
 }
 
 - (void)dealloc {
+    [data release];
+    self.activeTransfer = nil;
     [transfers release];
     [super dealloc];
 }

@@ -63,9 +63,6 @@
 		7998B2D6107B6F820000ED49 /* NoteListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7998B2D5107B6F820000ED49 /* NoteListController.m */; };
 		7998B388107BAA7D0000ED49 /* NewNoteController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7998B387107BAA7D0000ED49 /* NewNoteController.m */; };
 		79BA55621073A6F800D67917 /* MobileOrgAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 79BA555B1073A6F800D67917 /* MobileOrgAppDelegate.m */; };
-		79CB17F210741DD100A7E065 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79CB17EF10741DD100A7E065 /* libcrypto.a */; };
-		79CB17F310741DD100A7E065 /* libmyneon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79CB17F010741DD100A7E065 /* libmyneon.a */; };
-		79CB17F410741DD100A7E065 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79CB17F110741DD100A7E065 /* libssl.a */; };
 		79CB17F9107420E300A7E065 /* SyncManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB17F8107420E300A7E065 /* SyncManager.m */; };
 		79CB1821107425EF00A7E065 /* TransferContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB1820107425EF00A7E065 /* TransferContext.m */; };
 		79CB1824107425F500A7E065 /* TransferManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB1823107425F500A7E065 /* TransferManager.m */; };
@@ -167,9 +164,6 @@
 		7998B387107BAA7D0000ED49 /* NewNoteController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewNoteController.m; sourceTree = "<group>"; };
 		79BA555A1073A6F800D67917 /* MobileOrgAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobileOrgAppDelegate.h; sourceTree = "<group>"; };
 		79BA555B1073A6F800D67917 /* MobileOrgAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MobileOrgAppDelegate.m; sourceTree = "<group>"; };
-		79CB17EF10741DD100A7E065 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "vendor-libs/lib/libcrypto.a"; sourceTree = "<group>"; };
-		79CB17F010741DD100A7E065 /* libmyneon.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmyneon.a; path = "vendor-libs/lib/libmyneon.a"; sourceTree = "<group>"; };
-		79CB17F110741DD100A7E065 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = "vendor-libs/lib/libssl.a"; sourceTree = "<group>"; };
 		79CB17F7107420E300A7E065 /* SyncManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyncManager.h; sourceTree = "<group>"; };
 		79CB17F8107420E300A7E065 /* SyncManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyncManager.m; sourceTree = "<group>"; };
 		79CB181F107425EF00A7E065 /* TransferContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransferContext.h; sourceTree = "<group>"; };
@@ -211,9 +205,6 @@
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
 				28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */,
-				79CB17F210741DD100A7E065 /* libcrypto.a in Frameworks */,
-				79CB17F310741DD100A7E065 /* libmyneon.a in Frameworks */,
-				79CB17F410741DD100A7E065 /* libssl.a in Frameworks */,
 				79CB19521074396500A7E065 /* libicucore.dylib in Frameworks */,
 				793F7F6C107CB5FC00674D0A /* SystemConfiguration.framework in Frameworks */,
 			);
@@ -269,9 +260,6 @@
 			children = (
 				793F7F6B107CB5FC00674D0A /* SystemConfiguration.framework */,
 				79CB19511074396500A7E065 /* libicucore.dylib */,
-				79CB17EF10741DD100A7E065 /* libcrypto.a */,
-				79CB17F010741DD100A7E065 /* libmyneon.a */,
-				79CB17F110741DD100A7E065 /* libssl.a */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
@@ -642,13 +630,8 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MobileOrg_Prefix.pch;
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/vendor-libs/include\"";
 				INFOPLIST_FILE = "MobileOrg-Info-Debug.plist";
 				INFOPLIST_PREPROCESS = NO;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/vendor-libs/lib\"",
-				);
 				PRODUCT_NAME = MobileOrg;
 				SDKROOT = iphoneos3.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -679,13 +662,8 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MobileOrg_Prefix.pch;
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/vendor-libs/include\"";
 				INFOPLIST_FILE = "MobileOrg-Info-AdHoc.plist";
 				INFOPLIST_PREPROCESS = NO;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/vendor-libs/lib\"",
-				);
 				PRODUCT_NAME = MobileOrg;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "91E33B7C-0AD3-4D9B-BD9D-21EEE91505A4";
 				SDKROOT = iphoneos3.0;
@@ -717,13 +695,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MobileOrg_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = FOR_APP_STORE;
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/vendor-libs/include\"";
 				INFOPLIST_FILE = "MobileOrg-Info.plist";
 				INFOPLIST_PREPROCESS = NO;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/vendor-libs/lib\"",
-				);
 				PRODUCT_NAME = MobileOrg;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "14CB93B6-C248-4B7E-819C-8C1478ACBFC2";
 				SDKROOT = iphoneos3.0;

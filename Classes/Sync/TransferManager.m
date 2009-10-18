@@ -26,6 +26,13 @@
 #import "SyncManager.h"
 #import "Settings.h"
 
+@implementation NSURLRequest(NSHTTPURLRequest)
++ (BOOL)allowsAnyHTTPSCertificateForHost:(NSString *)host
+{
+	return YES; // Or whatever logic
+}
+@end
+
 @interface TransferManager(private)
 - (void)dispatchNextTransfer;
 - (void)processRequest:(TransferContext*)context;

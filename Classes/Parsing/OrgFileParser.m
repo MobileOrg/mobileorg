@@ -142,7 +142,7 @@
                     line = [line stringByReplacingOccurrencesOfRegex:@"\\(\\w\\)" withString:@""];
 
                     // CLEANUP: This regex is a hack
-                    NSArray *splitArray = [line captureComponentsMatchedByRegex:@"#\\+TODO:\\s+([\\s\\w]*)(\\| ([\\s\\w]*))*"];
+                    NSArray *splitArray = [line captureComponentsMatchedByRegex:@"#\\+TODO:\\s+([\\s\\w-]*)(\\| ([\\s\\w-]*))*"];
                     if ([splitArray count] > 0) {
 
                         NSString *todoWords = [[splitArray objectAtIndex:1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];

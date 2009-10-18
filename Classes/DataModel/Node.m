@@ -292,7 +292,7 @@ static NSString *kFileLinkRegex = @"\\[\\[file:([a-zA-Z0-9/\\-_]+\\.(?:org|txt))
 }
 
 - (bool)isLink {
-    NSRange linkRange = [[self heading] rangeOfString:@"[[file:"];
+    NSRange linkRange = [[self heading] rangeOfRegex:kFileLinkRegex];
     if (linkRange.location != NSNotFound) {
         return true;
     }
@@ -301,12 +301,9 @@ static NSString *kFileLinkRegex = @"\\[\\[file:([a-zA-Z0-9/\\-_]+\\.(?:org|txt))
 
 // This will construct the link relative to the root of the file, sort of.  It isn't perfect yet.
 - (NSString*)linkFile {
-    NSRange link_location = [[self heading] rangeOfString:@"[[file:"];
-    NSString *link_text = [[self heading] substringFromIndex:link_location.location];
-    if (link_location.location != NSNotFound) {
-        NSString *link = [link_text stringByReplacingOccurrencesOfString:@"[[file:" withString:@""];
-        link = [link substringToIndex:[link rangeOfString:@"]"].location];
-        return [self resolveLink:link];
+    NSArray *captures = [[self heading] captureComponentsMatchedByRegex:kFileLinkRegex];
+    if ([captures count] > 0) {
+        return [self resolveLink:[captures objectAtIndex:1]];
     }
     return nil;
 }

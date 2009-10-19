@@ -102,12 +102,12 @@
             int numStars = 0;
 
             if ([line length] > 0) {
-                while ([line characterAtIndex:numStars] == '*') {
+                while (numStars < [line length] && [line characterAtIndex:numStars] == '*') {
                     numStars++;
                 }
 
                 // Oops, it wasn't really a headling, there has to be a space following the last star!
-                if ([line characterAtIndex:numStars] != ' ') {
+                if (numStars >= [line length] || [line characterAtIndex:numStars] != ' ') {
                     numStars = 0;
                 }
             }

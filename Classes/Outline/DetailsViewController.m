@@ -474,6 +474,7 @@ typedef enum {
     }
 
     if ([[node readOnly] boolValue]) {
+        [[self tableView] deselectRowAtIndexPath:indexPath animated:YES];
         return;
     }
 

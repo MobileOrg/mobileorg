@@ -151,7 +151,7 @@ static TransferManager *gInstance = NULL;
                 activeTransfer.errorText = @"401: Bad username or password";
                 break;
             case 403:
-                activeTransfer.errorText = [NSString stringWithFormat:@"403: File not found: %@", [[activeTransfer remoteUrl] path]];
+                activeTransfer.errorText = [NSString stringWithFormat:@"403: Forbidden: %@", [[activeTransfer remoteUrl] path]];
                 break;
             case 404:
                 activeTransfer.errorText = [NSString stringWithFormat:@"404: File not found: %@", [[activeTransfer remoteUrl] path]];

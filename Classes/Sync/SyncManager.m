@@ -666,6 +666,8 @@ static SyncManager *gInstance = NULL;
 
     [editsFileParser reset];
 
+    DeleteFile(FileWithName(@"mobileorg.org"));
+
     [self doneApplyingEdits];
 }
 

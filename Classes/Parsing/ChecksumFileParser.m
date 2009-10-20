@@ -43,7 +43,7 @@
     NSError *error = nil;
     NSString *entireFile = [NSString stringWithContentsOfFile:filename encoding:NSUTF8StringEncoding error:&error];
     if (error) {
-        NSLog(@"Failed to read contents of file because: %@ (%@)", [error description], [error userInfo]);
+        //NSLog(@"Failed to read contents of file because: %@ (%@)", [error description], [error userInfo]);
         entireFile = @"";
     }
 

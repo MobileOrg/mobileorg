@@ -121,12 +121,13 @@
             if (resolved_link && [self pushOrgFile:resolved_link withAnimation:true]) {
                 //NSLog(@"open org file %@\n", [[request URL] resourceSpecifier]);
             } else {
-                NSLog(@"could not open org file %@\n", [[request URL] resourceSpecifier]);
+                //NSLog(@"could not open org file %@\n", [[request URL] resourceSpecifier]);
             }
             return NO;
         } else {
-            if (![[UIApplication sharedApplication] openURL:[request URL]])
-                NSLog(@"%@%@",@"Failed to open url:",[[request URL] description]);
+            [[UIApplication sharedApplication] openURL:[request URL]];
+            //if (![[UIApplication sharedApplication] openURL:[request URL]])
+            //    NSLog(@"%@%@",@"Failed to open url:",[[request URL] description]);
             return NO;
         }
     }

@@ -704,7 +704,7 @@ static SyncManager *gInstance = NULL;
 }
 
 - (void)transferFailed:(TransferContext*)context {
-    NSLog(@"Failed %@ with code %d", [context remoteUrl], [context statusCode]);
+    //NSLog(@"Failed %@ with code %d", [context remoteUrl], [context statusCode]);
     switch (currentState) {
         case SyncManagerTransferStateDownloadingEditsFile:
             if ([context statusCode] == 404) {

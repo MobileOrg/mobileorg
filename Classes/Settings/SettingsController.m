@@ -341,9 +341,9 @@
                 return;
             }
         }
-    }
 
-    [self applyNewServerUrl:textField.text];
+        [self applyNewServerUrl:textField.text];
+    }
 }
 
 - (void)usernameChanged:(id)sender {

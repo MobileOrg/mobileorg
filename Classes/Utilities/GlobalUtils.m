@@ -54,3 +54,16 @@ void DeleteFile(NSString *filename) {
 void UpdateEditActionCount() {
     [[AppInstance() rootOutlineController] updateBadge];
 }
+
+// Get rid of any '*' characters in column zero by padding them with space in column 0.
+// This changes what the user entered, but they shouldn't have done it in the first place.
+NSString *EscapeHeadings(NSString *original) {
+    NSString *ret = [NSString stringWithString:original];
+    if ([original length] > 0) {
+        if ([original characterAtIndex:0] == '*') {
+            ret = [NSString stringWithFormat:@" %@", original];
+        }
+    }
+    ret = [ret stringByReplacingOccurrencesOfString:@"\n*" withString:@"\n *"];
+    return ret;
+}

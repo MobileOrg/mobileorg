@@ -35,3 +35,5 @@ NSString *TemporaryFilename();
 void DeleteFile(NSString *filename);
 
 void UpdateEditActionCount();
+
+NSString *EscapeHeadings(NSString *original);

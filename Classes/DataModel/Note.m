@@ -23,6 +23,7 @@
 #import "Note.h"
 #import "Node.h"
 #import "DataUtils.h"
+#import "GlobalUtils.h"
 
 @implementation Note
 
@@ -91,6 +92,9 @@
 
         // Then get rid of any extra spaces or newlines at the ends
         bodyStr = [bodyStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+
+        // Make sure none of the lines start with *
+        bodyStr = EscapeHeadings(bodyStr);
 
         return [NSString stringWithFormat:@"* %@\n[%@]\n%@\n", [self heading], timestamp, bodyStr];
     } else {

@@ -169,19 +169,6 @@ static SyncManager *gInstance = NULL;
     [NSThread detachNewThreadSelector:@selector(parse) toTarget:editsFileParser withObject:nil];
 }
 
-// Get rid of any '*' characters in column zero by padding them with space in column 0.
-// This changes what the user entered, but they shouldn't have done it in the first place.
-- (NSString*)escapeHeadings:(NSString*)original {
-    NSString *ret = [NSString stringWithString:original];
-    if ([original length] > 0) {
-        if ([original characterAtIndex:0] == '*') {
-            ret = [NSString stringWithFormat:@" %@", original];
-        }
-    }
-    ret = [ret stringByReplacingOccurrencesOfString:@"\n*" withString:@"\n *"];
-    return ret;
-}
-
 - (void)doneProcessingEditsFile {
 
     [[StatusViewController instance] setActionMessage:@"Merging local edits"];
@@ -250,15 +237,15 @@ static SyncManager *gInstance = NULL;
 
             [file writeData:[[NSString stringWithFormat:@"[%@]\n", createdAt] dataUsingEncoding:NSUTF8StringEncoding]];
             if (entity.newValue && [entity.newValue length] > 0)
-                [file writeData:[[NSString stringWithFormat:@"%@\n", [self escapeHeadings:entity.newValue]] dataUsingEncoding:NSUTF8StringEncoding]];
+                [file writeData:[[NSString stringWithFormat:@"%@\n", EscapeHeadings(entity.newValue)] dataUsingEncoding:NSUTF8StringEncoding]];
             [file writeData:[[NSString stringWithFormat:@"** Note ID: %@\n", entity.noteId] dataUsingEncoding:NSUTF8StringEncoding]];
         } else {
             [file writeData:[[NSString stringWithFormat:@"* F(%@) [[%@][%@]]\n", entity.editAction, [entity.node bestId], EscapeStringForLinkTitle([entity.node heading])] dataUsingEncoding:NSUTF8StringEncoding]];
             [file writeData:[@"** Old value\n" dataUsingEncoding:NSUTF8StringEncoding]];
             if (entity.oldValue && [entity.oldValue length] > 0)
-                [file writeData:[[NSString stringWithFormat:@"%@\n", [self escapeHeadings:entity.oldValue]] dataUsingEncoding:NSUTF8StringEncoding]];
+                [file writeData:[[NSString stringWithFormat:@"%@\n", EscapeHeadings(entity.oldValue)] dataUsingEncoding:NSUTF8StringEncoding]];
             [file writeData:[@"** New value\n" dataUsingEncoding:NSUTF8StringEncoding]];
-            [file writeData:[[NSString stringWithFormat:@"%@\n", [self escapeHeadings:entity.newValue]] dataUsingEncoding:NSUTF8StringEncoding]];
+            [file writeData:[[NSString stringWithFormat:@"%@\n", EscapeHeadings(entity.newValue)] dataUsingEncoding:NSUTF8StringEncoding]];
             [file writeData:[@"** End of edit\n" dataUsingEncoding:NSUTF8StringEncoding]];
         }
     }
@@ -275,13 +262,13 @@ static SyncManager *gInstance = NULL;
         [file writeData:[[NSString stringWithFormat:@"* F(%@) [[%@][%@]]\n", action.actionType, [localEditNode bestId], EscapeStringForLinkTitle([localEditNode heading])] dataUsingEncoding:NSUTF8StringEncoding]];
         if (!action.actionType || [action.actionType length] == 0) {
             // No edit action means a simple flag entry, just a note.. no old/new values.
-            [file writeData:[[NSString stringWithFormat:@"%@\n", [self escapeHeadings:action.newValue]] dataUsingEncoding:NSUTF8StringEncoding]];
+            [file writeData:[[NSString stringWithFormat:@"%@\n", EscapeHeadings(action.newValue)] dataUsingEncoding:NSUTF8StringEncoding]];
         } else {
             [file writeData:[@"** Old value\n" dataUsingEncoding:NSUTF8StringEncoding]];
             if (action.oldValue && [action.oldValue length] > 0)
-                [file writeData:[[NSString stringWithFormat:@"%@\n", [self escapeHeadings:action.oldValue]] dataUsingEncoding:NSUTF8StringEncoding]];
+                [file writeData:[[NSString stringWithFormat:@"%@\n", EscapeHeadings(action.oldValue)] dataUsingEncoding:NSUTF8StringEncoding]];
             [file writeData:[@"** New value\n" dataUsingEncoding:NSUTF8StringEncoding]];
-            [file writeData:[[NSString stringWithFormat:@"%@\n", [self escapeHeadings:action.newValue]] dataUsingEncoding:NSUTF8StringEncoding]];
+            [file writeData:[[NSString stringWithFormat:@"%@\n", EscapeHeadings(action.newValue)] dataUsingEncoding:NSUTF8StringEncoding]];
             [file writeData:[@"** End of edit\n" dataUsingEncoding:NSUTF8StringEncoding]];
         }
     }

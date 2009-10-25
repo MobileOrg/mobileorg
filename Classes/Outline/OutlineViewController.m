@@ -279,8 +279,16 @@
         // TODO: This isn't good, I think this making a whole nother cell.
         UITableViewCell *cell = [[self tableView] cellForRowAtIndexPath:path];
 
+        Node *editTarget = node;
+        if (node.referencedNodeId && [node.referencedNodeId length] > 0) {
+            Node *targetNode = ResolveNode(node.referencedNodeId);
+            if (targetNode) {
+                editTarget = targetNode;
+            }
+        }
+
         ActionMenuController *controller = [[[ActionMenuController alloc] initWithNibName:nil bundle:nil] autorelease];
-        [controller setNode:node];
+        [controller setNode:editTarget];
         [controller setCell:cell];
         [controller setShowDocumentViewButton:true];
         [controller setFirstNavController:[self navigationController]];

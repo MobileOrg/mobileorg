@@ -79,6 +79,7 @@
     {
         NSArray *lines;
         NSString *line;
+        NSMutableString *bodyBuffer = [[NSMutableString alloc] init];
         int lastNumStars = 0;
         Node *lastNode = nil;
         int sequenceIndex = 1;
@@ -446,11 +447,15 @@
                 // Append it to the existing node body, if any
                 if ([lastNode body] && [[lastNode body] length] > 0) {
 
-                    [lastNode setBody:[[lastNode body] stringByAppendingString:@"\n"]];
+                    [bodyBuffer deleteCharactersInRange:NSMakeRange(0, [bodyBuffer length])];
+                    [bodyBuffer appendString:[lastNode body]];
+                    [bodyBuffer appendString:@"\n"];
 
                     if ([line length] > 0) {
-                        [lastNode setBody:[[lastNode body] stringByAppendingString:line]];
+                        [bodyBuffer appendString:line];
                     }
+
+                    [lastNode setBody:bodyBuffer];
 
                 } else {
 
@@ -462,6 +467,8 @@
                 }
             }
         }
+
+        [bodyBuffer release];
     }
 
     // TODO: When we go back to doing the processing on another thread, we'll need this

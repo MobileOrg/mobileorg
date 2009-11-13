@@ -52,7 +52,7 @@
 
     NSString *line;
     NSCharacterSet *eolSet;
-    eolSet = [NSCharacterSet characterSetWithCharactersInString:@"\n"];
+    eolSet = [NSCharacterSet newlineCharacterSet];
 
     [theScanner setCharactersToBeSkipped:eolSet];
 

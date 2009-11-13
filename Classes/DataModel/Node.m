@@ -394,6 +394,12 @@ static NSString *kFileLinkRegex = @"\\[\\[file:([a-zA-Z0-9/\\-_]+\\.(?:org|txt))
         line = [line stringByReplacingOccurrencesOfRegex:regexString withString:@"<span style='text-decoration: underline;'>$1</span>"];
     }
 
+    // Add underline for _text_
+    {
+        NSString *regexString = @"(?<=\\A|\\s|\\()\\+(\\w[\\w ]*)\\+(?=\\s|\\z|\\)|[\\.,:])";
+        line = [line stringByReplacingOccurrencesOfRegex:regexString withString:@"<span style='text-decoration: line-through;'>$1</span>"];
+    }
+
     return line;
 }
 

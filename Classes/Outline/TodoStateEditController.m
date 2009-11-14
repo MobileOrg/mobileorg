@@ -43,6 +43,8 @@
     UpdateEditActionCount();
 
     [[self tableView] reloadData];
+
+    [[self navigationController] popViewControllerAnimated:YES];
 }
 
 - (id)initWithNode:(Node*)aNode {
@@ -200,6 +202,8 @@
     UpdateEditActionCount();
 
     [tableView reloadData];
+
+    [[self navigationController] popViewControllerAnimated:YES];
 }
 
 - (void)dealloc {

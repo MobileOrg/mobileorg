@@ -38,7 +38,7 @@
     [[Settings instance] addTag:newTagString];
 
     self.allTags = [[Settings instance] allTags];
-    self.allTags = [self.allTags sortedArrayUsingSelector:@selector(compare:)];
+    self.allTags = [self.allTags sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 
     if ([node hasInheritedTag:newTagString]) {
         return;
@@ -116,9 +116,9 @@
     if (self = [super initWithStyle:UITableViewStyleGrouped]) {
         self.node = aNode;
         self.allTags = [[Settings instance] allTags];
-        self.allTags = [self.allTags sortedArrayUsingSelector:@selector(compare:)];
+        self.allTags = [self.allTags sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
         self.primaryTags = [[Settings instance] primaryTags];
-        self.primaryTags = [self.primaryTags sortedArrayUsingSelector:@selector(compare:)];
+        self.primaryTags = [self.primaryTags sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 
         bool created;
         self.editAction = FindOrCreateLocalEditActionForNode(@"edit:tags", node, &created);

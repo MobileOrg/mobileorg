@@ -44,7 +44,7 @@
 @dynamic notes;
 @dynamic children;
 
-static NSString *kFileLinkRegex = @"\\[\\[file:([a-zA-Z0-9/\\-_]+\\.(?:org|txt))\\]\\[(.*)\\]\\]";
+static NSString *kFileLinkRegex = @"\\[\\[file:([a-zA-Z0-9/\\-_]*\\.(?:org|txt))\\]\\[(.*)\\]\\]";
 
 - (NSComparisonResult)sequenceIndexCompare:(Node*)obj
 {

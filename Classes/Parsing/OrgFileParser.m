@@ -455,7 +455,7 @@
                         [bodyBuffer appendString:line];
                     }
 
-                    [lastNode setBody:bodyBuffer];
+                    [lastNode setBody:[NSString stringWithString:bodyBuffer]];
 
                 } else {
 

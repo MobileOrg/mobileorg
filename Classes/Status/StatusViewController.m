@@ -54,6 +54,10 @@ static StatusViewController *gInstance = NULL;
     }
 
     switch ([[UIDevice currentDevice] orientation]) {
+        case UIDeviceOrientationFaceUp:
+        case UIDeviceOrientationFaceDown:
+        case UIDeviceOrientationUnknown:
+            return;
         case UIDeviceOrientationPortraitUpsideDown:
             [self.view setTransform:CGAffineTransformMakeRotation(M_PI)];
             [self.view setFrame:CGRectMake(0, 0, 320, 480)];
@@ -69,10 +73,7 @@ static StatusViewController *gInstance = NULL;
             [self.view setFrame:CGRectMake(0, 0, 320, 480)];
             statusView.center = CGPointMake(self.view.frame.size.height/2, self.view.frame.size.width/2+20);
             break;
-        case UIDeviceOrientationUnknown:
         case UIDeviceOrientationPortrait:
-        case UIDeviceOrientationFaceUp:
-        case UIDeviceOrientationFaceDown:
         default:
             [self.view setTransform:CGAffineTransformMakeRotation(0)];
             [self.view setFrame:CGRectMake(0, 0, 320, 480)];

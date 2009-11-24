@@ -117,6 +117,11 @@
     int yOffset = 0;
 
     switch ([[UIDevice currentDevice] orientation]) {
+        case UIDeviceOrientationFaceUp:
+        case UIDeviceOrientationFaceDown:
+        case UIDeviceOrientationUnknown:
+            return;
+
         case UIDeviceOrientationLandscapeLeft:
         case UIDeviceOrientationLandscapeRight:
             leftButtonX = 100;
@@ -125,11 +130,8 @@
             actionView.frame = CGRectMake(0, 0, 480, 320);
             break;
 
-        case UIDeviceOrientationUnknown:
         case UIDeviceOrientationPortrait:
         case UIDeviceOrientationPortraitUpsideDown:
-        case UIDeviceOrientationFaceUp:
-        case UIDeviceOrientationFaceDown:
         default:
             leftButtonX = 20;
             rightButtonX = 170;

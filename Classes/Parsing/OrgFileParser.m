@@ -86,7 +86,7 @@
         bool readOnlyFile = false;
         bool addedDefaultTodoStates = false;
 
-        lines = [entireFile componentsSeparatedByString:@"\n"];
+        lines = [entireFile componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\r\n"]];
 
         // Until we hit the end of the file
         for (int i = 0; i < [lines count]; i++) {

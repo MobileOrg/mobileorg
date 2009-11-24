@@ -74,7 +74,7 @@
         bool awaitingTimestampForNonEditNode = false;
         bool awaitingBodyTextForNonEditNode = false;
 
-        lines = [entireFile componentsSeparatedByString:@"\n"];
+        lines = [entireFile componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\r\n"]];
 
         // Until we hit the end of the file
         for (int i = 0; i < [lines count]; i++) {
@@ -98,7 +98,7 @@
                     int lastNonspaceChar;
                     for (lastNonspaceChar = [lastEntity.newValue length]-1; lastNonspaceChar >= 0; lastNonspaceChar--) {
                         char c = [lastEntity.newValue characterAtIndex:lastNonspaceChar];
-                        if (c != '\n' && c != ' ' && c != '\t' && c != 0) {
+                        if (c != '\n' && c != '\r' && c != ' ' && c != '\t' && c != 0) {
                             break;
                         }
                     }
@@ -135,7 +135,7 @@
                     int lastNonspaceChar;
                     for (lastNonspaceChar = [lastEntity.newValue length]-1; lastNonspaceChar >= 0; lastNonspaceChar--) {
                         char c = [lastEntity.newValue characterAtIndex:lastNonspaceChar];
-                        if (c != '\n' && c != ' ' && c != '\t' && c != 0) {
+                        if (c != '\n' && c != '\r' && c != ' ' && c != '\t' && c != 0) {
                             break;
                         }
                     }
@@ -237,7 +237,7 @@
         int lastNonspaceChar;
         for (lastNonspaceChar = [lastEntity.newValue length]-1; lastNonspaceChar >= 0; lastNonspaceChar--) {
             char c = [lastEntity.newValue characterAtIndex:lastNonspaceChar];
-            if (c != '\n' && c != ' ' && c != '\t' && c != 0) {
+            if (c != '\n' && c != '\r' && c != ' ' && c != '\t' && c != 0) {
                 break;
             }
         }

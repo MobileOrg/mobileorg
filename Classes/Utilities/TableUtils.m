@@ -209,6 +209,9 @@ void PopulateOutlineCellForNode(UITableViewCell *cell, Node *node) {
     // Heading label
     UILabel *headingLabel = (UILabel*)[cell.contentView viewWithTag:OutlineCellViewTagHeading];
     [headingLabel setText:[targetNode headingForDisplay]];
+    if ([node isLink] || [[node children] count] > 0) {
+        [headingLabel setText:[NSString stringWithFormat:@"%@...", [headingLabel text]]];
+    }
 
     // Priority
     if ([[cell reuseIdentifier] rangeOfString:@":withPriority"].location != NSNotFound) {

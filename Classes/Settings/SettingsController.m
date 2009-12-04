@@ -70,7 +70,7 @@
 #pragma mark Table view methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 4;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -84,6 +84,9 @@
             title = NSLocalizedString(@"App Info", @"App info title");
             break;
         case 2:
+            title = NSLocalizedString(@"Settings", @"App settings");
+            break;
+        case 3:
             title = NSLocalizedString(@"Credits", @"Credits title");
             break;
         default:
@@ -102,6 +105,9 @@
             return 2;
             break;
         case 2:
+            return 1;
+            break;
+        case 3:
             return 5;
             break;
         default:
@@ -226,6 +232,35 @@
         return cell;
 
     } else if (indexPath.section == 2) {
+
+        switch (indexPath.row) {
+            case 0:
+            {
+                static NSString *CellIdentifier = @"SettingsAppBadgeCell";
+
+                UISwitch *appBadgeSwitch = nil;
+                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+                if (cell == nil) {
+                    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+                    appBadgeSwitch = [[[UISwitch alloc] initWithFrame:CGRectMake(200,10,200,25)] autorelease];
+                    [cell addSubview:appBadgeSwitch];
+                    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+                    [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:15.0]];
+                } else {
+                    appBadgeSwitch = (UISwitch*)[cell.contentView viewWithTag:1];
+                }
+
+                [appBadgeSwitch addTarget:self action:@selector(appBadgeSwitchChanged:) forControlEvents:UIControlEventValueChanged];
+                [[cell textLabel] setText:@"Show app badge"];
+                [appBadgeSwitch setOn:([[Settings instance] appBadgeMode] == AppBadgeModeTotal)];
+
+                return cell;
+            }
+            default:
+                break;
+        }
+
+    } else if (indexPath.section == 3) {
         static NSString *CellIdentifier = @"SettingsCreditsCell";
 
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -354,6 +389,15 @@
 - (void)passwordChanged:(id)sender {
     UITextField *textField = (UITextField*)sender;
     [[Settings instance] setPassword:textField.text];
+}
+
+- (void)appBadgeSwitchChanged:(id)sender {
+    UISwitch *appBadgeSwitch = (UISwitch*)sender;
+    if ([appBadgeSwitch isOn]) {
+        [[Settings instance] setAppBadgeMode:AppBadgeModeTotal];
+    } else {
+        [[Settings instance] setAppBadgeMode:AppBadgeModeNone];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

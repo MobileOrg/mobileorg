@@ -21,6 +21,7 @@
 //
 
 #import "Settings.h"
+#import "GlobalUtils.h"
 
 // Singleton instance
 static Settings *gInstance = NULL;
@@ -35,6 +36,7 @@ static NSString *kMutuallyExclusiveTagsKey = @"MutuallyExclusiveTags";
 static NSString *kPrimaryTagsKey     = @"PrimaryTags";
 static NSString *kTodoStateGroupsKey = @"TodoStateGroups";
 static NSString *kPrioritiesKey      = @"Priorities";
+static NSString *kAppBadgeModeKey    = @"AppBadgeMode";
 
 @implementation Settings
 
@@ -47,6 +49,7 @@ static NSString *kPrioritiesKey      = @"Priorities";
 @synthesize mutuallyExclusiveTagGroups;
 @synthesize todoStateGroups;
 @synthesize priorities;
+@synthesize appBadgeMode;
 
 + (Settings*)instance {
     @synchronized(self) {
@@ -96,6 +99,11 @@ static NSString *kPrioritiesKey      = @"Priorities";
         priorities = [[NSUserDefaults standardUserDefaults] objectForKey:kPrioritiesKey];
         if (!priorities) {
             self.priorities = [NSMutableArray arrayWithCapacity:0];
+        }
+
+        appBadgeMode = [[NSUserDefaults standardUserDefaults] integerForKey:kAppBadgeModeKey];
+        if (!appBadgeMode) {
+            self.appBadgeMode = AppBadgeModeNone;
         }
     }
     return self;
@@ -246,6 +254,13 @@ static NSString *kPrioritiesKey      = @"Priorities";
 
 - (bool)isPriority:(NSString*)priority {
     return [priorities containsObject:priority];
+}
+
+- (void)setAppBadgeMode:(AppBadgeMode)newAppBadgeMode {
+    appBadgeMode = newAppBadgeMode;
+    [[NSUserDefaults standardUserDefaults] setInteger:appBadgeMode forKey:kAppBadgeModeKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    UpdateAppBadge();
 }
 
 - (NSString*)indexFilename {

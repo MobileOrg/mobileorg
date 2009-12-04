@@ -43,6 +43,8 @@
         self.navigationController.tabBarItem.badgeValue = nil;
     }
 
+    UpdateAppBadge();
+
     if ([self.notesArray count] > 0) {
         self.navigationItem.leftBarButtonItem.enabled = YES;
     } else {

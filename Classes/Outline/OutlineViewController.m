@@ -23,6 +23,7 @@
 #import "OutlineViewController.h"
 #import "DataUtils.h"
 #import "TableUtils.h"
+#import "GlobalUtils.h"
 #import "Node.h"
 #import "SyncManager.h"
 #import "DetailsViewController.h"
@@ -185,6 +186,8 @@
             self.navigationController.tabBarItem.badgeValue = nil;
             self.navigationItem.leftBarButtonItem.enabled = NO;
         }
+
+        UpdateAppBadge();
     }
 }
 

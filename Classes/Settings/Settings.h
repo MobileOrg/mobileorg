@@ -22,6 +22,12 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum {
+    AppBadgeModeUnknown = 0,
+    AppBadgeModeNone,
+    AppBadgeModeTotal
+} AppBadgeMode;
+
 @interface Settings : NSObject {
     NSURL *indexUrl;
 
@@ -35,6 +41,8 @@
     NSMutableArray *allTags;
     NSMutableArray *todoStateGroups;
     NSMutableArray *priorities;
+
+    AppBadgeMode appBadgeMode;
 }
 
 @property (nonatomic, copy) NSURL *indexUrl;
@@ -46,6 +54,7 @@
 @property (nonatomic, copy) NSMutableArray *allTags;
 @property (nonatomic, copy) NSMutableArray *todoStateGroups;
 @property (nonatomic, copy) NSMutableArray *priorities;
+@property (nonatomic) AppBadgeMode appBadgeMode;
 
 + (Settings*)instance;
 - (void)resetPrimaryTagsAndTodoStates;

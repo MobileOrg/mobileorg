@@ -21,6 +21,7 @@
 //
 
 #import "GlobalUtils.h"
+#import "Settings.h"
 #import "MobileOrgAppDelegate.h"
 #import "OutlineViewController.h"
 
@@ -66,4 +67,13 @@ NSString *EscapeHeadings(NSString *original) {
     }
     ret = [ret stringByReplacingOccurrencesOfString:@"\n*" withString:@"\n *"];
     return ret;
+}
+
+void UpdateAppBadge() {
+    int count = 0;
+    if ([[Settings instance] appBadgeMode] == AppBadgeModeTotal) {
+        count += [[[AppInstance() noteListController] navigationController].tabBarItem.badgeValue intValue];
+        count += [[[AppInstance() rootOutlineController] navigationController].tabBarItem.badgeValue intValue];
+    }
+    [UIApplication sharedApplication].applicationIconBadgeNumber = count;
 }

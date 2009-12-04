@@ -51,7 +51,7 @@
     entireFile = [NSString stringWithContentsOfFile:editsFilename encoding:NSUTF8StringEncoding error:&error];
     if (error) {
         //NSLog(@"Failed to read contents of file because: %@", [error description]);
-        entireFile = @"* Bad file encoding\n  Unable to detect file encoding, please re-save this file using the proper encoding.";
+        entireFile = @"* Bad file encoding\n  Unable to detect file encoding, please re-save this file using UTF-8.";
     }
 
     // Get rid of any existing edits

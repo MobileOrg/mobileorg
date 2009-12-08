@@ -106,7 +106,7 @@
     [self close];
 }
 
-- (void)layoutButtons {
+- (void)layoutButtons:(UIDeviceOrientation)orientation {
     int halfButtonWidth = 130;
     int fullButtonWidth = 280;
     int buttonHeight = 40;
@@ -116,7 +116,7 @@
     int rightButtonX = 0;
     int yOffset = 0;
 
-    switch ([[UIDevice currentDevice] orientation]) {
+    switch (orientation) {
         case UIDeviceOrientationFaceUp:
         case UIDeviceOrientationFaceDown:
         case UIDeviceOrientationUnknown:
@@ -178,11 +178,16 @@
 
     [self.view addSubview:actionView];
 
-    [self layoutButtons];
+    // Perform an initial layout just to get all the buttons situated as if we're in Portrait mode
+    // This will handle cases where the device is in an indeterminate state
+    [self layoutButtons:UIDeviceOrientationPortrait];
+
+    // Then perform a real layout to handle the current orientation
+    [self layoutButtons:[[UIDevice currentDevice] orientation]];
 }
 
 - (void)didRotate:(NSNotification *)notification {
-    [self layoutButtons];
+    [self layoutButtons:[[UIDevice currentDevice] orientation]];
 }
 
 - (UILabel*)titleField {

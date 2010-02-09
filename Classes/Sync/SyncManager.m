@@ -125,7 +125,7 @@ static SyncManager *gInstance = NULL;
 
 - (bool)hasLocalChanges {
     int count = 0;
-    count += CountLocalNotes();
+    count += CountNotes();
     count += CountLocalEditActions();
     return count > 0;
 }
@@ -135,6 +135,7 @@ static SyncManager *gInstance = NULL;
     [[StatusViewController instance] setActivityMessage:@"Syncing changes"];
 
     if ([self hasLocalChanges]) {
+        changedEditsFile = true;
         [self downloadEditsFile];
     } else {
         changedEditsFile = false;

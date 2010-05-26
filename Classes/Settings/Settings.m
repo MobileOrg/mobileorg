@@ -22,6 +22,7 @@
 
 #import "Settings.h"
 #import "GlobalUtils.h"
+#import "DropboxTransferManager.h"
 
 // Singleton instance
 static Settings *gInstance = NULL;
@@ -37,6 +38,9 @@ static NSString *kPrimaryTagsKey     = @"PrimaryTags";
 static NSString *kTodoStateGroupsKey = @"TodoStateGroups";
 static NSString *kPrioritiesKey      = @"Priorities";
 static NSString *kAppBadgeModeKey    = @"AppBadgeMode";
+static NSString *kServerModeKey      = @"ServerMode";
+static NSString *kDropboxIndexKey    = @"DropboxIndex";
+static NSString *kDropboxEmailKey    = @"DropboxEmail";
 
 @implementation Settings
 
@@ -50,6 +54,9 @@ static NSString *kAppBadgeModeKey    = @"AppBadgeMode";
 @synthesize todoStateGroups;
 @synthesize priorities;
 @synthesize appBadgeMode;
+@synthesize serverMode;
+@synthesize dropboxEmail;
+@synthesize dropboxIndex;
 
 + (Settings*)instance {
     @synchronized(self) {
@@ -67,6 +74,7 @@ static NSString *kAppBadgeModeKey    = @"AppBadgeMode";
             indexUrl = [NSURL URLWithString:indexUrlString];
             [indexUrl retain];
         }
+
         username = [[NSUserDefaults    standardUserDefaults] objectForKey:kUsernameKey];
         [username retain];
 
@@ -104,6 +112,21 @@ static NSString *kAppBadgeModeKey    = @"AppBadgeMode";
         appBadgeMode = [[NSUserDefaults standardUserDefaults] integerForKey:kAppBadgeModeKey];
         if (!appBadgeMode) {
             self.appBadgeMode = AppBadgeModeNone;
+        }
+
+        serverMode = [[NSUserDefaults standardUserDefaults] integerForKey:kServerModeKey];
+        if (!serverMode) {
+            self.serverMode = ServerModeWebDav;
+        }
+
+        dropboxEmail = [[NSUserDefaults standardUserDefaults] objectForKey:kDropboxEmailKey];
+        [dropboxEmail retain];
+
+        dropboxIndex = [[NSUserDefaults standardUserDefaults] objectForKey:kDropboxIndexKey];
+        [dropboxIndex retain];
+
+        if (!dropboxIndex || [dropboxIndex compare:@""] == NSOrderedSame) {
+            dropboxIndex = @"index.org";
         }
     }
     return self;
@@ -263,12 +286,44 @@ static NSString *kAppBadgeModeKey    = @"AppBadgeMode";
     UpdateAppBadge();
 }
 
+- (void)setServerMode:(ServerMode)newServerMode {
+    serverMode = newServerMode;
+    [[NSUserDefaults standardUserDefaults] setInteger:serverMode forKey:kServerModeKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)setDropboxIndex:(NSString*)anIndex {
+    [dropboxIndex release];
+    dropboxIndex = [anIndex copy];
+    [[NSUserDefaults standardUserDefaults] setObject:anIndex forKey:kDropboxIndexKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)setDropboxEmail:(NSString*)anEmail {
+    [dropboxEmail release];
+    dropboxEmail = [anEmail copy];
+    [[NSUserDefaults standardUserDefaults] setObject:anEmail forKey:kDropboxEmailKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 - (NSString*)indexFilename {
-    return [[[self indexUrl] path] lastPathComponent];
+    if (self.serverMode == ServerModeWebDav) {
+        return [[[self indexUrl] path] lastPathComponent];
+    } else if (self.serverMode == ServerModeDropbox) {
+        return self.dropboxIndex;
+    } else {
+        return nil;
+    }
 }
 
 - (NSURL*)baseUrl {
-    return [NSURL URLWithString:[[[self indexUrl] absoluteString] stringByReplacingOccurrencesOfString:[self indexFilename] withString:@""]];
+    if (self.serverMode == ServerModeWebDav) {
+        return [NSURL URLWithString:[[[self indexUrl] absoluteString] stringByReplacingOccurrencesOfString:[self indexFilename] withString:@""]];
+    } else if (self.serverMode == ServerModeDropbox) {
+        return [NSURL URLWithString:@"/"];
+    } else {
+        return nil;
+    }
 }
 
 - (NSURL*)urlForFilename:(NSString*)filename {
@@ -276,13 +331,23 @@ static NSString *kAppBadgeModeKey    = @"AppBadgeMode";
 }
 
 - (bool)isConfiguredProperly {
-    NSString *indexUrlStr = [indexUrl absoluteString];
-    if (indexUrl && [indexUrlStr length] > 0) {
-        if ([indexUrlStr rangeOfRegex:@"http[s]?://.*\\.(?:org|txt)"].location == 0) {
-            return true;
+    if (self.serverMode == ServerModeWebDav) {
+        NSString *indexUrlStr = [indexUrl absoluteString];
+        if (indexUrl && [indexUrlStr length] > 0) {
+            if ([indexUrlStr rangeOfRegex:@"http[s]?://.*\\.(?:org|txt)"].location == 0) {
+                return true;
+            }
         }
+        return false;
+    } else if (self.serverMode == ServerModeDropbox) {
+        if ([self.dropboxIndex compare:@""] != NSOrderedSame && [[DropboxTransferManager instance] isLinked]) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
     }
-    return false;
 }
 
 - (void)dealloc {
@@ -294,6 +359,8 @@ static NSString *kAppBadgeModeKey    = @"AppBadgeMode";
     [primaryTags release];
     [mutuallyExclusiveTagGroups release];
     [todoStateGroups release];
+    [dropboxEmail release];
+    [dropboxIndex release];
     [super dealloc];
 }
 

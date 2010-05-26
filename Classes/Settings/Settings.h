@@ -28,6 +28,12 @@ typedef enum {
     AppBadgeModeTotal
 } AppBadgeMode;
 
+typedef enum {
+    ServerModeUnknown = 0,
+    ServerModeWebDav,
+    ServerModeDropbox
+} ServerMode;
+
 @interface Settings : NSObject {
     NSURL *indexUrl;
 
@@ -43,6 +49,11 @@ typedef enum {
     NSMutableArray *priorities;
 
     AppBadgeMode appBadgeMode;
+
+    ServerMode serverMode;
+
+    NSString *dropboxEmail;
+    NSString *dropboxIndex;
 }
 
 @property (nonatomic, copy) NSURL *indexUrl;
@@ -55,6 +66,9 @@ typedef enum {
 @property (nonatomic, copy) NSMutableArray *todoStateGroups;
 @property (nonatomic, copy) NSMutableArray *priorities;
 @property (nonatomic) AppBadgeMode appBadgeMode;
+@property (nonatomic) ServerMode serverMode;
+@property (nonatomic, copy) NSString *dropboxEmail;
+@property (nonatomic, copy) NSString *dropboxIndex;
 
 + (Settings*)instance;
 - (void)resetPrimaryTagsAndTodoStates;

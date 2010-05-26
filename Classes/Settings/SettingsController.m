@@ -28,6 +28,7 @@
 #import "OutlineViewController.h"
 #import "SessionManager.h"
 #import "MobileOrgAppDelegate.h"
+#import "DropboxTransferManager.h"
 
 @implementation SettingsController
 
@@ -70,7 +71,7 @@
 #pragma mark Table view methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 4;
+    return 5;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -81,12 +82,14 @@
             title = NSLocalizedString(@"Server Config", @"Server configuration title");
             break;
         case 1:
-            title = NSLocalizedString(@"App Info", @"App info title");
             break;
         case 2:
-            title = NSLocalizedString(@"Settings", @"App settings");
+            title = NSLocalizedString(@"App Info", @"App info title");
             break;
         case 3:
+            title = NSLocalizedString(@"Settings", @"App settings");
+            break;
+        case 4:
             title = NSLocalizedString(@"Credits", @"Credits title");
             break;
         default:
@@ -99,15 +102,26 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
         case 0:
-            return 3;
-            break;
-        case 1:
-            return 2;
-            break;
-        case 2:
             return 1;
             break;
+        case 1:
+            if ([[Settings instance] serverMode] == ServerModeDropbox) {
+                if ([[DropboxTransferManager instance] isLinked]) {
+                    return 2;
+                } else {
+                    return 4;
+                }
+            } else {
+                return 3;
+            }
+            break;
+        case 2:
+            return 2;
+            break;
         case 3:
+            return 1;
+            break;
+        case 4:
             return 5;
             break;
         default:
@@ -117,7 +131,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-    if (section == 0) {
+    if (section == 1) {
         return @"For help on configuration, visit http://mobileorg.ncogni.to";
     } else {
         return @"";
@@ -142,60 +156,173 @@
 
     if (indexPath.section == 0) {
 
-        static NSString *CellIdentifier = @"SettingsConfigurationCell";
+        static NSString *CellIdentifier = @"ServerModeConfigurationSell";
 
-        UITextField *newLabel;
+        UISegmentedControl *modeSwitch;
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
             cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
-            newLabel = [[[UITextField alloc] initWithFrame:CGRectMake(100,13,200,25)] autorelease];
-            [newLabel setAdjustsFontSizeToFitWidth:YES];
-            [newLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleRightMargin];
-            [newLabel setAutocorrectionType:UITextAutocorrectionTypeNo];
-            [newLabel setClearButtonMode:UITextFieldViewModeWhileEditing];
-            [newLabel setAutocapitalizationType:UITextAutocapitalizationTypeNone];
-            [cell addSubview:newLabel];
+
+            NSMutableArray *options = [[NSMutableArray alloc] initWithCapacity:2];
+            [options addObject:@"WebDAV"];
+            [options addObject:@"Dropbox"];
+
+            modeSwitch = [[[UISegmentedControl alloc] initWithItems:options] autorelease];
+            modeSwitch.frame = CGRectMake(9, 0, 302, 48);
+
+            [options release];
+
+            [cell addSubview:modeSwitch];
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 
-            CGRect detailFrame = [[cell detailTextLabel] frame];
-            detailFrame.origin.y -= 1;
-            [[cell detailTextLabel] setFrame:detailFrame];
         } else {
-            newLabel = (UITextField*)[cell.contentView viewWithTag:1];
+            modeSwitch = (UISegmentedControl*)[cell.contentView viewWithTag:1];
         }
 
-        // Set up the cell...
+        [modeSwitch addTarget:self action:@selector(modeSwitchChanged:) forControlEvents:UIControlEventValueChanged];
+        [modeSwitch setSelectedSegmentIndex:[[Settings instance] serverMode]-1];
 
-        switch (indexPath.row) {
-            case 0:
-                [newLabel addTarget:self action:@selector(serverUrlChanged:) forControlEvents:(UIControlEventValueChanged | UIControlEventEditingDidEnd)];
-                [newLabel setKeyboardType:UIKeyboardTypeURL];
-                [newLabel setDelegate:self];
-                [newLabel setTag:1];
-                [[cell textLabel] setText:@"URL"];
-                newLabel.text = [[[Settings instance] indexUrl] absoluteString];
-                break;
-            case 1:
-                [newLabel addTarget:self action:@selector(usernameChanged:) forControlEvents:(UIControlEventEditingDidEnd | UIControlEventEditingDidEnd)];
-                [newLabel setDelegate:self];
-                [newLabel setTag:2];
-                [[cell textLabel] setText:@"Username"];
-                newLabel.text = [[Settings instance] username];
-                break;
-            case 2:
-                [newLabel addTarget:self action:@selector(passwordChanged:) forControlEvents:(UIControlEventEditingDidEnd | UIControlEventEditingDidEnd)];
-                [newLabel setDelegate:self];
-                [newLabel setTag:3];
-                [[cell textLabel] setText:@"Password"];
-                [newLabel setSecureTextEntry:YES];
-                newLabel.text = [[Settings instance] password];
-                break;
-            default:
-                break;
-        }
         return cell;
 
+
     } else if (indexPath.section == 1) {
+
+        if ([[Settings instance] serverMode] == ServerModeWebDav) {
+
+            static NSString *CellIdentifier = @"SettingsConfigurationCell";
+
+            UITextField *newLabel;
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            if (cell == nil) {
+                cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
+                newLabel = [[[UITextField alloc] initWithFrame:CGRectMake(100,13,200,25)] autorelease];
+                [newLabel setAdjustsFontSizeToFitWidth:YES];
+                [newLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleRightMargin];
+                [newLabel setAutocorrectionType:UITextAutocorrectionTypeNo];
+                [newLabel setClearButtonMode:UITextFieldViewModeWhileEditing];
+                [newLabel setAutocapitalizationType:UITextAutocapitalizationTypeNone];
+                [cell addSubview:newLabel];
+                [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+
+                CGRect detailFrame = [[cell detailTextLabel] frame];
+                detailFrame.origin.y -= 1;
+                [[cell detailTextLabel] setFrame:detailFrame];
+            } else {
+                newLabel = (UITextField*)[cell.contentView viewWithTag:1];
+            }
+
+            // Set up the cell...
+
+            switch (indexPath.row) {
+                case 0:
+                    [newLabel addTarget:self action:@selector(serverUrlChanged:) forControlEvents:(UIControlEventValueChanged | UIControlEventEditingDidEnd)];
+                    [newLabel setKeyboardType:UIKeyboardTypeURL];
+                    [newLabel setDelegate:self];
+                    [newLabel setTag:1];
+                    [[cell textLabel] setText:@"URL"];
+                    newLabel.text = [[[Settings instance] indexUrl] absoluteString];
+                    break;
+                case 1:
+                    [newLabel addTarget:self action:@selector(usernameChanged:) forControlEvents:(UIControlEventEditingDidEnd | UIControlEventEditingDidEnd)];
+                    [newLabel setDelegate:self];
+                    [newLabel setTag:2];
+                    [[cell textLabel] setText:@"Username"];
+                    newLabel.text = [[Settings instance] username];
+                    break;
+                case 2:
+                    [newLabel addTarget:self action:@selector(passwordChanged:) forControlEvents:(UIControlEventEditingDidEnd | UIControlEventEditingDidEnd)];
+                    [newLabel setDelegate:self];
+                    [newLabel setTag:3];
+                    [[cell textLabel] setText:@"Password"];
+                    [newLabel setSecureTextEntry:YES];
+                    newLabel.text = [[Settings instance] password];
+                    break;
+                default:
+                    break;
+            }
+            return cell;
+
+        } else if ([[Settings instance] serverMode] == ServerModeDropbox) {
+
+            if ((![[DropboxTransferManager instance] isLinked] && indexPath.row < 3) || indexPath.row == 0) {
+                static NSString *CellIdentifier = @"SettingsDropboxConfigurationCell";
+
+                UITextField *newLabel;
+                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+                if (cell == nil) {
+                    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
+                    newLabel = [[[UITextField alloc] initWithFrame:CGRectMake(100,13,200,25)] autorelease];
+                    [newLabel setAdjustsFontSizeToFitWidth:YES];
+                    [newLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleRightMargin];
+                    [newLabel setAutocorrectionType:UITextAutocorrectionTypeNo];
+                    [newLabel setClearButtonMode:UITextFieldViewModeWhileEditing];
+                    [newLabel setAutocapitalizationType:UITextAutocapitalizationTypeNone];
+                    [cell addSubview:newLabel];
+                    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+
+                    CGRect detailFrame = [[cell detailTextLabel] frame];
+                    detailFrame.origin.y -= 1;
+                    [[cell detailTextLabel] setFrame:detailFrame];
+                } else {
+                    newLabel = (UITextField*)[cell.contentView viewWithTag:1];
+                }
+
+                // Set up the cell...
+
+                switch (indexPath.row) {
+                    case 0:
+                        [newLabel addTarget:self action:@selector(dropboxIndexChanged:) forControlEvents:(UIControlEventValueChanged | UIControlEventEditingDidEnd)];
+                        [newLabel setKeyboardType:UIKeyboardTypeURL];
+                        [newLabel setDelegate:self];
+                        [newLabel setTag:1];
+                        [[cell textLabel] setText:@"Index File"];
+                        newLabel.text = [[Settings instance] dropboxIndex];
+                        break;
+                    case 1:
+                        [newLabel addTarget:self action:@selector(dropboxEmailChanged:) forControlEvents:(UIControlEventEditingDidEnd | UIControlEventEditingDidEnd)];
+                        [newLabel setDelegate:self];
+                        [newLabel setTag:2];
+                        [[cell textLabel] setText:@"Email"];
+                        newLabel.text = [[Settings instance] dropboxEmail];
+                        break;
+                    case 2:
+                        [newLabel addTarget:self action:@selector(dropboxPasswordChanged:) forControlEvents:(UIControlEventEditingDidEnd | UIControlEventEditingDidEnd)];
+                        [newLabel setDelegate:self];
+                        [newLabel setTag:3];
+                        [[cell textLabel] setText:@"Password"];
+                        [newLabel setSecureTextEntry:YES];
+                        if ([[DropboxTransferManager instance] isLinked]) {
+                            newLabel.text = @"";
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                return cell;
+            } else {
+                static NSString *CellIdentifier = @"SettingsDropboxButtonCell";
+
+                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+                if (cell == nil) {
+                    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+                } else {
+
+                }
+
+                if ([[DropboxTransferManager instance] isLinked]) {
+                    cell.textLabel.text = @"Unlink from Dropbox";
+                    [cell.textLabel setTextColor:[UIColor colorWithRed:0.543 green:0.306 blue:0.435 alpha:1.0]];
+                } else {
+                    cell.textLabel.text = @"Log in to Dropbox";
+                    [cell.textLabel setTextColor:[UIColor colorWithRed:0.243 green:0.306 blue:0.435 alpha:1.0]];
+                }
+
+                [cell.textLabel setTextAlignment:UITextAlignmentCenter];
+
+                return cell;
+            }
+        }
+    } else if (indexPath.section == 2) {
         static NSString *CellIdentifier = @"SettingsSimpleCell";
 
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -231,7 +358,7 @@
 
         return cell;
 
-    } else if (indexPath.section == 2) {
+    } else if (indexPath.section == 3) {
 
         switch (indexPath.row) {
             case 0:
@@ -260,7 +387,7 @@
                 break;
         }
 
-    } else if (indexPath.section == 3) {
+    } else if (indexPath.section == 4) {
         static NSString *CellIdentifier = @"SettingsCreditsCell";
 
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -302,10 +429,7 @@
     return nil;
 }
 
-- (void)applyNewServerUrl:(NSString*)url {
-
-    // Store the new URL
-    [[Settings instance] setIndexUrl:[NSURL URLWithString:url]];
+- (void)resetAppData {
 
     // Clear search
     [[AppInstance() searchController] reset];
@@ -325,6 +449,13 @@
 
     // Session. Clear the saved state
     [[SessionManager instance] reset];
+}
+
+- (void)applyNewServerUrl:(NSString*)url {
+    // Store the new URL
+    [[Settings instance] setIndexUrl:[NSURL URLWithString:url]];
+
+    [self resetAppData];
 }
 
 // This is the callback for when we are asking the user if they want to proceed with changing the URL
@@ -391,6 +522,20 @@
     [[Settings instance] setPassword:textField.text];
 }
 
+- (void)dropboxIndexChanged:(id)sender {
+    UITextField *textField = (UITextField*)sender;
+    [[Settings instance] setDropboxIndex:textField.text];
+}
+
+- (void)dropboxEmailChanged:(id)sender {
+    UITextField *textField = (UITextField*)sender;
+    [[Settings instance] setDropboxEmail:textField.text];
+}
+
+- (void)dropboxPasswordChanged:(id)sender {
+    dropboxPassword = [sender text];
+}
+
 - (void)appBadgeSwitchChanged:(id)sender {
     UISwitch *appBadgeSwitch = (UISwitch*)sender;
     if ([appBadgeSwitch isOn]) {
@@ -398,6 +543,16 @@
     } else {
         [[Settings instance] setAppBadgeMode:AppBadgeModeNone];
     }
+}
+
+- (void)modeSwitchChanged:(id)sender {
+    UISegmentedControl *modeSwitch = (UISegmentedControl*)sender;
+    if ([[Settings instance] serverMode] != (1 + [modeSwitch selectedSegmentIndex])) {
+        [[Settings instance] setServerMode:(1 + [modeSwitch selectedSegmentIndex])];
+        [self resetAppData];
+    }
+    [[self tableView] reloadData];
+    [[self tableView] setNeedsDisplay];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -409,12 +564,60 @@
     // AnotherViewController *anotherViewController = [[AnotherViewController alloc] initWithNibName:@"AnotherView" bundle:nil];
     // [self.navigationController pushViewController:anotherViewController];
     // [anotherViewController release];
+
+    if (indexPath.section == 1 && [[Settings instance] serverMode] == ServerModeDropbox) {
+
+        bool linked = [[DropboxTransferManager instance] isLinked];
+        if ((!linked && indexPath.row == 3) || (linked && indexPath.row == 1)) {
+
+            if (dropboxLoggingIn) {
+                [[[self tableView] cellForRowAtIndexPath:indexPath] setSelected:NO animated:YES];
+                return;
+            }
+
+            [[[self tableView] cellForRowAtIndexPath:indexPath] setSelected:YES animated:YES];
+
+            if ([[DropboxTransferManager instance] isLinked]) {
+                [[DropboxTransferManager instance] unlink];
+                [[self tableView] reloadData];
+                [[self tableView] setNeedsDisplay];
+            } else {
+                [[DropboxTransferManager instance] setLoginDelegate:self];
+                [[DropboxTransferManager instance] login:[[Settings instance] dropboxEmail] andPassword:dropboxPassword];
+                dropboxLoggingIn = true;
+                [[self tableView] cellForRowAtIndexPath:indexPath].textLabel.text = @"Logging in...";
+            }
+
+            [[[self tableView] cellForRowAtIndexPath:indexPath] setSelected:NO animated:YES];
+        }
+    }
+}
+
+- (void)loginSuccess {
+    dropboxLoggingIn = false;
+    [[self tableView] reloadData];
+    [[self tableView] setNeedsDisplay];
+}
+
+- (void)loginFailed {
+    UIAlertView *alert = [[UIAlertView alloc]
+                          initWithTitle:@"Cannot Login"
+                          message:@"Unable to log into Dropbox with those credentials."
+                          delegate:nil
+                          cancelButtonTitle:@"Cancel"
+                          otherButtonTitles:nil];
+    [alert show];
+    [alert autorelease];
+    dropboxLoggingIn = false;
+    [[self tableView] reloadData];
+    [[self tableView] setNeedsDisplay];
 }
 
 - (void)dealloc {
 
     [[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:@"SyncComplete"];
     [pendingNewIndexUrl release];
+    [dropboxPassword release];
     [super dealloc];
 }
 

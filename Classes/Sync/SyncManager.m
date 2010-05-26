@@ -21,7 +21,8 @@
 //
 
 #import "SyncManager.h"
-#import "TransferManager.h"
+#import "DropboxTransferManager.h"
+#import "WebDavTransferManager.h"
 #import "TransferContext.h"
 #import "Settings.h"
 #import "DataUtils.h"
@@ -37,6 +38,7 @@
 #import "MobileOrgAppDelegate.h"
 
 @interface SyncManager(private)
+- (TransferManager*)transferManager;
 - (bool)hasLocalChanges;
 - (void)syncLocalChanges;
 - (void)downloadEditsFile;
@@ -88,6 +90,15 @@ static SyncManager *gInstance = NULL;
     return self;
 }
 
+- (TransferManager*)transferManager {
+    if ([[Settings instance] serverMode] == ServerModeWebDav) {
+        return [WebDavTransferManager instance];
+    } else if ([[Settings instance] serverMode] == ServerModeDropbox) {
+        return [DropboxTransferManager instance];
+    }
+    return nil;
+}
+
 // Sync process:
 //
 // - If there are any notes or local edit actions, we need to push them first
@@ -103,7 +114,7 @@ static SyncManager *gInstance = NULL;
 }
 
 - (void)abort {
-    [[TransferManager instance] abort];
+    [[self transferManager] abort];
     [[StatusViewController instance] hide];
 }
 
@@ -155,7 +166,7 @@ static SyncManager *gInstance = NULL;
     context.transferType = TransferTypeDownload;
     context.delegate     = self;
 
-    [[TransferManager instance] enqueueTransfer:context];
+    [[self transferManager] enqueueTransfer:context];
 
     [context release];
 }
@@ -303,7 +314,7 @@ static SyncManager *gInstance = NULL;
         context.transferType = TransferTypeUpload;
         context.delegate     = self;
 
-        [[TransferManager instance] enqueueTransfer:context];
+        [[self transferManager] enqueueTransfer:context];
 
         [context release];
     }
@@ -314,6 +325,15 @@ static SyncManager *gInstance = NULL;
     // Let the checksum handling know that we changed the mobileorg.org file, so it can
     // ignore the checksum value and redownload it
     changedEditsFile = true;
+
+    // Instead of redownloading the mobileorg.org file we just uploaded, pretend we did
+    if ([[NSFileManager defaultManager] fileExistsAtPath:FileWithName(@"new-mobileorg.org")]) {
+        NSError *e = nil;
+        if ([[NSFileManager defaultManager] fileExistsAtPath:FileWithName(@"mobileorg.org")]) {
+            [[NSFileManager defaultManager] removeItemAtPath:FileWithName(@"mobileorg.org") error:&e];
+        }
+        [[NSFileManager defaultManager] copyItemAtPath:FileWithName(@"new-mobileorg.org") toPath:FileWithName(@"mobileorg.org") error:&e];
+    }
 
     // If there were no errors, we can safely delete the local edit actions
     DeleteLocalEditActions();
@@ -330,7 +350,7 @@ static SyncManager *gInstance = NULL;
 - (void)uploadEmptyEditsFile {
 
     // Try to create a dummy file and upload it
-    NSString *localEditsFile = FileWithName(@"empty-mobileorg.org");
+    NSString *localEditsFile = FileWithName(@"new-mobileorg.org");
     {
         if ([[NSFileManager defaultManager] fileExistsAtPath:localEditsFile]) {
             NSError *e = nil;
@@ -358,7 +378,7 @@ static SyncManager *gInstance = NULL;
     context.transferType = TransferTypeUpload;
     context.delegate     = self;
 
-    [[TransferManager instance] enqueueTransfer:context];
+    [[self transferManager] enqueueTransfer:context];
 
     [context release];
 }
@@ -385,7 +405,7 @@ static SyncManager *gInstance = NULL;
     context.transferType = TransferTypeDownload;
     context.delegate     = self;
 
-    [[TransferManager instance] enqueueTransfer:context];
+    [[self transferManager] enqueueTransfer:context];
 
     [context release];
 }
@@ -395,14 +415,14 @@ static SyncManager *gInstance = NULL;
     // Parse the checksum file (this could stand to go on another thread, I suppose)
     [checksumParser parse:filename];
 
-    int transferQueueNow = [[TransferManager instance] queueSize];
+    int transferQueueNow = [[self transferManager] queueSize];
 
     // Done with checksums, now start with the Org files
     [self downloadOrgFiles];
 
     // Sometimes, downloadOrgFiles won't do anything if everything was cached, so just
     // move right along.
-    if ([[TransferManager instance] queueSize] == transferQueueNow) {
+    if ([[self transferManager] queueSize] == transferQueueNow) {
         [self doneDownloadingOrgFiles];
     }
 }
@@ -492,9 +512,11 @@ static SyncManager *gInstance = NULL;
         }
     }
 
-    // We need to re-download the mobileorg.org file if we changed it
-    if (!downloadFile && changedEditsFile && [name isEqualToString:@"mobileorg.org"]) {
+    // Since we changed the edits file, no need to redownload it
+    bool dummyDownloadHack = false;
+    if (changedEditsFile && [name isEqualToString:@"mobileorg.org"]) {
         downloadFile = true;
+        dummyDownloadHack = true;
     }
 
     if (downloadFile) {
@@ -505,6 +527,7 @@ static SyncManager *gInstance = NULL;
         // Enque a fetch request to download this Org-file
         TransferContext *context = [TransferContext new];
 
+        context.dummy        = dummyDownloadHack;
         context.remoteUrl    = [[Settings instance] urlForFilename:name];
 
         if ([name isEqualToString:@"mobileorg.org"]) {
@@ -515,7 +538,7 @@ static SyncManager *gInstance = NULL;
         context.transferType = TransferTypeDownload;
         context.delegate     = self;
 
-        [[TransferManager instance] enqueueTransfer:context];
+        [[self transferManager] enqueueTransfer:context];
 
         [context release];
 
@@ -525,7 +548,7 @@ static SyncManager *gInstance = NULL;
         [self findAndFetchLinksForNode:NodeWithFilename(name)];
 
         // If there is nothing else to do, call doneDownloadingOrgFiles
-        if (![[TransferManager instance] busy]) {
+        if (![[self transferManager] busy]) {
             [self doneDownloadingOrgFiles];
         }
     }
@@ -573,7 +596,7 @@ static SyncManager *gInstance = NULL;
     }
 
     // If there is nothing else to do, call doneDownloadingOrgFiles
-    if ([[TransferManager instance] queueSize] == 0) {
+    if ([[self transferManager] queueSize] == 0) {
         [self doneDownloadingOrgFiles];
     }
 }
@@ -783,7 +806,7 @@ static SyncManager *gInstance = NULL;
 
             } else {
                 // Just ignore the error, we're done if this was the last file
-                if ([[TransferManager instance] queueSize] == 0) {
+                if ([[self transferManager] queueSize] == 0) {
                     [self doneDownloadingOrgFiles];
                 }
             }

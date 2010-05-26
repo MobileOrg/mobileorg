@@ -1,9 +1,9 @@
 //
-//  TransferManager.h
+//  DropboxTransferManager.h
 //  MobileOrg
 //
 //  Created by Richard Moreland on 9/30/09.
-//  Copyright 2009 Richard Moreland.
+//  Copyright 2010 Richard Moreland.
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -21,18 +21,43 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DBRestClient.h"
+#import "TransferManager.h"
 
 @class TransferContext;
 
-@interface TransferManager : NSObject {
+@protocol DropboxLoginDelegate <NSObject>
+@optional
+- (void)loginSuccess;
+- (void)loginFailed;
+@end
+
+@interface DropboxTransferManager : TransferManager <DBRestClientDelegate> {
+    NSMutableArray *transfers;
+    bool active;
+    bool paused;
+    TransferContext *activeTransfer;
+    NSURLConnection *connection;
+    NSMutableData *data;
+    NSNumber *fileSize;
+    DBSession *dbSession;
+    DBRestClient *dbClient;
+    id<DropboxLoginDelegate> loginDelegate;
 }
 
-+ (TransferManager*)instance;
+@property (nonatomic, retain) TransferContext *activeTransfer;
+@property (nonatomic, copy) NSNumber *fileSize;
+@property (nonatomic, assign) id<DropboxLoginDelegate> loginDelegate;
+
++ (DropboxTransferManager*)instance;
 - (void)enqueueTransfer:(TransferContext*)transfer;
 - (void)pause;
 - (void)resume;
 - (bool)busy;
 - (int)queueSize;
 - (void)abort;
+- (void)login:(NSString*)email andPassword:(NSString*)password;
+- (void)unlink;
+- (BOOL)isLinked;
 
 @end

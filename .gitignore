@@ -4,3 +4,4 @@ build
 *.perspectivev3
 .DS_Store
 vendor-libs
+Classes/Sync/Dropbox/DropboxKeys.h

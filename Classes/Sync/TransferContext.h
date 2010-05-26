@@ -37,6 +37,7 @@ typedef enum {
     bool success;
     bool abortOnFailure;
     UInt32 statusCode;
+    bool dummy;
 }
 
 @property (nonatomic, copy) NSURL *remoteUrl;
@@ -47,5 +48,6 @@ typedef enum {
 @property (nonatomic, copy) NSString *errorText;
 @property (nonatomic) bool abortOnFailure;
 @property (nonatomic) bool success;
+@property (nonatomic) bool dummy;
 
 @end

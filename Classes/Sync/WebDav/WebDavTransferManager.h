@@ -1,9 +1,9 @@
 //
-//  TransferContext.m
+//  WebDavTransferManager.h
 //  MobileOrg
 //
 //  Created by Richard Moreland on 9/30/09.
-//  Copyright 2009 Richard Moreland.
+//  Copyright 2010 Richard Moreland.
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -20,37 +20,29 @@
 //  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //
 
-#import "TransferContext.h"
+#import <Foundation/Foundation.h>
+#import "TransferManager.h"
 
-@implementation TransferContext
-
-@synthesize remoteUrl;
-@synthesize localFile;
-@synthesize transferType;
-@synthesize delegate;
-@synthesize statusCode;
-@synthesize errorText;
-@synthesize abortOnFailure;
-@synthesize success;
-@synthesize dummy;
-
-- (id)init {
-    if (self = [super init]) {
-        self.remoteUrl = nil;
-        self.localFile = @"";
-        self.errorText = @"";
-        self.statusCode = 0;
-        self.delegate = nil;
-        self.dummy = false;
-    }
-    return self;
+@interface WebDavTransferManager : TransferManager {
+    NSMutableArray *transfers;
+    bool active;
+    bool paused;
+    TransferContext *activeTransfer;
+    NSURLConnection *connection;
+    NSMutableData *data;
+    NSNumber *fileSize;
 }
 
-- (void)dealloc {
-    self.remoteUrl = nil;
-    self.localFile = nil;
-    self.errorText = nil;
-    [super dealloc];
-}
+@property (nonatomic, retain) TransferContext *activeTransfer;
+@property (nonatomic, copy) NSNumber *fileSize;
+
++ (WebDavTransferManager*)instance;
+- (void)enqueueTransfer:(TransferContext*)transfer;
+- (void)pause;
+- (void)resume;
+- (bool)busy;
+- (int)queueSize;
+- (void)abort;
+
 
 @end

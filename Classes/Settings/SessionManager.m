@@ -81,7 +81,7 @@ static NSString *kWhichTabKey      = @"WhichTab";
 - (void)restoreCurrentTab {
     int whichTab = [[[NSUserDefaults standardUserDefaults] objectForKey:kWhichTabKey] intValue];
 
-    if (![[Settings instance] indexUrl] || [[[[Settings instance] indexUrl] absoluteString] length] == 0) {
+    if (![[Settings instance] isConfiguredProperly]) {
         whichTab = 3; // Settings
     }
 

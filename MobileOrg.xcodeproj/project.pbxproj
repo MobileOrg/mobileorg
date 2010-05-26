@@ -891,7 +891,7 @@
 				INFOPLIST_FILE = "MobileOrg-Info-AdHoc.plist";
 				INFOPLIST_PREPROCESS = NO;
 				PRODUCT_NAME = MobileOrg;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "91E33B7C-0AD3-4D9B-BD9D-21EEE91505A4";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "14CB93B6-C248-4B7E-819C-8C1478ACBFC2";
 				SDKROOT = iphoneos3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

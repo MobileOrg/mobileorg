@@ -599,10 +599,10 @@
     [[self tableView] setNeedsDisplay];
 }
 
-- (void)loginFailed {
+- (void)loginFailedWithError:(NSString*)message {
     UIAlertView *alert = [[UIAlertView alloc]
-                          initWithTitle:@"Cannot Login"
-                          message:@"Unable to log into Dropbox with those credentials."
+                          initWithTitle:@"Dropbox Error"
+                          message:message
                           delegate:nil
                           cancelButtonTitle:@"Cancel"
                           otherButtonTitles:nil];

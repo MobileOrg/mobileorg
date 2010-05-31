@@ -213,7 +213,7 @@ static DropboxTransferManager *gInstance = NULL;
 
 - (void)restClient:(DBRestClient*)client loginFailedWithError:(NSError*)error
 {
-    [loginDelegate loginFailed];
+    [loginDelegate loginFailedWithError:@"Bad username and password or network error."];
 }
 
 - (void)restClient:(DBRestClient*)client loadedMetadata:(NSDictionary*)metadata

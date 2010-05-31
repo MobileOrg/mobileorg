@@ -29,7 +29,7 @@
 @protocol DropboxLoginDelegate <NSObject>
 @optional
 - (void)loginSuccess;
-- (void)loginFailed;
+- (void)loginFailedWithError:(NSString*)message;
 @end
 
 @interface DropboxTransferManager : TransferManager <DBRestClientDelegate> {

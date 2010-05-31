@@ -723,7 +723,7 @@ static SyncManager *gInstance = NULL;
             } else {
                 UIAlertView *alert = [[UIAlertView alloc]
                                       initWithTitle:@"Error syncing changes"
-                                      message:[NSString stringWithFormat:@"An error was encountered while attempting to fetch mobileorg.org from the WebDAV server.  The error was:\n\n%@", [context errorText]]
+                                      message:[NSString stringWithFormat:@"An error was encountered while attempting to fetch mobileorg.org from the server.  The error was:\n\n%@", [context errorText]]
                                       delegate:nil
                                       cancelButtonTitle:@"Cancel"
                                       otherButtonTitles:nil];
@@ -739,7 +739,7 @@ static SyncManager *gInstance = NULL;
             // Abort.. we tried to make the mobileorg.org file and couldn't
             UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:@"Error creating mobileorg.org"
-                                  message:[NSString stringWithFormat:@"An error was encountered while attempting to create mobileorg.org on the WebDAV server.  The error was:\n\n%@", [context errorText]]
+                                  message:[NSString stringWithFormat:@"An error was encountered while attempting to create mobileorg.org on the server.  The error was:\n\n%@", [context errorText]]
                                   delegate:nil
                                   cancelButtonTitle:@"Cancel"
                                   otherButtonTitles:nil];
@@ -756,7 +756,7 @@ static SyncManager *gInstance = NULL;
             // Abort.. we couldn't upload local changes
             UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:@"Error uploading mobileorg.org"
-                                  message:[NSString stringWithFormat:@"An error was encountered while attempting to upload mobileorg.org to the WebDAV server.  The error was:\n\n%@", [context errorText]]
+                                  message:[NSString stringWithFormat:@"An error was encountered while attempting to upload mobileorg.org to the server.  The error was:\n\n%@", [context errorText]]
                                   delegate:nil
                                   cancelButtonTitle:@"Cancel"
                                   otherButtonTitles:nil];
@@ -778,7 +778,7 @@ static SyncManager *gInstance = NULL;
 
                 UIAlertView *alert = [[UIAlertView alloc]
                                       initWithTitle:@"Error downloading checksums"
-                                      message:[NSString stringWithFormat:@"An error was encountered while downloading checksums.dat from the WebDAV server.  This file isn't required, but the error received was unusual.  The error was:\n\n%@", [context errorText]]
+                                      message:[NSString stringWithFormat:@"An error was encountered while downloading checksums.dat from the server.  This file isn't required, but the error received was unusual.  The error was:\n\n%@", [context errorText]]
                                       delegate:nil
                                       cancelButtonTitle:@"Cancel"
                                       otherButtonTitles:nil];
@@ -795,7 +795,7 @@ static SyncManager *gInstance = NULL;
 
                 UIAlertView *alert = [[UIAlertView alloc]
                                       initWithTitle:@"Error downloading Org-file"
-                                      message:[NSString stringWithFormat:@"An error was encountered while attempting to download %@ from the WebDAV server.  The error was:\n\n%@", [[context remoteUrl] path], [context errorText]]
+                                      message:[NSString stringWithFormat:@"An error was encountered while attempting to download %@ from the server.  The error was:\n\n%@", [[context remoteUrl] path], [context errorText]]
                                       delegate:nil
                                       cancelButtonTitle:@"Cancel"
                                       otherButtonTitles:nil];

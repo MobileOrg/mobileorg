@@ -31,4 +31,6 @@
     bool dropboxLoggingIn;
 }
 
+@property (nonatomic, copy) NSString *dropboxPassword;
+
 @end

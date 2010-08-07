@@ -243,7 +243,6 @@ typedef enum {
     segmented.frame = CGRectMake(0, 0, 110, 30);
     segmented.segmentedControlStyle = UISegmentedControlStyleBar;
     segmented.momentary = YES;
-    [segmented setTintColor:[UIColor blueColor]];
     [segmented addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
 
     UIBarButtonItem* container_item = [[UIBarButtonItem alloc] initWithCustomView:segmented];

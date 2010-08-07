@@ -124,19 +124,27 @@
 
         case UIDeviceOrientationLandscapeLeft:
         case UIDeviceOrientationLandscapeRight:
-            leftButtonX = 100;
-            rightButtonX = 250;
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                leftButtonX = 370;
+            } else {
+                leftButtonX = 100;
+            }
+            rightButtonX = leftButtonX + 150;            
             yOffset = 10;
-            actionView.frame = CGRectMake(0, 0, 480, 320);
+            actionView.frame = [[UIScreen mainScreen] applicationFrame];
             break;
 
         case UIDeviceOrientationPortrait:
         case UIDeviceOrientationPortraitUpsideDown:
         default:
-            leftButtonX = 20;
-            rightButtonX = 170;
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                leftButtonX = 240;
+            } else {
+                leftButtonX = 20;
+            }
+            rightButtonX = leftButtonX + 150;            
             yOffset = 40;
-            actionView.frame = CGRectMake(0, 0, 320, 480);
+            actionView.frame = [[UIScreen mainScreen] applicationFrame];
             break;
     }
 

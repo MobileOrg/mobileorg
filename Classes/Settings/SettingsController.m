@@ -170,7 +170,12 @@
             [options addObject:@"Dropbox"];
 
             modeSwitch = [[[UISegmentedControl alloc] initWithItems:options] autorelease];
-            modeSwitch.frame = CGRectMake(9, 0, 302, 48);
+            
+            // TODO: Make this resize when the orientation changes
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+                modeSwitch.frame = CGRectMake(44, 0, 680, 48);                
+            else
+                modeSwitch.frame = CGRectMake(9, 0, 302, 48);
 
             [options release];
 
@@ -197,7 +202,10 @@
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             if (cell == nil) {
                 cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
-                newLabel = [[[UITextField alloc] initWithFrame:CGRectMake(100,13,200,25)] autorelease];
+                if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+                    newLabel = [[[UITextField alloc] initWithFrame:CGRectMake(130,13,200,25)] autorelease];
+                else
+                    newLabel = [[[UITextField alloc] initWithFrame:CGRectMake(100,13,200,25)] autorelease];
                 [newLabel setAdjustsFontSizeToFitWidth:YES];
                 [newLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleRightMargin];
                 [newLabel setAutocorrectionType:UITextAutocorrectionTypeNo];
@@ -253,7 +261,10 @@
                 UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
                 if (cell == nil) {
                     cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
-                    newLabel = [[[UITextField alloc] initWithFrame:CGRectMake(100,13,200,25)] autorelease];
+                    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+                        newLabel = [[[UITextField alloc] initWithFrame:CGRectMake(130,13,200,25)] autorelease];
+                    else
+                        newLabel = [[[UITextField alloc] initWithFrame:CGRectMake(100,13,200,25)] autorelease];
                     [newLabel setAdjustsFontSizeToFitWidth:YES];
                     [newLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleRightMargin];
                     [newLabel setAutocorrectionType:UITextAutocorrectionTypeNo];
@@ -371,7 +382,10 @@
                 UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
                 if (cell == nil) {
                     cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-                    appBadgeSwitch = [[[UISwitch alloc] initWithFrame:CGRectMake(200,10,200,25)] autorelease];
+                    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+                        appBadgeSwitch = [[[UISwitch alloc] initWithFrame:CGRectMake(620,10,200,25)] autorelease];
+                    else
+                        appBadgeSwitch = [[[UISwitch alloc] initWithFrame:CGRectMake(200,10,200,25)] autorelease];
                     [cell addSubview:appBadgeSwitch];
                     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
                     [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:15.0]];

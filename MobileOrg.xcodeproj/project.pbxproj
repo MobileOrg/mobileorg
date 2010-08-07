@@ -19,6 +19,7 @@
 		790B455610826A0900A852F1 /* PriorityEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 790B455510826A0900A852F1 /* PriorityEditController.m */; };
 		791653A81078109B00695E4C /* EditsFileParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 791653A71078109B00695E4C /* EditsFileParser.m */; };
 		791653C2107814C500695E4C /* EditEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 791653C1107814C500695E4C /* EditEntity.m */; };
+		7936F92A120DDF3F0062CF0E /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7936F929120DDF3F0062CF0E /* MainWindow-iPad.xib */; };
 		793F7D8D107C1E6000674D0A /* SearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 793F7D8C107C1E6000674D0A /* SearchController.m */; };
 		793F7D90107C1E6B00674D0A /* SettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 793F7D8F107C1E6B00674D0A /* SettingsController.m */; };
 		793F7EE5107C362E00674D0A /* DocumentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 793F7EE4107C362E00674D0A /* DocumentViewController.m */; };
@@ -68,7 +69,6 @@
 		7982F3BA1073FBF800AEA6BC /* DataUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F3B91073FBF800AEA6BC /* DataUtils.m */; };
 		7998A9F91078E56C0000ED49 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 7998A9F71078E56C0000ED49 /* Icon-Small.png */; };
 		7998A9FA1078E56C0000ED49 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7998A9F81078E56C0000ED49 /* Icon.png */; };
-		7998AA031078E5AB0000ED49 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 7998AA021078E5AB0000ED49 /* Default.png */; };
 		7998AC131079180F0000ED49 /* TagEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7998AC121079180F0000ED49 /* TagEditController.m */; };
 		7998AE2410794DBF0000ED49 /* AlertTextField.png in Resources */ = {isa = PBXBuildFile; fileRef = 7998AE2310794DBF0000ED49 /* AlertTextField.png */; };
 		7998AFDB10797C300000ED49 /* RoundedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7998AFDA10797C300000ED49 /* RoundedLabel.m */; };
@@ -130,6 +130,7 @@
 		791653A71078109B00695E4C /* EditsFileParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditsFileParser.m; sourceTree = "<group>"; };
 		791653C0107814C500695E4C /* EditEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditEntity.h; sourceTree = "<group>"; };
 		791653C1107814C500695E4C /* EditEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditEntity.m; sourceTree = "<group>"; };
+		7936F929120DDF3F0062CF0E /* MainWindow-iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "MainWindow-iPad.xib"; path = "Resources-iPad/MainWindow-iPad.xib"; sourceTree = "<group>"; };
 		793F7D8B107C1E6000674D0A /* SearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchController.h; sourceTree = "<group>"; };
 		793F7D8C107C1E6000674D0A /* SearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchController.m; sourceTree = "<group>"; };
 		793F7D8E107C1E6B00674D0A /* SettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsController.h; sourceTree = "<group>"; };
@@ -223,7 +224,6 @@
 		7982F3B91073FBF800AEA6BC /* DataUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataUtils.m; sourceTree = "<group>"; };
 		7998A9F71078E56C0000ED49 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = SOURCE_ROOT; };
 		7998A9F81078E56C0000ED49 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = SOURCE_ROOT; };
-		7998AA021078E5AB0000ED49 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		7998AC111079180F0000ED49 /* TagEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagEditController.h; sourceTree = "<group>"; };
 		7998AC121079180F0000ED49 /* TagEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagEditController.m; sourceTree = "<group>"; };
 		7998AE2310794DBF0000ED49 /* AlertTextField.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AlertTextField.png; sourceTree = "<group>"; };
@@ -317,6 +317,7 @@
 				79BA55581073A6F800D67917 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
+				7936F928120DDF3E0062CF0E /* Resources-iPad */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
@@ -357,6 +358,14 @@
 				28D801B30F44B63D00FB423F /* CoreData.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7936F928120DDF3E0062CF0E /* Resources-iPad */ = {
+			isa = PBXGroup;
+			children = (
+				7936F929120DDF3F0062CF0E /* MainWindow-iPad.xib */,
+			);
+			name = "Resources-iPad";
 			sourceTree = "<group>";
 		};
 		793F7F5D107CB5CF00674D0A /* Reachability */ = {
@@ -648,7 +657,6 @@
 				7998B0691079847C0000ED49 /* table_gray.png */,
 				7998B06A1079847C0000ED49 /* up.png */,
 				7998AE2310794DBF0000ED49 /* AlertTextField.png */,
-				7998AA021078E5AB0000ED49 /* Default.png */,
 				7998A9F71078E56C0000ED49 /* Icon-Small.png */,
 				7998A9F81078E56C0000ED49 /* Icon.png */,
 			);
@@ -738,7 +746,6 @@
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				7998A9F91078E56C0000ED49 /* Icon-Small.png in Resources */,
 				7998A9FA1078E56C0000ED49 /* Icon.png in Resources */,
-				7998AA031078E5AB0000ED49 /* Default.png in Resources */,
 				7998AE2410794DBF0000ED49 /* AlertTextField.png in Resources */,
 				7998B06B1079847C0000ED49 /* back.png in Resources */,
 				7998B06C1079847C0000ED49 /* capture.png in Resources */,
@@ -764,6 +771,7 @@
 				79F87A9A10854FEA00A54CA9 /* cant-sync-offline.png in Resources */,
 				79F87A9B10854FEA00A54CA9 /* please-configure.png in Resources */,
 				7945F5FA11A8078100731598 /* MPOAuthSignatureParameter.m.orig in Resources */,
+				7936F92A120DDF3F0062CF0E /* MainWindow-iPad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -849,6 +857,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 26;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -858,8 +867,10 @@
 				GCC_PREFIX_HEADER = MobileOrg_Prefix.pch;
 				INFOPLIST_FILE = "MobileOrg-Info-Debug.plist";
 				INFOPLIST_PREPROCESS = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				PRODUCT_NAME = MobileOrg;
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -881,6 +892,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Richard Moreland";
 				COPY_PHASE_STRIP = YES;
@@ -890,9 +902,11 @@
 				GCC_PREFIX_HEADER = MobileOrg_Prefix.pch;
 				INFOPLIST_FILE = "MobileOrg-Info-AdHoc.plist";
 				INFOPLIST_PREPROCESS = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				PRODUCT_NAME = MobileOrg;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "14CB93B6-C248-4B7E-819C-8C1478ACBFC2";
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = AdHoc;
@@ -914,6 +928,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Richard Moreland";
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 26;
@@ -923,9 +938,11 @@
 				GCC_PREPROCESSOR_DEFINITIONS = FOR_APP_STORE;
 				INFOPLIST_FILE = "MobileOrg-Info.plist";
 				INFOPLIST_PREPROCESS = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				PRODUCT_NAME = MobileOrg;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "14CB93B6-C248-4B7E-819C-8C1478ACBFC2";
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = AppStore;

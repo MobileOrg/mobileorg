@@ -328,6 +328,14 @@
     [v setController:self];
 }
 
+- (void)centerView:(UIView*)view {
+    CGRect superRect = [[self view] bounds];
+    CGRect viewRect = view.frame;
+    CGFloat x = (superRect.size.width/2) - (viewRect.size.width/2);
+    CGFloat y = (superRect.size.height/2) - (viewRect.size.height/2);
+    view.frame = CGRectMake(x, y, viewRect.size.width, viewRect.size.height);
+}
+
 - (void)viewDidLoad {
 
     [super viewDidLoad];
@@ -349,13 +357,8 @@
                                                    object:nil];
 
         pressSyncView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"press-sync.png"]];
-        pressSyncView.frame = CGRectMake(46, 130, 228, 200);
-
         pleaseConfigureView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"please-configure.png"]];
-        pleaseConfigureView.frame = CGRectMake(46, 160, 228, 99);
-
         offlineCantSyncView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cant-sync-offline.png"]];
-        offlineCantSyncView.frame = CGRectMake(46, 160, 228, 99);
 
     } else {
         if ([self root]) {
@@ -367,25 +370,9 @@
 }
 
 - (void)layoutHelpWindows {
-    switch ([[UIDevice currentDevice] orientation]) {
-        case UIDeviceOrientationLandscapeLeft:
-        case UIDeviceOrientationLandscapeRight:
-            pressSyncView.frame = CGRectMake(126, 62, 228, 200);
-            pleaseConfigureView.frame = CGRectMake(126, 106, 228, 99);
-            offlineCantSyncView.frame = CGRectMake(126, 106, 228, 99);
-            break;
-
-        case UIDeviceOrientationUnknown:
-        case UIDeviceOrientationPortrait:
-        case UIDeviceOrientationPortraitUpsideDown:
-        case UIDeviceOrientationFaceUp:
-        case UIDeviceOrientationFaceDown:
-        default:
-            pressSyncView.frame = CGRectMake(46, 130, 228, 200);
-            pleaseConfigureView.frame = CGRectMake(46, 177, 228, 99);
-            offlineCantSyncView.frame = CGRectMake(46, 177, 228, 99);
-            break;
-    }
+    [self centerView:pressSyncView];
+    [self centerView:pleaseConfigureView];    
+    [self centerView:offlineCantSyncView];
 }
 
 - (void)didRotate:(UIDeviceOrientation)orientation {

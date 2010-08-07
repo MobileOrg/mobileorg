@@ -57,7 +57,7 @@
     } else {
         entireFile = @"";
     }
-	
+
     // Get rid of any existing edits
     [[self editEntities] removeAllObjects];
 

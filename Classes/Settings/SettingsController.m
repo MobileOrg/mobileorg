@@ -32,6 +32,8 @@
 
 @implementation SettingsController
 
+@synthesize dropboxPassword;
+
 - (void)onSyncComplete {
     [[Settings instance] setLastSync:[NSDate date]];
 }
@@ -286,7 +288,7 @@
                         newLabel.text = [[Settings instance] dropboxEmail];
                         break;
                     case 2:
-                        [newLabel addTarget:self action:@selector(dropboxPasswordChanged:) forControlEvents:(UIControlEventEditingDidEnd | UIControlEventEditingDidEnd)];
+                        [newLabel addTarget:self action:@selector(dropboxPasswordChanged:) forControlEvents:(UIControlEventEditingChanged | UIControlEventEditingDidEnd)];
                         [newLabel setDelegate:self];
                         [newLabel setTag:3];
                         [[cell textLabel] setText:@"Password"];
@@ -533,7 +535,7 @@
 }
 
 - (void)dropboxPasswordChanged:(id)sender {
-    dropboxPassword = [sender text];
+    self.dropboxPassword = [sender text];
 }
 
 - (void)appBadgeSwitchChanged:(id)sender {

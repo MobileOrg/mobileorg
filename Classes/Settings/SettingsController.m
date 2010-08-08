@@ -295,6 +295,7 @@
                         [newLabel addTarget:self action:@selector(dropboxEmailChanged:) forControlEvents:(UIControlEventEditingDidEnd | UIControlEventEditingDidEnd)];
                         [newLabel setDelegate:self];
                         [newLabel setTag:2];
+                        [newLabel setKeyboardType:UIKeyboardTypeEmailAddress];
                         [[cell textLabel] setText:@"Email"];
                         newLabel.text = [[Settings instance] dropboxEmail];
                         break;

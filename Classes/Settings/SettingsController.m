@@ -20,6 +20,12 @@
 //  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //
 
+#ifndef __GNUC__
+#define __asm__ asm
+#endif
+
+__asm__(".weak_reference _OBJC_CLASS_$_NSURL");
+
 #import "SettingsController.h"
 #import "Settings.h"
 #import "DataUtils.h"

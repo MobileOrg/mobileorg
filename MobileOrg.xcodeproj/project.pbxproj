@@ -20,6 +20,7 @@
 		791653A81078109B00695E4C /* EditsFileParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 791653A71078109B00695E4C /* EditsFileParser.m */; };
 		791653C2107814C500695E4C /* EditEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 791653C1107814C500695E4C /* EditEntity.m */; };
 		7936F92A120DDF3F0062CF0E /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7936F929120DDF3F0062CF0E /* MainWindow-iPad.xib */; };
+		7936FA91120DF4280062CF0E /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7936FA90120DF4280062CF0E /* Entitlements.plist */; };
 		793F7D8D107C1E6000674D0A /* SearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 793F7D8C107C1E6000674D0A /* SearchController.m */; };
 		793F7D90107C1E6B00674D0A /* SettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 793F7D8F107C1E6B00674D0A /* SettingsController.m */; };
 		793F7EE5107C362E00674D0A /* DocumentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 793F7EE4107C362E00674D0A /* DocumentViewController.m */; };
@@ -131,6 +132,7 @@
 		791653C0107814C500695E4C /* EditEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditEntity.h; sourceTree = "<group>"; };
 		791653C1107814C500695E4C /* EditEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditEntity.m; sourceTree = "<group>"; };
 		7936F929120DDF3F0062CF0E /* MainWindow-iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "MainWindow-iPad.xib"; path = "Resources-iPad/MainWindow-iPad.xib"; sourceTree = "<group>"; };
+		7936FA90120DF4280062CF0E /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		793F7D8B107C1E6000674D0A /* SearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchController.h; sourceTree = "<group>"; };
 		793F7D8C107C1E6000674D0A /* SearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchController.m; sourceTree = "<group>"; };
 		793F7D8E107C1E6B00674D0A /* SettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsController.h; sourceTree = "<group>"; };
@@ -339,6 +341,7 @@
 				79BA55671073A7DF00D67917 /* Css */,
 				79BA55681073A7DF00D67917 /* Images */,
 				79BA55691073A7DF00D67917 /* Javascript */,
+				7936FA90120DF4280062CF0E /* Entitlements.plist */,
 				28C3AD890F43EF2300507BA6 /* MobileOrg.xcdatamodel */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* MobileOrg-Info.plist */,
@@ -772,6 +775,7 @@
 				79F87A9B10854FEA00A54CA9 /* please-configure.png in Resources */,
 				7945F5FA11A8078100731598 /* MPOAuthSignatureParameter.m.orig in Resources */,
 				7936F92A120DDF3F0062CF0E /* MainWindow-iPad.xib in Resources */,
+				7936FA91120DF4280062CF0E /* Entitlements.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -859,7 +863,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 26;
+				CURRENT_PROJECT_VERSION = 27;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -867,7 +871,7 @@
 				GCC_PREFIX_HEADER = MobileOrg_Prefix.pch;
 				INFOPLIST_FILE = "MobileOrg-Info-Debug.plist";
 				INFOPLIST_PREPROCESS = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = MobileOrg;
 				SDKROOT = iphoneos4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -879,7 +883,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Richard Moreland (6QN2535D24)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -894,17 +898,17 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Richard Moreland";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Richard Moreland (6QN2535D24)";
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 26;
+				CURRENT_PROJECT_VERSION = 27;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MobileOrg_Prefix.pch;
 				INFOPLIST_FILE = "MobileOrg-Info-AdHoc.plist";
 				INFOPLIST_PREPROCESS = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.1.2;
 				PRODUCT_NAME = MobileOrg;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "14CB93B6-C248-4B7E-819C-8C1478ACBFC2";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D427E5C8-42A1-4AA6-A277-A9235424F523";
 				SDKROOT = iphoneos4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -931,7 +935,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Richard Moreland";
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 26;
+				CURRENT_PROJECT_VERSION = 27;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MobileOrg_Prefix.pch;

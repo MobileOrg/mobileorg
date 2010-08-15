@@ -6,6 +6,12 @@
 //  Copyright 2008 matrixPointer. All rights reserved.
 //
 
+#ifndef __GNUC__
+#define __asm__ asm
+#endif
+
+__asm__(".weak_reference _OBJC_CLASS_$_NSURL");
+
 #import "MPOAuthCredentialConcreteStore.h"
 #import "MPURLRequestParameter.h"
 

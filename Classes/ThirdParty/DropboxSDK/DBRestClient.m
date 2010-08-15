@@ -6,6 +6,12 @@
 //  Copyright 2010 Dropbox, Inc. All rights reserved.
 //
 
+#ifndef __GNUC__
+#define __asm__ asm
+#endif
+
+__asm__(".weak_reference _OBJC_CLASS_$_NSURL");
+
 #import "DBRestClient.h"
 #import "DBRequest.h"
 #import "DBSession.h"

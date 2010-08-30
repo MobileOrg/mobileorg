@@ -24,6 +24,12 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>27</string>
+	<key>CFBundleIconFiles</key>
+	<array>
+		<string>Icon-beta-72</string>
+		<string>Icon-beta</string>
+		<string>Icon-beta@2x</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSMainNibFile</key>

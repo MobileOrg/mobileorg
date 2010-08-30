@@ -10,6 +10,12 @@
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFile</key>
 	<string>Icon-debug.png</string>
+	<key>CFBundleIconFiles</key>
+	<array>
+		<string>Icon-debug-72</string>
+		<string>Icon-debug</string>
+		<string>Icon-debug@2x</string>
+	</array>
 	<key>CFBundleIdentifier</key>
 	<string>to.ncogni.mobileorg-debug</string>
 	<key>CFBundleInfoDictionaryVersion</key>

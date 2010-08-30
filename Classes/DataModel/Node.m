@@ -152,7 +152,7 @@ static NSString *kFileLinkRegex = @"\\[\\[file:([a-zA-Z0-9/\\-_\\.]*\\.(?:org|tx
         return self.tags;
     }
 
-    ret = [ret stringByAppendingFormat:self.tags];
+    ret = [ret stringByAppendingString:self.tags];
     ret = [ret stringByReplacingOccurrencesOfString:@"::" withString:@":"];
 
     return ret;

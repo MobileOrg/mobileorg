@@ -112,7 +112,10 @@
     switch ([[UIDevice currentDevice] orientation]) {
         case UIDeviceOrientationLandscapeLeft:
         case UIDeviceOrientationLandscapeRight:
-            [[self view] setFrame:CGRectMake(0, 0, 480, 135)];
+            if (IsIpad())
+                [[self view] setFrame:CGRectMake(0, 0, 1024, 375)];
+            else
+                [[self view] setFrame:CGRectMake(0, 0, 480, 135)];
             break;
 
         case UIDeviceOrientationUnknown:
@@ -121,7 +124,10 @@
         case UIDeviceOrientationFaceUp:
         case UIDeviceOrientationFaceDown:
         default:
-            [[self view] setFrame:CGRectMake(0, 0, 320, 220)];
+            if (IsIpad())
+                [[self view] setFrame:CGRectMake(0, 0, 768, 722)];
+            else
+                [[self view] setFrame:CGRectMake(0, 0, 320, 220)];            
             break;
     }
 

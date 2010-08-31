@@ -77,3 +77,12 @@ void UpdateAppBadge() {
     }
     [UIApplication sharedApplication].applicationIconBadgeNumber = count;
 }
+
+// http://stackoverflow.com/questions/2576356/how-does-one-get-ui-user-interface-idiom-to-work-with-iphone-os-sdk-3-2
+BOOL IsIpad() {
+#if (__IPHONE_OS_VERSION_MAX_ALLOWED >= 30200)
+    if ([[UIDevice currentDevice] respondsToSelector: @selector(userInterfaceIdiom)])
+        return ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad);
+#endif
+    return NO;
+}

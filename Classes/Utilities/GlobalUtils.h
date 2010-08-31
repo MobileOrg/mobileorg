@@ -39,3 +39,5 @@ void UpdateEditActionCount();
 NSString *EscapeHeadings(NSString *original);
 
 void UpdateAppBadge();
+
+BOOL IsIpad();

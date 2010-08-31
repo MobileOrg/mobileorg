@@ -178,7 +178,7 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
             modeSwitch = [[[UISegmentedControl alloc] initWithItems:options] autorelease];
             
             // TODO: Make this resize when the orientation changes
-            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+            if (IsIpad())
                 modeSwitch.frame = CGRectMake(44, 0, 680, 48);                
             else
                 modeSwitch.frame = CGRectMake(9, 0, 302, 48);
@@ -208,7 +208,7 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             if (cell == nil) {
                 cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
-                if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+                if (IsIpad())
                     newLabel = [[[UITextField alloc] initWithFrame:CGRectMake(130,13,200,25)] autorelease];
                 else
                     newLabel = [[[UITextField alloc] initWithFrame:CGRectMake(100,13,200,25)] autorelease];
@@ -267,7 +267,7 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
                 UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
                 if (cell == nil) {
                     cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
-                    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+                    if (IsIpad())
                         newLabel = [[[UITextField alloc] initWithFrame:CGRectMake(130,13,200,25)] autorelease];
                     else
                         newLabel = [[[UITextField alloc] initWithFrame:CGRectMake(100,13,200,25)] autorelease];
@@ -389,7 +389,7 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
                 UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
                 if (cell == nil) {
                     cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-                    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+                    if (IsIpad())
                         appBadgeSwitch = [[[UISwitch alloc] initWithFrame:CGRectMake(620,10,200,25)] autorelease];
                     else
                         appBadgeSwitch = [[[UISwitch alloc] initWithFrame:CGRectMake(200,10,200,25)] autorelease];

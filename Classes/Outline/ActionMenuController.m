@@ -124,11 +124,10 @@
 
         case UIDeviceOrientationLandscapeLeft:
         case UIDeviceOrientationLandscapeRight:
-            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            if (IsIpad())
                 leftButtonX = 370;
-            } else {
+            else
                 leftButtonX = 100;
-            }
             rightButtonX = leftButtonX + 150;            
             yOffset = 10;
             actionView.frame = [[UIScreen mainScreen] applicationFrame];
@@ -137,11 +136,10 @@
         case UIDeviceOrientationPortrait:
         case UIDeviceOrientationPortraitUpsideDown:
         default:
-            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            if (IsIpad())
                 leftButtonX = 240;
-            } else {
+            else
                 leftButtonX = 20;
-            }
             rightButtonX = leftButtonX + 150;            
             yOffset = 40;
             actionView.frame = [[UIScreen mainScreen] applicationFrame];

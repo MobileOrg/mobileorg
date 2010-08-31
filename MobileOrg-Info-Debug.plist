@@ -12,9 +12,9 @@
 	<string>Icon-debug.png</string>
 	<key>CFBundleIconFiles</key>
 	<array>
-		<string>Icon-debug-72</string>
-		<string>Icon-debug</string>
-		<string>Icon-debug@2x</string>
+		<string>Icon-debug-72.png</string>
+		<string>Icon-debug.png</string>
+		<string>Icon-debug@2x.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
 	<string>to.ncogni.mobileorg-debug</string>

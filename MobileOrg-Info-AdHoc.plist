@@ -26,9 +26,9 @@
 	<string>27</string>
 	<key>CFBundleIconFiles</key>
 	<array>
-		<string>Icon-beta-72</string>
-		<string>Icon-beta</string>
-		<string>Icon-beta@2x</string>
+		<string>Icon-beta-72.png</string>
+		<string>Icon-beta.png</string>
+		<string>Icon-beta@2x.png</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

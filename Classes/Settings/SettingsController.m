@@ -454,6 +454,9 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
 
 - (void)resetAppData {
 
+    // Session. Clear the saved state
+    [[SessionManager instance] reset];
+        
     // Clear search
     [[AppInstance() searchController] reset];
 
@@ -469,9 +472,6 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
 
     // Reset last sync time
     [[Settings instance] setLastSync:nil];
-
-    // Session. Clear the saved state
-    [[SessionManager instance] reset];
 }
 
 - (void)applyNewServerUrl:(NSString*)url {

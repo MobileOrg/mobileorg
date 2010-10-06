@@ -759,7 +759,14 @@
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "MobileOrg" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -911,7 +918,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = MobileOrg;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos4.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -947,7 +954,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = MobileOrg;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos4.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -962,7 +969,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = iphoneos3.1;
+				SDKROOT = iphoneos4.1;
 			};
 			name = AppStore;
 		};
@@ -983,7 +990,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = MobileOrg;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "29AC6004-B5B2-41A5-95D4-B333E3DDAF27";
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos4.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};

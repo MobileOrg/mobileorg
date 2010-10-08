@@ -32,6 +32,7 @@
 @synthesize completionSelector;
 @synthesize orgFilename;
 @synthesize localFilename;
+@synthesize errorStr;
 
 - (void)parse {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -63,10 +64,12 @@
     }
 
     // Read the entire file into memory (perhaps one day we'll do this line by line somehow?)
-    entireFile = [NSString stringWithContentsOfFile:localFilename encoding:NSUTF8StringEncoding error:&error];
-    if (error) {
-        //NSLog(@"Failed to read contents of file because: %@ (%@)", [error description], [error userInfo]);
+    entireFile = ReadPossiblyEncryptedFile(localFilename, &errorStr);
+    if (errorStr) {
+        entireFile = [NSString stringWithFormat:@"* Error: %@\n", errorStr];
+    } else if (!entireFile) {
         entireFile = @"* Bad file encoding\n  Unable to detect file encoding, please re-save this file using UTF-8.";
+        errorStr = [NSString stringWithString:@"Unknown encoding, re-save file as UTF-8"];
     }
 
     // Maintain a stack of nodes for parenting use
@@ -482,6 +485,7 @@
 }
 
 - (void)dealloc {
+    [errorStr release];
     [orgFilename release];
     [localFilename release];
     [super dealloc];

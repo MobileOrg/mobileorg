@@ -47,6 +47,7 @@ static NSString *kAppBadgeModeKey    = @"AppBadgeMode";
 static NSString *kServerModeKey      = @"ServerMode";
 static NSString *kDropboxIndexKey    = @"DropboxIndex";
 static NSString *kDropboxEmailKey    = @"DropboxEmail";
+static NSString *kEncryptionPassKey  = @"EncryptionPassword";
 
 @implementation Settings
 
@@ -63,6 +64,7 @@ static NSString *kDropboxEmailKey    = @"DropboxEmail";
 @synthesize serverMode;
 @synthesize dropboxEmail;
 @synthesize dropboxIndex;
+@synthesize encryptionPassword;
 
 + (Settings*)instance {
     @synchronized(self) {
@@ -87,6 +89,9 @@ static NSString *kDropboxEmailKey    = @"DropboxEmail";
         password = [[NSUserDefaults    standardUserDefaults] objectForKey:kPasswordKey];
         [password retain];
 
+        encryptionPassword = [[NSUserDefaults standardUserDefaults] objectForKey:kEncryptionPassKey];
+        [encryptionPassword retain];        
+        
         lastSync = [[NSUserDefaults standardUserDefaults] objectForKey:kLastSyncKey];
         [lastSync retain];
 
@@ -156,6 +161,13 @@ static NSString *kDropboxEmailKey    = @"DropboxEmail";
     [password release];
     password = [aPassword copy];
     [[NSUserDefaults standardUserDefaults] setObject:aPassword forKey:kPasswordKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)setEncryptionPassword:(NSString *)aEncryptionPassword {
+    [encryptionPassword release];
+    encryptionPassword = [aEncryptionPassword copy];
+    [[NSUserDefaults standardUserDefaults] setObject:aEncryptionPassword forKey:kEncryptionPassKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
@@ -367,6 +379,7 @@ static NSString *kDropboxEmailKey    = @"DropboxEmail";
     [todoStateGroups release];
     [dropboxEmail release];
     [dropboxIndex release];
+    [encryptionPassword release];
     [super dealloc];
 }
 

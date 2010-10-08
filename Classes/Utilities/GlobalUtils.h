@@ -41,3 +41,5 @@ NSString *EscapeHeadings(NSString *original);
 void UpdateAppBadge();
 
 BOOL IsIpad();
+
+NSString *ReadPossiblyEncryptedFile(NSString *filename, NSString **error);

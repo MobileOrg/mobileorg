@@ -54,6 +54,8 @@ typedef enum {
 
     NSString *dropboxEmail;
     NSString *dropboxIndex;
+    
+    NSString *encryptionPassword;
 }
 
 @property (nonatomic, copy) NSURL *indexUrl;
@@ -69,6 +71,7 @@ typedef enum {
 @property (nonatomic) ServerMode serverMode;
 @property (nonatomic, copy) NSString *dropboxEmail;
 @property (nonatomic, copy) NSString *dropboxIndex;
+@property (nonatomic, copy) NSString *encryptionPassword;
 
 + (Settings*)instance;
 - (void)resetPrimaryTagsAndTodoStates;

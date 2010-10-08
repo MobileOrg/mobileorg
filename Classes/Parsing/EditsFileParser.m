@@ -23,6 +23,7 @@
 #import "EditsFileParser.h"
 #import "EditEntity.h"
 #import "DataUtils.h"
+#import "GlobalUtils.h"
 
 @implementation EditsFileParser
 
@@ -44,15 +45,17 @@
 
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
-    NSError *error = nil;
+    NSString *errorStr = nil;
     NSString *entireFile;
 
     // Read the entire file into memory (perhaps one day we'll do this line by line somehow?)
-    if ([[NSFileManager defaultManager] fileExistsAtPath:editsFilename]) {
-        entireFile = [NSString stringWithContentsOfFile:editsFilename encoding:NSUTF8StringEncoding error:&error];
-        if (error) {
-            //NSLog(@"Failed to read contents of file because: %@", [error description]);
+    if ([[NSFileManager defaultManager] fileExistsAtPath:editsFilename]) {        
+        entireFile = ReadPossiblyEncryptedFile(editsFilename, &errorStr);
+        if (errorStr) {
+            entireFile = [NSString stringWithFormat:@"* Error: %@\n", errorStr];
+        } else if (!entireFile) {
             entireFile = @"* Bad file encoding\n  Unable to detect file encoding, please re-save this file using UTF-8.";
+            errorStr = [NSString stringWithString:@"Unknown encoding, re-save file as UTF-8"];
         }
     } else {
         entireFile = @"";
@@ -79,7 +82,7 @@
         bool awaitingBodyTextForNonEditNode = false;
 
         lines = [entireFile componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\r\n"]];
-
+        
         // Until we hit the end of the file
         for (int i = 0; i < [lines count]; i++) {
 

@@ -301,6 +301,12 @@ static SyncManager *gInstance = NULL;
     [file closeFile];
 
     [editsFileParser reset];
+    
+    if (![[[Settings instance] encryptionPassword] isEqualToString:@""]) {
+        NSMutableData *data = [NSMutableData dataWithContentsOfFile:newEditsFilename];
+        NSData *encryptedData = [data AES256EncryptWithKey:[[Settings instance] encryptionPassword]];
+        [encryptedData writeToFile:newEditsFilename atomically:NO];
+    }
 
     // Send the file back to the server
     {
@@ -365,10 +371,17 @@ static SyncManager *gInstance = NULL;
         [f seekToEndOfFile];
 
         NSData *data = [@"\n" dataUsingEncoding:NSUTF8StringEncoding];
-        [f writeData:data];
+        
+        if (![[[Settings instance] encryptionPassword] isEqualToString:@""]) {
+            NSData *encryptedData = [data AES256EncryptWithKey:[[Settings instance] encryptionPassword]];
+            [f writeData:encryptedData];
+        } else {
+            [f writeData:data];
+        }
+        
         [f closeFile];
     }
-
+    
     currentState = SyncManagerTransferStateUploadingEmptyEditsFile;
 
     TransferContext *context = [TransferContext new];
@@ -473,7 +486,7 @@ static SyncManager *gInstance = NULL;
     for (Node *node in AllFileNodes()) {
         CreateChecksumForFile(node.heading, [checksumParser.checksumPairs objectForKey:node.heading]);
     }
-
+    
     // Clear downloaded list
     [downloadedFiles removeAllObjects];
 
@@ -580,6 +593,12 @@ static SyncManager *gInstance = NULL;
 
     // TODO: if success, do this.  otherwise, abort then resume the transfer manager.
 
+    // If not success then remove the entry from the checksumpairs, we want to
+    // retry downloading it next sync.
+    if (orgFileParser.errorStr && ![orgFileParser.errorStr isEqualToString:@""]) {
+        [checksumParser.checksumPairs removeObjectForKey:NodeWithFilename([orgFileParser orgFilename]).heading];
+    }
+    
     // Save our database changes
     Save();
 

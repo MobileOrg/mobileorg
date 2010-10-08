@@ -253,16 +253,28 @@ static WebDavTransferManager *gInstance = NULL;
 
 -(void)connection:(NSURLConnection*)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge*)challenge {
     if ([challenge previousFailureCount] == 0) {
-        NSURLCredential *newCredential;
-        newCredential = [NSURLCredential credentialWithUser:[[Settings instance] username]
-                                                   password:[[Settings instance] password]
-                                                persistence:NSURLCredentialPersistenceForSession];
-        [[challenge sender] useCredential:newCredential
-               forAuthenticationChallenge:challenge];
+        if ([[challenge protectionSpace] authenticationMethod] == NSURLAuthenticationMethodServerTrust) {
+            [challenge.sender useCredential:[NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust] forAuthenticationChallenge:challenge];            
+        }
+        else {
+            NSURLCredential *newCredential;
+            newCredential = [NSURLCredential credentialWithUser:[[Settings instance] username]
+                                                       password:[[Settings instance] password]
+                                                    persistence:NSURLCredentialPersistenceForSession];
+            [[challenge sender] useCredential:newCredential
+                   forAuthenticationChallenge:challenge];
+        }
     } else {
         [[challenge sender] continueWithoutCredentialForAuthenticationChallenge:challenge];
         activeTransfer.success = false;
     }
+}
+
+// From: http://stackoverflow.com/questions/2949640/nsurlconnection-nsurlrequest-untrusted-cert-and-user-authentication
+// In simulator on 4.x, the workaround for allowsAnyHTTPSCertificateForHost doesn't work,
+// so use this instead (along with the bit in didReceiveAuthenticationChallenge about NSURLAuthenticationMethodServerTrust.
+- (BOOL)connection:(NSURLConnection *)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace {
+    return YES;
 }
 
 - (void)requestFinished:(TransferContext*)context {

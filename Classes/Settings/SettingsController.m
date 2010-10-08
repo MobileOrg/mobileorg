@@ -38,6 +38,16 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
 
 @implementation SettingsController
 
+enum {
+    ServerModeGroup,
+    ServerSettingsGroup,
+    AppInfoGroup,
+    SettingsGroup,
+    EncryptionGroup,
+    CreditsGroup,
+    NumGroups
+};
+
 @synthesize dropboxPassword;
 
 - (void)onSyncComplete {
@@ -79,25 +89,28 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
 #pragma mark Table view methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 5;
+    return NumGroups;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 
     NSString *title = nil;
     switch (section) {
-        case 0:
+        case ServerModeGroup:
             title = NSLocalizedString(@"Server Config", @"Server configuration title");
             break;
-        case 1:
+        case ServerSettingsGroup:
             break;
-        case 2:
+        case AppInfoGroup:
             title = NSLocalizedString(@"App Info", @"App info title");
             break;
-        case 3:
+        case SettingsGroup:
             title = NSLocalizedString(@"Settings", @"App settings");
             break;
-        case 4:
+        case EncryptionGroup:
+            title = NSLocalizedString(@"Encryption", @"Encryption config");
+            break;            
+        case CreditsGroup:
             title = NSLocalizedString(@"Credits", @"Credits title");
             break;
         default:
@@ -109,10 +122,10 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
-        case 0:
+        case ServerModeGroup:
             return 1;
             break;
-        case 1:
+        case ServerSettingsGroup:
             if ([[Settings instance] serverMode] == ServerModeDropbox) {
                 if ([[DropboxTransferManager instance] isLinked]) {
                     return 2;
@@ -123,15 +136,18 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
                 return 3;
             }
             break;
-        case 2:
+        case AppInfoGroup:
             return 2;
             break;
-        case 3:
+        case SettingsGroup:
             return 1;
             break;
-        case 4:
-            return 5;
+        case EncryptionGroup:
+            return 1;
             break;
+        case CreditsGroup:
+            return 5;
+            break;            
         default:
             break;
     }
@@ -139,8 +155,10 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-    if (section == 1) {
+    if (section == ServerSettingsGroup) {
         return @"For help on configuration, visit http://mobileorg.ncogni.to";
+    } else if (section == EncryptionGroup) {
+        return @"If you have configured Org-mode to use encryption, enter your encryption password above.";
     } else {
         return @"";
     }
@@ -162,7 +180,7 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    if (indexPath.section == 0) {
+    if (indexPath.section == ServerModeGroup) {
 
         static NSString *CellIdentifier = @"ServerModeConfigurationSell";
 
@@ -198,7 +216,7 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
         return cell;
 
 
-    } else if (indexPath.section == 1) {
+    } else if (indexPath.section == ServerSettingsGroup) {
 
         if ([[Settings instance] serverMode] == ServerModeWebDav) {
 
@@ -342,7 +360,7 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
                 return cell;
             }
         }
-    } else if (indexPath.section == 2) {
+    } else if (indexPath.section == AppInfoGroup) {
         static NSString *CellIdentifier = @"SettingsSimpleCell";
 
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -378,7 +396,7 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
 
         return cell;
 
-    } else if (indexPath.section == 3) {
+    } else if (indexPath.section == SettingsGroup) {
 
         switch (indexPath.row) {
             case 0:
@@ -410,7 +428,50 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
                 break;
         }
 
-    } else if (indexPath.section == 4) {
+    } else if (indexPath.section == EncryptionGroup) {
+        
+        switch (indexPath.row) {
+            case 0:
+            {
+                static NSString *CellIdentifier = @"SettingsEncPassKey";
+                
+                UITextField *newLabel;
+                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+                if (cell == nil) {
+                    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
+                    if (IsIpad())
+                        newLabel = [[[UITextField alloc] initWithFrame:CGRectMake(130,13,200,25)] autorelease];
+                    else
+                        newLabel = [[[UITextField alloc] initWithFrame:CGRectMake(100,13,200,25)] autorelease];
+                    [newLabel setAdjustsFontSizeToFitWidth:YES];
+                    [newLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleRightMargin];
+                    [newLabel setAutocorrectionType:UITextAutocorrectionTypeNo];
+                    [newLabel setClearButtonMode:UITextFieldViewModeWhileEditing];
+                    [newLabel setAutocapitalizationType:UITextAutocapitalizationTypeNone];
+                    [cell addSubview:newLabel];
+                    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+                    
+                    CGRect detailFrame = [[cell detailTextLabel] frame];
+                    detailFrame.origin.y -= 1;
+                    [[cell detailTextLabel] setFrame:detailFrame];
+                } else {
+                    newLabel = (UITextField*)[cell.contentView viewWithTag:1];
+                }
+                
+                [newLabel addTarget:self action:@selector(encryptionPasswordChanged:) forControlEvents:(UIControlEventValueChanged | UIControlEventEditingDidEnd)];
+                [newLabel setKeyboardType:UIKeyboardTypeDefault];
+                [newLabel setDelegate:self];
+                [newLabel setSecureTextEntry:YES];
+                [newLabel setTag:1];
+                [[cell textLabel] setText:@"Password"];
+                newLabel.text = [[Settings instance] encryptionPassword];
+                return cell;                
+            }
+            default:
+                break;
+        }
+                
+    } else if (indexPath.section == CreditsGroup) {
         static NSString *CellIdentifier = @"SettingsCreditsCell";
 
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -545,6 +606,11 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
     [[Settings instance] setPassword:textField.text];
 }
 
+- (void)encryptionPasswordChanged:(id)sender {
+    UITextField *textField = (UITextField*)sender;
+    [[Settings instance] setEncryptionPassword:textField.text];    
+}
+
 - (void)dropboxIndexChanged:(id)sender {
     UITextField *textField = (UITextField*)sender;
     [[Settings instance] setDropboxIndex:textField.text];
@@ -588,7 +654,7 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
     // [self.navigationController pushViewController:anotherViewController];
     // [anotherViewController release];
 
-    if (indexPath.section == 1 && [[Settings instance] serverMode] == ServerModeDropbox) {
+    if (indexPath.section == ServerSettingsGroup && [[Settings instance] serverMode] == ServerModeDropbox) {
 
         bool linked = [[DropboxTransferManager instance] isLinked];
         if ((!linked && indexPath.row == 3) || (linked && indexPath.row == 1)) {

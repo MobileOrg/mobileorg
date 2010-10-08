@@ -27,12 +27,14 @@
     SEL completionSelector;
     NSString *orgFilename;
     NSString *localFilename;
+    NSString *errorStr;
 }
 
 @property (nonatomic, assign) id delegate;
 @property (nonatomic) SEL completionSelector;
 @property (nonatomic, copy) NSString *orgFilename;
 @property (nonatomic, copy) NSString *localFilename;
+@property (nonatomic, copy) NSString *errorStr;
 
 - (void)parse;
 

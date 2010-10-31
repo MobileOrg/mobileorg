@@ -90,6 +90,9 @@ static NSString *kEncryptionPassKey  = @"EncryptionPassword";
         [password retain];
 
         encryptionPassword = [[NSUserDefaults standardUserDefaults] objectForKey:kEncryptionPassKey];
+        if (!encryptionPassword) {
+            encryptionPassword = [NSString stringWithString:@""];
+        }
         [encryptionPassword retain];        
         
         lastSync = [[NSUserDefaults standardUserDefaults] objectForKey:kLastSyncKey];

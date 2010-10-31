@@ -302,7 +302,7 @@ static SyncManager *gInstance = NULL;
 
     [editsFileParser reset];
     
-    if (![[[Settings instance] encryptionPassword] isEqualToString:@""]) {
+    if ([[Settings instance] encryptionPassword] && ![[[Settings instance] encryptionPassword] isEqualToString:@""]) {
         NSMutableData *data = [NSMutableData dataWithContentsOfFile:newEditsFilename];
         NSData *encryptedData = [data AES256EncryptWithKey:[[Settings instance] encryptionPassword]];
         [encryptedData writeToFile:newEditsFilename atomically:NO];
@@ -372,7 +372,7 @@ static SyncManager *gInstance = NULL;
 
         NSData *data = [@"\n" dataUsingEncoding:NSUTF8StringEncoding];
         
-        if (![[[Settings instance] encryptionPassword] isEqualToString:@""]) {
+        if ([[Settings instance] encryptionPassword] && ![[[Settings instance] encryptionPassword] isEqualToString:@""]) {
             NSData *encryptedData = [data AES256EncryptWithKey:[[Settings instance] encryptionPassword]];
             [f writeData:encryptedData];
         } else {

@@ -202,7 +202,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self save:true];
+    [self save:!self.showKeyboardOnLoad];
     [self registerForKeyboardNotifications];
 }
 

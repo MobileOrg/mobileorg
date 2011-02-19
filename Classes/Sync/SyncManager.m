@@ -725,8 +725,20 @@ static SyncManager *gInstance = NULL;
 
         case SyncManagerTransferStateDownloadingOrgFiles:
         {
-            // We want to strip the baseUrl off of the remoteUrl and use that as the org filename
-            NSString *orgFilename = [[[context remoteUrl] absoluteString] stringByReplacingOccurrencesOfString:[[[Settings instance] baseUrl] absoluteString] withString:@""];
+            NSString *orgFilename;
+            switch ([[Settings instance] serverMode]) {
+                case ServerModeWebDav:
+                    // We want to strip the baseUrl off of the remoteUrl and use that as the org filename
+                    orgFilename = [[[context remoteUrl] absoluteString] stringByReplacingOccurrencesOfString:[[[Settings instance] baseUrl] absoluteString] withString:@""];
+                    break;
+                case ServerModeDropbox:
+                    // Strip off the leading slash only
+                    orgFilename = [[[context remoteUrl] absoluteString] substringFromIndex:1];
+                    break;
+                default:
+                    NSLog(@"Fix me, unsupported server mode!");
+                    break;
+            }
             [self processOrgFile:orgFilename withLocalFile:[context localFile]];
             break;
         }

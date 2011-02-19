@@ -109,7 +109,11 @@ NSString *ReadPossiblyEncryptedFile(NSString *filename, NSString **error) {
 
                 NSStringEncoding encoding;
                 NSError *e;
-                return [NSString stringWithContentsOfFile:tmpFileName usedEncoding:&encoding error:&e];
+                NSString *ret = [NSString stringWithContentsOfFile:tmpFileName usedEncoding:&encoding error:&e];
+
+                DeleteFile(FileWithName(@"decrypted-file.org"));
+                
+               return ret;
             } else {
                 return @"";
             }

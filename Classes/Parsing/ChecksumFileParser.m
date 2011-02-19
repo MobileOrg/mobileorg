@@ -41,7 +41,8 @@
     [checksumPairs removeAllObjects];
 
     NSError *error = nil;
-    NSString *entireFile = [NSString stringWithContentsOfFile:filename encoding:NSUTF8StringEncoding error:&error];
+    NSStringEncoding encoding;
+    NSString *entireFile = [NSString stringWithContentsOfFile:filename usedEncoding:&encoding error:&error];
     if (error) {
         //NSLog(@"Failed to read contents of file because: %@ (%@)", [error description], [error userInfo]);
         entireFile = @"";

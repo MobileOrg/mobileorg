@@ -104,7 +104,12 @@ NSString *ReadPossiblyEncryptedFile(NSString *filename, NSString **error) {
         NSData *decryptedData = [data AES256DecryptWithKey:[[Settings instance] encryptionPassword]];
         if (decryptedData) {
             if ([decryptedData length] > 0) {
-                return [NSString stringWithCString:[decryptedData bytes] encoding:NSUTF8StringEncoding];
+                NSString *tmpFileName = FileWithName(@"decrypted-file.org");
+                [[NSFileManager defaultManager] createFileAtPath:tmpFileName contents:decryptedData attributes:nil];              
+
+                NSStringEncoding encoding;
+                NSError *e;
+                return [NSString stringWithContentsOfFile:tmpFileName usedEncoding:&encoding error:&e];
             } else {
                 return @"";
             }
@@ -113,7 +118,9 @@ NSString *ReadPossiblyEncryptedFile(NSString *filename, NSString **error) {
             return nil;
         }      
     } else {
-        return [NSString stringWithCString:[data bytes] encoding:NSUTF8StringEncoding];
+        NSStringEncoding encoding;
+        NSError *e;
+        return [NSString stringWithContentsOfFile:filename usedEncoding:&encoding error:&e];
     }
 }
 

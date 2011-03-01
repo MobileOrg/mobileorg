@@ -24,6 +24,7 @@
 #import "EditEntity.h"
 #import "DataUtils.h"
 #import "GlobalUtils.h"
+#import "RegexKitLite.h"
 
 @implementation EditsFileParser
 

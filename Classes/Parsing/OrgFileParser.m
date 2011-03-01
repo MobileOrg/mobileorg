@@ -25,6 +25,7 @@
 #import "GlobalUtils.h"
 #import "DataUtils.h"
 #import "Settings.h"
+#import "RegexKitLite.h"
 
 @implementation OrgFileParser
 

@@ -21,6 +21,7 @@
 //
 
 #import "ChecksumFileParser.h"
+#import "RegexKitLite.h"
 
 @implementation ChecksumFileParser
 

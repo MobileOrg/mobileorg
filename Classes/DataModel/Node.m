@@ -25,6 +25,7 @@
 #import "DataUtils.h"
 #import "Settings.h"
 #import "GlobalUtils.h"
+#import "RegexKitLite.h"
 
 @implementation Node
 
@@ -127,17 +128,35 @@ static NSString *kFileLinkRegex = @"\\[\\[file:([a-zA-Z0-9/\\-_\\.]*\\.(?:org|tx
     return nil;
 }
 
+
 - (NSString*)bodyForDisplay {
     NSString *summary = [self body];
+    summary = [summary stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    // Will this cause us problems if stuff comes from Windows with CRLF line endings?
+    NSArray* lines = [summary componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
 
-    NSRange break_range = [[self heading] rangeOfString:@"<break>"];
-    if (break_range.location != NSNotFound) {
-        summary = [[self heading] substringFromIndex:break_range.location+break_range.length];
+    NSMutableArray* goodLines = [[NSMutableArray alloc] init];
+    BOOL inDrawer = NO;
+    for (NSString* line in lines) {
+        if (!inDrawer && [line isMatchedByRegex:@"^\\s*:.+:\\s*$"] &&
+            ![line isMatchedByRegex:@"^\\s*:END:\\s*$"]) {
+            inDrawer = YES;
+            continue;
+        }
+        else if ([line isMatchedByRegex:@"^\\s*:END:\\s*$"]) {
+            inDrawer = NO;
+            continue;  // We don't want the :END: line either.
+        }
+
+        if (! inDrawer) {
+            [goodLines addObject:line];
+        }
     }
 
-    summary = [summary stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *result = [goodLines componentsJoinedByString:@"\n"];
+    [goodLines release];
 
-    return summary;
+    return result;
 }
 
 - (NSString*)completeTags {

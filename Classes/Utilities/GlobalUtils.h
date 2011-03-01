@@ -43,3 +43,8 @@ void UpdateAppBadge();
 BOOL IsIpad();
 
 NSString *ReadPossiblyEncryptedFile(NSString *filename, NSString **error);
+
+@interface NSData (AES256)
+- (NSData *)AES256EncryptWithKey:(NSString *)passphrase;
+- (NSData *)AES256DecryptWithKey:(NSString *)passphrase;
+@end

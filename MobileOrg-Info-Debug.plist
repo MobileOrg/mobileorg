@@ -28,6 +28,15 @@
 	<string>1.5.2</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>db-f6rbji5gwcrhvpg</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>30</string>
 	<key>LSRequiresIPhoneOS</key>

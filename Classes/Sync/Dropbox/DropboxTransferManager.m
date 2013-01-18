@@ -60,6 +60,7 @@ static DropboxTransferManager *gInstance = NULL;
         active = false;
         paused = false;
         data = [[NSMutableData alloc] init];
+        // We use App Folder as recommended by Dropbox, so kDBRootAppFolder instead of kDBRootDropbox
         dbSession = [[DBSession alloc] initWithAppKey:APP_KEY appSecret:APP_SECRET root:kDBRootAppFolder];
         [DBSession setSharedSession:dbSession];
         dbClient = [[DBRestClient alloc] initWithSession:dbSession];

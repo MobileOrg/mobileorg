@@ -490,18 +490,26 @@ enum {
                 [[cell detailTextLabel] setText:@"Design and development"];
                 break;
             case 1:
+                [[cell textLabel] setText:@"Sean Escriva"];
+                [[cell detailTextLabel] setText:@"Development and Organization"];
+                break;
+            case 2:
+                [[cell textLabel] setText:@"Alex Rodich"];
+                [[cell detailTextLabel] setText:@"Development and Organization"];
+                break;
+            case 3:
                 [[cell textLabel] setText:@"Carsten Dominik"];
                 [[cell detailTextLabel] setText:@"Design and Emacs integration"];
                 break;
-            case 2:
+            case 4:
                 [[cell textLabel] setText:@"Greg Newman"];
                 [[cell detailTextLabel] setText:@"Updated app icon"];
                 break;
-            case 3:
+            case 5:
                 [[cell textLabel] setText:@"Christophe Bataillon"];
                 [[cell detailTextLabel] setText:@"Original app icon"];
                 break;
-            case 4:
+            case 6:
                 [[cell textLabel] setText:@"Joseph Wain of glyphish.com"];
                 [[cell detailTextLabel] setText:@"Creative Commons Attribution icons"];
                 break;

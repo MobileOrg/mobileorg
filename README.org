@@ -43,6 +43,8 @@
   - Joseph Wain of glyphish.com
   - Sean Escriva
   - Alex Rodich
+  - Gautam Guliani
+  - Rahul Jha
 * License
     MobileOrg is distributed under the GNU Public License version 2.
     See LICENSE.txt for more info.

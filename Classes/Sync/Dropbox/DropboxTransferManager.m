@@ -34,6 +34,7 @@
 - (void)dispatchNextTransfer;
 - (void)processRequest:(TransferContext*)context;
 - (void)requestFinished:(TransferContext *)context;
+- (DBRestClient*)getClient; // we must be linked to call this!
 @end
 
 // Singleton instance
@@ -63,10 +64,26 @@ static DropboxTransferManager *gInstance = NULL;
         // We use App Folder as recommended by Dropbox, so kDBRootAppFolder instead of kDBRootDropbox
         dbSession = [[DBSession alloc] initWithAppKey:APP_KEY appSecret:APP_SECRET root:kDBRootAppFolder];
         [DBSession setSharedSession:dbSession];
+        dbClient = 0; // we'll allocate this when we need it - see getClient below.
+    }
+    return self;
+}
+
+- (DBRestClient*) getClient {
+    // if it doesn't exist, allocate it now.
+    // the reason we don't allocate this during init
+    // is that if we don't wait until the session is linked,
+    // the client will be invalid.
+    
+    // we must be linked!
+    // Assert([self isLinked]);
+    
+    if(!dbClient)
+    {
         dbClient = [[DBRestClient alloc] initWithSession:dbSession];
         dbClient.delegate = self;
     }
-    return self;
+    return dbClient;
 }
 
 - (void)enqueueTransfer:(TransferContext *)context {
@@ -133,9 +150,9 @@ static DropboxTransferManager *gInstance = NULL;
     NSString *path = [[context.remoteUrl absoluteString] stringByReplacingOccurrencesOfString:@"dropbox:///" withString:@"/"];
 
     if (context.transferType == TransferTypeDownload) {
-        [dbClient loadFile:path intoPath:context.localFile];
+        [[self getClient] loadFile:path intoPath:context.localFile];
     } else {
-        [dbClient uploadFile:path toPath:@"/" fromPath:context.localFile];
+        [[self getClient] uploadFile:path toPath:@"/" fromPath:context.localFile];
     }
 }
 
@@ -194,6 +211,13 @@ static DropboxTransferManager *gInstance = NULL;
 
 - (void)unlink {
     [dbSession unlinkAll];
+    
+    // remove the client
+    if(dbClient)
+    {
+        [dbClient release];
+        dbClient = 0;
+    }
 }
 
 - (BOOL)isLinked {

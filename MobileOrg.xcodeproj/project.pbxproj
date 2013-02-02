@@ -120,13 +120,13 @@
 		79F87A9A10854FEA00A54CA9 /* cant-sync-offline.png in Resources */ = {isa = PBXBuildFile; fileRef = 79F87A9810854FEA00A54CA9 /* cant-sync-offline.png */; };
 		79F87A9B10854FEA00A54CA9 /* please-configure.png in Resources */ = {isa = PBXBuildFile; fileRef = 79F87A9910854FEA00A54CA9 /* please-configure.png */; };
 		79FFA2B81224B2FF0010E489 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 79FFA2B71224B2FF0010E489 /* Icon@2x.png */; };
+		FF11B7F116BD92B400135A52 /* DropBoxKeys.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = FF11B7F016BD909800135A52 /* DropBoxKeys.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		18A3BBA216178BDD003D9320 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		18A3BBA516178DCD003D9320 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		18A3BBA616178DCD003D9320 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		18F8718916177B4500EB16D5 /* DropboxKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DropboxKeys.h; sourceTree = "<group>"; };
 		18F871901617865500EB16D5 /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DropboxSDK.framework; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* MobileOrg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobileOrg.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -259,6 +259,7 @@
 		79F87A9910854FEA00A54CA9 /* please-configure.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "please-configure.png"; sourceTree = "<group>"; };
 		79FFA2B71224B2FF0010E489 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = SOURCE_ROOT; };
 		8D1107310486CEB800E47090 /* MobileOrg-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MobileOrg-Info.plist"; sourceTree = "<group>"; };
+		FF11B7F016BD909800135A52 /* DropBoxKeys.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DropBoxKeys.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -352,6 +353,7 @@
 				799774AA122C69260006EFC6 /* MobileOrg-Info-AdHoc.plist */,
 				799774AB122C69260006EFC6 /* MobileOrg-Info-Debug.plist */,
 				5A96678812DC83ED00CD02F5 /* UnitTests-Info.plist */,
+				FF11B7F016BD909800135A52 /* DropBoxKeys.xcconfig */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -398,7 +400,6 @@
 			children = (
 				796CB87A11ACA1D80040167E /* DropboxTransferManager.h */,
 				796CB87B11ACA1D80040167E /* DropboxTransferManager.m */,
-				18F8718916177B4500EB16D5 /* DropboxKeys.h */,
 			);
 			name = Dropbox;
 			sourceTree = "<group>";
@@ -741,6 +742,7 @@
 				7997749C122C68850006EFC6 /* Icon-debug-72.png in Resources */,
 				7997749F122C68900006EFC6 /* Icon-beta@2x.png in Resources */,
 				799774A0122C68900006EFC6 /* Icon-debug@2x.png in Resources */,
+				FF11B7F116BD92B400135A52 /* DropBoxKeys.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -832,10 +834,10 @@
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FF11B7F016BD909800135A52 /* DropBoxKeys.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 30;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -846,11 +848,13 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MobileOrg_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"APP_SECRET=@\\\"$(APP_SECRET)\\\"",
+					"APP_KEY=@\\\"$(APP_KEY)\\\"",
+				);
 				INFOPLIST_FILE = "MobileOrg-Info-Debug.plist";
-				INFOPLIST_PREPROCESS = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = MobileOrg;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -940,25 +944,27 @@
 		};
 		79BA556E1073A82500D67917 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FF11B7F016BD909800135A52 /* DropBoxKeys.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Richard Moreland (6QN2535D24)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_INPUT_FILETYPE = sourcecode.c.objc;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 			};
 			name = AdHoc;
 		};
 		79BA556F1073A82500D67917 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FF11B7F016BD909800135A52 /* DropBoxKeys.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Richard Moreland";
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 30;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -967,11 +973,13 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MobileOrg_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"APP_SECRET=@\\\"$(APP_SECRET)\\\"",
+					"APP_KEY=@\\\"$(APP_KEY)\\\"",
+				);
 				INFOPLIST_FILE = "MobileOrg-Info-AdHoc.plist";
-				INFOPLIST_PREPROCESS = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = MobileOrg;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "29AC6004-B5B2-41A5-95D4-B333E3DDAF27";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -980,6 +988,7 @@
 		};
 		79BA55701073A82C00D67917 /* AppStore */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FF11B7F016BD909800135A52 /* DropBoxKeys.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -994,10 +1003,10 @@
 		};
 		79BA55711073A82C00D67917 /* AppStore */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FF11B7F016BD909800135A52 /* DropBoxKeys.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Richard Moreland";
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 30;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1006,12 +1015,14 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MobileOrg_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = FOR_APP_STORE;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"APP_SECRET=@\\\"$(APP_SECRET)\\\"",
+					"APP_KEY=@\\\"$(APP_KEY)\\\"",
+					FOR_APP_STORE,
+				);
 				INFOPLIST_FILE = "MobileOrg-Info.plist";
-				INFOPLIST_PREPROCESS = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = MobileOrg;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "29AC6004-B5B2-41A5-95D4-B333E3DDAF27";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1020,14 +1031,16 @@
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FF11B7F016BD909800135A52 /* DropBoxKeys.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Richard Moreland (6QN2535D24)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_INPUT_FILETYPE = sourcecode.c.objc;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;

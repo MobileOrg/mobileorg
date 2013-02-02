@@ -39,7 +39,7 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>db-iq948bvhccq2chx</string>
+				<string>db-${APP_KEY}</string>
 			</array>
 		</dict>
 	</array>

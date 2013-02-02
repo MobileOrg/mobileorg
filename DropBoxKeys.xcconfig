@@ -1,0 +1,9 @@
+//
+//  DropBoxKeys.xcconfig
+//  MobileOrg
+//
+//
+//
+
+APP_KEY = <put key here>;
+APP_SECRET = <put secret here>;

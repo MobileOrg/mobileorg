@@ -27,9 +27,6 @@
 #import "Settings.h"
 #import <DropBoxSDK/DropBoxSDK.h>
 
-// Just #define APP_SECRET "xxx" and APP_KEY @"yyy" in this file
-#import "DropboxKeys.h"
-
 @interface DropboxTransferManager(private)
 - (void)dispatchNextTransfer;
 - (void)processRequest:(TransferContext*)context;

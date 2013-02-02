@@ -849,8 +849,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MobileOrg_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"APP_SECRET=@\"$(APP_SECRET)\"",
-					"APP_KEY=\"$(APP_KEY)\"",
+					"APP_SECRET=@\\\"$(APP_SECRET)\\\"",
+					"APP_KEY=@\\\"$(APP_KEY)\\\"",
 				);
 				INFOPLIST_FILE = "MobileOrg-Info-Debug.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
@@ -1016,8 +1016,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MobileOrg_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"APP_SECRET=@\"$(APP_SECRET)\"",
-					"APP_KEY=\"$(APP_KEY)\"",
+					"APP_SECRET=@\\\"$(APP_SECRET)\\\"",
+					"APP_KEY=@\\\"$(APP_KEY)\\\"",
 					FOR_APP_STORE,
 				);
 				INFOPLIST_FILE = "MobileOrg-Info.plist";
@@ -1034,7 +1034,7 @@
 			baseConfigurationReference = FF11B7F016BD909800135A52 /* DropBoxKeys.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_INPUT_FILETYPE = sourcecode.c.objc;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;

@@ -2,7 +2,8 @@
 //  DropBoxKeys.xcconfig
 //  MobileOrg
 //
-//
+//  Copy this file to DropBoxKeys.xcconfig and add the correct keys. 
+//  Do not use quotation marks or constrant string notation (@)
 //
 
 APP_KEY = <put key here>;

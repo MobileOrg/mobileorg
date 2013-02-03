@@ -21,16 +21,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DBRestClient.h"
+#import <DropboxSDK/DropboxSDK.h>
 #import "TransferManager.h"
 
 @class TransferContext;
-
-@protocol DropboxLoginDelegate <NSObject>
-@optional
-- (void)loginSuccess;
-- (void)loginFailedWithError:(NSString*)message;
-@end
 
 @interface DropboxTransferManager : TransferManager <DBRestClientDelegate> {
     NSMutableArray *transfers;
@@ -42,12 +36,10 @@
     NSNumber *fileSize;
     DBSession *dbSession;
     DBRestClient *dbClient;
-    id<DropboxLoginDelegate> loginDelegate;
 }
 
 @property (nonatomic, retain) TransferContext *activeTransfer;
 @property (nonatomic, copy) NSNumber *fileSize;
-@property (nonatomic, assign) id<DropboxLoginDelegate> loginDelegate;
 
 + (DropboxTransferManager*)instance;
 - (void)enqueueTransfer:(TransferContext*)transfer;
@@ -56,7 +48,7 @@
 - (bool)busy;
 - (int)queueSize;
 - (void)abort;
-- (void)login:(NSString*)email andPassword:(NSString*)password;
+- (void)login:(NSObject*)rootController;
 - (void)unlink;
 - (BOOL)isLinked;
 

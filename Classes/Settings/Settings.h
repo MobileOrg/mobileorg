@@ -52,7 +52,6 @@ typedef enum {
 
     ServerMode serverMode;
 
-    NSString *dropboxEmail;
     NSString *dropboxIndex;
     
     NSString *encryptionPassword;
@@ -69,7 +68,6 @@ typedef enum {
 @property (nonatomic, copy) NSMutableArray *priorities;
 @property (nonatomic) AppBadgeMode appBadgeMode;
 @property (nonatomic) ServerMode serverMode;
-@property (nonatomic, copy) NSString *dropboxEmail;
 @property (nonatomic, copy) NSString *dropboxIndex;
 @property (nonatomic, copy) NSString *encryptionPassword;
 

@@ -48,8 +48,6 @@ enum {
     NumGroups
 };
 
-@synthesize dropboxPassword;
-
 - (void)onSyncComplete {
     [[Settings instance] setLastSync:[NSDate date]];
 }
@@ -127,11 +125,7 @@ enum {
             break;
         case ServerSettingsGroup:
             if ([[Settings instance] serverMode] == ServerModeDropbox) {
-                if ([[DropboxTransferManager instance] isLinked]) {
-                    return 2;
-                } else {
-                    return 4;
-                }
+                return 2;
             } else {
                 return 3;
             }
@@ -278,7 +272,7 @@ enum {
 
         } else if ([[Settings instance] serverMode] == ServerModeDropbox) {
 
-            if ((![[DropboxTransferManager instance] isLinked] && indexPath.row < 3) || indexPath.row == 0) {
+            if (indexPath.row == 0) {
                 static NSString *CellIdentifier = @"SettingsDropboxConfigurationCell";
 
                 UITextField *newLabel;
@@ -304,38 +298,13 @@ enum {
                     newLabel = (UITextField*)[cell.contentView viewWithTag:1];
                 }
 
-                // Set up the cell...
+		[newLabel addTarget:self action:@selector(dropboxIndexChanged:) forControlEvents:(UIControlEventValueChanged | UIControlEventEditingDidEnd)];
+		[newLabel setKeyboardType:UIKeyboardTypeURL];
+		[newLabel setDelegate:self];
+		[newLabel setTag:1];
+		[[cell textLabel] setText:@"Index File"];
+		newLabel.text = [[Settings instance] dropboxIndex];
 
-                switch (indexPath.row) {
-                    case 0:
-                        [newLabel addTarget:self action:@selector(dropboxIndexChanged:) forControlEvents:(UIControlEventValueChanged | UIControlEventEditingDidEnd)];
-                        [newLabel setKeyboardType:UIKeyboardTypeURL];
-                        [newLabel setDelegate:self];
-                        [newLabel setTag:1];
-                        [[cell textLabel] setText:@"Index File"];
-                        newLabel.text = [[Settings instance] dropboxIndex];
-                        break;
-                    case 1:
-                        [newLabel addTarget:self action:@selector(dropboxEmailChanged:) forControlEvents:(UIControlEventEditingDidEnd | UIControlEventEditingDidEnd)];
-                        [newLabel setDelegate:self];
-                        [newLabel setTag:2];
-                        [newLabel setKeyboardType:UIKeyboardTypeEmailAddress];
-                        [[cell textLabel] setText:@"Email"];
-                        newLabel.text = [[Settings instance] dropboxEmail];
-                        break;
-                    case 2:
-                        [newLabel addTarget:self action:@selector(dropboxPasswordChanged:) forControlEvents:(UIControlEventEditingChanged | UIControlEventEditingDidEnd)];
-                        [newLabel setDelegate:self];
-                        [newLabel setTag:3];
-                        [[cell textLabel] setText:@"Password"];
-                        [newLabel setSecureTextEntry:YES];
-                        if ([[DropboxTransferManager instance] isLinked]) {
-                            newLabel.text = @"";
-                        }
-                        break;
-                    default:
-                        break;
-                }
                 return cell;
             } else {
                 static NSString *CellIdentifier = @"SettingsDropboxButtonCell";
@@ -616,15 +585,6 @@ enum {
     [[Settings instance] setDropboxIndex:textField.text];
 }
 
-- (void)dropboxEmailChanged:(id)sender {
-    UITextField *textField = (UITextField*)sender;
-    [[Settings instance] setDropboxEmail:textField.text];
-}
-
-- (void)dropboxPasswordChanged:(id)sender {
-    self.dropboxPassword = [sender text];
-}
-
 - (void)appBadgeSwitchChanged:(id)sender {
     UISwitch *appBadgeSwitch = (UISwitch*)sender;
     if ([appBadgeSwitch isOn]) {
@@ -656,13 +616,7 @@ enum {
 
     if (indexPath.section == ServerSettingsGroup && [[Settings instance] serverMode] == ServerModeDropbox) {
 
-        bool linked = [[DropboxTransferManager instance] isLinked];
-        if ((!linked && indexPath.row == 3) || (linked && indexPath.row == 1)) {
-
-            if (dropboxLoggingIn) {
-                [[[self tableView] cellForRowAtIndexPath:indexPath] setSelected:NO animated:YES];
-                return;
-            }
+        if (indexPath.row == 1) {
 
             [[[self tableView] cellForRowAtIndexPath:indexPath] setSelected:YES animated:YES];
 
@@ -671,10 +625,10 @@ enum {
                 [[self tableView] reloadData];
                 [[self tableView] setNeedsDisplay];
             } else {
-                [[DropboxTransferManager instance] setLoginDelegate:self];
-                [[DropboxTransferManager instance] login:[[Settings instance] dropboxEmail] andPassword:dropboxPassword];
-                dropboxLoggingIn = true;
-                [[self tableView] cellForRowAtIndexPath:indexPath].textLabel.text = @"Logging in...";
+                [[DropboxTransferManager instance] login:self];
+                [[self tableView] reloadData];
+                [[self tableView] setNeedsDisplay];
+                //[[self tableView] cellForRowAtIndexPath:indexPath].textLabel.text = @"Logging in...";
             }
 
             [[[self tableView] cellForRowAtIndexPath:indexPath] setSelected:NO animated:YES];
@@ -682,31 +636,10 @@ enum {
     }
 }
 
-- (void)loginSuccess {
-    dropboxLoggingIn = false;
-    [[self tableView] reloadData];
-    [[self tableView] setNeedsDisplay];
-}
-
-- (void)loginFailedWithError:(NSString*)message {
-    UIAlertView *alert = [[UIAlertView alloc]
-                          initWithTitle:@"Dropbox Error"
-                          message:message
-                          delegate:nil
-                          cancelButtonTitle:@"Cancel"
-                          otherButtonTitles:nil];
-    [alert show];
-    [alert autorelease];
-    dropboxLoggingIn = false;
-    [[self tableView] reloadData];
-    [[self tableView] setNeedsDisplay];
-}
-
 - (void)dealloc {
 
     [[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:@"SyncComplete"];
     [pendingNewIndexUrl release];
-    [dropboxPassword release];
     [super dealloc];
 }
 
@@ -729,4 +662,8 @@ enum {
     return YES;
 }
 
+- (void)loginDone:(BOOL)successful {
+    [[self tableView] reloadData];
+    [[self tableView] setNeedsDisplay];
+}
 @end

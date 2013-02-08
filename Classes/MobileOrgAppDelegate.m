@@ -278,4 +278,16 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
     [super dealloc];
 }
 
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    if ([[DBSession sharedSession] handleOpenURL:url]) {
+        if ([[DBSession sharedSession] isLinked]) {
+            NSLog(@"App linked successfully!");
+            // At this point you can start making API calls
+        }
+        [[self settingsController] loginDone:[[DBSession sharedSession] isLinked]];
+        return YES;
+    }
+    // Add whatever other url handling code your app requires here
+    return NO;
+}
 @end

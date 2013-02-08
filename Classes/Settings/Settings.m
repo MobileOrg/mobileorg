@@ -47,7 +47,6 @@ static NSString *kPrioritiesKey      = @"Priorities";
 static NSString *kAppBadgeModeKey    = @"AppBadgeMode";
 static NSString *kServerModeKey      = @"ServerMode";
 static NSString *kDropboxIndexKey    = @"DropboxIndex";
-static NSString *kDropboxEmailKey    = @"DropboxEmail";
 static NSString *kEncryptionPassKey  = @"EncryptionPassword";
 
 @implementation Settings
@@ -63,7 +62,6 @@ static NSString *kEncryptionPassKey  = @"EncryptionPassword";
 @synthesize priorities;
 @synthesize appBadgeMode;
 @synthesize serverMode;
-@synthesize dropboxEmail;
 @synthesize dropboxIndex;
 @synthesize encryptionPassword;
 
@@ -133,9 +131,6 @@ static NSString *kEncryptionPassKey  = @"EncryptionPassword";
         if (!serverMode) {
             self.serverMode = ServerModeWebDav;
         }
-
-        dropboxEmail = [[NSUserDefaults standardUserDefaults] objectForKey:kDropboxEmailKey];
-        [dropboxEmail retain];
 
         dropboxIndex = [[NSUserDefaults standardUserDefaults] objectForKey:kDropboxIndexKey];
         [dropboxIndex retain];
@@ -321,12 +316,6 @@ static NSString *kEncryptionPassKey  = @"EncryptionPassword";
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-- (void)setDropboxEmail:(NSString*)anEmail {
-    [dropboxEmail release];
-    dropboxEmail = [anEmail copy];
-    [[NSUserDefaults standardUserDefaults] setObject:anEmail forKey:kDropboxEmailKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
 
 - (NSString*)indexFilename {
     if (self.serverMode == ServerModeWebDav) {
@@ -381,7 +370,6 @@ static NSString *kEncryptionPassKey  = @"EncryptionPassword";
     [primaryTags release];
     [mutuallyExclusiveTagGroups release];
     [todoStateGroups release];
-    [dropboxEmail release];
     [dropboxIndex release];
     [encryptionPassword release];
     [super dealloc];

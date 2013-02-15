@@ -46,6 +46,7 @@ static NSString *kTodoStateGroupsKey = @"TodoStateGroups";
 static NSString *kPrioritiesKey      = @"Priorities";
 static NSString *kAppBadgeModeKey    = @"AppBadgeMode";
 static NSString *kServerModeKey      = @"ServerMode";
+static NSString *kLaunchTabKey       = @"LaunchTab";
 static NSString *kDropboxIndexKey    = @"DropboxIndex";
 static NSString *kEncryptionPassKey  = @"EncryptionPassword";
 
@@ -62,6 +63,7 @@ static NSString *kEncryptionPassKey  = @"EncryptionPassword";
 @synthesize priorities;
 @synthesize appBadgeMode;
 @synthesize serverMode;
+@synthesize launchTab;
 @synthesize dropboxIndex;
 @synthesize encryptionPassword;
 
@@ -130,6 +132,11 @@ static NSString *kEncryptionPassKey  = @"EncryptionPassword";
         serverMode = [[NSUserDefaults standardUserDefaults] integerForKey:kServerModeKey];
         if (!serverMode) {
             self.serverMode = ServerModeWebDav;
+        }
+        
+        launchTab = [[NSUserDefaults standardUserDefaults] integerForKey:kLaunchTabKey];
+        if (!serverMode) {
+            self.launchTab = LaunchTabOutline;
         }
 
         dropboxIndex = [[NSUserDefaults standardUserDefaults] objectForKey:kDropboxIndexKey];
@@ -306,6 +313,12 @@ static NSString *kEncryptionPassKey  = @"EncryptionPassword";
 - (void)setServerMode:(ServerMode)newServerMode {
     serverMode = newServerMode;
     [[NSUserDefaults standardUserDefaults] setInteger:serverMode forKey:kServerModeKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)setLaunchTab:(LaunchTab)newLaunchTab {
+    launchTab = newLaunchTab;
+    [[NSUserDefaults standardUserDefaults] setInteger:launchTab forKey:kLaunchTabKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 

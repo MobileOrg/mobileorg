@@ -197,20 +197,12 @@ enum {
 
             modeSwitch = [[[UISegmentedControl alloc] initWithItems:options] autorelease];
             
-            /*
-            // TODO: Make this resize when the orientation changes
-            if (IsIpad())
-                modeSwitch.frame = CGRectMake(44, 0, 680, 48);                
-            else
-                modeSwitch.frame = CGRectMake(9, 0, 302, 48);
-             */
-            //modeSwitch.frame = cell.;
-            
             modeSwitch.segmentedControlStyle = UISegmentedControlStylePlain;
             modeSwitch.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
-            
-            [options release];
             modeSwitch.frame = cell.contentView.bounds;
+
+            [options release];
+
             [cell.contentView addSubview:modeSwitch];
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 

@@ -72,6 +72,14 @@ enum {
     return YES;
 }
 
+- (BOOL)shouldAutorotate {
+    return YES;
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
+}
+
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
@@ -181,7 +189,7 @@ enum {
         UISegmentedControl *modeSwitch;
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
-            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
+            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
 
             NSMutableArray *options = [[NSMutableArray alloc] initWithCapacity:2];
             [options addObject:@"WebDAV"];
@@ -189,15 +197,21 @@ enum {
 
             modeSwitch = [[[UISegmentedControl alloc] initWithItems:options] autorelease];
             
+            /*
             // TODO: Make this resize when the orientation changes
             if (IsIpad())
                 modeSwitch.frame = CGRectMake(44, 0, 680, 48);                
             else
                 modeSwitch.frame = CGRectMake(9, 0, 302, 48);
-
+             */
+            //modeSwitch.frame = cell.;
+            
+            modeSwitch.segmentedControlStyle = UISegmentedControlStylePlain;
+            modeSwitch.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
+            
             [options release];
-
-            [cell addSubview:modeSwitch];
+            modeSwitch.frame = cell.contentView.bounds;
+            [cell.contentView addSubview:modeSwitch];
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 
         } else {
@@ -633,6 +647,12 @@ enum {
 
             [[[self tableView] cellForRowAtIndexPath:indexPath] setSelected:NO animated:YES];
         }
+    }
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == ServerModeGroup) {
+        cell.backgroundView.alpha = 0.0;
     }
 }
 

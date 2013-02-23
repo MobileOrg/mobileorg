@@ -62,7 +62,7 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
     self.searchNavigationController.tabBarItem.image = [UIImage imageNamed:@"search.png"];
     self.settingsNavigationController.tabBarItem.image = [UIImage imageNamed:@"settings.png"];
 
-    [window addSubview:[[self tabBarController] view]];
+    [window setRootViewController:[self tabBarController]];
 
     [self.noteListController updateNoteCount];
 

@@ -142,7 +142,7 @@ enum {
             return 2;
             break;
         case SettingsGroup:
-            return 1;
+            return 2;
             break;
         case EncryptionGroup:
             return 1;
@@ -399,6 +399,31 @@ enum {
 
                 return cell;
             }
+            case 1:
+            {
+                static NSString *CellIdentifier = @"SettingsLaunchTabCell";
+                
+                UISwitch *launchTabSwitch = nil;
+                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+                if (cell == nil) {
+                    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+                    if (IsIpad())
+                        launchTabSwitch = [[[UISwitch alloc] initWithFrame:CGRectMake(620,10,200,25)] autorelease];
+                    else
+                        launchTabSwitch = [[[UISwitch alloc] initWithFrame:CGRectMake(200,10,200,25)] autorelease];
+                    [cell addSubview:launchTabSwitch];
+                    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+                    [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:15.0]];
+                } else {
+                    launchTabSwitch = (UISwitch*)[cell.contentView viewWithTag:1];
+                }
+                
+                [launchTabSwitch addTarget:self action:@selector(launchTabSwitchChanged:) forControlEvents:UIControlEventValueChanged];
+                [[cell textLabel] setText:@"AutoCapture Mode"];
+                [launchTabSwitch setOn:([[Settings instance] launchTab] == LaunchTabCapture)];
+                
+                return cell;
+            }
             default:
                 break;
         }
@@ -608,6 +633,15 @@ enum {
     }
     [[self tableView] reloadData];
     [[self tableView] setNeedsDisplay];
+}
+
+- (void)launchTabSwitchChanged:(id)sender {
+    UISwitch *launchTabSwitch = (UISwitch*)sender;
+    if ([launchTabSwitch isOn]) {
+        [[Settings instance] setLaunchTab:LaunchTabCapture];
+    } else {
+        [[Settings instance] setLaunchTab:LaunchTabOutline];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

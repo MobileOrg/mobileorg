@@ -34,6 +34,11 @@ typedef enum {
     ServerModeDropbox
 } ServerMode;
 
+typedef enum {
+    LaunchTabOutline = 0,
+    LaunchTabCapture,
+} LaunchTab;
+
 @interface Settings : NSObject {
     NSURL *indexUrl;
 
@@ -51,6 +56,8 @@ typedef enum {
     AppBadgeMode appBadgeMode;
 
     ServerMode serverMode;
+    
+    LaunchTab launchTab;
 
     NSString *dropboxIndex;
     
@@ -68,6 +75,7 @@ typedef enum {
 @property (nonatomic, copy) NSMutableArray *priorities;
 @property (nonatomic) AppBadgeMode appBadgeMode;
 @property (nonatomic) ServerMode serverMode;
+@property (nonatomic) LaunchTab launchTab;
 @property (nonatomic, copy) NSString *dropboxIndex;
 @property (nonatomic, copy) NSString *encryptionPassword;
 

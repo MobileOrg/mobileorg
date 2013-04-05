@@ -1,4 +1,6 @@
 * What is MobileOrg?
+  [[https://api.travis-ci.org/MobileOrg/mobileorg.png]]
+
   MobileOrg is a FREE (open-source) iPhone and iPod Touch application
   for storing, searching, viewing and editing your Org-mode files.
 

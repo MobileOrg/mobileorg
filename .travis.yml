@@ -1,3 +1,4 @@
 language: objective-c
-notifcations:
-  irc: "irc.freenode.org#mobileorg"
+notifications:
+  irc: 
+    - "irc.freenode.net#mobileorg"

@@ -330,7 +330,7 @@ enum {
                     [cell.textLabel setTextColor:[UIColor colorWithRed:0.243 green:0.306 blue:0.435 alpha:1.0]];
                 }
 
-                [cell.textLabel setTextAlignment:UITextAlignmentCenter];
+                [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
 
                 return cell;
             }
@@ -487,7 +487,7 @@ enum {
         switch (indexPath.row) {
             case 0:
                 [[cell textLabel] setText:@"Richard Moreland"];
-                [[cell detailTextLabel] setText:@"Design and development"];
+                [[cell detailTextLabel] setText:@"Original Author"];
                 break;
             case 1:
                 [[cell textLabel] setText:@"Sean Escriva"];
@@ -512,6 +512,14 @@ enum {
             case 6:
                 [[cell textLabel] setText:@"Joseph Wain of glyphish.com"];
                 [[cell detailTextLabel] setText:@"Creative Commons Attribution icons"];
+                break;
+            case 7:
+                [[cell textLabel] setText:@"Chris Trompette"];
+                [[cell detailTextLabel] setText:@"Dropbox API work and fixes"];
+                break;
+            case 8:
+                [[cell textLabel] setText:@"Sean Allred"];
+                [[cell detailTextLabel] setText:@"Auto capture mode and fixes"];
                 break;
         }
 

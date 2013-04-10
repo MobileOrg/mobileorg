@@ -853,7 +853,7 @@
 					"APP_KEY=@\\\"$(APP_KEY)\\\"",
 				);
 				INFOPLIST_FILE = "MobileOrg-Info-Debug.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = MobileOrg;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -978,7 +978,7 @@
 					"APP_KEY=@\\\"$(APP_KEY)\\\"",
 				);
 				INFOPLIST_FILE = "MobileOrg-Info-AdHoc.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = MobileOrg;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1021,7 +1021,7 @@
 					FOR_APP_STORE,
 				);
 				INFOPLIST_FILE = "MobileOrg-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = MobileOrg;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

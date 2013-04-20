@@ -120,6 +120,9 @@
 		79F87A9A10854FEA00A54CA9 /* cant-sync-offline.png in Resources */ = {isa = PBXBuildFile; fileRef = 79F87A9810854FEA00A54CA9 /* cant-sync-offline.png */; };
 		79F87A9B10854FEA00A54CA9 /* please-configure.png in Resources */ = {isa = PBXBuildFile; fileRef = 79F87A9910854FEA00A54CA9 /* please-configure.png */; };
 		79FFA2B81224B2FF0010E489 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 79FFA2B71224B2FF0010E489 /* Icon@2x.png */; };
+		83DC7E0217227FE600D59482 /* Icon-debug-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 83DC7E0117227FE600D59482 /* Icon-debug-72@2x.png */; };
+		83DC7E04172280FF00D59482 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 83DC7E03172280FF00D59482 /* Icon-72@2x.png */; };
+		83DC7E061722813700D59482 /* Icon-beta-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 83DC7E051722813700D59482 /* Icon-beta-72@2x.png */; };
 		FF11B7F116BD92B400135A52 /* DropBoxKeys.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = FF11B7F016BD909800135A52 /* DropBoxKeys.xcconfig */; };
 /* End PBXBuildFile section */
 
@@ -258,6 +261,9 @@
 		79F87A9810854FEA00A54CA9 /* cant-sync-offline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cant-sync-offline.png"; sourceTree = "<group>"; };
 		79F87A9910854FEA00A54CA9 /* please-configure.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "please-configure.png"; sourceTree = "<group>"; };
 		79FFA2B71224B2FF0010E489 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = SOURCE_ROOT; };
+		83DC7E0117227FE600D59482 /* Icon-debug-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-debug-72@2x.png"; sourceTree = "<group>"; };
+		83DC7E03172280FF00D59482 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
+		83DC7E051722813700D59482 /* Icon-beta-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-beta-72@2x.png"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MobileOrg-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MobileOrg-Info.plist"; sourceTree = "<group>"; };
 		FF11B7F016BD909800135A52 /* DropBoxKeys.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DropBoxKeys.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -318,6 +324,9 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				83DC7E051722813700D59482 /* Icon-beta-72@2x.png */,
+				83DC7E03172280FF00D59482 /* Icon-72@2x.png */,
+				83DC7E0117227FE600D59482 /* Icon-debug-72@2x.png */,
 				79BA55581073A6F800D67917 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -743,6 +752,9 @@
 				7997749F122C68900006EFC6 /* Icon-beta@2x.png in Resources */,
 				799774A0122C68900006EFC6 /* Icon-debug@2x.png in Resources */,
 				FF11B7F116BD92B400135A52 /* DropBoxKeys.xcconfig in Resources */,
+				83DC7E0217227FE600D59482 /* Icon-debug-72@2x.png in Resources */,
+				83DC7E04172280FF00D59482 /* Icon-72@2x.png in Resources */,
+				83DC7E061722813700D59482 /* Icon-beta-72@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

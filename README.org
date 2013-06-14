@@ -1,4 +1,6 @@
 * What is MobileOrg?
+  [[https://api.travis-ci.org/MobileOrg/mobileorg.png]]
+
   MobileOrg is a FREE (open-source) iPhone and iPod Touch application
   for storing, searching, viewing and editing your Org-mode files.
 
@@ -32,6 +34,39 @@
     + Automatic index.org file generation with links to all of your Org files
   - A powerful org-mobile-pull command, which will integrate changes
     you’ve made on the go into a local Org file
+* Contributing
+  There are a few minor things we request in order to make it easier
+  to accept contributions.
+  
+  Of course, the main thing is to simply feel free to contribute any
+  and all code. It's much appreciated!
+
+** Pull Requests
+   Pull requests for bug fixes, features or anything else are gladly
+   accepted. Since this is github we follow the fork/pull
+   collaboration style. If you are planning to contribute you should
+   have a fork of the mobileorg repository and issue pull requests
+   from there.
+** git flow branching model
+   To the extent possible the MobileOrg repo follows the [[http://nvie.com/posts/a-successful-git-branching-model/][Git Flow]]
+   branching model. How this affects contributing is that *all new
+   work should be based off the develop* branch and be named either
+   *feature/your-new-feature*, *hotfix/some-bug-fix* or similar. See
+   the previous link for more information. This will make it much
+   easier to merge your work.
+
+   There is a [[https://github.com/nvie/gitflow][git extension]] if you're interested in learning a new
+   command for this workflow, but it isn't required. You can just as
+   easily manually do:
+   #+BEGIN_SRC 
+    git checkout -b feature/new-hotness
+   #+END_SRC
+** bug tracker
+   [[https://github.com/MobileOrg/mobileorg/issues][github issues]]
+** contact
+   - Web: http://mobileorg.ncogni.to/
+   - Email: mobileorg@spandrel.org
+   - IRC: #mobileorg on freenode
 * Changelog
   See: http://mobileorg.ncogni.to/development/changelog/
 * Credits
@@ -43,8 +78,7 @@
   - Joseph Wain of glyphish.com
   - Sean Escriva
   - Alex Rodich
-  - Gautam Guliani
-  - Rahul Jha
+  - Russell McClellan
 * License
     MobileOrg is distributed under the GNU Public License version 2.
     See LICENSE.txt for more info.

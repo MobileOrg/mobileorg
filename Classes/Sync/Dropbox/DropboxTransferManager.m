@@ -25,17 +25,13 @@
 #import "StatusUtils.h"
 #import "SyncManager.h"
 #import "Settings.h"
-#import "DBSession.h"
-#import "DBRequest.h"
-#import "DBRestClient.h"
-
-// Just #define CONSUMER_SECRET @"xxx" and CONSUMER_KEY @"yyy" in this file
-#import "DropboxKeys.h"
+#import <DropBoxSDK/DropBoxSDK.h>
 
 @interface DropboxTransferManager(private)
 - (void)dispatchNextTransfer;
 - (void)processRequest:(TransferContext*)context;
 - (void)requestFinished:(TransferContext *)context;
+- (DBRestClient*)getClient; // we must be linked to call this!
 @end
 
 // Singleton instance
@@ -45,7 +41,6 @@ static DropboxTransferManager *gInstance = NULL;
 
 @synthesize activeTransfer;
 @synthesize fileSize;
-@synthesize loginDelegate;
 
 + (DropboxTransferManager*)instance {
     @synchronized(self)
@@ -63,11 +58,29 @@ static DropboxTransferManager *gInstance = NULL;
         active = false;
         paused = false;
         data = [[NSMutableData alloc] init];
-        dbSession = [[DBSession alloc] initWithConsumerKey:CONSUMER_KEY consumerSecret:CONSUMER_SECRET];
-        dbClient = [[DBRestClient alloc] initWithSession:dbSession andRoot:@"sandbox"];
-        dbClient.delegate = self;
+        // We use App Folder as recommended by Dropbox, so kDBRootAppFolder instead of kDBRootDropbox
+        dbSession = [[DBSession alloc] initWithAppKey:APP_KEY appSecret:APP_SECRET root:kDBRootAppFolder];
+        [DBSession setSharedSession:dbSession];
+        dbClient = 0; // we'll allocate this when we need it - see getClient below.
     }
     return self;
+}
+
+- (DBRestClient*) getClient {
+    // if it doesn't exist, allocate it now.
+    // the reason we don't allocate this during init
+    // is that if we don't wait until the session is linked,
+    // the client will be invalid.
+    
+    // we must be linked!
+    // Assert([self isLinked]);
+    
+    if(!dbClient)
+    {
+        dbClient = [[DBRestClient alloc] initWithSession:dbSession];
+        dbClient.delegate = self;
+    }
+    return dbClient;
 }
 
 - (void)enqueueTransfer:(TransferContext *)context {
@@ -134,9 +147,9 @@ static DropboxTransferManager *gInstance = NULL;
     NSString *path = [[context.remoteUrl absoluteString] stringByReplacingOccurrencesOfString:@"dropbox:///" withString:@"/"];
 
     if (context.transferType == TransferTypeDownload) {
-        [dbClient loadFile:path intoPath:context.localFile];
+        [[self getClient] loadFile:path intoPath:context.localFile];
     } else {
-        [dbClient uploadFile:path toPath:@"/" fromPath:context.localFile];
+        [[self getClient] uploadFile:path toPath:@"/" fromPath:context.localFile];
     }
 }
 
@@ -187,12 +200,21 @@ static DropboxTransferManager *gInstance = NULL;
     active = false;
 }
 
-- (void)login:(NSString*)email andPassword:(NSString*)password {
-    [dbClient loginWithEmail:email password:password];
+- (void)login:(UIViewController*)rootController {
+    if (![[DBSession sharedSession] isLinked]) {
+        [[DBSession sharedSession] linkFromController:rootController];
+    }
 }
 
 - (void)unlink {
-    [dbSession unlink];
+    [dbSession unlinkAll];
+    
+    // remove the client
+    if(dbClient)
+    {
+        [dbClient release];
+        dbClient = 0;
+    }
 }
 
 - (BOOL)isLinked {
@@ -206,22 +228,12 @@ static DropboxTransferManager *gInstance = NULL;
     [super dealloc];
 }
 
-- (void)restClientDidLogin:(DBRestClient*)client
-{
-    [loginDelegate loginSuccess];
-}
-
-- (void)restClient:(DBRestClient*)client loginFailedWithError:(NSError*)error
-{
-    [loginDelegate loginFailedWithError:@"Bad username and password or network error."];
-}
-
-- (void)restClient:(DBRestClient*)client loadedMetadata:(NSDictionary*)metadata
+- (void)restClient:(DBRestClient*)client loadedMetadata:(DBMetadata*)metadata
 {
     NSLog(@"ERROR testing delegate method called that shouldn't be: %s", __FUNCTION__);
 }
 
-- (void)restClient:(DBRestClient*)client loadedAccountInfo:(NSDictionary*)account
+- (void)restClient:(DBRestClient*)client loadedAccountInfo:(DBAccountInfo*)account
 {
     NSLog(@"ERROR testing delegate method called that shouldn't be: %s", __FUNCTION__);
 }
@@ -240,7 +252,7 @@ static DropboxTransferManager *gInstance = NULL;
     [mgr updateStatus];
 }
 
-- (void)restClient:(DBRestClient*)client uploadedFile:(NSString*)sourcePath
+- (void)restClient:(DBRestClient*)client uploadedFile:(NSString*)sourcePath from:(NSString*)srcPath metadata:(DBMetadata *)metadata
 {
     activeTransfer.success = true;
     [self requestFinished:activeTransfer];
@@ -254,38 +266,6 @@ static DropboxTransferManager *gInstance = NULL;
     [mgr updateStatus];
 }
 
-- (void)restClient:(DBRestClient*)client createdFolder:(NSDictionary*)folder
-{
-}
-
-- (void)restClient:(DBRestClient*)client deletedPath:(NSString *)path
-{
-}
-
-- (void)restClient:(DBRestClient*)client loadedThumbnail:(NSString *)destPath
-{
-}
-
-- (void)restClient:(DBRestClient*)client copiedPath:(NSString *)from_path toPath:(NSString *)to_path
-{
-}
-
-- (void)restClient:(DBRestClient*)client movedPath:(NSString *)from_path toPath:(NSString *)to_path
-{
-}
-
-- (void)restClientCreatedAccount:(DBRestClient*)client;
-{
-}
-
-- (void)restClient:(DBRestClient*)client loadMetadataFailedWithError:(NSError*)error
-{
-}
-
-- (void)restClient:(DBRestClient*)client loadAccountInfoFailedWithError:(NSError*)error
-{
-}
-
 - (void)restClient:(DBRestClient*)client loadFileFailedWithError:(NSError*)error
 {
     activeTransfer.errorText = @"Unexpected error";
@@ -293,35 +273,11 @@ static DropboxTransferManager *gInstance = NULL;
     [self requestFinished:activeTransfer];
 }
 
-- (void)restClient:(DBRestClient*)client loadThumbnailFailedWithError:(NSError*)error
-{
-}
-
 - (void)restClient:(DBRestClient*)client uploadFileFailedWithError:(NSError*)error
 {
     activeTransfer.errorText = @"Unexpected error";
     activeTransfer.success = false;
     [self requestFinished:activeTransfer];
-}
-
-- (void)restClient:(DBRestClient*)client createFolderFailedWithError:(NSError*)error
-{
-}
-
-- (void)restClient:(DBRestClient*)client deletePathFailedWithError:(NSError*)error
-{
-}
-
-- (void)restClient:(DBRestClient*)client copyPathFailedWithError:(NSError*)error
-{
-}
-
-- (void)restClient:(DBRestClient*)client movePathFailedWithError:(NSError*)error
-{
-}
-
-- (void)restClient:(DBRestClient*)client createAccountFailedWithError:(NSError*)error
-{
 }
 
 @end

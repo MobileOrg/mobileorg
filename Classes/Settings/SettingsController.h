@@ -24,13 +24,10 @@
 
 #import "DropboxTransferManager.h"
 
-@interface SettingsController : UITableViewController <UITextFieldDelegate, DropboxLoginDelegate> {
+@interface SettingsController : UITableViewController <UITextFieldDelegate> {
     NSString *pendingNewIndexUrl;
     UITextField *urlTextField;
-    NSString *dropboxPassword;
-    bool dropboxLoggingIn;
 }
 
-@property (nonatomic, copy) NSString *dropboxPassword;
-
+- (void)loginDone:(BOOL)successful;
 @end

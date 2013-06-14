@@ -15,7 +15,21 @@
 		<string>Icon-debug-72.png</string>
 		<string>Icon-debug.png</string>
 		<string>Icon-debug@2x.png</string>
+		<string>Icon-debug-72@2x.png</string>
 	</array>
+	<key>CFBundleIcons</key>
+	<dict>
+		<key>CFBundlePrimaryIcon</key>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>Icon-debug-72.png</string>
+				<string>Icon-debug.png</string>
+				<string>Icon-debug@2x.png</string>
+				<string>Icon-debug-72@2x.png</string>
+			</array>
+		</dict>
+	</dict>
 	<key>CFBundleIdentifier</key>
 	<string>com.mobileorg.mobileorg-Debug</string>
 	<key>CFBundleInfoDictionaryVersion</key>

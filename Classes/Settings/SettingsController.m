@@ -48,8 +48,6 @@ enum {
     NumGroups
 };
 
-@synthesize dropboxPassword;
-
 - (void)onSyncComplete {
     [[Settings instance] setLastSync:[NSDate date]];
 }
@@ -72,6 +70,14 @@ enum {
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return YES;
+}
+
+- (BOOL)shouldAutorotate {
+    return YES;
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -127,11 +133,7 @@ enum {
             break;
         case ServerSettingsGroup:
             if ([[Settings instance] serverMode] == ServerModeDropbox) {
-                if ([[DropboxTransferManager instance] isLinked]) {
-                    return 2;
-                } else {
-                    return 4;
-                }
+                return 2;
             } else {
                 return 3;
             }
@@ -140,7 +142,7 @@ enum {
             return 2;
             break;
         case SettingsGroup:
-            return 1;
+            return 2;
             break;
         case EncryptionGroup:
             return 1;
@@ -187,7 +189,7 @@ enum {
         UISegmentedControl *modeSwitch;
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
-            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
+            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
 
             NSMutableArray *options = [[NSMutableArray alloc] initWithCapacity:2];
             [options addObject:@"WebDAV"];
@@ -195,15 +197,13 @@ enum {
 
             modeSwitch = [[[UISegmentedControl alloc] initWithItems:options] autorelease];
             
-            // TODO: Make this resize when the orientation changes
-            if (IsIpad())
-                modeSwitch.frame = CGRectMake(44, 0, 680, 48);                
-            else
-                modeSwitch.frame = CGRectMake(9, 0, 302, 48);
+            modeSwitch.segmentedControlStyle = UISegmentedControlStylePlain;
+            modeSwitch.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
+            modeSwitch.frame = cell.contentView.bounds;
 
             [options release];
 
-            [cell addSubview:modeSwitch];
+            [cell.contentView addSubview:modeSwitch];
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 
         } else {
@@ -278,7 +278,7 @@ enum {
 
         } else if ([[Settings instance] serverMode] == ServerModeDropbox) {
 
-            if ((![[DropboxTransferManager instance] isLinked] && indexPath.row < 3) || indexPath.row == 0) {
+            if (indexPath.row == 0) {
                 static NSString *CellIdentifier = @"SettingsDropboxConfigurationCell";
 
                 UITextField *newLabel;
@@ -304,38 +304,13 @@ enum {
                     newLabel = (UITextField*)[cell.contentView viewWithTag:1];
                 }
 
-                // Set up the cell...
+		[newLabel addTarget:self action:@selector(dropboxIndexChanged:) forControlEvents:(UIControlEventValueChanged | UIControlEventEditingDidEnd)];
+		[newLabel setKeyboardType:UIKeyboardTypeURL];
+		[newLabel setDelegate:self];
+		[newLabel setTag:1];
+		[[cell textLabel] setText:@"Index File"];
+		newLabel.text = [[Settings instance] dropboxIndex];
 
-                switch (indexPath.row) {
-                    case 0:
-                        [newLabel addTarget:self action:@selector(dropboxIndexChanged:) forControlEvents:(UIControlEventValueChanged | UIControlEventEditingDidEnd)];
-                        [newLabel setKeyboardType:UIKeyboardTypeURL];
-                        [newLabel setDelegate:self];
-                        [newLabel setTag:1];
-                        [[cell textLabel] setText:@"Index File"];
-                        newLabel.text = [[Settings instance] dropboxIndex];
-                        break;
-                    case 1:
-                        [newLabel addTarget:self action:@selector(dropboxEmailChanged:) forControlEvents:(UIControlEventEditingDidEnd | UIControlEventEditingDidEnd)];
-                        [newLabel setDelegate:self];
-                        [newLabel setTag:2];
-                        [newLabel setKeyboardType:UIKeyboardTypeEmailAddress];
-                        [[cell textLabel] setText:@"Email"];
-                        newLabel.text = [[Settings instance] dropboxEmail];
-                        break;
-                    case 2:
-                        [newLabel addTarget:self action:@selector(dropboxPasswordChanged:) forControlEvents:(UIControlEventEditingChanged | UIControlEventEditingDidEnd)];
-                        [newLabel setDelegate:self];
-                        [newLabel setTag:3];
-                        [[cell textLabel] setText:@"Password"];
-                        [newLabel setSecureTextEntry:YES];
-                        if ([[DropboxTransferManager instance] isLinked]) {
-                            newLabel.text = @"";
-                        }
-                        break;
-                    default:
-                        break;
-                }
                 return cell;
             } else {
                 static NSString *CellIdentifier = @"SettingsDropboxButtonCell";
@@ -355,7 +330,7 @@ enum {
                     [cell.textLabel setTextColor:[UIColor colorWithRed:0.243 green:0.306 blue:0.435 alpha:1.0]];
                 }
 
-                [cell.textLabel setTextAlignment:UITextAlignmentCenter];
+                [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
 
                 return cell;
             }
@@ -424,6 +399,31 @@ enum {
 
                 return cell;
             }
+            case 1:
+            {
+                static NSString *CellIdentifier = @"SettingsLaunchTabCell";
+                
+                UISwitch *launchTabSwitch = nil;
+                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+                if (cell == nil) {
+                    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+                    if (IsIpad())
+                        launchTabSwitch = [[[UISwitch alloc] initWithFrame:CGRectMake(620,10,200,25)] autorelease];
+                    else
+                        launchTabSwitch = [[[UISwitch alloc] initWithFrame:CGRectMake(200,10,200,25)] autorelease];
+                    [cell addSubview:launchTabSwitch];
+                    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+                    [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:15.0]];
+                } else {
+                    launchTabSwitch = (UISwitch*)[cell.contentView viewWithTag:1];
+                }
+                
+                [launchTabSwitch addTarget:self action:@selector(launchTabSwitchChanged:) forControlEvents:UIControlEventValueChanged];
+                [[cell textLabel] setText:@"AutoCapture Mode"];
+                [launchTabSwitch setOn:([[Settings instance] launchTab] == LaunchTabCapture)];
+                
+                return cell;
+            }
             default:
                 break;
         }
@@ -487,23 +487,39 @@ enum {
         switch (indexPath.row) {
             case 0:
                 [[cell textLabel] setText:@"Richard Moreland"];
-                [[cell detailTextLabel] setText:@"Design and development"];
+                [[cell detailTextLabel] setText:@"Original Author"];
                 break;
             case 1:
+                [[cell textLabel] setText:@"Sean Escriva"];
+                [[cell detailTextLabel] setText:@"Development and Organization"];
+                break;
+            case 2:
+                [[cell textLabel] setText:@"Alex Rodich"];
+                [[cell detailTextLabel] setText:@"Development and Organization"];
+                break;
+            case 3:
                 [[cell textLabel] setText:@"Carsten Dominik"];
                 [[cell detailTextLabel] setText:@"Design and Emacs integration"];
                 break;
-            case 2:
+            case 4:
                 [[cell textLabel] setText:@"Greg Newman"];
                 [[cell detailTextLabel] setText:@"Updated app icon"];
                 break;
-            case 3:
+            case 5:
                 [[cell textLabel] setText:@"Christophe Bataillon"];
                 [[cell detailTextLabel] setText:@"Original app icon"];
                 break;
-            case 4:
+            case 6:
                 [[cell textLabel] setText:@"Joseph Wain of glyphish.com"];
                 [[cell detailTextLabel] setText:@"Creative Commons Attribution icons"];
+                break;
+            case 7:
+                [[cell textLabel] setText:@"Chris Trompette"];
+                [[cell detailTextLabel] setText:@"Dropbox API work and fixes"];
+                break;
+            case 8:
+                [[cell textLabel] setText:@"Sean Allred"];
+                [[cell detailTextLabel] setText:@"Auto capture mode and fixes"];
                 break;
         }
 
@@ -616,15 +632,6 @@ enum {
     [[Settings instance] setDropboxIndex:textField.text];
 }
 
-- (void)dropboxEmailChanged:(id)sender {
-    UITextField *textField = (UITextField*)sender;
-    [[Settings instance] setDropboxEmail:textField.text];
-}
-
-- (void)dropboxPasswordChanged:(id)sender {
-    self.dropboxPassword = [sender text];
-}
-
 - (void)appBadgeSwitchChanged:(id)sender {
     UISwitch *appBadgeSwitch = (UISwitch*)sender;
     if ([appBadgeSwitch isOn]) {
@@ -644,6 +651,15 @@ enum {
     [[self tableView] setNeedsDisplay];
 }
 
+- (void)launchTabSwitchChanged:(id)sender {
+    UISwitch *launchTabSwitch = (UISwitch*)sender;
+    if ([launchTabSwitch isOn]) {
+        [[Settings instance] setLaunchTab:LaunchTabCapture];
+    } else {
+        [[Settings instance] setLaunchTab:LaunchTabOutline];
+    }
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 46;
 }
@@ -656,13 +672,7 @@ enum {
 
     if (indexPath.section == ServerSettingsGroup && [[Settings instance] serverMode] == ServerModeDropbox) {
 
-        bool linked = [[DropboxTransferManager instance] isLinked];
-        if ((!linked && indexPath.row == 3) || (linked && indexPath.row == 1)) {
-
-            if (dropboxLoggingIn) {
-                [[[self tableView] cellForRowAtIndexPath:indexPath] setSelected:NO animated:YES];
-                return;
-            }
+        if (indexPath.row == 1) {
 
             [[[self tableView] cellForRowAtIndexPath:indexPath] setSelected:YES animated:YES];
 
@@ -671,10 +681,10 @@ enum {
                 [[self tableView] reloadData];
                 [[self tableView] setNeedsDisplay];
             } else {
-                [[DropboxTransferManager instance] setLoginDelegate:self];
-                [[DropboxTransferManager instance] login:[[Settings instance] dropboxEmail] andPassword:dropboxPassword];
-                dropboxLoggingIn = true;
-                [[self tableView] cellForRowAtIndexPath:indexPath].textLabel.text = @"Logging in...";
+                [[DropboxTransferManager instance] login:self];
+                [[self tableView] reloadData];
+                [[self tableView] setNeedsDisplay];
+                //[[self tableView] cellForRowAtIndexPath:indexPath].textLabel.text = @"Logging in...";
             }
 
             [[[self tableView] cellForRowAtIndexPath:indexPath] setSelected:NO animated:YES];
@@ -682,31 +692,16 @@ enum {
     }
 }
 
-- (void)loginSuccess {
-    dropboxLoggingIn = false;
-    [[self tableView] reloadData];
-    [[self tableView] setNeedsDisplay];
-}
-
-- (void)loginFailedWithError:(NSString*)message {
-    UIAlertView *alert = [[UIAlertView alloc]
-                          initWithTitle:@"Dropbox Error"
-                          message:message
-                          delegate:nil
-                          cancelButtonTitle:@"Cancel"
-                          otherButtonTitles:nil];
-    [alert show];
-    [alert autorelease];
-    dropboxLoggingIn = false;
-    [[self tableView] reloadData];
-    [[self tableView] setNeedsDisplay];
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == ServerModeGroup) {
+        cell.backgroundView.alpha = 0.0;
+    }
 }
 
 - (void)dealloc {
 
     [[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:@"SyncComplete"];
     [pendingNewIndexUrl release];
-    [dropboxPassword release];
     [super dealloc];
 }
 
@@ -729,4 +724,8 @@ enum {
     return YES;
 }
 
+- (void)loginDone:(BOOL)successful {
+    [[self tableView] reloadData];
+    [[self tableView] setNeedsDisplay];
+}
 @end

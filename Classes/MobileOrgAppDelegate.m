@@ -34,6 +34,7 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
 #import "DataUtils.h"
 #import "Reachability.h"
 #import "SessionManager.h"
+#import "Settings.h"
 
 @interface MobileOrgAppDelegate(private)
 - (void)updateInterfaceWithReachability:(Reachability*)curReach;
@@ -62,7 +63,7 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
     self.searchNavigationController.tabBarItem.image = [UIImage imageNamed:@"search.png"];
     self.settingsNavigationController.tabBarItem.image = [UIImage imageNamed:@"settings.png"];
 
-    [window addSubview:[[self tabBarController] view]];
+    [window setRootViewController:[self tabBarController]];
 
     [self.noteListController updateNoteCount];
 
@@ -77,6 +78,17 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
     [[SessionManager instance] restore];
 
     [window makeKeyAndVisible];
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    if ([[Settings instance] launchTab] == LaunchTabCapture) {
+            // TODO Add some sort of minimum time-lapse to activate
+            // that is, don't create a new capture if the button was hit accidentally
+            // (Allow maybe a minute or two before this setting 'sctivates' again)
+            // (this can be done by storing the time and doing a difference.)
+        [[self tabBarController] setSelectedIndex:1]; // Capture!!
+        [[self noteListController] addNote];
+    }
 }
 
 /**
@@ -278,4 +290,16 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
     [super dealloc];
 }
 
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    if ([[DBSession sharedSession] handleOpenURL:url]) {
+        if ([[DBSession sharedSession] isLinked]) {
+            NSLog(@"App linked successfully!");
+            // At this point you can start making API calls
+        }
+        [[self settingsController] loginDone:[[DBSession sharedSession] isLinked]];
+        return YES;
+    }
+    // Add whatever other url handling code your app requires here
+    return NO;
+}
 @end

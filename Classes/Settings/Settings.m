@@ -92,7 +92,7 @@ static NSString *kEncryptionPassKey  = @"EncryptionPassword";
 
         encryptionPassword = [[NSUserDefaults standardUserDefaults] objectForKey:kEncryptionPassKey];
         if (!encryptionPassword) {
-            encryptionPassword = [NSString stringWithString:@""];
+            encryptionPassword = @"";
         }
         [encryptionPassword retain];        
         

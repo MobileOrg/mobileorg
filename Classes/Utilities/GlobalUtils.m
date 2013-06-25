@@ -94,7 +94,7 @@ NSString *ReadPossiblyEncryptedFile(NSString *filename, NSString **error) {
     
     NSMutableData *data = [NSMutableData dataWithContentsOfFile:filename];
     if (!data) {
-        *error = [NSString stringWithString:@"Unable to open file"];
+        *error = @"Unable to open file";
         return nil;
     }
     
@@ -118,7 +118,7 @@ NSString *ReadPossiblyEncryptedFile(NSString *filename, NSString **error) {
                 return @"";
             }
         } else {
-            *error = [NSString stringWithString:@"Unable to decrypt file"];
+            *error = @"Unable to decrypt file";
             return nil;
         }      
     } else {

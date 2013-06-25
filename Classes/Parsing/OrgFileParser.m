@@ -70,7 +70,7 @@
         entireFile = [NSString stringWithFormat:@"* Error: %@\n", errorStr];
     } else if (!entireFile) {
         entireFile = @"* Bad file encoding\n  Unable to detect file encoding, please re-save this file using UTF-8.";
-        errorStr = [NSString stringWithString:@"Unknown encoding, re-save file as UTF-8"];
+        errorStr = @"Unknown encoding, re-save file as UTF-8";
     }
 
     // Maintain a stack of nodes for parenting use

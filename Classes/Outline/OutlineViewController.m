@@ -296,7 +296,7 @@
         [controller setShowDocumentViewButton:true];
         [controller setFirstNavController:[self navigationController]];
         [controller setParentController:self];
-        [self presentModalViewController:controller animated:YES];
+        [self presentViewController:controller animated:YES completion:^{}];
 
         if (cell) {
             [cell setHighlighted:YES];

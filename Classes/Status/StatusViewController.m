@@ -112,11 +112,11 @@ static StatusViewController *gInstance = NULL;
 - (UILabel *)activityLabel {
     if (activityLabel == nil) {
         activityLabel = [[UILabel alloc] initWithFrame:CGRectMake(-50, 0, 300, 40)];
-        activityLabel.textAlignment = UITextAlignmentCenter;
+        activityLabel.textAlignment = NSTextAlignmentCenter;
         activityLabel.font = [UIFont boldSystemFontOfSize:20.0];
         activityLabel.textColor = [UIColor lightGrayColor];
         activityLabel.backgroundColor = [UIColor clearColor];
-        activityLabel.lineBreakMode = UILineBreakModeWordWrap;
+        activityLabel.lineBreakMode = NSLineBreakByWordWrapping;
         activityLabel.numberOfLines = 0;
         activityLabel.text = @"Unknown activity";
     }
@@ -134,11 +134,11 @@ static StatusViewController *gInstance = NULL;
 - (UILabel *)actionLabel {
     if (actionLabel == nil) {
         actionLabel = [[UILabel alloc] initWithFrame:CGRectMake(-50, 30, 300, 40)];
-        actionLabel.textAlignment = UITextAlignmentCenter;
+        actionLabel.textAlignment = NSTextAlignmentCenter;
         actionLabel.font = [UIFont systemFontOfSize:14.0];
         actionLabel.textColor = [UIColor lightGrayColor];
         actionLabel.backgroundColor = [UIColor clearColor];
-        actionLabel.lineBreakMode = UILineBreakModeWordWrap;
+        actionLabel.lineBreakMode = NSLineBreakByWordWrapping;
         actionLabel.numberOfLines = 0;
         actionLabel.text = @"";
     }

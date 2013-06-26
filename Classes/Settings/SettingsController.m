@@ -171,7 +171,7 @@ enum {
     NSMutableArray *ret = [NSMutableArray arrayWithCapacity:3];
     NSInteger tag = 1;
     UIView *aView;
-    while (aView = [self.view viewWithTag:tag]) {
+    while ((aView = [self.view viewWithTag:tag])) {
         if (aView && [[aView class] isSubclassOfClass:[UIResponder class]]) {
             [ret addObject:aView];
         }

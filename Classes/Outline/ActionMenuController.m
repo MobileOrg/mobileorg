@@ -42,7 +42,7 @@
     if (cell) {
         [cell setHighlighted:NO];
     }
-    [firstNavController dismissModalViewControllerAnimated:YES];
+    [firstNavController dismissViewControllerAnimated:YES completion:^{}];
 }
 
 - (void)addFlag:(NSString*)action andEdit:(bool)edit {
@@ -200,7 +200,7 @@
     if (titleField == nil) {
         titleField = [[UILabel alloc] init];
         [titleField setText:[node headingForDisplay]];
-        [titleField setTextAlignment:UITextAlignmentCenter];
+        [titleField setTextAlignment:NSTextAlignmentCenter];
         [titleField setTextColor:[UIColor whiteColor]];
         [titleField setBackgroundColor:[UIColor clearColor]];
     }

@@ -340,7 +340,7 @@ void DeleteNodesWithFilename(NSString* filename) {
     // Get our managedObjectContext
     managedObjectContext = [AppInstance() managedObjectContext];
 
-    while (node = NodeWithFilename(filename)) {
+    while ((node = NodeWithFilename(filename))) {
         [managedObjectContext deleteObject:node];
         Save();
     }

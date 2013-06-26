@@ -80,7 +80,7 @@ void CGContextAddRoundRect(CGContextRef context, CGRect rect, float radius)
     CGSize textSize = CGSizeMake(self.bounds.size.width, 1979);
     CGSize size = [text sizeWithFont:[label font]
                    constrainedToSize:textSize
-                       lineBreakMode:UILineBreakModeWordWrap];
+                       lineBreakMode:NSLineBreakByWordWrapping];
 
     CGRect bounds = self.bounds;
     bounds.size = size;

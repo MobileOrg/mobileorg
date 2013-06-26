@@ -84,7 +84,7 @@
     passwordLabel.backgroundColor = [UIColor clearColor];
     passwordLabel.shadowColor = [UIColor blackColor];
     passwordLabel.shadowOffset = CGSizeMake(0,-1);
-    passwordLabel.textAlignment = UITextAlignmentCenter;
+    passwordLabel.textAlignment = NSTextAlignmentCenter;
     passwordLabel.text = @"Enter new tag name and press OK";
     [passwordAlert addSubview:passwordLabel];
 

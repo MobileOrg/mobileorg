@@ -170,7 +170,7 @@ static WebDavTransferManager *gInstance = NULL;
                 activeTransfer.errorText = [NSString stringWithFormat:@"404: File not found: %@", [[activeTransfer remoteUrl] path]];
                 break;
             default:
-                activeTransfer.errorText = [NSString stringWithFormat:@"%d: Unknown error for file: %@", activeTransfer.statusCode, [[activeTransfer remoteUrl] path]];
+                activeTransfer.errorText = [NSString stringWithFormat:@"%d: Unknown error for file: %@", (unsigned int)activeTransfer.statusCode, [[activeTransfer remoteUrl] path]];
                 break;
         }
         activeTransfer.success = false;

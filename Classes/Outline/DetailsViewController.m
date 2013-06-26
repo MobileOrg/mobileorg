@@ -476,7 +476,7 @@ typedef enum {
         [controller setNode:editTarget];
         [controller setShowDocumentViewButton:false];
         [controller setFirstNavController:[self navigationController]];
-        [[self navigationController] presentModalViewController:controller animated:YES];
+        [[self navigationController] presentViewController:controller animated:YES completion:^{}];
         return;
     }
 

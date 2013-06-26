@@ -454,7 +454,7 @@ typedef enum {
                 cell.textLabel.text = @"Flag this Node";
             }
 
-            [cell.textLabel setTextAlignment:UITextAlignmentCenter];
+            [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
             [cell.textLabel setTextColor:[UIColor colorWithRed:0.243 green:0.306 blue:0.435 alpha:1.0]];
 
             return cell;

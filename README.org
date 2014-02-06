@@ -79,6 +79,15 @@
   - Sean Escriva
   - Alex Rodich
   - Russell McClellan
+* Support
+  MobileOrg will always stay free in the app store, but the Apple
+  Developer program costs money. Currently I pay $99 a year to
+  maintain this and keep it in the app store. If you'd like to donate
+  toward that using [[https://www.gittip.com/webframp/][gittip]] you can.
+  
+  [[https://www.gittip.com/webframp/][file:https://rawgithub.com/twolfson/gittip-badge/0.1.0/dist/gittip.png]]
+
+  You support MobileOrg just by using it, thanks for your continued interest.
 * License
     MobileOrg is distributed under the GNU Public License version 2.
     See LICENSE.txt for more info.

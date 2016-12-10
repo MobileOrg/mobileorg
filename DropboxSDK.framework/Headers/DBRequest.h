@@ -18,6 +18,7 @@
     SEL selector;
     NSURLConnection* urlConnection;
     NSFileHandle* fileHandle;
+    NSFileManager* fileManager;
 
     SEL failureSelector;
     SEL downloadProgressSelector;
@@ -25,6 +26,7 @@
     NSString* resultFilename;
     NSString* tempFilename;
     NSDictionary* userInfo;
+    NSString *sourcePath;
 
     NSHTTPURLResponse* response;
     NSDictionary* xDropboxMetadataJSON;
@@ -54,6 +56,7 @@
 @property (nonatomic, assign) SEL uploadProgressSelector; // To receive upload progress events set this
 @property (nonatomic, retain) NSString* resultFilename; // The file to put the HTTP body in, otherwise body is stored in resultData
 @property (nonatomic, retain) NSDictionary* userInfo;
+@property (nonatomic, retain) NSString *sourcePath; // Used by methods that upload to refresh the input stream
 
 @property (nonatomic, readonly) NSURLRequest* request;
 @property (nonatomic, readonly) NSHTTPURLResponse* response;

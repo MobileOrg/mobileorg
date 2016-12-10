@@ -161,6 +161,8 @@
 - (void)restClient:(DBRestClient *)client uploadedFileChunk:(NSString *)uploadId newOffset:(unsigned long long)offset
 	fromFile:(NSString *)localPath expires:(NSDate *)expiresDate;
 - (void)restClient:(DBRestClient *)client uploadFileChunkFailedWithError:(NSError *)error;
+- (void)restClient:(DBRestClient *)client uploadFileChunkProgress:(CGFloat)progress
+	forFile:(NSString *)uploadId offset:(unsigned long long)offset fromPath:(NSString *)localPath;
 
 - (void)restClient:(DBRestClient *)client uploadedFile:(NSString *)destPath fromUploadId:(NSString *)uploadId
     metadata:(DBMetadata *)metadata;
@@ -192,8 +194,11 @@
 - (void)restClient:(DBRestClient*)client copyPathFailedWithError:(NSError*)error;
 // [error userInfo] contains the root and path
 
-- (void)restClient:(DBRestClient*)client createdCopyRef:(NSString *)copyRef;
+- (void)restClient:(DBRestClient*)client createdCopyRef:(NSString *)copyRef forPath:(NSString *)path;
 - (void)restClient:(DBRestClient*)client createCopyRefFailedWithError:(NSError *)error;
+
+// Deprecated copy ref callback
+- (void)restClient:(DBRestClient*)client createdCopyRef:(NSString *)copyRef;
 
 - (void)restClient:(DBRestClient*)client copiedRef:(NSString *)copyRef to:(DBMetadata *)to;
 - (void)restClient:(DBRestClient*)client copyFromRefFailedWithError:(NSError*)error;

@@ -7,10 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00B1D8AEB596F78AC9751B07 /* libPods-MobileOrg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82DE95B3F1BF9D01994B55CF /* libPods-MobileOrg.a */; };
 		18A3BBA316178BDD003D9320 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A3BBA216178BDD003D9320 /* QuartzCore.framework */; };
 		18A3BBA716178DCD003D9320 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3BBA616178DCD003D9320 /* Reachability.m */; };
-		18F871911617865500EB16D5 /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F871901617865500EB16D5 /* DropboxSDK.framework */; };
-		18F871921617865500EB16D5 /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F871901617865500EB16D5 /* DropboxSDK.framework */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -20,9 +19,7 @@
 		28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D801B30F44B63D00FB423F /* CoreData.framework */; };
 		5A49BC7512DCFD5700662472 /* NodeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A49BC7412DCFD5700662472 /* NodeTest.m */; };
 		5A49BCBE12DD019300662472 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D801B30F44B63D00FB423F /* CoreData.framework */; };
-		5A49D5F71317549000D94E69 /* GHUnitIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A49D5F61317549000D94E69 /* GHUnitIOS.framework */; };
 		5A49D63E1317557F00D94E69 /* GHUnitIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A49D5F61317549000D94E69 /* GHUnitIOS.framework */; };
-		5A4DD89212DE21B800505566 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 79CB19511074396500A7E065 /* libicucore.dylib */; };
 		5A58412412DE5C7D00FF403A /* Node.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F35B1073F2FA00AEA6BC /* Node.m */; };
 		5A58412912DE5CAE00FF403A /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB19341074384800A7E065 /* RegexKitLite.m */; };
 		5A58413012DE5CF700FF403A /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB183D1074279C00A7E065 /* Settings.m */; };
@@ -43,6 +40,8 @@
 		5A9667A812DC84E400CD02F5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		5A9667A912DC84EA00CD02F5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		5A96682712DC89E600CD02F5 /* GHUnitIOSTestMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A96682612DC89E600CD02F5 /* GHUnitIOSTestMain.m */; };
+		747BF97F1DFCBBE600E800FB /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 747BF97E1DFCBBE600E800FB /* DropboxSDK.framework */; };
+		747BF9811DFCBC3F00E800FB /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 747BF9801DFCBC3F00E800FB /* libicucore.tbd */; };
 		790B413F10814D8400A852F1 /* ActionMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 790B413E10814D8400A852F1 /* ActionMenuController.m */; };
 		790B417E10814FAC00A852F1 /* OutlineTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 790B417D10814FAC00A852F1 /* OutlineTableView.m */; };
 		790B455610826A0900A852F1 /* PriorityEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 790B455510826A0900A852F1 /* PriorityEditController.m */; };
@@ -110,7 +109,6 @@
 		79CB18BE10742C7100A7E065 /* StatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB18BD10742C7100A7E065 /* StatusViewController.m */; };
 		79CB18C710742DB900A7E065 /* StatusUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB18C610742DB900A7E065 /* StatusUtils.m */; };
 		79CB19351074384800A7E065 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB19341074384800A7E065 /* RegexKitLite.m */; };
-		79CB19521074396500A7E065 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 79CB19511074396500A7E065 /* libicucore.dylib */; };
 		79CB19D21074423C00A7E065 /* ChecksumFileParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB19D11074423C00A7E065 /* ChecksumFileParser.m */; };
 		79CB19D51074424300A7E065 /* OrgFileParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB19D41074424300A7E065 /* OrgFileParser.m */; };
 		79CB1F1110758EA200A7E065 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB1F1010758EA200A7E065 /* DetailsViewController.m */; };
@@ -147,14 +145,12 @@
 		83DC7E0217227FE600D59482 /* Icon-debug-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 83DC7E0117227FE600D59482 /* Icon-debug-72@2x.png */; };
 		83DC7E04172280FF00D59482 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 83DC7E03172280FF00D59482 /* Icon-72@2x.png */; };
 		83DC7E061722813700D59482 /* Icon-beta-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 83DC7E051722813700D59482 /* Icon-beta-72@2x.png */; };
-		FF11B7F116BD92B400135A52 /* DropBoxKeys.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = FF11B7F016BD909800135A52 /* DropBoxKeys.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		18A3BBA216178BDD003D9320 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		18A3BBA516178DCD003D9320 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		18A3BBA616178DCD003D9320 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		18F871901617865500EB16D5 /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DropboxSDK.framework; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* MobileOrg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobileOrg.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -169,6 +165,9 @@
 		5A96678612DC83ED00CD02F5 /* UnitTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnitTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A96678812DC83ED00CD02F5 /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
 		5A96682612DC89E600CD02F5 /* GHUnitIOSTestMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHUnitIOSTestMain.m; path = "GH-Unit/GHUnitIOSTestMain.m"; sourceTree = "<group>"; };
+		6561B399A841A3A5958A5889 /* Pods-MobileOrg.appstore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileOrg.appstore.xcconfig"; path = "Pods/Target Support Files/Pods-MobileOrg/Pods-MobileOrg.appstore.xcconfig"; sourceTree = "<group>"; };
+		747BF97E1DFCBBE600E800FB /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DropboxSDK.framework; sourceTree = "<group>"; };
+		747BF9801DFCBC3F00E800FB /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		790B413D10814D8400A852F1 /* ActionMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionMenuController.h; sourceTree = "<group>"; };
 		790B413E10814D8400A852F1 /* ActionMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionMenuController.m; sourceTree = "<group>"; };
 		790B417C10814FAC00A852F1 /* OutlineTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutlineTableView.h; sourceTree = "<group>"; };
@@ -270,7 +269,6 @@
 		79CB18C610742DB900A7E065 /* StatusUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusUtils.m; sourceTree = "<group>"; };
 		79CB19331074384800A7E065 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
 		79CB19341074384800A7E065 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
-		79CB19511074396500A7E065 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		79CB19D01074423C00A7E065 /* ChecksumFileParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChecksumFileParser.h; sourceTree = "<group>"; };
 		79CB19D11074423C00A7E065 /* ChecksumFileParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChecksumFileParser.m; sourceTree = "<group>"; };
 		79CB19D31074424300A7E065 /* OrgFileParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrgFileParser.h; sourceTree = "<group>"; };
@@ -285,6 +283,8 @@
 		79F87A9810854FEA00A54CA9 /* cant-sync-offline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cant-sync-offline.png"; sourceTree = "<group>"; };
 		79F87A9910854FEA00A54CA9 /* please-configure.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "please-configure.png"; sourceTree = "<group>"; };
 		79FFA2B71224B2FF0010E489 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = SOURCE_ROOT; };
+		8202E5BD58AEDFCB8A890758 /* Pods-MobileOrg.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileOrg.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-MobileOrg/Pods-MobileOrg.adhoc.xcconfig"; sourceTree = "<group>"; };
+		82DE95B3F1BF9D01994B55CF /* libPods-MobileOrg.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MobileOrg.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8322ED69176AB305008B37C7 /* press-sync@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "press-sync@2x.png"; sourceTree = "<group>"; };
 		8322ED6B176AE93C008B37C7 /* cant-sync-offline@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cant-sync-offline@2x.png"; sourceTree = "<group>"; };
 		8322ED6D176AE94A008B37C7 /* please-configure@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "please-configure@2x.png"; sourceTree = "<group>"; };
@@ -312,6 +312,7 @@
 		83DC7E0117227FE600D59482 /* Icon-debug-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-debug-72@2x.png"; sourceTree = "<group>"; };
 		83DC7E03172280FF00D59482 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
 		83DC7E051722813700D59482 /* Icon-beta-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-beta-72@2x.png"; sourceTree = "<group>"; };
+		8B262305779E2631EE21FE20 /* Pods-MobileOrg.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileOrg.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MobileOrg/Pods-MobileOrg.debug.xcconfig"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MobileOrg-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MobileOrg-Info.plist"; sourceTree = "<group>"; };
 		FF11B7F016BD909800135A52 /* DropBoxKeys.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DropBoxKeys.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -321,16 +322,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				747BF9811DFCBC3F00E800FB /* libicucore.tbd in Frameworks */,
 				18A3BBA316178BDD003D9320 /* QuartzCore.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
+				747BF97F1DFCBBE600E800FB /* DropboxSDK.framework in Frameworks */,
 				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
 				28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */,
-				79CB19521074396500A7E065 /* libicucore.dylib in Frameworks */,
 				793F7F6C107CB5FC00674D0A /* SystemConfiguration.framework in Frameworks */,
 				7945F61211A807FD00731598 /* Security.framework in Frameworks */,
-				5A49D5F71317549000D94E69 /* GHUnitIOS.framework in Frameworks */,
-				18F871911617865500EB16D5 /* DropboxSDK.framework in Frameworks */,
+				00B1D8AEB596F78AC9751B07 /* libPods-MobileOrg.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,9 +343,7 @@
 				5A9667A812DC84E400CD02F5 /* Foundation.framework in Frameworks */,
 				5A9667A912DC84EA00CD02F5 /* UIKit.framework in Frameworks */,
 				5A49BCBE12DD019300662472 /* CoreData.framework in Frameworks */,
-				5A4DD89212DE21B800505566 /* libicucore.dylib in Frameworks */,
 				5A49D63E1317557F00D94E69 /* GHUnitIOS.framework in Frameworks */,
-				18F871921617865500EB16D5 /* DropboxSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,6 +386,7 @@
 				7936F928120DDF3E0062CF0E /* Resources-iPad */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				CC470B9380ADEC11A31E3DE2 /* Pods */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -424,16 +424,17 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				747BF9801DFCBC3F00E800FB /* libicucore.tbd */,
+				747BF97E1DFCBBE600E800FB /* DropboxSDK.framework */,
 				18A3BBA216178BDD003D9320 /* QuartzCore.framework */,
-				18F871901617865500EB16D5 /* DropboxSDK.framework */,
 				7945F61111A807FD00731598 /* Security.framework */,
 				793F7F6B107CB5FC00674D0A /* SystemConfiguration.framework */,
-				79CB19511074396500A7E065 /* libicucore.dylib */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
 				28D801B30F44B63D00FB423F /* CoreData.framework */,
 				5A49D5F61317549000D94E69 /* GHUnitIOS.framework */,
+				82DE95B3F1BF9D01994B55CF /* libPods-MobileOrg.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -716,6 +717,16 @@
 			path = RegexKitLite;
 			sourceTree = "<group>";
 		};
+		CC470B9380ADEC11A31E3DE2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8B262305779E2631EE21FE20 /* Pods-MobileOrg.debug.xcconfig */,
+				8202E5BD58AEDFCB8A890758 /* Pods-MobileOrg.adhoc.xcconfig */,
+				6561B399A841A3A5958A5889 /* Pods-MobileOrg.appstore.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -723,9 +734,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "MobileOrg" */;
 			buildPhases = (
+				3A00323B994F9BD13A52A837 /* [CP] Check Pods Manifest.lock */,
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+				2F55B0EE1CCB83973FFF76A4 /* [CP] Embed Pods Frameworks */,
+				9B3A3E8DF7F1B08270FDBD3A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -759,7 +773,12 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0810;
+				TargetAttributes = {
+					1D6058900D05DD3D006BFB54 = {
+						DevelopmentTeam = 9VWR9JYXC6;
+					};
+				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "MobileOrg" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -772,6 +791,7 @@
 				German,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
+			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -823,7 +843,6 @@
 				7997749C122C68850006EFC6 /* Icon-debug-72.png in Resources */,
 				7997749F122C68900006EFC6 /* Icon-beta@2x.png in Resources */,
 				799774A0122C68900006EFC6 /* Icon-debug@2x.png in Resources */,
-				FF11B7F116BD92B400135A52 /* DropBoxKeys.xcconfig in Resources */,
 				83DC7E0217227FE600D59482 /* Icon-debug-72@2x.png in Resources */,
 				83DC7E04172280FF00D59482 /* Icon-72@2x.png in Resources */,
 				83DC7E061722813700D59482 /* Icon-beta-72@2x.png in Resources */,
@@ -862,6 +881,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2F55B0EE1CCB83973FFF76A4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MobileOrg/Pods-MobileOrg-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3A00323B994F9BD13A52A837 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		9B3A3E8DF7F1B08270FDBD3A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MobileOrg/Pods-MobileOrg-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1D60588E0D05DD3D006BFB54 /* Sources */ = {
@@ -942,26 +1009,25 @@
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FF11B7F016BD909800135A52 /* DropBoxKeys.xcconfig */;
+			baseConfigurationReference = 8B262305779E2631EE21FE20 /* Pods-MobileOrg.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 30;
+				DEVELOPMENT_TEAM = 9VWR9JYXC6;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MobileOrg_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"APP_SECRET=@\\\"$(APP_SECRET)\\\"",
-					"APP_KEY=@\\\"$(APP_KEY)\\\"",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "MobileOrg-Info-Debug.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mobileorg.mobileorg-Debug";
 				PRODUCT_NAME = MobileOrg;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -993,6 +1059,7 @@
 					"-framework",
 					UIKit,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourcompany.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = UnitTests;
 				SDKROOT = iphoneos;
 			};
@@ -1019,6 +1086,7 @@
 					"-framework",
 					UIKit,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourcompany.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = UnitTests;
 				SDKROOT = iphoneos;
 			};
@@ -1045,6 +1113,7 @@
 					"-framework",
 					UIKit,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourcompany.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = UnitTests;
 				SDKROOT = iphoneos;
 			};
@@ -1052,13 +1121,27 @@
 		};
 		79BA556E1073A82500D67917 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FF11B7F016BD909800135A52 /* DropBoxKeys.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_INPUT_FILETYPE = sourcecode.c.objc;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -1068,25 +1151,24 @@
 		};
 		79BA556F1073A82500D67917 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FF11B7F016BD909800135A52 /* DropBoxKeys.xcconfig */;
+			baseConfigurationReference = 8202E5BD58AEDFCB8A890758 /* Pods-MobileOrg.adhoc.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "";
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 30;
+				DEVELOPMENT_TEAM = 9VWR9JYXC6;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MobileOrg_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"APP_SECRET=@\\\"$(APP_SECRET)\\\"",
-					"APP_KEY=@\\\"$(APP_KEY)\\\"",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "MobileOrg-Info-AdHoc.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "to.ncogni.mobileorg-beta";
 				PRODUCT_NAME = MobileOrg;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1096,13 +1178,27 @@
 		};
 		79BA55701073A82C00D67917 /* AppStore */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FF11B7F016BD909800135A52 /* DropBoxKeys.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_INPUT_FILETYPE = sourcecode.c.objc;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1111,25 +1207,23 @@
 		};
 		79BA55711073A82C00D67917 /* AppStore */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FF11B7F016BD909800135A52 /* DropBoxKeys.xcconfig */;
+			baseConfigurationReference = 6561B399A841A3A5958A5889 /* Pods-MobileOrg.appstore.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 30;
+				DEVELOPMENT_TEAM = 9VWR9JYXC6;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MobileOrg_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"APP_SECRET=@\\\"$(APP_SECRET)\\\"",
-					"APP_KEY=@\\\"$(APP_KEY)\\\"",
-					FOR_APP_STORE,
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "MobileOrg-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobileorg.mobileorg;
 				PRODUCT_NAME = MobileOrg;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1139,13 +1233,28 @@
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FF11B7F016BD909800135A52 /* DropBoxKeys.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_INPUT_FILETYPE = sourcecode.c.objc;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";

@@ -16,5 +16,6 @@
 #import "DBQuota.h"
 #import "DBError.h"
 #import "NSString+Dropbox.h"
+#import "DBDeltaEntry.h"
 
 #import "DBSession+iOS.h"

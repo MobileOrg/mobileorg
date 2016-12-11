@@ -42,6 +42,7 @@
 		5A96682712DC89E600CD02F5 /* GHUnitIOSTestMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A96682612DC89E600CD02F5 /* GHUnitIOSTestMain.m */; };
 		747BF97F1DFCBBE600E800FB /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 747BF97E1DFCBBE600E800FB /* DropboxSDK.framework */; };
 		747BF9811DFCBC3F00E800FB /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 747BF9801DFCBC3F00E800FB /* libicucore.tbd */; };
+		747BF98A1DFD5CD900E800FB /* AppKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 747BF9881DFD5CD900E800FB /* AppKey.plist */; };
 		790B413F10814D8400A852F1 /* ActionMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 790B413E10814D8400A852F1 /* ActionMenuController.m */; };
 		790B417E10814FAC00A852F1 /* OutlineTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 790B417D10814FAC00A852F1 /* OutlineTableView.m */; };
 		790B455610826A0900A852F1 /* PriorityEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 790B455510826A0900A852F1 /* PriorityEditController.m */; };
@@ -168,6 +169,7 @@
 		6561B399A841A3A5958A5889 /* Pods-MobileOrg.appstore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileOrg.appstore.xcconfig"; path = "Pods/Target Support Files/Pods-MobileOrg/Pods-MobileOrg.appstore.xcconfig"; sourceTree = "<group>"; };
 		747BF97E1DFCBBE600E800FB /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DropboxSDK.framework; sourceTree = "<group>"; };
 		747BF9801DFCBC3F00E800FB /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
+		747BF9881DFD5CD900E800FB /* AppKey.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppKey.plist; path = Configuration/AppKey.plist; sourceTree = "<group>"; };
 		790B413D10814D8400A852F1 /* ActionMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionMenuController.h; sourceTree = "<group>"; };
 		790B413E10814D8400A852F1 /* ActionMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionMenuController.m; sourceTree = "<group>"; };
 		790B417C10814FAC00A852F1 /* OutlineTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutlineTableView.h; sourceTree = "<group>"; };
@@ -380,6 +382,7 @@
 				83DC7E051722813700D59482 /* Icon-beta-72@2x.png */,
 				83DC7E03172280FF00D59482 /* Icon-72@2x.png */,
 				83DC7E0117227FE600D59482 /* Icon-debug-72@2x.png */,
+				747BF98B1DFD5CF500E800FB /* Configuration */,
 				79BA55581073A6F800D67917 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -445,6 +448,14 @@
 				5A96682612DC89E600CD02F5 /* GHUnitIOSTestMain.m */,
 			);
 			name = "GH-Unit";
+			sourceTree = "<group>";
+		};
+		747BF98B1DFD5CF500E800FB /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				747BF9881DFD5CD900E800FB /* AppKey.plist */,
+			);
+			name = Configuration;
 			sourceTree = "<group>";
 		};
 		7936F928120DDF3E0062CF0E /* Resources-iPad */ = {
@@ -822,6 +833,7 @@
 				7998B0741079847C0000ED49 /* noflag.png in Resources */,
 				7998B0751079847C0000ED49 /* note_entry.png in Resources */,
 				7998B0761079847C0000ED49 /* outline.png in Resources */,
+				747BF98A1DFD5CD900E800FB /* AppKey.plist in Resources */,
 				7998B0771079847C0000ED49 /* search.png in Resources */,
 				7998B0781079847C0000ED49 /* settings.png in Resources */,
 				7998B0791079847C0000ED49 /* table_gray.png in Resources */,

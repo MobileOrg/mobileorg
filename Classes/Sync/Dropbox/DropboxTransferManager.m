@@ -58,10 +58,14 @@ static DropboxTransferManager *gInstance = NULL;
         active = false;
         paused = false;
         data = [[NSMutableData alloc] init];
+
         // We use App Folder as recommended by Dropbox, so kDBRootAppFolder instead of kDBRootDropbox
-        // FIXME: Appkey needs a proper place
-        //      : Read from file or so ...
-        dbSession = [[DBSession alloc] initWithAppKey:@"xxxx" appSecret:@"xxxx" root:kDBRootAppFolder];
+        NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"AppKey" ofType:@"plist"];
+        NSDictionary *configuration = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
+        NSString *appKey = configuration[@"Dropbox API Key"][@"AppKey"];
+        NSString *appSecret = configuration[@"Dropbox API Key"][@"AppSecret"];
+
+        dbSession = [[DBSession alloc] initWithAppKey: appKey appSecret: appSecret root:kDBRootAppFolder];
         [DBSession setSharedSession:dbSession];
         dbClient = 0; // we'll allocate this when we need it - see getClient below.
     }

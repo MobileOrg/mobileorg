@@ -168,7 +168,7 @@
 }
 
 - (NSIndexPath*)pathForNode:(Node*)node {
-    int index = [[self nodes] indexOfObject:node];
+    long index = [[self nodes] indexOfObject:node];
     if (index >= 0 && index < [nodes count]) {
         return [NSIndexPath indexPathForRow:index inSection:0];
     }

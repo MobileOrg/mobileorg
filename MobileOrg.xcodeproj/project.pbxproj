@@ -19,7 +19,6 @@
 		5A49BCBE12DD019300662472 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D801B30F44B63D00FB423F /* CoreData.framework */; };
 		5A49D63E1317557F00D94E69 /* GHUnitIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A49D5F61317549000D94E69 /* GHUnitIOS.framework */; };
 		5A58412412DE5C7D00FF403A /* Node.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F35B1073F2FA00AEA6BC /* Node.m */; };
-		5A58412912DE5CAE00FF403A /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB19341074384800A7E065 /* RegexKitLite.m */; };
 		5A58413012DE5CF700FF403A /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB183D1074279C00A7E065 /* Settings.m */; };
 		5A58413612DE5D3400FF403A /* DropboxTransferManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 796CB87B11ACA1D80040167E /* DropboxTransferManager.m */; };
 		5A58413B12DE5D7600FF403A /* TransferManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB1823107425F500A7E065 /* TransferManager.m */; };
@@ -42,6 +41,15 @@
 		747BF98A1DFD5CD900E800FB /* AppKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 747BF9881DFD5CD900E800FB /* AppKey.plist */; };
 		747BF99A1DFD719400E800FB /* MobileOrgTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 747BF9991DFD719400E800FB /* MobileOrgTests.m */; };
 		747BF9A31DFD738E00E800FB /* NodeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 747BF9A21DFD738E00E800FB /* NodeTests.m */; };
+		747BF9A41DFD78A500E800FB /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 7997745D122C66000006EFC6 /* Default.png */; };
+		747BF9AD1DFD78C500E800FB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 747BF9A51DFD78C500E800FB /* Default-568h@2x.png */; };
+		747BF9AE1DFD78C500E800FB /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 747BF9A61DFD78C500E800FB /* Default-Landscape@2x~ipad.png */; };
+		747BF9AF1DFD78C500E800FB /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 747BF9A71DFD78C500E800FB /* Default-Landscape~ipad.png */; };
+		747BF9B01DFD78C500E800FB /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 747BF9A81DFD78C500E800FB /* Default-Portrait.png */; };
+		747BF9B11DFD78C500E800FB /* Default-Portrait@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 747BF9A91DFD78C500E800FB /* Default-Portrait@2x~ipad.png */; };
+		747BF9B21DFD78C500E800FB /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 747BF9AA1DFD78C500E800FB /* Default-Portrait~ipad.png */; };
+		747BF9B31DFD78C500E800FB /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 747BF9AB1DFD78C500E800FB /* Default.png */; };
+		747BF9B41DFD78C500E800FB /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 747BF9AC1DFD78C500E800FB /* Default@2x.png */; };
 		790B413F10814D8400A852F1 /* ActionMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 790B413E10814D8400A852F1 /* ActionMenuController.m */; };
 		790B417E10814FAC00A852F1 /* OutlineTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 790B417D10814FAC00A852F1 /* OutlineTableView.m */; };
 		790B455610826A0900A852F1 /* PriorityEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 790B455510826A0900A852F1 /* PriorityEditController.m */; };
@@ -70,7 +78,6 @@
 		7982F36A1073F33500AEA6BC /* OutlineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F3691073F33500AEA6BC /* OutlineViewController.m */; };
 		7982F37D1073F6B700AEA6BC /* GlobalUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F37C1073F6B700AEA6BC /* GlobalUtils.m */; };
 		7982F3BA1073FBF800AEA6BC /* DataUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F3B91073FBF800AEA6BC /* DataUtils.m */; };
-		7997745E122C66000006EFC6 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 7997745D122C66000006EFC6 /* Default.png */; };
 		7997747F122C67410006EFC6 /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 7997747E122C67410006EFC6 /* Default-Portrait.png */; };
 		7997748B122C67770006EFC6 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 7997748A122C67770006EFC6 /* Icon-72.png */; };
 		7997749B122C68850006EFC6 /* Icon-beta-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 79977499122C68850006EFC6 /* Icon-beta-72.png */; };
@@ -108,7 +115,6 @@
 		79CB183E1074279C00A7E065 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB183D1074279C00A7E065 /* Settings.m */; };
 		79CB18BE10742C7100A7E065 /* StatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB18BD10742C7100A7E065 /* StatusViewController.m */; };
 		79CB18C710742DB900A7E065 /* StatusUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB18C610742DB900A7E065 /* StatusUtils.m */; };
-		79CB19351074384800A7E065 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB19341074384800A7E065 /* RegexKitLite.m */; };
 		79CB19D21074423C00A7E065 /* ChecksumFileParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB19D11074423C00A7E065 /* ChecksumFileParser.m */; };
 		79CB19D51074424300A7E065 /* OrgFileParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB19D41074424300A7E065 /* OrgFileParser.m */; };
 		79CB1F1110758EA200A7E065 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB1F1010758EA200A7E065 /* DetailsViewController.m */; };
@@ -172,6 +178,14 @@
 		747BF9991DFD719400E800FB /* MobileOrgTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MobileOrgTests.m; sourceTree = "<group>"; };
 		747BF99B1DFD719400E800FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		747BF9A21DFD738E00E800FB /* NodeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NodeTests.m; sourceTree = "<group>"; };
+		747BF9A51DFD78C500E800FB /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		747BF9A61DFD78C500E800FB /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
+		747BF9A71DFD78C500E800FB /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = "<group>"; };
+		747BF9A81DFD78C500E800FB /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait.png"; sourceTree = "<group>"; };
+		747BF9A91DFD78C500E800FB /* Default-Portrait@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x~ipad.png"; sourceTree = "<group>"; };
+		747BF9AA1DFD78C500E800FB /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~ipad.png"; sourceTree = "<group>"; };
+		747BF9AB1DFD78C500E800FB /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		747BF9AC1DFD78C500E800FB /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		790B413D10814D8400A852F1 /* ActionMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionMenuController.h; sourceTree = "<group>"; };
 		790B413E10814D8400A852F1 /* ActionMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionMenuController.m; sourceTree = "<group>"; };
 		790B417C10814FAC00A852F1 /* OutlineTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutlineTableView.h; sourceTree = "<group>"; };
@@ -435,6 +449,14 @@
 		747BF98B1DFD5CF500E800FB /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
+				747BF9A51DFD78C500E800FB /* Default-568h@2x.png */,
+				747BF9A61DFD78C500E800FB /* Default-Landscape@2x~ipad.png */,
+				747BF9A71DFD78C500E800FB /* Default-Landscape~ipad.png */,
+				747BF9A81DFD78C500E800FB /* Default-Portrait.png */,
+				747BF9A91DFD78C500E800FB /* Default-Portrait@2x~ipad.png */,
+				747BF9AA1DFD78C500E800FB /* Default-Portrait~ipad.png */,
+				747BF9AB1DFD78C500E800FB /* Default.png */,
+				747BF9AC1DFD78C500E800FB /* Default@2x.png */,
 				747BF9881DFD5CD900E800FB /* AppKey.plist */,
 			);
 			name = Configuration;
@@ -843,11 +865,14 @@
 				7998B06F1079847C0000ED49 /* flag.png in Resources */,
 				7998B0701079847C0000ED49 /* flagged.png in Resources */,
 				7998B0711079847C0000ED49 /* forward.png in Resources */,
+				747BF9A41DFD78A500E800FB /* Default.png in Resources */,
 				7998B0721079847C0000ED49 /* home.png in Resources */,
 				7998B0731079847C0000ED49 /* inbox.png in Resources */,
 				7998B0741079847C0000ED49 /* noflag.png in Resources */,
 				7998B0751079847C0000ED49 /* note_entry.png in Resources */,
 				7998B0761079847C0000ED49 /* outline.png in Resources */,
+				747BF9AF1DFD78C500E800FB /* Default-Landscape~ipad.png in Resources */,
+				747BF9B01DFD78C500E800FB /* Default-Portrait.png in Resources */,
 				747BF98A1DFD5CD900E800FB /* AppKey.plist in Resources */,
 				7998B0771079847C0000ED49 /* search.png in Resources */,
 				7998B0781079847C0000ED49 /* settings.png in Resources */,
@@ -855,6 +880,7 @@
 				7998B07A1079847C0000ED49 /* up.png in Resources */,
 				793F7F0A107C385200674D0A /* DocumentView.css in Resources */,
 				796A6A911083E67400D0DB25 /* DocumentView.js in Resources */,
+				747BF9B11DFD78C500E800FB /* Default-Portrait@2x~ipad.png in Resources */,
 				793F7FF4107CC38A00674D0A /* Icon-beta.png in Resources */,
 				793F7FF5107CC38A00674D0A /* Icon-debug.png in Resources */,
 				79F879B9108544A100A54CA9 /* press-sync.png in Resources */,
@@ -863,7 +889,7 @@
 				7936F92A120DDF3F0062CF0E /* MainWindow-iPad.xib in Resources */,
 				7936FA91120DF4280062CF0E /* Entitlements.plist in Resources */,
 				79FFA2B81224B2FF0010E489 /* Icon@2x.png in Resources */,
-				7997745E122C66000006EFC6 /* Default.png in Resources */,
+				747BF9B21DFD78C500E800FB /* Default-Portrait~ipad.png in Resources */,
 				7997747F122C67410006EFC6 /* Default-Portrait.png in Resources */,
 				7997748B122C67770006EFC6 /* Icon-72.png in Resources */,
 				7997749B122C68850006EFC6 /* Icon-beta-72.png in Resources */,
@@ -874,7 +900,9 @@
 				8322ED6C176AE93E008B37C7 /* cant-sync-offline@2x.png in Resources */,
 				8322ED6E176AE94B008B37C7 /* please-configure@2x.png in Resources */,
 				8322ED70176AEF2D008B37C7 /* back@2x.png in Resources */,
+				747BF9B31DFD78C500E800FB /* Default.png in Resources */,
 				8322ED79176AEF62008B37C7 /* children@2x.png in Resources */,
+				747BF9B41DFD78C500E800FB /* Default@2x.png in Resources */,
 				8322ED7A176AEF62008B37C7 /* down@2x.png in Resources */,
 				8322ED7B176AEF62008B37C7 /* flag@2x.png in Resources */,
 				8322ED7C176AEF62008B37C7 /* flagged@2x.png in Resources */,
@@ -882,6 +910,8 @@
 				8322ED7E176AEF62008B37C7 /* home@2x.png in Resources */,
 				8322ED7F176AEF62008B37C7 /* note_entry@2x.png in Resources */,
 				8322ED80176AEF62008B37C7 /* up@2x.png in Resources */,
+				747BF9AD1DFD78C500E800FB /* Default-568h@2x.png in Resources */,
+				747BF9AE1DFD78C500E800FB /* Default-Landscape@2x~ipad.png in Resources */,
 				8322ED87176AF1C7008B37C7 /* capture@2x.png in Resources */,
 				8322ED88176AF1C7008B37C7 /* inbox@2x.png in Resources */,
 				8322ED89176AF1C7008B37C7 /* outline@2x.png in Resources */,
@@ -976,7 +1006,6 @@
 				79CB183E1074279C00A7E065 /* Settings.m in Sources */,
 				79CB18BE10742C7100A7E065 /* StatusViewController.m in Sources */,
 				79CB18C710742DB900A7E065 /* StatusUtils.m in Sources */,
-				79CB19351074384800A7E065 /* RegexKitLite.m in Sources */,
 				79CB19D21074423C00A7E065 /* ChecksumFileParser.m in Sources */,
 				79CB19D51074424300A7E065 /* OrgFileParser.m in Sources */,
 				79CB1F1110758EA200A7E065 /* DetailsViewController.m in Sources */,
@@ -1008,7 +1037,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A58412412DE5C7D00FF403A /* Node.m in Sources */,
-				5A58412912DE5CAE00FF403A /* RegexKitLite.m in Sources */,
 				5A58413012DE5CF700FF403A /* Settings.m in Sources */,
 				5A58413612DE5D3400FF403A /* DropboxTransferManager.m in Sources */,
 				5A58413B12DE5D7600FF403A /* TransferManager.m in Sources */,

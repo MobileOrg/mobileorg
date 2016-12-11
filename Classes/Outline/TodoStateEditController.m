@@ -77,10 +77,10 @@
     // Scroll us to the existing todo state.. that makes it easier to choose a related item
     // This is kind of ugly, but it has to search through the mess of keyword groups
     if ([node todoState] && [node.todoState length] > 0) {
-        int row = NSNotFound;
+        long row = NSNotFound;
         int section = 0;
         for (NSMutableArray *group in todoStateGroups) {
-            int index = NSNotFound;
+            long index = NSNotFound;
 
             NSMutableArray *todoWords = [group objectAtIndex:0];
             index = [todoWords indexOfObject:[node todoState]];

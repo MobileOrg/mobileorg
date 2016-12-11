@@ -726,7 +726,7 @@ static SyncManager *gInstance = NULL;
 
         case SyncManagerTransferStateDownloadingOrgFiles:
         {
-            NSString *orgFilename;
+            NSString *orgFilename = nil;
             switch ([[Settings instance] serverMode]) {
                 case ServerModeWebDav:
                     // We want to strip the baseUrl off of the remoteUrl and use that as the org filename

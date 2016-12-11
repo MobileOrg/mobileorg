@@ -32,7 +32,7 @@
 - (NSDictionary*)toDictionary {
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
                           [NSString stringWithFormat:@"%d", selectionType], @"SelectionType",
-                          [NSString stringWithFormat:@"%d", selectedChildIndex], @"SelectedChild",
+                          [NSString stringWithFormat:@"%ld", selectedChildIndex], @"SelectedChild",
                           [NSString stringWithFormat:@"%d", scrollPositionY], @"ScrollY",
                           selectedLink, @"SelectedLink",
                           nil];

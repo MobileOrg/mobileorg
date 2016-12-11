@@ -99,27 +99,27 @@ static NSString *kEncryptionPassKey  = @"EncryptionPassword";
         lastSync = [[NSUserDefaults standardUserDefaults] objectForKey:kLastSyncKey];
         [lastSync retain];
 
-        allTags = [[NSUserDefaults standardUserDefaults] objectForKey:kAllTagsKey];
+        allTags = [[[NSUserDefaults standardUserDefaults] objectForKey:kAllTagsKey] mutableCopy];
         if (!allTags) {
             self.allTags = [NSMutableArray arrayWithCapacity:0];
         }
 
-        primaryTags = [[NSUserDefaults standardUserDefaults] objectForKey:kPrimaryTagsKey];
+        primaryTags = [[[NSUserDefaults standardUserDefaults] objectForKey:kPrimaryTagsKey] mutableCopy];
         if (!primaryTags) {
             self.primaryTags = [NSMutableArray arrayWithCapacity:0];
         }
 
-        mutuallyExclusiveTagGroups = [[NSUserDefaults standardUserDefaults] objectForKey:kMutuallyExclusiveTagsKey];
+        mutuallyExclusiveTagGroups = [[[NSUserDefaults standardUserDefaults] objectForKey:kMutuallyExclusiveTagsKey] mutableCopy];
         if (!mutuallyExclusiveTagGroups) {
             self.mutuallyExclusiveTagGroups = [NSMutableArray arrayWithCapacity:0];
         }
 
-        todoStateGroups = [[NSUserDefaults standardUserDefaults] objectForKey:kTodoStateGroupsKey];
+        todoStateGroups = [[[NSUserDefaults standardUserDefaults] objectForKey:kTodoStateGroupsKey] mutableCopy];
         if (!todoStateGroups) {
             self.todoStateGroups = [NSMutableArray arrayWithCapacity:0];
         }
 
-        priorities = [[NSUserDefaults standardUserDefaults] objectForKey:kPrioritiesKey];
+        priorities = [[[NSUserDefaults standardUserDefaults] objectForKey:kPrioritiesKey] mutableCopy];
         if (!priorities) {
             self.priorities = [NSMutableArray arrayWithCapacity:0];
         }

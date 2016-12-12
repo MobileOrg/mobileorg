@@ -162,6 +162,8 @@
             ret = controller;
             break;
         }
+        case OutlineSelectionTypeDontCare:
+            break;
     }
 
     return ret;
@@ -432,7 +434,7 @@
     return YES;
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 

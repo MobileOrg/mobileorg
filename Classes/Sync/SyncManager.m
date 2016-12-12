@@ -743,6 +743,8 @@ static SyncManager *gInstance = NULL;
             [self processOrgFile:orgFilename withLocalFile:[context localFile]];
             break;
         }
+        case SyncManagerTransferStateIdle:
+          break;
     }
 }
 
@@ -844,6 +846,8 @@ static SyncManager *gInstance = NULL;
             }
 
             break;
+      case SyncManagerTransferStateIdle:
+        break;
     }
 }
 

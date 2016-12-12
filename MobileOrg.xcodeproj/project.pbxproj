@@ -24,7 +24,6 @@
 		747BF98A1DFD5CD900E800FB /* AppKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 747BF9881DFD5CD900E800FB /* AppKey.plist */; };
 		747BF99A1DFD719400E800FB /* MobileOrgTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 747BF9991DFD719400E800FB /* MobileOrgTests.m */; };
 		747BF9A31DFD738E00E800FB /* NodeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 747BF9A21DFD738E00E800FB /* NodeTests.m */; };
-		747BF9A41DFD78A500E800FB /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 7997745D122C66000006EFC6 /* Default.png */; };
 		790B413F10814D8400A852F1 /* ActionMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 790B413E10814D8400A852F1 /* ActionMenuController.m */; };
 		790B417E10814FAC00A852F1 /* OutlineTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 790B417D10814FAC00A852F1 /* OutlineTableView.m */; };
 		790B455610826A0900A852F1 /* PriorityEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 790B455510826A0900A852F1 /* PriorityEditController.m */; };
@@ -52,7 +51,6 @@
 		7982F36A1073F33500AEA6BC /* OutlineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F3691073F33500AEA6BC /* OutlineViewController.m */; };
 		7982F37D1073F6B700AEA6BC /* GlobalUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F37C1073F6B700AEA6BC /* GlobalUtils.m */; };
 		7982F3BA1073FBF800AEA6BC /* DataUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F3B91073FBF800AEA6BC /* DataUtils.m */; };
-		7997747F122C67410006EFC6 /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 7997747E122C67410006EFC6 /* Default-Portrait.png */; };
 		7997748B122C67770006EFC6 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 7997748A122C67770006EFC6 /* Icon-72.png */; };
 		7997749B122C68850006EFC6 /* Icon-beta-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 79977499122C68850006EFC6 /* Icon-beta-72.png */; };
 		7997749C122C68850006EFC6 /* Icon-debug-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 7997749A122C68850006EFC6 /* Icon-debug-72.png */; };
@@ -198,8 +196,6 @@
 		7982F37C1073F6B700AEA6BC /* GlobalUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalUtils.m; sourceTree = "<group>"; };
 		7982F3B81073FBF800AEA6BC /* DataUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataUtils.h; sourceTree = "<group>"; };
 		7982F3B91073FBF800AEA6BC /* DataUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataUtils.m; sourceTree = "<group>"; };
-		7997745D122C66000006EFC6 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		7997747E122C67410006EFC6 /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait.png"; sourceTree = "<group>"; };
 		7997748A122C67770006EFC6 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		79977499122C68850006EFC6 /* Icon-beta-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-beta-72.png"; sourceTree = "<group>"; };
 		7997749A122C68850006EFC6 /* Icon-debug-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-debug-72.png"; sourceTree = "<group>"; };
@@ -367,7 +363,6 @@
 				743C12F31DFED37F0051EC6F /* Images.xcassets */,
 				7997749D122C68900006EFC6 /* Icon-beta@2x.png */,
 				7997749E122C68900006EFC6 /* Icon-debug@2x.png */,
-				7997745D122C66000006EFC6 /* Default.png */,
 				79BA55671073A7DF00D67917 /* Css */,
 				79BA55681073A7DF00D67917 /* Images */,
 				79BA55691073A7DF00D67917 /* Javascript */,
@@ -422,7 +417,6 @@
 				79977499122C68850006EFC6 /* Icon-beta-72.png */,
 				7997749A122C68850006EFC6 /* Icon-debug-72.png */,
 				7997748A122C67770006EFC6 /* Icon-72.png */,
-				7997747E122C67410006EFC6 /* Default-Portrait.png */,
 				7936F929120DDF3F0062CF0E /* MainWindow-iPad.xib */,
 			);
 			name = "Resources-iPad";
@@ -793,7 +787,6 @@
 				7998B06F1079847C0000ED49 /* flag.png in Resources */,
 				7998B0701079847C0000ED49 /* flagged.png in Resources */,
 				7998B0711079847C0000ED49 /* forward.png in Resources */,
-				747BF9A41DFD78A500E800FB /* Default.png in Resources */,
 				7998B0721079847C0000ED49 /* home.png in Resources */,
 				7998B0731079847C0000ED49 /* inbox.png in Resources */,
 				7998B0741079847C0000ED49 /* noflag.png in Resources */,
@@ -815,7 +808,6 @@
 				7936F92A120DDF3F0062CF0E /* MainWindow-iPad.xib in Resources */,
 				7936FA91120DF4280062CF0E /* Entitlements.plist in Resources */,
 				79FFA2B81224B2FF0010E489 /* Icon@2x.png in Resources */,
-				7997747F122C67410006EFC6 /* Default-Portrait.png in Resources */,
 				7997748B122C67770006EFC6 /* Icon-72.png in Resources */,
 				7997749B122C68850006EFC6 /* Icon-beta-72.png in Resources */,
 				7997749C122C68850006EFC6 /* Icon-debug-72.png in Resources */,

@@ -16,26 +16,7 @@
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28C3AD8A0F43EF2300507BA6 /* MobileOrg.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 28C3AD890F43EF2300507BA6 /* MobileOrg.xcdatamodel */; };
 		28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D801B30F44B63D00FB423F /* CoreData.framework */; };
-		5A49BCBE12DD019300662472 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D801B30F44B63D00FB423F /* CoreData.framework */; };
-		5A49D63E1317557F00D94E69 /* GHUnitIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A49D5F61317549000D94E69 /* GHUnitIOS.framework */; };
-		5A58412412DE5C7D00FF403A /* Node.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F35B1073F2FA00AEA6BC /* Node.m */; };
-		5A58413012DE5CF700FF403A /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB183D1074279C00A7E065 /* Settings.m */; };
-		5A58413612DE5D3400FF403A /* DropboxTransferManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 796CB87B11ACA1D80040167E /* DropboxTransferManager.m */; };
-		5A58413B12DE5D7600FF403A /* TransferManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB1823107425F500A7E065 /* TransferManager.m */; };
-		5A58415512DE5E5600FF403A /* GlobalUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F37C1073F6B700AEA6BC /* GlobalUtils.m */; };
-		5A58417412DE5FD100FF403A /* DataUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F3B91073FBF800AEA6BC /* DataUtils.m */; };
-		5A58417D12DE601D00FF403A /* StatusUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB18C610742DB900A7E065 /* StatusUtils.m */; };
-		5A58418412DE605500FF403A /* SyncManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB17F8107420E300A7E065 /* SyncManager.m */; };
-		5A58418712DE606600FF403A /* WebDavTransferManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7945F5A011A8066200731598 /* WebDavTransferManager.m */; };
-		5A58418A12DE607A00FF403A /* EditsFileParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 791653A71078109B00695E4C /* EditsFileParser.m */; };
-		5A58419212DE612400FF403A /* StatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB18BD10742C7100A7E065 /* StatusViewController.m */; };
-		5A5841A112DE61E800FF403A /* ChecksumFileParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB19D11074423C00A7E065 /* ChecksumFileParser.m */; };
-		5A5841A712DE620D00FF403A /* TransferContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB1820107425EF00A7E065 /* TransferContext.m */; };
-		5A5841AA12DE621B00FF403A /* OrgFileParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB19D41074424300A7E065 /* OrgFileParser.m */; };
-		5A5841B012DE623800FF403A /* EditEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 791653C1107814C500695E4C /* EditEntity.m */; };
-		5A9667A712DC84DB00CD02F5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
-		5A9667A812DC84E400CD02F5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
-		5A9667A912DC84EA00CD02F5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		743C12F01DFDA0990051EC6F /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB19341074384800A7E065 /* RegexKitLite.m */; };
 		747BF97F1DFCBBE600E800FB /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 747BF97E1DFCBBE600E800FB /* DropboxSDK.framework */; };
 		747BF9811DFCBC3F00E800FB /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 747BF9801DFCBC3F00E800FB /* libicucore.tbd */; };
 		747BF98A1DFD5CD900E800FB /* AppKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 747BF9881DFD5CD900E800FB /* AppKey.plist */; };
@@ -68,7 +49,6 @@
 		793F8128107D38C900674D0A /* OutlineState.m in Sources */ = {isa = PBXBuildFile; fileRef = 793F8127107D38C900674D0A /* OutlineState.m */; };
 		7945F5A111A8066200731598 /* WebDavTransferManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7945F5A011A8066200731598 /* WebDavTransferManager.m */; };
 		7945F61211A807FD00731598 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7945F61111A807FD00731598 /* Security.framework */; };
-		7958993E131D151F00446E31 /* MobileOrg.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 28C3AD890F43EF2300507BA6 /* MobileOrg.xcdatamodel */; };
 		796A6A911083E67400D0DB25 /* DocumentView.js in Resources */ = {isa = PBXBuildFile; fileRef = 793F7F0B107C385900674D0A /* DocumentView.js */; };
 		796CB87C11ACA1D80040167E /* DropboxTransferManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 796CB87B11ACA1D80040167E /* DropboxTransferManager.m */; };
 		7982F3621073F2FA00AEA6BC /* Node.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F35B1073F2FA00AEA6BC /* Node.m */; };
@@ -167,8 +147,6 @@
 		28D801B30F44B63D00FB423F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* MobileOrg_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobileOrg_Prefix.pch; sourceTree = "<group>"; };
-		5A49D5F61317549000D94E69 /* GHUnitIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GHUnitIOS.framework; sourceTree = "<group>"; };
-		5A96678612DC83ED00CD02F5 /* UnitTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnitTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A96678812DC83ED00CD02F5 /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
 		6561B399A841A3A5958A5889 /* Pods-MobileOrg.appstore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileOrg.appstore.xcconfig"; path = "Pods/Target Support Files/Pods-MobileOrg/Pods-MobileOrg.appstore.xcconfig"; sourceTree = "<group>"; };
 		747BF97E1DFCBBE600E800FB /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DropboxSDK.framework; sourceTree = "<group>"; };
@@ -302,7 +280,6 @@
 		79F87A9910854FEA00A54CA9 /* please-configure.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "please-configure.png"; sourceTree = "<group>"; };
 		79FFA2B71224B2FF0010E489 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = SOURCE_ROOT; };
 		8202E5BD58AEDFCB8A890758 /* Pods-MobileOrg.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileOrg.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-MobileOrg/Pods-MobileOrg.adhoc.xcconfig"; sourceTree = "<group>"; };
-		82DE95B3F1BF9D01994B55CF /* libPods-MobileOrg.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MobileOrg.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8322ED69176AB305008B37C7 /* press-sync@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "press-sync@2x.png"; sourceTree = "<group>"; };
 		8322ED6B176AE93C008B37C7 /* cant-sync-offline@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cant-sync-offline@2x.png"; sourceTree = "<group>"; };
 		8322ED6D176AE94A008B37C7 /* please-configure@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "please-configure@2x.png"; sourceTree = "<group>"; };
@@ -342,18 +319,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5A96678412DC83ED00CD02F5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5A9667A712DC84DB00CD02F5 /* CoreGraphics.framework in Frameworks */,
-				5A9667A812DC84E400CD02F5 /* Foundation.framework in Frameworks */,
-				5A9667A912DC84EA00CD02F5 /* UIKit.framework in Frameworks */,
-				5A49BCBE12DD019300662472 /* CoreData.framework in Frameworks */,
-				5A49D63E1317557F00D94E69 /* GHUnitIOS.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		747BF9941DFD719400E800FB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -377,7 +342,6 @@
 			isa = PBXGroup;
 			children = (
 				1D6058910D05DD3D006BFB54 /* MobileOrg.app */,
-				5A96678612DC83ED00CD02F5 /* UnitTests.app */,
 				747BF9971DFD719400E800FB /* MobileOrgTests.xctest */,
 			);
 			name = Products;
@@ -440,8 +404,6 @@
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
 				28D801B30F44B63D00FB423F /* CoreData.framework */,
-				5A49D5F61317549000D94E69 /* GHUnitIOS.framework */,
-				82DE95B3F1BF9D01994B55CF /* libPods-MobileOrg.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -759,6 +721,7 @@
 			buildPhases = (
 				3A00323B994F9BD13A52A837 /* [CP] Check Pods Manifest.lock */,
 				1D60588D0D05DD3D006BFB54 /* Resources */,
+				743C12F21DFEC9A80051EC6F /* ShellScript */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
 				2F55B0EE1CCB83973FFF76A4 /* [CP] Embed Pods Frameworks */,
@@ -771,23 +734,6 @@
 			name = MobileOrg;
 			productName = MobileOrg;
 			productReference = 1D6058910D05DD3D006BFB54 /* MobileOrg.app */;
-			productType = "com.apple.product-type.application";
-		};
-		5A96678512DC83ED00CD02F5 /* UnitTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 5A96678C12DC83EE00CD02F5 /* Build configuration list for PBXNativeTarget "UnitTests" */;
-			buildPhases = (
-				5A96678212DC83ED00CD02F5 /* Resources */,
-				5A96678312DC83ED00CD02F5 /* Sources */,
-				5A96678412DC83ED00CD02F5 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = UnitTests;
-			productName = UnitTests;
-			productReference = 5A96678612DC83ED00CD02F5 /* UnitTests.app */;
 			productType = "com.apple.product-type.application";
 		};
 		747BF9961DFD719400E800FB /* MobileOrgTests */ = {
@@ -843,7 +789,6 @@
 			projectRoot = "";
 			targets = (
 				1D6058900D05DD3D006BFB54 /* MobileOrg */,
-				5A96678512DC83ED00CD02F5 /* UnitTests */,
 				747BF9961DFD719400E800FB /* MobileOrgTests */,
 			);
 		};
@@ -921,13 +866,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5A96678212DC83ED00CD02F5 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		747BF9951DFD719400E800FB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -967,6 +905,19 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
+		};
+		743C12F21DFEC9A80051EC6F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "pbuddy=/usr/libexec/PlistBuddy\nAPIKEY=`/usr/libexec/PlistBuddy -c 'print :Dropbox\\ API\\ Key:AppKey' Configuration/AppKey.plist`\nAPISECRET=`/usr/libexec/PlistBuddy -c 'print :Dropbox\\ API\\ Key:AppSecret' Configuration/AppKey.plist`\n$pbuddy -c \"set :CFBundleURLTypes:0:CFBundleURLSchemes:0 db-${APIKEY}\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"";
 		};
 		9B3A3E8DF7F1B08270FDBD3A /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1008,6 +959,7 @@
 				79CB18C710742DB900A7E065 /* StatusUtils.m in Sources */,
 				79CB19D21074423C00A7E065 /* ChecksumFileParser.m in Sources */,
 				79CB19D51074424300A7E065 /* OrgFileParser.m in Sources */,
+				743C12F01DFDA0990051EC6F /* RegexKitLite.m in Sources */,
 				79CB1F1110758EA200A7E065 /* DetailsViewController.m in Sources */,
 				79CB1F201075900F00A7E065 /* TableUtils.m in Sources */,
 				79CB20B510762CC000A7E065 /* NodeTextEditController.m in Sources */,
@@ -1029,29 +981,6 @@
 				7945F5A111A8066200731598 /* WebDavTransferManager.m in Sources */,
 				796CB87C11ACA1D80040167E /* DropboxTransferManager.m in Sources */,
 				18A3BBA716178DCD003D9320 /* Reachability.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5A96678312DC83ED00CD02F5 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5A58412412DE5C7D00FF403A /* Node.m in Sources */,
-				5A58413012DE5CF700FF403A /* Settings.m in Sources */,
-				5A58413612DE5D3400FF403A /* DropboxTransferManager.m in Sources */,
-				5A58413B12DE5D7600FF403A /* TransferManager.m in Sources */,
-				5A58415512DE5E5600FF403A /* GlobalUtils.m in Sources */,
-				5A58417412DE5FD100FF403A /* DataUtils.m in Sources */,
-				5A58417D12DE601D00FF403A /* StatusUtils.m in Sources */,
-				5A58418412DE605500FF403A /* SyncManager.m in Sources */,
-				5A58418712DE606600FF403A /* WebDavTransferManager.m in Sources */,
-				5A58418A12DE607A00FF403A /* EditsFileParser.m in Sources */,
-				5A58419212DE612400FF403A /* StatusViewController.m in Sources */,
-				5A5841A112DE61E800FF403A /* ChecksumFileParser.m in Sources */,
-				5A5841A712DE620D00FF403A /* TransferContext.m in Sources */,
-				5A5841AA12DE621B00FF403A /* OrgFileParser.m in Sources */,
-				5A5841B012DE623800FF403A /* EditEntity.m in Sources */,
-				7958993E131D151F00446E31 /* MobileOrg.xcdatamodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1102,90 +1031,6 @@
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
-		};
-		5A96678912DC83EE00CD02F5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)\"",
-				);
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/UIKit.framework/Headers/UIKit.h";
-				INFOPLIST_FILE = "UnitTests-Info.plist";
-				INSTALL_PATH = "$(HOME)/Applications";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-					"-framework",
-					Foundation,
-					"-framework",
-					UIKit,
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yourcompany.${PRODUCT_NAME:identifier}";
-				PRODUCT_NAME = UnitTests;
-				SDKROOT = iphoneos;
-			};
-			name = Debug;
-		};
-		5A96678A12DC83EE00CD02F5 /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)\"",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/UIKit.framework/Headers/UIKit.h";
-				INFOPLIST_FILE = "UnitTests-Info.plist";
-				INSTALL_PATH = "$(HOME)/Applications";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-					"-framework",
-					Foundation,
-					"-framework",
-					UIKit,
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yourcompany.${PRODUCT_NAME:identifier}";
-				PRODUCT_NAME = UnitTests;
-				SDKROOT = iphoneos;
-			};
-			name = AdHoc;
-		};
-		5A96678B12DC83EE00CD02F5 /* AppStore */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)\"",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/UIKit.framework/Headers/UIKit.h";
-				INFOPLIST_FILE = "UnitTests-Info.plist";
-				INSTALL_PATH = "$(HOME)/Applications";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-					"-framework",
-					Foundation,
-					"-framework",
-					UIKit,
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yourcompany.${PRODUCT_NAME:identifier}";
-				PRODUCT_NAME = UnitTests;
-				SDKROOT = iphoneos;
-			};
-			name = AppStore;
 		};
 		747BF99E1DFD719400E800FB /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1475,16 +1320,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		5A96678C12DC83EE00CD02F5 /* Build configuration list for PBXNativeTarget "UnitTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				5A96678912DC83EE00CD02F5 /* Debug */,
-				5A96678A12DC83EE00CD02F5 /* AdHoc */,
-				5A96678B12DC83EE00CD02F5 /* AppStore */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
 		747BF9A11DFD719400E800FB /* Build configuration list for PBXNativeTarget "MobileOrgTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1493,6 +1328,7 @@
 				747BF9A01DFD719400E800FB /* AppStore */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
 		};
 		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "MobileOrg" */ = {
 			isa = XCConfigurationList;

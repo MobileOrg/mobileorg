@@ -16,9 +16,9 @@
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28C3AD8A0F43EF2300507BA6 /* MobileOrg.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 28C3AD890F43EF2300507BA6 /* MobileOrg.xcdatamodel */; };
 		28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D801B30F44B63D00FB423F /* CoreData.framework */; };
-		743C12F01DFDA0990051EC6F /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB19341074384800A7E065 /* RegexKitLite.m */; };
 		743C12F41DFED37F0051EC6F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 743C12F31DFED37F0051EC6F /* Images.xcassets */; };
 		743C12F61DFED5950051EC6F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 743C12F51DFED5950051EC6F /* Launch Screen.storyboard */; };
+		746103091E017E5700C8E34F /* String+RegexSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746102FC1DFF0EDB00C8E34F /* String+RegexSplitter.swift */; };
 		747BF97F1DFCBBE600E800FB /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 747BF97E1DFCBBE600E800FB /* DropboxSDK.framework */; };
 		747BF9811DFCBC3F00E800FB /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 747BF9801DFCBC3F00E800FB /* libicucore.tbd */; };
 		747BF98A1DFD5CD900E800FB /* AppKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 747BF9881DFD5CD900E800FB /* AppKey.plist */; };
@@ -114,6 +114,7 @@
 		8322ED8A176AF1C7008B37C7 /* search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8322ED84176AF1C2008B37C7 /* search@2x.png */; };
 		8322ED8B176AF1C7008B37C7 /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8322ED85176AF1C4008B37C7 /* settings@2x.png */; };
 		8322ED8C176AF1C7008B37C7 /* table_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8322ED86176AF1C6008B37C7 /* table_gray@2x.png */; };
+		BA9D1B7518181888EF0076BD /* libPods-MobileOrg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6D44BC78404DD0C8DDF4655 /* libPods-MobileOrg.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,6 +144,10 @@
 		6561B399A841A3A5958A5889 /* Pods-MobileOrg.appstore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileOrg.appstore.xcconfig"; path = "Pods/Target Support Files/Pods-MobileOrg/Pods-MobileOrg.appstore.xcconfig"; sourceTree = "<group>"; };
 		743C12F31DFED37F0051EC6F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MobileOrg/Images.xcassets; sourceTree = "<group>"; };
 		743C12F51DFED5950051EC6F /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		746102FB1DFF0EDA00C8E34F /* MobileOrg-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MobileOrg-Bridging-Header.h"; sourceTree = "<group>"; };
+		746102FC1DFF0EDB00C8E34F /* String+RegexSplitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String+RegexSplitter.swift"; path = "Classes/Extensions/String+RegexSplitter.swift"; sourceTree = "<group>"; };
+		746102FF1DFF15F300C8E34F /* MobileOrgTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MobileOrgTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		746103001DFF15F300C8E34F /* ChecksumTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChecksumTests.swift; sourceTree = "<group>"; };
 		747BF97E1DFCBBE600E800FB /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DropboxSDK.framework; sourceTree = "<group>"; };
 		747BF9801DFCBC3F00E800FB /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		747BF9881DFD5CD900E800FB /* AppKey.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppKey.plist; path = Configuration/AppKey.plist; sourceTree = "<group>"; };
@@ -247,8 +252,6 @@
 		79CB18BD10742C7100A7E065 /* StatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusViewController.m; sourceTree = "<group>"; };
 		79CB18C510742DB900A7E065 /* StatusUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusUtils.h; sourceTree = "<group>"; };
 		79CB18C610742DB900A7E065 /* StatusUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusUtils.m; sourceTree = "<group>"; };
-		79CB19331074384800A7E065 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
-		79CB19341074384800A7E065 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
 		79CB19D01074423C00A7E065 /* ChecksumFileParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChecksumFileParser.h; sourceTree = "<group>"; };
 		79CB19D11074423C00A7E065 /* ChecksumFileParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChecksumFileParser.m; sourceTree = "<group>"; };
 		79CB19D31074424300A7E065 /* OrgFileParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrgFileParser.h; sourceTree = "<group>"; };
@@ -284,6 +287,7 @@
 		8322ED86176AF1C6008B37C7 /* table_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "table_gray@2x.png"; sourceTree = "<group>"; };
 		8B262305779E2631EE21FE20 /* Pods-MobileOrg.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileOrg.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MobileOrg/Pods-MobileOrg.debug.xcconfig"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MobileOrg-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MobileOrg-Info.plist"; sourceTree = "<group>"; };
+		D6D44BC78404DD0C8DDF4655 /* libPods-MobileOrg.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MobileOrg.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -300,6 +304,7 @@
 				28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */,
 				793F7F6C107CB5FC00674D0A /* SystemConfiguration.framework in Frameworks */,
 				7945F61211A807FD00731598 /* Security.framework in Frameworks */,
+				BA9D1B7518181888EF0076BD /* libPods-MobileOrg.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,6 +339,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				746102FC1DFF0EDB00C8E34F /* String+RegexSplitter.swift */,
 				743C12F51DFED5950051EC6F /* Launch Screen.storyboard */,
 				747BF98B1DFD5CF500E800FB /* Configuration */,
 				79BA55581073A6F800D67917 /* Classes */,
@@ -344,6 +350,7 @@
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				CC470B9380ADEC11A31E3DE2 /* Pods */,
+				746102FB1DFF0EDA00C8E34F /* MobileOrg-Bridging-Header.h */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -389,6 +396,7 @@
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
 				28D801B30F44B63D00FB423F /* CoreData.framework */,
+				D6D44BC78404DD0C8DDF4655 /* libPods-MobileOrg.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -405,8 +413,10 @@
 			isa = PBXGroup;
 			children = (
 				747BF9A21DFD738E00E800FB /* NodeTests.m */,
+				746103001DFF15F300C8E34F /* ChecksumTests.swift */,
 				747BF9991DFD719400E800FB /* MobileOrgTests.m */,
 				747BF99B1DFD719400E800FB /* Info.plist */,
+				746102FF1DFF15F300C8E34F /* MobileOrgTests-Bridging-Header.h */,
 			);
 			path = MobileOrgTests;
 			sourceTree = "<group>";
@@ -672,8 +682,6 @@
 		79CB19321074384800A7E065 /* RegexKitLite */ = {
 			isa = PBXGroup;
 			children = (
-				79CB19331074384800A7E065 /* RegexKitLite.h */,
-				79CB19341074384800A7E065 /* RegexKitLite.m */,
 			);
 			path = RegexKitLite;
 			sourceTree = "<group>";
@@ -740,10 +748,12 @@
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
 						DevelopmentTeam = 9VWR9JYXC6;
+						LastSwiftMigration = 0810;
 					};
 					747BF9961DFD719400E800FB = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = 9VWR9JYXC6;
+						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 1D6058900D05DD3D006BFB54;
 					};
@@ -927,7 +937,6 @@
 				79CB18C710742DB900A7E065 /* StatusUtils.m in Sources */,
 				79CB19D21074423C00A7E065 /* ChecksumFileParser.m in Sources */,
 				79CB19D51074424300A7E065 /* OrgFileParser.m in Sources */,
-				743C12F01DFDA0990051EC6F /* RegexKitLite.m in Sources */,
 				79CB1F1110758EA200A7E065 /* DetailsViewController.m in Sources */,
 				79CB1F201075900F00A7E065 /* TableUtils.m in Sources */,
 				79CB20B510762CC000A7E065 /* NodeTextEditController.m in Sources */,
@@ -935,6 +944,7 @@
 				791653C2107814C500695E4C /* EditEntity.m in Sources */,
 				7998AC131079180F0000ED49 /* TagEditController.m in Sources */,
 				7998AFDB10797C300000ED49 /* RoundedLabel.m in Sources */,
+				746103091E017E5700C8E34F /* String+RegexSplitter.swift in Sources */,
 				7998B00410797EBE0000ED49 /* TodoStateEditController.m in Sources */,
 				7998B2D6107B6F820000ED49 /* NoteListController.m in Sources */,
 				7998B388107BAA7D0000ED49 /* NewNoteController.m in Sources */,
@@ -978,6 +988,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				CLANG_ENABLE_MODULES = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 30;
 				DEVELOPMENT_TEAM = 9VWR9JYXC6;
@@ -993,9 +1004,13 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "MobileOrg-Info-Debug.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mobileorg.mobileorg-Debug";
 				PRODUCT_NAME = MobileOrg;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "MobileOrg-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1004,6 +1019,7 @@
 		747BF99E1DFD719400E800FB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1033,6 +1049,9 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = de.schnuddelhuddel.MobileOrgTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MobileOrgTests/MobileOrgTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MobileOrg.app/MobileOrg";
 			};
 			name = Debug;
@@ -1040,6 +1059,7 @@
 		747BF99F1DFD719400E800FB /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1080,6 +1100,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = de.schnuddelhuddel.MobileOrgTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "MobileOrgTests/MobileOrgTests-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MobileOrg.app/MobileOrg";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1088,6 +1110,7 @@
 		747BF9A01DFD719400E800FB /* AppStore */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1128,6 +1151,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = de.schnuddelhuddel.MobileOrgTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "MobileOrgTests/MobileOrgTests-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MobileOrg.app/MobileOrg";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1170,6 +1195,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 30;
@@ -1184,9 +1210,12 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "MobileOrg-Info-AdHoc.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "to.ncogni.mobileorg-beta";
 				PRODUCT_NAME = MobileOrg;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "MobileOrg-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1228,6 +1257,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				CLANG_ENABLE_MODULES = YES;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 30;
 				DEVELOPMENT_TEAM = 9VWR9JYXC6;
@@ -1241,9 +1271,12 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "MobileOrg-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobileorg.mobileorg;
 				PRODUCT_NAME = MobileOrg;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "MobileOrg-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};

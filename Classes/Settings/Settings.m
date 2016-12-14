@@ -29,7 +29,8 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
 #import "Settings.h"
 #import "GlobalUtils.h"
 #import "DropboxTransferManager.h"
-#import "RegexKitLite.h"
+#import "MobileOrg-Swift.h"
+
 
 // Singleton instance
 static Settings *gInstance = NULL;

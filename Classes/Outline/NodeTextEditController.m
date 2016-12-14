@@ -25,6 +25,8 @@
 #import "LocalEditAction.h"
 #import "DataUtils.h"
 #import "GlobalUtils.h"
+#import "MobileOrg-Swift.h"
+
 
 @implementation NodeTextEditController
 

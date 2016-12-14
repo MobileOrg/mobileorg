@@ -35,6 +35,7 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
 #import "SessionManager.h"
 #import "MobileOrgAppDelegate.h"
 #import "DropboxTransferManager.h"
+#import "MobileOrg-Swift.h"
 
 @implementation SettingsController
 

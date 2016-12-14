@@ -25,7 +25,7 @@
 #import "DataUtils.h"
 #import "Settings.h"
 #import "GlobalUtils.h"
-#import "RegexKitLite.h"
+#import "MobileOrg-Swift.h"
 
 @implementation Node
 

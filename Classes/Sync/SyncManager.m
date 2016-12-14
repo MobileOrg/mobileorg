@@ -36,7 +36,8 @@
 #import "LocalEditAction.h"
 #import "StatusViewController.h"
 #import "MobileOrgAppDelegate.h"
-#import "RegexKitLite.h"
+#import "MobileOrg-Swift.h"
+
 
 @interface SyncManager(private)
 - (TransferManager*)transferManager;

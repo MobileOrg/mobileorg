@@ -29,6 +29,7 @@
 		7461031C1E0189F100C8E34F /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 746103191E0189F100C8E34F /* Icon-72.png */; };
 		7461031D1E0189F100C8E34F /* Icon-beta-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 7461031A1E0189F100C8E34F /* Icon-beta-72.png */; };
 		7461031E1E0189F100C8E34F /* Icon-debug-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 7461031B1E0189F100C8E34F /* Icon-debug-72.png */; };
+		7476CA9F1E01C749007EAE6F /* String+RegexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7476CA9E1E01C749007EAE6F /* String+RegexTests.swift */; };
 		747BF97F1DFCBBE600E800FB /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 747BF97E1DFCBBE600E800FB /* DropboxSDK.framework */; };
 		747BF9811DFCBC3F00E800FB /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 747BF9801DFCBC3F00E800FB /* libicucore.tbd */; };
 		747BF98A1DFD5CD900E800FB /* AppKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 747BF9881DFD5CD900E800FB /* AppKey.plist */; };
@@ -158,6 +159,7 @@
 		746103191E0189F100C8E34F /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "Resources/AppIcons/Icon-72.png"; sourceTree = "<group>"; };
 		7461031A1E0189F100C8E34F /* Icon-beta-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-beta-72.png"; path = "Resources/AppIcons/Icon-beta-72.png"; sourceTree = "<group>"; };
 		7461031B1E0189F100C8E34F /* Icon-debug-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-debug-72.png"; path = "Resources/AppIcons/Icon-debug-72.png"; sourceTree = "<group>"; };
+		7476CA9E1E01C749007EAE6F /* String+RegexTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+RegexTests.swift"; sourceTree = "<group>"; };
 		747BF97E1DFCBBE600E800FB /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DropboxSDK.framework; sourceTree = "<group>"; };
 		747BF9801DFCBC3F00E800FB /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		747BF9881DFD5CD900E800FB /* AppKey.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppKey.plist; path = Configuration/AppKey.plist; sourceTree = "<group>"; };
@@ -429,6 +431,7 @@
 				747BF9991DFD719400E800FB /* MobileOrgTests.m */,
 				747BF99B1DFD719400E800FB /* Info.plist */,
 				746102FF1DFF15F300C8E34F /* MobileOrgTests-Bridging-Header.h */,
+				7476CA9E1E01C749007EAE6F /* String+RegexTests.swift */,
 			);
 			path = MobileOrgTests;
 			sourceTree = "<group>";
@@ -682,16 +685,8 @@
 			isa = PBXGroup;
 			children = (
 				18A3BBA416178DCD003D9320 /* Reachability */,
-				79CB19321074384800A7E065 /* RegexKitLite */,
 			);
 			path = ThirdParty;
-			sourceTree = "<group>";
-		};
-		79CB19321074384800A7E065 /* RegexKitLite */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = RegexKitLite;
 			sourceTree = "<group>";
 		};
 		CC470B9380ADEC11A31E3DE2 /* Pods */ = {
@@ -974,6 +969,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7476CA9F1E01C749007EAE6F /* String+RegexTests.swift in Sources */,
 				747BF99A1DFD719400E800FB /* MobileOrgTests.m in Sources */,
 				747BF9A31DFD738E00E800FB /* NodeTests.m in Sources */,
 			);

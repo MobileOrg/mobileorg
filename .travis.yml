@@ -1,37 +1,15 @@
-# http://docs.travis-ci.com/user/languages/objective-c/
-# https://github.com/facebook/xctool
+# Travis
 
 language: objective-c
 
 osx_image: xcode8.2
 
-# xcode_project: SampleNotifcations/SampleNotifcations.xcodeproj
-# xcode_workspace: SampleNotifcations/SampleNotifcations.xcworkspace
-
-# xcode_scheme: SampleNotifcationsTests
-
-# podfile: SampleNotifcations/Podfile
-
-# xcode_sdk: iphonesimulator9.0
+# xcode_project: MobileOrg.xcodeproj
+# xcode_scheme: MobileOrg
 
 script:
-
-  xctool
-  -workspace MobileOrg.xcworkspace
-  -scheme MobileOrg
-  -sdk iphonesimulator
-  -destination 'platform=iOS Simulator,name=iPhone 6 Plus'
-  build 
-  test
-  ONLY_ACTIVE_ARCH=NO
-  CODE_SIGN_IDENTITY=""
-  CODE_SIGNING_REQUIRED=NO
+  xcodebuild test CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO  -workspace MobileOrg.xcworkspace -scheme MobileOrg -destination 'platform=iOS Simulator,name=iPhone 6,OS=9.3'
 
 notifications:
   irc: 
     "irc.freenode.net#mobileorg"
-
-
-before_install:
-  - brew update
-  - brew uninstall xctool && brew install --HEAD xctool

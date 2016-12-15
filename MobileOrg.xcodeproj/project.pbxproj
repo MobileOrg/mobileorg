@@ -33,7 +33,6 @@
 		747BF97F1DFCBBE600E800FB /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 747BF97E1DFCBBE600E800FB /* DropboxSDK.framework */; };
 		747BF9811DFCBC3F00E800FB /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 747BF9801DFCBC3F00E800FB /* libicucore.tbd */; };
 		747BF98A1DFD5CD900E800FB /* AppKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 747BF9881DFD5CD900E800FB /* AppKey.plist */; };
-		747BF99A1DFD719400E800FB /* MobileOrgTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 747BF9991DFD719400E800FB /* MobileOrgTests.m */; };
 		747BF9A31DFD738E00E800FB /* NodeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 747BF9A21DFD738E00E800FB /* NodeTests.m */; };
 		790B413F10814D8400A852F1 /* ActionMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 790B413E10814D8400A852F1 /* ActionMenuController.m */; };
 		790B417E10814FAC00A852F1 /* OutlineTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 790B417D10814FAC00A852F1 /* OutlineTableView.m */; };
@@ -148,7 +147,6 @@
 		746102FB1DFF0EDA00C8E34F /* MobileOrg-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MobileOrg-Bridging-Header.h"; sourceTree = "<group>"; };
 		746102FC1DFF0EDB00C8E34F /* String+RegexSplitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String+RegexSplitter.swift"; path = "Classes/Extensions/String+RegexSplitter.swift"; sourceTree = "<group>"; };
 		746102FF1DFF15F300C8E34F /* MobileOrgTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MobileOrgTests-Bridging-Header.h"; sourceTree = "<group>"; };
-		746103001DFF15F300C8E34F /* ChecksumTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChecksumTests.swift; sourceTree = "<group>"; };
 		7461030A1E0187F500C8E34F /* Icon-beta@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-beta@2x.png"; path = "../AppIcons/Icon-beta@2x.png"; sourceTree = "<group>"; };
 		7461030C1E01880A00C8E34F /* Icon-debug@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-debug@2x.png"; path = "../AppIcons/Icon-debug@2x.png"; sourceTree = "<group>"; };
 		7461030E1E01882A00C8E34F /* Icon-beta.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-beta.png"; path = "Resources/AppIcons/Icon-beta.png"; sourceTree = SOURCE_ROOT; };
@@ -164,7 +162,6 @@
 		747BF9801DFCBC3F00E800FB /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		747BF9881DFD5CD900E800FB /* AppKey.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppKey.plist; path = Configuration/AppKey.plist; sourceTree = "<group>"; };
 		747BF9971DFD719400E800FB /* MobileOrgTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MobileOrgTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		747BF9991DFD719400E800FB /* MobileOrgTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MobileOrgTests.m; sourceTree = "<group>"; };
 		747BF99B1DFD719400E800FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		747BF9A21DFD738E00E800FB /* NodeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NodeTests.m; sourceTree = "<group>"; };
 		790B413D10814D8400A852F1 /* ActionMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionMenuController.h; sourceTree = "<group>"; };
@@ -427,8 +424,6 @@
 			isa = PBXGroup;
 			children = (
 				747BF9A21DFD738E00E800FB /* NodeTests.m */,
-				746103001DFF15F300C8E34F /* ChecksumTests.swift */,
-				747BF9991DFD719400E800FB /* MobileOrgTests.m */,
 				747BF99B1DFD719400E800FB /* Info.plist */,
 				746102FF1DFF15F300C8E34F /* MobileOrgTests-Bridging-Header.h */,
 				7476CA9E1E01C749007EAE6F /* String+RegexTests.swift */,
@@ -970,7 +965,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7476CA9F1E01C749007EAE6F /* String+RegexTests.swift in Sources */,
-				747BF99A1DFD719400E800FB /* MobileOrgTests.m in Sources */,
 				747BF9A31DFD738E00E800FB /* NodeTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

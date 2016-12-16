@@ -55,7 +55,7 @@
     [fileNode setReadOnly:[NSNumber numberWithBool:true]];
 
     if (![managedObjectContext save:&error]) {
-        // TODO: Error
+        // TODO: Error handling not present
     }
 
     // If this is the index node, we have to do a couple things special
@@ -140,6 +140,7 @@
             //     ...
             //     },
             // }
+            // PRAGMA MARK: - Todo keyword parsing
             if (isIndex && [[[nodeStack lastObject] indentLevel] intValue] == 0) {
                 NSRange keywordRange = [line rangeOfString:@"#+TODO: "];
                 if (keywordRange.location != NSNotFound) {

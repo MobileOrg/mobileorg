@@ -21,7 +21,6 @@
 //
 
 #import "SyncManager.h"
-#import "DropboxTransferManager.h"
 #import "WebDavTransferManager.h"
 #import "TransferContext.h"
 #import "Settings.h"

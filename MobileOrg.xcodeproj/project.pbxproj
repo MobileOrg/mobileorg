@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		18A3BBA316178BDD003D9320 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A3BBA216178BDD003D9320 /* QuartzCore.framework */; };
 		18A3BBA716178DCD003D9320 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3BBA616178DCD003D9320 /* Reachability.m */; };
+		1CB7009C5E5623027D2F7449 /* Pods_MobileOrg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA0A3BD3D41BA77D0F500F29 /* Pods_MobileOrg.framework */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -18,6 +19,7 @@
 		28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D801B30F44B63D00FB423F /* CoreData.framework */; };
 		743C12F41DFED37F0051EC6F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 743C12F31DFED37F0051EC6F /* Images.xcassets */; };
 		743C12F61DFED5950051EC6F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 743C12F51DFED5950051EC6F /* Launch Screen.storyboard */; };
+		744408DE1E035A1800BCE192 /* DropboxTransferManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744408DD1E035A1800BCE192 /* DropboxTransferManager.swift */; };
 		746103091E017E5700C8E34F /* String+RegexSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746102FC1DFF0EDB00C8E34F /* String+RegexSplitter.swift */; };
 		7461030B1E0187F500C8E34F /* Icon-beta@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7461030A1E0187F500C8E34F /* Icon-beta@2x.png */; };
 		7461030D1E01880A00C8E34F /* Icon-debug@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7461030C1E01880A00C8E34F /* Icon-debug@2x.png */; };
@@ -30,7 +32,6 @@
 		7461031D1E0189F100C8E34F /* Icon-beta-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 7461031A1E0189F100C8E34F /* Icon-beta-72.png */; };
 		7461031E1E0189F100C8E34F /* Icon-debug-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 7461031B1E0189F100C8E34F /* Icon-debug-72.png */; };
 		7476CA9F1E01C749007EAE6F /* String+RegexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7476CA9E1E01C749007EAE6F /* String+RegexTests.swift */; };
-		747BF97F1DFCBBE600E800FB /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 747BF97E1DFCBBE600E800FB /* DropboxSDK.framework */; };
 		747BF9811DFCBC3F00E800FB /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 747BF9801DFCBC3F00E800FB /* libicucore.tbd */; };
 		747BF98A1DFD5CD900E800FB /* AppKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 747BF9881DFD5CD900E800FB /* AppKey.plist */; };
 		747BF9A31DFD738E00E800FB /* NodeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 747BF9A21DFD738E00E800FB /* NodeTests.m */; };
@@ -51,7 +52,6 @@
 		7945F5A111A8066200731598 /* WebDavTransferManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7945F5A011A8066200731598 /* WebDavTransferManager.m */; };
 		7945F61211A807FD00731598 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7945F61111A807FD00731598 /* Security.framework */; };
 		796A6A911083E67400D0DB25 /* DocumentView.js in Resources */ = {isa = PBXBuildFile; fileRef = 793F7F0B107C385900674D0A /* DocumentView.js */; };
-		796CB87C11ACA1D80040167E /* DropboxTransferManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 796CB87B11ACA1D80040167E /* DropboxTransferManager.m */; };
 		7982F3621073F2FA00AEA6BC /* Node.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F35B1073F2FA00AEA6BC /* Node.m */; };
 		7982F3631073F2FA00AEA6BC /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F35D1073F2FA00AEA6BC /* Note.m */; };
 		7982F3641073F2FA00AEA6BC /* FileChecksum.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F35F1073F2FA00AEA6BC /* FileChecksum.m */; };
@@ -114,7 +114,6 @@
 		8322ED8A176AF1C7008B37C7 /* search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8322ED84176AF1C2008B37C7 /* search@2x.png */; };
 		8322ED8B176AF1C7008B37C7 /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8322ED85176AF1C4008B37C7 /* settings@2x.png */; };
 		8322ED8C176AF1C7008B37C7 /* table_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8322ED86176AF1C6008B37C7 /* table_gray@2x.png */; };
-		BA9D1B7518181888EF0076BD /* libPods-MobileOrg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6D44BC78404DD0C8DDF4655 /* libPods-MobileOrg.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,6 +142,7 @@
 		6561B399A841A3A5958A5889 /* Pods-MobileOrg.appstore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileOrg.appstore.xcconfig"; path = "Pods/Target Support Files/Pods-MobileOrg/Pods-MobileOrg.appstore.xcconfig"; sourceTree = "<group>"; };
 		743C12F31DFED37F0051EC6F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MobileOrg/Images.xcassets; sourceTree = "<group>"; };
 		743C12F51DFED5950051EC6F /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		744408DD1E035A1800BCE192 /* DropboxTransferManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DropboxTransferManager.swift; path = Dropbox/DropboxTransferManager.swift; sourceTree = "<group>"; };
 		746102FB1DFF0EDA00C8E34F /* MobileOrg-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MobileOrg-Bridging-Header.h"; sourceTree = "<group>"; };
 		746102FC1DFF0EDB00C8E34F /* String+RegexSplitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String+RegexSplitter.swift"; path = "Classes/Extensions/String+RegexSplitter.swift"; sourceTree = "<group>"; };
 		746102FF1DFF15F300C8E34F /* MobileOrgTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MobileOrgTests-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -157,7 +157,6 @@
 		7461031A1E0189F100C8E34F /* Icon-beta-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-beta-72.png"; path = "Resources/AppIcons/Icon-beta-72.png"; sourceTree = "<group>"; };
 		7461031B1E0189F100C8E34F /* Icon-debug-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-debug-72.png"; path = "Resources/AppIcons/Icon-debug-72.png"; sourceTree = "<group>"; };
 		7476CA9E1E01C749007EAE6F /* String+RegexTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+RegexTests.swift"; sourceTree = "<group>"; };
-		747BF97E1DFCBBE600E800FB /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DropboxSDK.framework; sourceTree = "<group>"; };
 		747BF9801DFCBC3F00E800FB /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		747BF9881DFD5CD900E800FB /* AppKey.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppKey.plist; path = Configuration/AppKey.plist; sourceTree = "<group>"; };
 		747BF9971DFD719400E800FB /* MobileOrgTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MobileOrgTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -285,7 +284,7 @@
 		8322ED86176AF1C6008B37C7 /* table_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "table_gray@2x.png"; sourceTree = "<group>"; };
 		8B262305779E2631EE21FE20 /* Pods-MobileOrg.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileOrg.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MobileOrg/Pods-MobileOrg.debug.xcconfig"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MobileOrg-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MobileOrg-Info.plist"; sourceTree = "<group>"; };
-		D6D44BC78404DD0C8DDF4655 /* libPods-MobileOrg.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MobileOrg.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA0A3BD3D41BA77D0F500F29 /* Pods_MobileOrg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MobileOrg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -297,12 +296,11 @@
 				18A3BBA316178BDD003D9320 /* QuartzCore.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
-				747BF97F1DFCBBE600E800FB /* DropboxSDK.framework in Frameworks */,
 				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
 				28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */,
 				793F7F6C107CB5FC00674D0A /* SystemConfiguration.framework in Frameworks */,
 				7945F61211A807FD00731598 /* Security.framework in Frameworks */,
-				BA9D1B7518181888EF0076BD /* libPods-MobileOrg.a in Frameworks */,
+				1CB7009C5E5623027D2F7449 /* Pods_MobileOrg.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,8 +335,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				746102FC1DFF0EDB00C8E34F /* String+RegexSplitter.swift */,
-				743C12F51DFED5950051EC6F /* Launch Screen.storyboard */,
+				74F666231E03D7FA00F1864C /* Foundation+Extension */,
 				747BF98B1DFD5CF500E800FB /* Configuration */,
 				79BA55581073A6F800D67917 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -348,7 +345,6 @@
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				CC470B9380ADEC11A31E3DE2 /* Pods */,
-				746102FB1DFF0EDA00C8E34F /* MobileOrg-Bridging-Header.h */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -356,6 +352,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				746102FB1DFF0EDA00C8E34F /* MobileOrg-Bridging-Header.h */,
 				32CA4F630368D1EE00C91783 /* MobileOrg_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
@@ -371,6 +368,7 @@
 				79BA55691073A7DF00D67917 /* Javascript */,
 				7936FA90120DF4280062CF0E /* Entitlements.plist */,
 				28C3AD890F43EF2300507BA6 /* MobileOrg.xcdatamodel */,
+				743C12F51DFED5950051EC6F /* Launch Screen.storyboard */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* MobileOrg-Info.plist */,
 				799774AA122C69260006EFC6 /* MobileOrg-Info-AdHoc.plist */,
@@ -383,7 +381,6 @@
 			isa = PBXGroup;
 			children = (
 				747BF9801DFCBC3F00E800FB /* libicucore.tbd */,
-				747BF97E1DFCBBE600E800FB /* DropboxSDK.framework */,
 				18A3BBA216178BDD003D9320 /* QuartzCore.framework */,
 				7945F61111A807FD00731598 /* Security.framework */,
 				793F7F6B107CB5FC00674D0A /* SystemConfiguration.framework */,
@@ -391,7 +388,7 @@
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
 				28D801B30F44B63D00FB423F /* CoreData.framework */,
-				D6D44BC78404DD0C8DDF4655 /* libPods-MobileOrg.a */,
+				DA0A3BD3D41BA77D0F500F29 /* Pods_MobileOrg.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -429,6 +426,14 @@
 			path = MobileOrgTests;
 			sourceTree = "<group>";
 		};
+		74F666231E03D7FA00F1864C /* Foundation+Extension */ = {
+			isa = PBXGroup;
+			children = (
+				746102FC1DFF0EDB00C8E34F /* String+RegexSplitter.swift */,
+			);
+			name = "Foundation+Extension";
+			sourceTree = "<group>";
+		};
 		7936F928120DDF3E0062CF0E /* Resources-iPad */ = {
 			isa = PBXGroup;
 			children = (
@@ -445,6 +450,7 @@
 			children = (
 				796CB87A11ACA1D80040167E /* DropboxTransferManager.h */,
 				796CB87B11ACA1D80040167E /* DropboxTransferManager.m */,
+				744408DD1E035A1800BCE192 /* DropboxTransferManager.swift */,
 			);
 			name = Dropbox;
 			sourceTree = "<group>";
@@ -920,6 +926,7 @@
 				79BA55621073A6F800D67917 /* MobileOrgAppDelegate.m in Sources */,
 				7982F3621073F2FA00AEA6BC /* Node.m in Sources */,
 				7982F3631073F2FA00AEA6BC /* Note.m in Sources */,
+				744408DE1E035A1800BCE192 /* DropboxTransferManager.swift in Sources */,
 				7982F3641073F2FA00AEA6BC /* FileChecksum.m in Sources */,
 				7982F3651073F2FA00AEA6BC /* LocalEditAction.m in Sources */,
 				7982F36A1073F33500AEA6BC /* OutlineViewController.m in Sources */,
@@ -953,7 +960,6 @@
 				790B417E10814FAC00A852F1 /* OutlineTableView.m in Sources */,
 				790B455610826A0900A852F1 /* PriorityEditController.m in Sources */,
 				7945F5A111A8066200731598 /* WebDavTransferManager.m in Sources */,
-				796CB87C11ACA1D80040167E /* DropboxTransferManager.m in Sources */,
 				18A3BBA716178DCD003D9320 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

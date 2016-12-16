@@ -22,7 +22,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "DropboxTransferManager.h"
+#import "MobileOrg-Swift.h"
 
 @interface SettingsController : UITableViewController <UITextFieldDelegate> {
     NSString *pendingNewIndexUrl;

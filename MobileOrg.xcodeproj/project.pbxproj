@@ -35,6 +35,8 @@
 		747BF9811DFCBC3F00E800FB /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 747BF9801DFCBC3F00E800FB /* libicucore.tbd */; };
 		747BF98A1DFD5CD900E800FB /* AppKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 747BF9881DFD5CD900E800FB /* AppKey.plist */; };
 		747BF9A31DFD738E00E800FB /* NodeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 747BF9A21DFD738E00E800FB /* NodeTests.m */; };
+		749CCE3D1E05A8A600DE4648 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 749CCE3C1E05A8A600DE4648 /* Default-568h@2x.png */; };
+		749CCE3F1E05ABC200DE4648 /* UIAlertViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749CCE3E1E05ABC200DE4648 /* UIAlertViewController+Extension.swift */; };
 		790B413F10814D8400A852F1 /* ActionMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 790B413E10814D8400A852F1 /* ActionMenuController.m */; };
 		790B417E10814FAC00A852F1 /* OutlineTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 790B417D10814FAC00A852F1 /* OutlineTableView.m */; };
 		790B455610826A0900A852F1 /* PriorityEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 790B455510826A0900A852F1 /* PriorityEditController.m */; };
@@ -162,6 +164,8 @@
 		747BF9971DFD719400E800FB /* MobileOrgTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MobileOrgTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		747BF99B1DFD719400E800FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		747BF9A21DFD738E00E800FB /* NodeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NodeTests.m; sourceTree = "<group>"; };
+		749CCE3C1E05A8A600DE4648 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		749CCE3E1E05ABC200DE4648 /* UIAlertViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIAlertViewController+Extension.swift"; path = "Classes/Extensions/UIAlertViewController+Extension.swift"; sourceTree = "<group>"; };
 		790B413D10814D8400A852F1 /* ActionMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionMenuController.h; sourceTree = "<group>"; };
 		790B413E10814D8400A852F1 /* ActionMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionMenuController.m; sourceTree = "<group>"; };
 		790B417C10814FAC00A852F1 /* OutlineTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutlineTableView.h; sourceTree = "<group>"; };
@@ -335,6 +339,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				749CCE3C1E05A8A600DE4648 /* Default-568h@2x.png */,
 				74F666231E03D7FA00F1864C /* Foundation+Extension */,
 				747BF98B1DFD5CF500E800FB /* Configuration */,
 				79BA55581073A6F800D67917 /* Classes */,
@@ -429,6 +434,7 @@
 		74F666231E03D7FA00F1864C /* Foundation+Extension */ = {
 			isa = PBXGroup;
 			children = (
+				749CCE3E1E05ABC200DE4648 /* UIAlertViewController+Extension.swift */,
 				746102FC1DFF0EDB00C8E34F /* String+RegexSplitter.swift */,
 			);
 			name = "Foundation+Extension";
@@ -746,7 +752,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0820;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
 						DevelopmentTeam = 9VWR9JYXC6;
@@ -837,6 +843,7 @@
 				7461031E1E0189F100C8E34F /* Icon-debug-72.png in Resources */,
 				8322ED88176AF1C7008B37C7 /* inbox@2x.png in Resources */,
 				7461031C1E0189F100C8E34F /* Icon-72.png in Resources */,
+				749CCE3D1E05A8A600DE4648 /* Default-568h@2x.png in Resources */,
 				8322ED89176AF1C7008B37C7 /* outline@2x.png in Resources */,
 				8322ED8A176AF1C7008B37C7 /* search@2x.png in Resources */,
 				8322ED8B176AF1C7008B37C7 /* settings@2x.png in Resources */,
@@ -923,6 +930,7 @@
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				28C3AD8A0F43EF2300507BA6 /* MobileOrg.xcdatamodel in Sources */,
+				749CCE3F1E05ABC200DE4648 /* UIAlertViewController+Extension.swift in Sources */,
 				79BA55621073A6F800D67917 /* MobileOrgAppDelegate.m in Sources */,
 				7982F3621073F2FA00AEA6BC /* Node.m in Sources */,
 				7982F3631073F2FA00AEA6BC /* Note.m in Sources */,
@@ -988,6 +996,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8B262305779E2631EE21FE20 /* Pods-MobileOrg.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
 				CLANG_ENABLE_MODULES = YES;
@@ -1195,6 +1204,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8202E5BD58AEDFCB8A890758 /* Pods-MobileOrg.adhoc.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
 				CLANG_ENABLE_MODULES = YES;
@@ -1257,6 +1267,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6561B399A841A3A5958A5889 /* Pods-MobileOrg.appstore.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
 				CLANG_ENABLE_MODULES = YES;

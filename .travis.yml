@@ -10,6 +10,6 @@ osx_image: xcode8.2
 script:
   xcodebuild test CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO  -workspace MobileOrg.xcworkspace -scheme MobileOrg -destination 'platform=iOS Simulator,name=iPhone 6,OS=9.3'
 
-notifications:
-  irc: 
-    "irc.freenode.net#mobileorg"
+# notifications:
+#   irc: 
+#     "irc.freenode.net#mobileorg"

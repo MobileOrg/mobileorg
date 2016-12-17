@@ -36,7 +36,6 @@
 		747BF98A1DFD5CD900E800FB /* AppKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 747BF9881DFD5CD900E800FB /* AppKey.plist */; };
 		747BF9A31DFD738E00E800FB /* NodeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 747BF9A21DFD738E00E800FB /* NodeTests.m */; };
 		749CCE3D1E05A8A600DE4648 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 749CCE3C1E05A8A600DE4648 /* Default-568h@2x.png */; };
-		749CCE3F1E05ABC200DE4648 /* UIAlertViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749CCE3E1E05ABC200DE4648 /* UIAlertViewController+Extension.swift */; };
 		790B413F10814D8400A852F1 /* ActionMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 790B413E10814D8400A852F1 /* ActionMenuController.m */; };
 		790B417E10814FAC00A852F1 /* OutlineTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 790B417D10814FAC00A852F1 /* OutlineTableView.m */; };
 		790B455610826A0900A852F1 /* PriorityEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 790B455510826A0900A852F1 /* PriorityEditController.m */; };
@@ -165,7 +164,6 @@
 		747BF99B1DFD719400E800FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		747BF9A21DFD738E00E800FB /* NodeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NodeTests.m; sourceTree = "<group>"; };
 		749CCE3C1E05A8A600DE4648 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		749CCE3E1E05ABC200DE4648 /* UIAlertViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIAlertViewController+Extension.swift"; path = "Classes/Extensions/UIAlertViewController+Extension.swift"; sourceTree = "<group>"; };
 		790B413D10814D8400A852F1 /* ActionMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionMenuController.h; sourceTree = "<group>"; };
 		790B413E10814D8400A852F1 /* ActionMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionMenuController.m; sourceTree = "<group>"; };
 		790B417C10814FAC00A852F1 /* OutlineTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutlineTableView.h; sourceTree = "<group>"; };
@@ -434,7 +432,6 @@
 		74F666231E03D7FA00F1864C /* Foundation+Extension */ = {
 			isa = PBXGroup;
 			children = (
-				749CCE3E1E05ABC200DE4648 /* UIAlertViewController+Extension.swift */,
 				746102FC1DFF0EDB00C8E34F /* String+RegexSplitter.swift */,
 			);
 			name = "Foundation+Extension";
@@ -930,7 +927,6 @@
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				28C3AD8A0F43EF2300507BA6 /* MobileOrg.xcdatamodel in Sources */,
-				749CCE3F1E05ABC200DE4648 /* UIAlertViewController+Extension.swift in Sources */,
 				79BA55621073A6F800D67917 /* MobileOrgAppDelegate.m in Sources */,
 				7982F3621073F2FA00AEA6BC /* Node.m in Sources */,
 				7982F3631073F2FA00AEA6BC /* Note.m in Sources */,

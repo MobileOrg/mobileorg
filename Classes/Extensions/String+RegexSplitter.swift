@@ -25,27 +25,21 @@ import Foundation
 
 public extension NSString {
 
+
   func componentsSeparatedBy(regex: String) -> Array<String> {
 
-    do {
-      var result:[String] = []
-      let swiftString = String(self)
-      let rgx = try NSRegularExpression(pattern: regex, options: [])
+    guard let re = try? NSRegularExpression(pattern: regex, options: [])
+      else { return [] }
 
-      let matches = rgx.matches(in: swiftString, options: [], range: NSRange(location: 0, length: swiftString.characters.count))
-      for match in matches {
-        for n in 0..<match.numberOfRanges {
-          let range = match.rangeAt(n)
-          let begin = swiftString.index(swiftString.startIndex, offsetBy: range.location)
-          let end = swiftString.index(swiftString.startIndex, offsetBy: range.location+range.length)
-          result.append(swiftString.substring(with: begin..<end))
-        }
-      }
-      return result
-    } catch {
-      return []
-    }
+    let stop = "<SomeStringThatYouDoNotExpectToOccurInSelf>"
+    let modifiedString = re.stringByReplacingMatches(
+      in: self as String,
+      options: [],
+      range: NSRange(location: 0, length: self.length),
+      withTemplate: stop) as NSString
+    return modifiedString.components(separatedBy: stop)
   }
+
 
   func arrayOfCaptureComponentsMatchedBy(regex: String) -> Array<Array<String>> {
     let capture = self.captureComponentsMatchedBy(regex: regex)

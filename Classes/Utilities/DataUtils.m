@@ -643,7 +643,7 @@ int CountLocalNotes() {
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity: [NSEntityDescription entityForName:@"Note" inManagedObjectContext:managedObjectContext]];
 
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(locallyModified == 1)"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(locallyModified == 1 AND deleted == 0)"];
     [request setPredicate:predicate];
 
     NSError *error = nil;

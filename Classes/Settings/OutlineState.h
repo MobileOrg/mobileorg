@@ -25,13 +25,13 @@
 
 @interface OutlineState : NSObject {
     OutlineSelectionType selectionType;
-    int selectedChildIndex;
+    long selectedChildIndex;
     int scrollPositionY;
     NSString *selectedLink;
 }
 
 @property (nonatomic) OutlineSelectionType selectionType;
-@property (nonatomic) int selectedChildIndex;
+@property (nonatomic) long selectedChildIndex;
 @property (nonatomic) int scrollPositionY;
 @property (nonatomic, retain) NSString *selectedLink;
 

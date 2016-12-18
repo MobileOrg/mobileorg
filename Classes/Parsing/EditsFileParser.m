@@ -24,7 +24,8 @@
 #import "EditEntity.h"
 #import "DataUtils.h"
 #import "GlobalUtils.h"
-#import "RegexKitLite.h"
+#import "MobileOrg-Swift.h"
+
 
 @implementation EditsFileParser
 

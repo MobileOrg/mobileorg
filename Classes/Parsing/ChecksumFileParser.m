@@ -21,7 +21,7 @@
 //
 
 #import "ChecksumFileParser.h"
-#import "RegexKitLite.h"
+#import "MobileOrg-Swift.h"
 
 @implementation ChecksumFileParser
 

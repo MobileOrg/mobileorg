@@ -1,6 +1,15 @@
+# Travis
+
 language: objective-c
-xcode_project: MobileOrg.xcodeproj
-xcode_scheme: MobileOrg
-notifications:
-  irc: 
-    - "irc.freenode.net#mobileorg"
+
+osx_image: xcode8.2
+
+# xcode_project: MobileOrg.xcodeproj
+# xcode_scheme: MobileOrg
+
+script:
+  xcodebuild test CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO  -workspace MobileOrg.xcworkspace -scheme MobileOrg -destination 'platform=iOS Simulator,name=iPhone 6,OS=9.3'
+
+# notifications:
+#   irc: 
+#     "irc.freenode.net#mobileorg"

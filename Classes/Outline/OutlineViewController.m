@@ -162,13 +162,15 @@
             ret = controller;
             break;
         }
+        case OutlineSelectionTypeDontCare:
+            break;
     }
 
     return ret;
 }
 
 - (NSIndexPath*)pathForNode:(Node*)node {
-    int index = [[self nodes] indexOfObject:node];
+    long index = [[self nodes] indexOfObject:node];
     if (index >= 0 && index < [nodes count]) {
         return [NSIndexPath indexPathForRow:index inSection:0];
     }
@@ -432,7 +434,7 @@
     return YES;
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 

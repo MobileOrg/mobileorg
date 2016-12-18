@@ -241,7 +241,6 @@ typedef enum {
 
     segmented = [[UISegmentedControl alloc] initWithItems:buttons];
     segmented.frame = CGRectMake(0, 0, 110, 30);
-    segmented.segmentedControlStyle = UISegmentedControlStyleBar;
     segmented.momentary = YES;
     [segmented addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
 
@@ -267,7 +266,7 @@ typedef enum {
     return YES;
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 

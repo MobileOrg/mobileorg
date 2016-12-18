@@ -25,6 +25,8 @@
 #import "LocalEditAction.h"
 #import "DataUtils.h"
 #import "GlobalUtils.h"
+#import "MobileOrg-Swift.h"
+
 
 @implementation NodeTextEditController
 
@@ -241,7 +243,7 @@
     return YES;
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 

@@ -182,7 +182,7 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
     return YES;
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 

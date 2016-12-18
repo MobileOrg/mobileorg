@@ -2,6 +2,11 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+  <key>LSApplicationQueriesSchemes</key>
+  <array>
+    <string>dbapi-2</string>
+    <string>dbapi-8-emm</string>
+  </array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleDisplayName</key>
@@ -31,7 +36,7 @@
 		</dict>
 	</dict>
 	<key>CFBundleIdentifier</key>
-	<string>to.ncogni.mobileorg-beta</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>

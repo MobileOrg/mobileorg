@@ -34,7 +34,7 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
 #import "OutlineViewController.h"
 #import "SessionManager.h"
 #import "MobileOrgAppDelegate.h"
-#import "DropboxTransferManager.h"
+#import "MobileOrg-Swift.h"
 
 @implementation SettingsController
 
@@ -76,7 +76,7 @@ enum {
     return YES;
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 
@@ -197,7 +197,6 @@ enum {
 
             modeSwitch = [[[UISegmentedControl alloc] initWithItems:options] autorelease];
             
-            modeSwitch.segmentedControlStyle = UISegmentedControlStylePlain;
             modeSwitch.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
             modeSwitch.frame = cell.contentView.bounds;
 
@@ -682,9 +681,9 @@ enum {
                 [[self tableView] setNeedsDisplay];
             } else {
                 [[DropboxTransferManager instance] login:self];
+                // FIXME: State change is not reflected in UI
                 [[self tableView] reloadData];
                 [[self tableView] setNeedsDisplay];
-                //[[self tableView] cellForRowAtIndexPath:indexPath].textLabel.text = @"Logging in...";
             }
 
             [[[self tableView] cellForRowAtIndexPath:indexPath] setSelected:NO animated:YES];

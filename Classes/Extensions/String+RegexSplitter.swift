@@ -61,6 +61,11 @@ public extension NSString {
       for match in matches {
         for n in 0..<match.numberOfRanges {
           let range = match.rangeAt(n)
+          // This should not happen 🙄
+          guard range.location <= swiftString.characters.count else {
+            print("\(swiftString) -- \(range.location) <= \(swiftString.characters.count)")
+            break }
+
           let begin = swiftString.index(swiftString.startIndex, offsetBy: range.location)
           let end = swiftString.index(swiftString.startIndex, offsetBy: range.location+range.length)
           result.append(swiftString.substring(with: begin..<end))

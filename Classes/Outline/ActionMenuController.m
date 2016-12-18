@@ -130,7 +130,7 @@
                 leftButtonX = 100;
             rightButtonX = leftButtonX + 150;            
             yOffset = 10;
-            actionView.frame = [[UIScreen mainScreen] applicationFrame];
+            actionView.frame = [[UIScreen mainScreen] bounds];
             break;
 
         case UIDeviceOrientationPortrait:
@@ -142,7 +142,7 @@
                 leftButtonX = 20;
             rightButtonX = leftButtonX + 150;            
             yOffset = 40;
-            actionView.frame = [[UIScreen mainScreen] applicationFrame];
+            actionView.frame = [[UIScreen mainScreen] bounds];
             break;
     }
 
@@ -287,7 +287,7 @@
     return YES;
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 

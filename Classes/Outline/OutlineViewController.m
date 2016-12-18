@@ -402,7 +402,7 @@
     }
 
     // Save our state by getting rid of anything above us in the session
-    [[SessionManager instance] popOutlineStateToLevel:[self.navigationController.viewControllers indexOfObject:self]];
+    [[SessionManager instance] popOutlineStateToLevel:(int)[self.navigationController.viewControllers indexOfObject:self]];
 
     // TODO: For now, just always refresh when we're going to display
     // Perhaps this isn't the best thing, it'd be nice if we didn't call

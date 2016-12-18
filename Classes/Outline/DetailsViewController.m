@@ -154,7 +154,7 @@ typedef enum {
         NSIndexPath *path = [c pathForNode:node];
         if (path) {
             [[self navigationController] popViewControllerAnimated:NO];
-            [[SessionManager instance] popOutlineStateToLevel:[self.navigationController.viewControllers indexOfObject:self]-1];
+            [[SessionManager instance] popOutlineStateToLevel:(int)[self.navigationController.viewControllers indexOfObject:self]-1];
             [c selectRowAtIndexPath:path withType:OutlineSelectionTypeExpandOutline andAnimation:YES];
         }
     }
@@ -224,6 +224,8 @@ typedef enum {
                 [controller release];
                 break;
             }
+            default:
+            break;
         }
     }
 }
@@ -255,7 +257,7 @@ typedef enum {
     [super viewWillAppear:animated];
     [self refreshData];
 
-    [[SessionManager instance] popOutlineStateToLevel:[self.navigationController.viewControllers indexOfObject:self]];
+    [[SessionManager instance] popOutlineStateToLevel:(int)[self.navigationController.viewControllers indexOfObject:self]];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

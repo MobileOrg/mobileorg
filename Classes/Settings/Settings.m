@@ -124,17 +124,17 @@ static NSString *kEncryptionPassKey  = @"EncryptionPassword";
             self.priorities = [NSMutableArray arrayWithCapacity:0];
         }
 
-        appBadgeMode = [[NSUserDefaults standardUserDefaults] integerForKey:kAppBadgeModeKey];
+        appBadgeMode = (AppBadgeMode)[[NSUserDefaults standardUserDefaults] integerForKey:kAppBadgeModeKey];
         if (!appBadgeMode) {
             self.appBadgeMode = AppBadgeModeNone;
         }
 
-        serverMode = [[NSUserDefaults standardUserDefaults] integerForKey:kServerModeKey];
+        serverMode = (ServerMode)[[NSUserDefaults standardUserDefaults] integerForKey:kServerModeKey];
         if (!serverMode) {
             self.serverMode = ServerModeWebDav;
         }
         
-        launchTab = [[NSUserDefaults standardUserDefaults] integerForKey:kLaunchTabKey];
+        launchTab = (LaunchTab)[[NSUserDefaults standardUserDefaults] integerForKey:kLaunchTabKey];
         if (!serverMode) {
             self.launchTab = LaunchTabOutline;
         }

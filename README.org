@@ -1,5 +1,5 @@
 * What is MobileOrg?
-  [[https://api.travis-ci.org/MobileOrg/mobileorg.png]]
+  [[https://api.travis-ci.org/MobileOrg/mobileorg.png]] [[https://gitter.im/MobileOrg/Lobby][https://img.shields.io/gitter/room/nwjs/nw.js.svg]]
 
   MobileOrg is a FREE (open-source) iPhone and iPod Touch application
   for storing, searching, viewing and editing your Org-mode files.
@@ -64,11 +64,11 @@
 ** bug tracker
    [[https://github.com/MobileOrg/mobileorg/issues][github issues]]
 ** contact
-   - Web: http://mobileorg.ncogni.to/
-   - Email: mobileorg@spandrel.org
+   - Web:  http://mobileorg.github.io
    - IRC: #mobileorg on freenode
+   - Gitter: https://gitter.im/MobileOrg/Lobby
 * Changelog
-  See: http://mobileorg.ncogni.to/development/changelog/
+  See: https://github.com/MobileOrg/mobileorg.github.io/issues/1
 * Credits
   MobileOrg is thanks to the following:
   - Richard Moreland
@@ -79,6 +79,7 @@
   - Sean Escriva
   - Alex Rodich
   - Russell McClellan
+  - Mario Martelli
 * Support
   MobileOrg will always stay free in the app store, but the Apple
   Developer program costs money. Currently I pay $99 a year to

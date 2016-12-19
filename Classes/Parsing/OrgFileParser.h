@@ -21,6 +21,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 
 @interface OrgFileParser : NSObject {
     id delegate;
@@ -36,6 +37,6 @@
 @property (nonatomic, copy) NSString *localFilename;
 @property (nonatomic, copy) NSString *errorStr;
 
-- (void)parse;
+- (void)parse:(NSManagedObjectContext *)moc;
 
 @end

@@ -36,7 +36,7 @@
 @synthesize localFilename;
 @synthesize errorStr;
 
-- (void)parse {
+- (void)parse:(NSManagedObjectContext *)moc {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
     NSError *error = nil;
@@ -45,7 +45,7 @@
     NSMutableArray *nodeStack;
     NSManagedObjectContext *managedObjectContext;
 
-    managedObjectContext = [AppInstance() managedObjectContext];
+  managedObjectContext = moc; // [AppInstance() managedObjectContext];
 
     // Setup a level-0 node for this Org-file
     fileNode = (Node*)[NSEntityDescription insertNewObjectForEntityForName:@"Node" inManagedObjectContext:managedObjectContext];
@@ -86,6 +86,9 @@
         NSString *line;
         NSMutableString *bodyBuffer = [[NSMutableString alloc] init];
         int lastNumStars = 0;
+        // meta counter for last heading
+        // because lastNumStars will be resetted underway
+        int veryLastNumStars = 0;
         Node *lastNode = nil;
         int sequenceIndex = 1;
         bool readOnlyFile = false;
@@ -320,10 +323,6 @@
                     [nodeStack removeLastObject];
                 }
 
-                // Maintain the indent level of this heading so we can see if the next heading is
-                // the same level or not
-                lastNumStars = numStars;
-
                 // Increment sequence index, which helps us define the order of children
                 sequenceIndex++;
 
@@ -418,8 +417,17 @@
                 [node setReadOnly:[NSNumber numberWithBool:readOnlyFile]];
                 [[nodeStack lastObject] addChildrenObject:node];
 
+              if( numStars > lastNumStars + 1){
+                [nodeStack addObject:node];
+                NSLog(@"title is: %@", title);
+              }
                 // Push this node onto the nodeStack
                 [nodeStack addObject:node];
+
+                // Maintain the indent level of this heading so we can see if the next heading is
+                // the same level or not
+                lastNumStars = numStars;
+
 
                 // For some reason when we parse biggish files, the app will behave strangly, as if we are overloading
                 // it with too many changed entities.  If we called this every iteration, it would be very slow.

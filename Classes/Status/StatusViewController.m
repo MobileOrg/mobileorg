@@ -60,23 +60,23 @@ static StatusViewController *gInstance = NULL;
             return;
         case UIDeviceOrientationPortraitUpsideDown:
             [self.view setTransform:CGAffineTransformMakeRotation(M_PI)];
-            [self.view setFrame:[[UIScreen mainScreen] applicationFrame]];
+            [self.view setFrame:[[UIScreen mainScreen] bounds]];
             statusView.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
             break;
         case UIDeviceOrientationLandscapeLeft:
             [self.view setTransform:CGAffineTransformMakeRotation(M_PI/2)];
-            [self.view setFrame:[[UIScreen mainScreen] applicationFrame]];
+            [self.view setFrame:[[UIScreen mainScreen] bounds]];
             statusView.center = CGPointMake(self.view.frame.size.height/2, self.view.frame.size.width/2+20);
             break;
         case UIDeviceOrientationLandscapeRight:
             [self.view setTransform:CGAffineTransformMakeRotation(-M_PI/2)];
-            [self.view setFrame:[[UIScreen mainScreen] applicationFrame]];
+            [self.view setFrame:[[UIScreen mainScreen] bounds]];
             statusView.center = CGPointMake(self.view.frame.size.height/2, self.view.frame.size.width/2+20);
             break;
         case UIDeviceOrientationPortrait:
         default:
             [self.view setTransform:CGAffineTransformMakeRotation(0)];
-            [self.view setFrame:[[UIScreen mainScreen] applicationFrame]];
+            [self.view setFrame:[[UIScreen mainScreen] bounds]];
             statusView.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
             break;
     }

@@ -643,7 +643,7 @@ enum {
 - (void)modeSwitchChanged:(id)sender {
     UISegmentedControl *modeSwitch = (UISegmentedControl*)sender;
     if ([[Settings instance] serverMode] != (1 + [modeSwitch selectedSegmentIndex])) {
-        [[Settings instance] setServerMode:(1 + [modeSwitch selectedSegmentIndex])];
+        [[Settings instance] setServerMode:(ServerMode)(1 + [modeSwitch selectedSegmentIndex])];
         [self resetAppData];
     }
     [[self tableView] reloadData];

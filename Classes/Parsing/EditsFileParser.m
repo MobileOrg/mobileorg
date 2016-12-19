@@ -105,7 +105,7 @@
                 if ([editEntities count] > 0) {
                     EditEntity *lastEntity = [editEntities lastObject];
                     int lastNonspaceChar;
-                    for (lastNonspaceChar = [lastEntity.newValue length]-1; lastNonspaceChar >= 0; lastNonspaceChar--) {
+                    for (lastNonspaceChar = (int)[lastEntity.newValue length]-1; lastNonspaceChar >= 0; lastNonspaceChar--) {
                         char c = [lastEntity.newValue characterAtIndex:lastNonspaceChar];
                         if (c != '\n' && c != '\r' && c != ' ' && c != '\t' && c != 0) {
                             break;
@@ -142,7 +142,7 @@
                 if ([editEntities count] > 0) {
                     EditEntity *lastEntity = [editEntities lastObject];
                     int lastNonspaceChar;
-                    for (lastNonspaceChar = [lastEntity.newValue length]-1; lastNonspaceChar >= 0; lastNonspaceChar--) {
+                    for (lastNonspaceChar = (int)[lastEntity.newValue length]-1; lastNonspaceChar >= 0; lastNonspaceChar--) {
                         char c = [lastEntity.newValue characterAtIndex:lastNonspaceChar];
                         if (c != '\n' && c != '\r' && c != ' ' && c != '\t' && c != 0) {
                             break;
@@ -244,7 +244,7 @@
     if ([editEntities count] > 0) {
         EditEntity *lastEntity = [editEntities lastObject];
         int lastNonspaceChar;
-        for (lastNonspaceChar = [lastEntity.newValue length]-1; lastNonspaceChar >= 0; lastNonspaceChar--) {
+        for (lastNonspaceChar = (int)[lastEntity.newValue length]-1; lastNonspaceChar >= 0; lastNonspaceChar--) {
             char c = [lastEntity.newValue characterAtIndex:lastNonspaceChar];
             if (c != '\n' && c != '\r' && c != ' ' && c != '\t' && c != 0) {
                 break;

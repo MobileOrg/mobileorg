@@ -474,7 +474,7 @@ int CountLocalEditActions() {
     [request setPredicate:predicate];
 
     NSError *error = nil;
-    NSUInteger count = [managedObjectContext countForFetchRequest:request error:&error];
+    int count = (int)[managedObjectContext countForFetchRequest:request error:&error];
 
     [request release];
 
@@ -629,7 +629,7 @@ int CountNotes() {
     [request setEntity: [NSEntityDescription entityForName:@"Note" inManagedObjectContext:managedObjectContext]];
 
     NSError *error = nil;
-    NSUInteger count = [managedObjectContext countForFetchRequest:request error:&error];
+    int count = (int)[managedObjectContext countForFetchRequest:request error:&error];
 
     [request release];
 
@@ -647,7 +647,7 @@ int CountLocalNotes() {
     [request setPredicate:predicate];
 
     NSError *error = nil;
-    NSUInteger count = [managedObjectContext countForFetchRequest:request error:&error];
+    int count = (int)[managedObjectContext countForFetchRequest:request error:&error];
 
     [request release];
 

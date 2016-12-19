@@ -95,7 +95,7 @@ static SyncManager *gInstance = NULL;
     if ([[Settings instance] serverMode] == ServerModeWebDav) {
         return [WebDavTransferManager instance];
     } else if ([[Settings instance] serverMode] == ServerModeDropbox) {
-        return [DropboxTransferManager instance];
+        return (TransferManager *)[DropboxTransferManager instance];
     }
     return nil;
 }

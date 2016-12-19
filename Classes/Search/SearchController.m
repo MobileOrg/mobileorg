@@ -42,7 +42,7 @@
 }
 
 - (NSIndexPath*)pathForNode:(Node*)node {
-    int index = [[self nodesArray] indexOfObject:node];
+    int index = (int)[[self nodesArray] indexOfObject:node];
     if (index >= 0 && index < [nodesArray count]) {
         return [NSIndexPath indexPathForRow:index inSection:0];
     }
@@ -85,10 +85,8 @@
             ret = controller;
             break;
         }
-        case OutlineSelectionTypeDocumentView:
-        {
+      default:
             break;
-        }
     }
 
     return ret;
@@ -261,7 +259,7 @@
     }
 
     NSString *context_str = @"";
-    for (int i = [context count]-1; i >= 0; i--) {
+    for (int i = (int)[context count]-1; i >= 0; i--) {
         if ([context_str length] > 0) {
             context_str = [NSString stringWithFormat:@"%@ > %@", context_str, [[context objectAtIndex:i] headingForDisplay]];
         } else {

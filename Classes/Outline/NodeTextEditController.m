@@ -97,7 +97,7 @@
     NSDictionary* info = [aNotification userInfo];
 
     // Get the size of the keyboard.
-    NSValue* aValue = [info objectForKey:UIKeyboardBoundsUserInfoKey];
+    NSValue* aValue = [info objectForKey:UIKeyboardFrameBeginUserInfoKey];
     CGSize keyboardSize = [aValue CGRectValue].size;
 
     // Reset the height of the scroll view to its original value
@@ -130,7 +130,7 @@
     [textView setDelegate:self];
     [self setView:textView];
 
-    bool created;
+    bool created = false;
 
     // TODO: make the setText calls use this instead
     // [self unindentText:[node heading]] etc
@@ -175,15 +175,15 @@
     for (NSString *line in lines) {
         NSArray *captures = [line captureComponentsMatchedByRegex:@"( +).+"];
         if ([captures count] > 0) {
-            int spaces = [[captures objectAtIndex:0] length];
+            int spaces = (int)[[captures objectAtIndex:0] length];
             if (spaces < indentLevel)
                 indentLevel = spaces;
         }
     }
 
-    for (NSString *line in lines) {
-        // TODO: Do the unindention
-    }
+    // TODO: Do the unindention
+    //    for (NSString *line in lines) {
+    //    }
 
     return nil;
 }

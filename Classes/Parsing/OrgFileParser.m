@@ -152,12 +152,23 @@
                     line = [line stringByReplacingOccurrencesOfRegex:@"\\(\\w\\)" withString:@""];
 
                     // CLEANUP: This regex is a hack
-                    NSArray *splitArray = [line captureComponentsMatchedByRegex:@"#\\+TODO:\\s+([\\s\\w-]*)(\\| ([\\s\\w-]*))*"];
-                    if ([splitArray count] > 0) {
-
-                        NSString *todoWords = [[splitArray objectAtIndex:1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-                        NSString *doneWords = [[splitArray objectAtIndex:3] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-
+                    NSArray *splitArray;
+                    NSString *todoWords;
+                    NSString *doneWords;
+                    if ([line containsString:@"|"]) {
+                        splitArray = [line captureComponentsMatchedByRegex:@"#\\+TODO:\\s+([\\s\\w-]*)(\\| ([\\s\\w-]*))*"];
+                    }
+                    else {
+                        splitArray = [line captureComponentsMatchedByRegex:@"#\\+TODO:\\s+([\\s\\w-]*)\\s+([\\s\\w-]*)"];
+                    }
+                    if ([splitArray count] > 2) {
+                        todoWords = [[splitArray objectAtIndex:1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                        doneWords = [[splitArray objectAtIndex:2] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                    } else if ([splitArray count] > 3) {
+                        todoWords = [[splitArray objectAtIndex:1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                        doneWords = [[splitArray objectAtIndex:3] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                    }
+                    if ([splitArray count] > 2) {
                         // Add a new todoStateGroup
                         NSMutableArray *todoStateGroup = [NSMutableArray new];
 
@@ -419,7 +430,6 @@
 
               if( numStars > lastNumStars + 1){
                 [nodeStack addObject:node];
-                NSLog(@"title is: %@", title);
               }
                 // Push this node onto the nodeStack
                 [nodeStack addObject:node];

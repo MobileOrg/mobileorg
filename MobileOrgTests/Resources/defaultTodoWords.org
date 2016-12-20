@@ -1,0 +1,8 @@
+#+READONLY
+#+TODO: TODO DONE
+#+TODO:  | DONE
+#+TAGS: automation buildtask dashboard deploy docs emacs estimation gerrit gherkin git graphite kinesis nuget read redmine shopping testing tfs visualstudio
+#+DRAWERS: PROPERTIES CLOCK LOGBOOK RESULTS
+#+ALLPRIORITIES: A B C
+* [[file:mobileorg.org][mobile org capture]]
+* [[file:todo.org][todo.org]]

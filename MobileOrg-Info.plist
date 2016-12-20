@@ -64,6 +64,10 @@
 	<string>MainWindow</string>
 	<key>UIPrerenderedIcon</key>
 	<true/>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>db-${APP_KEY}</string>
+	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

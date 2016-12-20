@@ -41,6 +41,21 @@
   Of course, the main thing is to simply feel free to contribute any
   and all code. It's much appreciated!
 
+** Setting up your environment
+
+  For the usage of the Dropbox API an application key is
+  necessary. You can obtain it [[https://www.dropbox.com/developers/apps/create][from Dropbox.]]  Find the file
+  AppKey.plist in the project and obtain the information you've
+  received from Dropbox there.
+
+  MobileOrg uses CocoaPods. Install CocoaPods by following the
+  instructions [[https://cocoapods.org][from here.]]
+  Install the needed pods by running
+  #+BEGIN_SRC shell
+  pod install
+  #+END_SRC  
+  in your shell.
+
 ** Pull Requests
    Pull requests for bug fixes, features or anything else are gladly
    accepted. Since this is github we follow the fork/pull
@@ -61,6 +76,13 @@
    #+BEGIN_SRC 
     git checkout -b feature/new-hotness
    #+END_SRC
+
+   If you like to work further with your fork you should incorporate
+   your changes into the develop-branch not by merging your branch
+   into it, but by syncing your fork with the main repository.
+
+   A description how to do this is available at [[https://help.github.com/articles/syncing-a-fork/][GitHub Help]].
+
 ** bug tracker
    [[https://github.com/MobileOrg/mobileorg/issues][github issues]]
 ** contact

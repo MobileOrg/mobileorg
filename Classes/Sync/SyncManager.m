@@ -581,7 +581,9 @@ static SyncManager *gInstance = NULL;
     // Perhaps we need to use a different context and a single coordinator or something
     // Lookup multithreaded coredata issues
     //[NSThread detachNewThreadSelector:@selector(parse) toTarget:orgFileParser withObject:nil];
-    [orgFileParser parse];
+
+    NSManagedObjectContext *moc = [AppInstance() managedObjectContext];
+    [orgFileParser parse: moc];
 
     // Pause the TransferManager, because otherwise it would try to download
     // more files while this one is processing

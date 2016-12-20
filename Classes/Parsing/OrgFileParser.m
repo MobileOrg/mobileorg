@@ -86,9 +86,6 @@
         NSString *line;
         NSMutableString *bodyBuffer = [[NSMutableString alloc] init];
         int lastNumStars = 0;
-        // meta counter for last heading
-        // because lastNumStars will be resetted underway
-        int veryLastNumStars = 0;
         Node *lastNode = nil;
         int sequenceIndex = 1;
         bool readOnlyFile = false;

@@ -44,9 +44,11 @@
 ** Setting up your environment
 
   For the usage of the Dropbox API an application key is
-  necessary. You can obtain it [[https://www.dropbox.com/developers/apps/create][from Dropbox.]]  Find the file
-  AppKey.plist in the project and obtain the information you've
-  received from Dropbox there.
+  necessary. You can obtain it [[https://www.dropbox.com/developers/apps/create][from Dropbox.]] It is important to apply
+  for keys of the *App Folder* type not the *Full Dropbox* type. 
+
+  Find the file AppKey.plist in the project and obtain the information
+  you've received from Dropbox there.
 
   MobileOrg uses CocoaPods. Install CocoaPods by following the
   instructions [[https://cocoapods.org][from here.]]

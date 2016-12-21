@@ -70,7 +70,6 @@ class OrgfileParserTests: XCTestCase {
     parser.parse(moc)
 
     // If we reach this point without a crash, then the test was successful
-    // TODO: Write a test where TODO items from other files will be parsed
   }
 
 

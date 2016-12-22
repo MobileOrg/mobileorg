@@ -39,6 +39,8 @@
 		749CCE7C1E084F6A00DE4648 /* OrgfileParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749CCE7B1E084F6A00DE4648 /* OrgfileParserTests.swift */; };
 		749CCE7F1E08557800DE4648 /* headingskip.org in Resources */ = {isa = PBXBuildFile; fileRef = 749CCE7E1E08557800DE4648 /* headingskip.org */; };
 		749CCE811E09201400DE4648 /* defaultTodoWords.org in Resources */ = {isa = PBXBuildFile; fileRef = 749CCE801E09201400DE4648 /* defaultTodoWords.org */; };
+		749CCE851E0AE23900DE4648 /* TodoList.org in Resources */ = {isa = PBXBuildFile; fileRef = 749CCE841E0AE23900DE4648 /* TodoList.org */; };
+		749CCE871E0AE96300DE4648 /* index.org in Resources */ = {isa = PBXBuildFile; fileRef = 749CCE861E0AE96300DE4648 /* index.org */; };
 		790B413F10814D8400A852F1 /* ActionMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 790B413E10814D8400A852F1 /* ActionMenuController.m */; };
 		790B417E10814FAC00A852F1 /* OutlineTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 790B417D10814FAC00A852F1 /* OutlineTableView.m */; };
 		790B455610826A0900A852F1 /* PriorityEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 790B455510826A0900A852F1 /* PriorityEditController.m */; };
@@ -170,6 +172,8 @@
 		749CCE7B1E084F6A00DE4648 /* OrgfileParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrgfileParserTests.swift; sourceTree = "<group>"; };
 		749CCE7E1E08557800DE4648 /* headingskip.org */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = headingskip.org; sourceTree = "<group>"; };
 		749CCE801E09201400DE4648 /* defaultTodoWords.org */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = defaultTodoWords.org; sourceTree = "<group>"; };
+		749CCE841E0AE23900DE4648 /* TodoList.org */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TodoList.org; sourceTree = "<group>"; };
+		749CCE861E0AE96300DE4648 /* index.org */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = index.org; sourceTree = "<group>"; };
 		790B413D10814D8400A852F1 /* ActionMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionMenuController.h; sourceTree = "<group>"; };
 		790B413E10814D8400A852F1 /* ActionMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionMenuController.m; sourceTree = "<group>"; };
 		790B417C10814FAC00A852F1 /* OutlineTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutlineTableView.h; sourceTree = "<group>"; };
@@ -441,6 +445,8 @@
 			isa = PBXGroup;
 			children = (
 				749CCE801E09201400DE4648 /* defaultTodoWords.org */,
+				749CCE841E0AE23900DE4648 /* TodoList.org */,
+				749CCE861E0AE96300DE4648 /* index.org */,
 				749CCE7E1E08557800DE4648 /* headingskip.org */,
 			);
 			path = Resources;
@@ -770,7 +776,6 @@
 				ORGANIZATIONNAME = "Sean Escriva";
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = 59B7VFRF7R;
 						LastSwiftMigration = 0810;
 					};
 					747BF9961DFD719400E800FB = {
@@ -873,7 +878,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				749CCE811E09201400DE4648 /* defaultTodoWords.org in Resources */,
+				749CCE851E0AE23900DE4648 /* TodoList.org in Resources */,
 				749CCE7F1E08557800DE4648 /* headingskip.org in Resources */,
+				749CCE871E0AE96300DE4648 /* index.org in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1018,7 +1025,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 30;
-				DEVELOPMENT_TEAM = 59B7VFRF7R;
+				DEVELOPMENT_TEAM = 9VWR9JYXC6;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -1060,7 +1067,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 59B7VFRF7R;
+				DEVELOPMENT_TEAM = 9VWR9JYXC6;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1109,7 +1116,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 59B7VFRF7R;
+				DEVELOPMENT_TEAM = 9VWR9JYXC6;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1160,7 +1167,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 59B7VFRF7R;
+				DEVELOPMENT_TEAM = 9VWR9JYXC6;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1226,7 +1233,7 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 30;
-				DEVELOPMENT_TEAM = 59B7VFRF7R;
+				DEVELOPMENT_TEAM = 9VWR9JYXC6;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -1287,7 +1294,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 30;
-				DEVELOPMENT_TEAM = 59B7VFRF7R;
+				DEVELOPMENT_TEAM = 9VWR9JYXC6;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",

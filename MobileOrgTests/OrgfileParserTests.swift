@@ -13,6 +13,50 @@ class OrgfileParserTests: XCTestCase {
   var moc:NSManagedObjectContext?
 
 
+  // Parse OrgFiles for todo-keywords of differnet kind
+  func testParseOrgFileDifferentTodoWords() {
+    let parser = OrgFileParser()
+
+    let bundle = Bundle(for: type(of: self))
+
+    // Parse the index file (here are the todo keywords stored for processing)
+    let indexUrl = bundle.url(forResource: "index", withExtension: "org")
+    parser.localFilename = indexUrl?.relativePath
+    parser.orgFilename = "index.org"
+    parser.parse(moc)
+
+    // now parse the todo list
+    let url = bundle.url(forResource: "TodoList", withExtension: "org")
+    parser.localFilename = url?.relativePath
+    parser.orgFilename = "TodoList.org"
+    parser.parse(moc)
+
+    do {
+      // Test todo state (waiting)
+      let fetchRequest = NSFetchRequest<Node>(entityName: "Node")
+      fetchRequest.predicate = NSPredicate (format: "heading == %@", "on Level 1.1.1.5")
+
+      var nodes = try moc!.fetch(fetchRequest)
+      if nodes.count == 1,
+        let node = nodes.first {
+        XCTAssertEqual(node.todoState, "WAITING")
+      } else {
+        XCTFail()
+      }
+
+      // Test done state (works for me)
+      fetchRequest.predicate = NSPredicate (format: "heading == %@", "on Level 1.1.1.3")
+      nodes = try moc!.fetch(fetchRequest)
+      if nodes.count == 1,
+        let node = nodes.first {
+        XCTAssertEqual(node.todoState, "WORKS-FOR-ME")
+      } else {
+        XCTFail()
+      }
+    } catch _ { XCTFail() }
+  }
+
+
   // Tackles bug described in:
   // https://github.com/MobileOrg/mobileorg/issues/86
   func testParseOrgFileDefaultTodoWordsBug() {
@@ -26,7 +70,6 @@ class OrgfileParserTests: XCTestCase {
     parser.parse(moc)
 
     // If we reach this point without a crash, then the test was successful
-    // TODO: Write a test where TODO items from other files will be parsed
   }
 
 
@@ -43,7 +86,7 @@ class OrgfileParserTests: XCTestCase {
     parser.parse(moc)
 
     try! moc?.save()
-    
+
     let fetchRequest = NSFetchRequest<Node>(entityName: "Node")
     fetchRequest.predicate = NSPredicate (format: "outlinePath == %@", "olp:Heading:MobileOrg Missing Features/Localisation")
 
@@ -54,6 +97,7 @@ class OrgfileParserTests: XCTestCase {
 
 
     } catch _ { XCTFail() }
+
   }
 
 

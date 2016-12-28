@@ -17,6 +17,7 @@
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28C3AD8A0F43EF2300507BA6 /* MobileOrg.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 28C3AD890F43EF2300507BA6 /* MobileOrg.xcdatamodel */; };
 		28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D801B30F44B63D00FB423F /* CoreData.framework */; };
+		6C2D36161E13B1BE007D482F /* SyncSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C2D36151E13B1BE007D482F /* SyncSettingsController.m */; };
 		743C12F41DFED37F0051EC6F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 743C12F31DFED37F0051EC6F /* Images.xcassets */; };
 		743C12F61DFED5950051EC6F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 743C12F51DFED5950051EC6F /* Launch Screen.storyboard */; };
 		744408DE1E035A1800BCE192 /* DropboxTransferManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744408DD1E035A1800BCE192 /* DropboxTransferManager.swift */; };
@@ -146,6 +147,8 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* MobileOrg_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobileOrg_Prefix.pch; sourceTree = "<group>"; };
 		6561B399A841A3A5958A5889 /* Pods-MobileOrg.appstore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileOrg.appstore.xcconfig"; path = "Pods/Target Support Files/Pods-MobileOrg/Pods-MobileOrg.appstore.xcconfig"; sourceTree = "<group>"; };
+		6C2D36141E13B19B007D482F /* SyncSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyncSettingsController.h; sourceTree = "<group>"; };
+		6C2D36151E13B1BE007D482F /* SyncSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyncSettingsController.m; sourceTree = "<group>"; };
 		743C12F31DFED37F0051EC6F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MobileOrg/Images.xcassets; sourceTree = "<group>"; };
 		743C12F51DFED5950051EC6F /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		744408DD1E035A1800BCE192 /* DropboxTransferManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DropboxTransferManager.swift; path = Dropbox/DropboxTransferManager.swift; sourceTree = "<group>"; };
@@ -595,6 +598,8 @@
 				793F811E107D381A00674D0A /* SessionManager.m */,
 				793F8126107D38C900674D0A /* OutlineState.h */,
 				793F8127107D38C900674D0A /* OutlineState.m */,
+				6C2D36141E13B19B007D482F /* SyncSettingsController.h */,
+				6C2D36151E13B1BE007D482F /* SyncSettingsController.m */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -971,6 +976,7 @@
 				79CB19D21074423C00A7E065 /* ChecksumFileParser.m in Sources */,
 				79CB19D51074424300A7E065 /* OrgFileParser.m in Sources */,
 				79CB1F1110758EA200A7E065 /* DetailsViewController.m in Sources */,
+				6C2D36161E13B1BE007D482F /* SyncSettingsController.m in Sources */,
 				79CB1F201075900F00A7E065 /* TableUtils.m in Sources */,
 				79CB20B510762CC000A7E065 /* NodeTextEditController.m in Sources */,
 				791653A81078109B00695E4C /* EditsFileParser.m in Sources */,

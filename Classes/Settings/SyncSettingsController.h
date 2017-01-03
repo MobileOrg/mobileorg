@@ -24,8 +24,8 @@
 
 #import "MobileOrg-Swift.h"
 
-@interface SettingsController : UITableViewController <UITextFieldDelegate> {
+@interface SyncSettingsController : UITableViewController <UITextFieldDelegate> {
+    NSString *pendingNewIndexUrl;
+    UITextField *urlTextField;
 }
-
-- (void)loginDone:(BOOL)successful;
 @end

@@ -12,8 +12,46 @@ import CoreData
 class OrgfileParserTests: XCTestCase {
   var moc:NSManagedObjectContext?
 
+  // Tackles bug described in:
+  // https://github.com/MobileOrg/mobileorg/issues/96
+  func testParseOrgFileDisregardDelimiter() {
+    let parser = OrgFileParser()
 
-  // Parse OrgFiles for todo-keywords of differnet kind
+    let bundle = Bundle(for: type(of: self))
+
+    // Parse the index file (here are the todo keywords stored for processing)
+    let indexUrl = bundle.url(forResource: "index", withExtension: "org")
+    parser.localFilename = indexUrl?.relativePath
+    parser.orgFilename = "index.org"
+    parser.parse(moc)
+
+    // now parse the todo list
+    let url = bundle.url(forResource: "TodoList", withExtension: "org")
+    parser.localFilename = url?.relativePath
+    parser.orgFilename = "TodoList.org"
+    parser.parse(moc)
+
+    let settings = Settings.instance()
+    if let keywordsMetaArray = settings?.todoStateGroups {
+      for case let keywordsArray as Array<Array<String>> in keywordsMetaArray {
+        for keywords in keywordsArray {
+          for keyword in keywords {
+            if keyword == "|" {
+              XCTFail()
+            }
+          }
+        }
+      }
+    }
+    else {
+      XCTFail()
+    }
+  }
+  
+
+
+
+  // Parse OrgFiles for todo-keywords of different kind
   func testParseOrgFileDifferentTodoWords() {
     let parser = OrgFileParser()
 

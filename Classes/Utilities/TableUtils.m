@@ -91,6 +91,16 @@ void SetupOutlineCellForNode(UITableViewCell *cell, Node *node) {
 
     int yOffset = 3;
 
+    // Get a reference to the original node
+    // This is necessary for agenda views
+    Node *targetNode = node;
+    if (node.referencedNodeId && [node.referencedNodeId length] > 0) {
+        Node *n = ResolveNode(node.referencedNodeId);
+        if (n) {
+            targetNode = n;
+        }
+    }
+
     // <before> text
     if ([[cell reuseIdentifier] rangeOfString:@":withBeforeText"].location != NSNotFound) {
         UILabel *beforeLabel;
@@ -147,9 +157,9 @@ void SetupOutlineCellForNode(UITableViewCell *cell, Node *node) {
                 todoStateLabel.backgroundColor = [UIColor whiteColor];
                 todoStateLabel.color = [UIColor colorWithRed:0.65 green:0 blue:0 alpha:1];
 
-                if ([[node todoState] length] > 0) {
+                if ([[targetNode todoState] length] > 0) {
                     todoStateLabel.text = [node todoState];
-                    if ([[Settings instance] isDoneState:[node todoState]])
+                    if ([[Settings instance] isDoneState:[targetNode todoState]])
                         todoStateLabel.color = [UIColor colorWithRed:0.25 green:0.65 blue:0 alpha:1];
                 }
 

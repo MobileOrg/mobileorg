@@ -97,7 +97,8 @@
     textField = [[UITextView alloc] init];
     [textField setScrollEnabled:YES];
     [textField setScrollsToTop:YES];
-    [textField setFont:[UIFont systemFontOfSize:14.0]];
+    double fontSize = IsIpad() ? 18.0 : 14.0;
+    [textField setFont:[UIFont fontWithName:@"Menlo-Regular" size:fontSize]];
     [textField setDelegate:self];
     [self setView:textField];
 }

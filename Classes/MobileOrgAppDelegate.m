@@ -30,7 +30,6 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
 #import "OutlineViewController.h"
 #import "NoteListController.h"
 #import "SearchController.h"
-#import "SettingsController.h"
 #import "DataUtils.h"
 #import "Reachability.h"
 #import "SessionManager.h"
@@ -169,8 +168,8 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
 
 - (SettingsController*)settingsController {
     if (settingsController == nil) {
-        settingsController = [[SettingsController alloc] initWithStyle:UITableViewStyleGrouped];
-        settingsController.title = @"Settings";
+      UIStoryboard *settingsStoryboard = [UIStoryboard storyboardWithName:@"Settings" bundle:nil];
+      settingsController = [settingsStoryboard instantiateInitialViewController];
     }
     return settingsController;
 }

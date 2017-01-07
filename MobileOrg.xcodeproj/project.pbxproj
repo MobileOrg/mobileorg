@@ -17,7 +17,10 @@
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28C3AD8A0F43EF2300507BA6 /* MobileOrg.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 28C3AD890F43EF2300507BA6 /* MobileOrg.xcdatamodel */; };
 		28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D801B30F44B63D00FB423F /* CoreData.framework */; };
-		6C2D36161E13B1BE007D482F /* SyncSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C2D36151E13B1BE007D482F /* SyncSettingsController.m */; };
+		6CB501F01E20C3D70082FD40 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CB501EC1E20C3D70082FD40 /* Settings.storyboard */; };
+		6CB501F11E20C3D70082FD40 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB501ED1E20C3D70082FD40 /* SettingsController.swift */; };
+		6CB501F21E20C3D70082FD40 /* SyncSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB501EE1E20C3D70082FD40 /* SyncSettingsController.swift */; };
+		6CB501F31E20C3D70082FD40 /* TextInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB501EF1E20C3D70082FD40 /* TextInputCell.swift */; };
 		743C12F41DFED37F0051EC6F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 743C12F31DFED37F0051EC6F /* Images.xcassets */; };
 		743C12F61DFED5950051EC6F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 743C12F51DFED5950051EC6F /* Launch Screen.storyboard */; };
 		744408DE1E035A1800BCE192 /* DropboxTransferManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744408DD1E035A1800BCE192 /* DropboxTransferManager.swift */; };
@@ -50,7 +53,6 @@
 		7936F92A120DDF3F0062CF0E /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7936F929120DDF3F0062CF0E /* MainWindow-iPad.xib */; };
 		7936FA91120DF4280062CF0E /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7936FA90120DF4280062CF0E /* Entitlements.plist */; };
 		793F7D8D107C1E6000674D0A /* SearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 793F7D8C107C1E6000674D0A /* SearchController.m */; };
-		793F7D90107C1E6B00674D0A /* SettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 793F7D8F107C1E6B00674D0A /* SettingsController.m */; };
 		793F7EE5107C362E00674D0A /* DocumentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 793F7EE4107C362E00674D0A /* DocumentViewController.m */; };
 		793F7F0A107C385200674D0A /* DocumentView.css in Resources */ = {isa = PBXBuildFile; fileRef = 793F7F09107C385200674D0A /* DocumentView.css */; };
 		793F7F6C107CB5FC00674D0A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 793F7F6B107CB5FC00674D0A /* SystemConfiguration.framework */; };
@@ -147,8 +149,10 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* MobileOrg_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobileOrg_Prefix.pch; sourceTree = "<group>"; };
 		6561B399A841A3A5958A5889 /* Pods-MobileOrg.appstore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileOrg.appstore.xcconfig"; path = "Pods/Target Support Files/Pods-MobileOrg/Pods-MobileOrg.appstore.xcconfig"; sourceTree = "<group>"; };
-		6C2D36141E13B19B007D482F /* SyncSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyncSettingsController.h; sourceTree = "<group>"; };
-		6C2D36151E13B1BE007D482F /* SyncSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyncSettingsController.m; sourceTree = "<group>"; };
+		6CB501EC1E20C3D70082FD40 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		6CB501ED1E20C3D70082FD40 /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
+		6CB501EE1E20C3D70082FD40 /* SyncSettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncSettingsController.swift; sourceTree = "<group>"; };
+		6CB501EF1E20C3D70082FD40 /* TextInputCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextInputCell.swift; sourceTree = "<group>"; };
 		743C12F31DFED37F0051EC6F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MobileOrg/Images.xcassets; sourceTree = "<group>"; };
 		743C12F51DFED5950051EC6F /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		744408DD1E035A1800BCE192 /* DropboxTransferManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DropboxTransferManager.swift; path = Dropbox/DropboxTransferManager.swift; sourceTree = "<group>"; };
@@ -191,8 +195,6 @@
 		7936FA90120DF4280062CF0E /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		793F7D8B107C1E6000674D0A /* SearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchController.h; sourceTree = "<group>"; };
 		793F7D8C107C1E6000674D0A /* SearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchController.m; sourceTree = "<group>"; };
-		793F7D8E107C1E6B00674D0A /* SettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsController.h; sourceTree = "<group>"; };
-		793F7D8F107C1E6B00674D0A /* SettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsController.m; sourceTree = "<group>"; };
 		793F7EE3107C362E00674D0A /* DocumentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DocumentViewController.h; sourceTree = "<group>"; };
 		793F7EE4107C362E00674D0A /* DocumentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DocumentViewController.m; sourceTree = "<group>"; };
 		793F7F09107C385200674D0A /* DocumentView.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = DocumentView.css; sourceTree = "<group>"; };
@@ -590,16 +592,16 @@
 		79BA555F1073A6F800D67917 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				6CB501EC1E20C3D70082FD40 /* Settings.storyboard */,
+				6CB501ED1E20C3D70082FD40 /* SettingsController.swift */,
+				6CB501EE1E20C3D70082FD40 /* SyncSettingsController.swift */,
+				6CB501EF1E20C3D70082FD40 /* TextInputCell.swift */,
 				79CB183C1074279C00A7E065 /* Settings.h */,
 				79CB183D1074279C00A7E065 /* Settings.m */,
-				793F7D8E107C1E6B00674D0A /* SettingsController.h */,
-				793F7D8F107C1E6B00674D0A /* SettingsController.m */,
 				793F811D107D381A00674D0A /* SessionManager.h */,
 				793F811E107D381A00674D0A /* SessionManager.m */,
 				793F8126107D38C900674D0A /* OutlineState.h */,
 				793F8127107D38C900674D0A /* OutlineState.m */,
-				6C2D36141E13B19B007D482F /* SyncSettingsController.h */,
-				6C2D36151E13B1BE007D482F /* SyncSettingsController.m */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -850,6 +852,7 @@
 				79F87A9B10854FEA00A54CA9 /* please-configure.png in Resources */,
 				746103111E01882A00C8E34F /* Icon-debug.png in Resources */,
 				7936F92A120DDF3F0062CF0E /* MainWindow-iPad.xib in Resources */,
+				6CB501F01E20C3D70082FD40 /* Settings.storyboard in Resources */,
 				7936FA91120DF4280062CF0E /* Entitlements.plist in Resources */,
 				8322ED6A176AB305008B37C7 /* press-sync@2x.png in Resources */,
 				8322ED6C176AE93E008B37C7 /* cant-sync-offline@2x.png in Resources */,
@@ -972,11 +975,12 @@
 				79CB1824107425F500A7E065 /* TransferManager.m in Sources */,
 				79CB183E1074279C00A7E065 /* Settings.m in Sources */,
 				79CB18BE10742C7100A7E065 /* StatusViewController.m in Sources */,
+				6CB501F11E20C3D70082FD40 /* SettingsController.swift in Sources */,
 				79CB18C710742DB900A7E065 /* StatusUtils.m in Sources */,
 				79CB19D21074423C00A7E065 /* ChecksumFileParser.m in Sources */,
 				79CB19D51074424300A7E065 /* OrgFileParser.m in Sources */,
+				6CB501F21E20C3D70082FD40 /* SyncSettingsController.swift in Sources */,
 				79CB1F1110758EA200A7E065 /* DetailsViewController.m in Sources */,
-				6C2D36161E13B1BE007D482F /* SyncSettingsController.m in Sources */,
 				79CB1F201075900F00A7E065 /* TableUtils.m in Sources */,
 				79CB20B510762CC000A7E065 /* NodeTextEditController.m in Sources */,
 				791653A81078109B00695E4C /* EditsFileParser.m in Sources */,
@@ -988,7 +992,6 @@
 				7998B2D6107B6F820000ED49 /* NoteListController.m in Sources */,
 				7998B388107BAA7D0000ED49 /* NewNoteController.m in Sources */,
 				793F7D8D107C1E6000674D0A /* SearchController.m in Sources */,
-				793F7D90107C1E6B00674D0A /* SettingsController.m in Sources */,
 				793F7EE5107C362E00674D0A /* DocumentViewController.m in Sources */,
 				793F811F107D381A00674D0A /* SessionManager.m in Sources */,
 				793F8128107D38C900674D0A /* OutlineState.m in Sources */,
@@ -997,6 +1000,7 @@
 				790B455610826A0900A852F1 /* PriorityEditController.m in Sources */,
 				7945F5A111A8066200731598 /* WebDavTransferManager.m in Sources */,
 				18A3BBA716178DCD003D9320 /* Reachability.m in Sources */,
+				6CB501F31E20C3D70082FD40 /* TextInputCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

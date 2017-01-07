@@ -1,9 +1,9 @@
 //
-//  SettingsController.h
+//  TextInputCell.swift
 //  MobileOrg
 //
-//  Created by Richard Moreland on 10/6/09.
-//  Copyright 2009 Richard Moreland.
+//  Created by Jamie Conlon on 07.01.17.
+//
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -20,12 +20,16 @@
 //  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //
 
-#import <UIKit/UIKit.h>
 
-#import "MobileOrg-Swift.h"
+import Foundation
 
-@interface SyncSettingsController : UITableViewController <UITextFieldDelegate> {
-    NSString *pendingNewIndexUrl;
-    UITextField *urlTextField;
+public class TextInputCell: UITableViewCell {
+  
+  @IBOutlet weak var textField: UITextField!
+  @IBOutlet weak var textFieldLabel: UILabel!
+  
+  @IBAction func textFieldChanged(sender: AnyObject) {
+    self.textField.resignFirstResponder()
+  }
 }
-@end
+

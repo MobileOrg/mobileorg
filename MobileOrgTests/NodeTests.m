@@ -85,4 +85,12 @@
                        @"The text outside the drawer should be concatenated.", nil);
 }
 
+- (void)testIsLink {
+  Node *node = (Node *)[NSEntityDescription insertNewObjectForEntityForName:@"Node"
+                                                     inManagedObjectContext:context_];
+
+  node.heading = @"[[file:persönlich.org][persönlich.org]]";
+  XCTAssertTrue(node.isLink);
+}
+
 @end

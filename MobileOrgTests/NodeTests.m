@@ -4,7 +4,21 @@
 //
 //  Created by Mario Martelli on 11.12.16.
 //
+//  This program is free software; you can redistribute it and/or
+//  modify it under the terms of the GNU General Public License
+//  as published by the Free Software Foundation; either version 2
+//  of the License, or (at your option) any later version.
 //
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program; if not, write to the Free Software
+//  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+//
+
 
 #import <XCTest/XCTest.h>
 #import "Node.h"
@@ -69,6 +83,14 @@
 
   XCTAssertEqualObjects(@"foo \n baz", [node bodyForDisplay],
                        @"The text outside the drawer should be concatenated.", nil);
+}
+
+- (void)testIsLink {
+  Node *node = (Node *)[NSEntityDescription insertNewObjectForEntityForName:@"Node"
+                                                     inManagedObjectContext:context_];
+
+  node.heading = @"[[file:persönlich.org][persönlich.org]]";
+  XCTAssertTrue(node.isLink);
 }
 
 @end

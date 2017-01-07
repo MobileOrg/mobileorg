@@ -45,7 +45,8 @@
 @dynamic notes;
 @dynamic children;
 
-static NSString *kFileLinkRegex = @"\\[\\[file:([a-zA-Z0-9/\\-_\\.]*\\.(?:org|txt))\\]\\[(.*)\\]\\]";
+static NSString *kUnixFileLinkRegex = @"\\[\\[file:(.*\\.(?:org|txt))\\]\\[(.*)\\]\\]";
+
 
 - (NSComparisonResult)sequenceIndexCompare:(Node*)obj
 {
@@ -311,7 +312,7 @@ static NSString *kFileLinkRegex = @"\\[\\[file:([a-zA-Z0-9/\\-_\\.]*\\.(?:org|tx
 }
 
 - (bool)isLink {
-    NSRange linkRange = [[self heading] rangeOfRegex:kFileLinkRegex];
+    NSRange linkRange = [[self heading] rangeOfRegex:kUnixFileLinkRegex];
     if (linkRange.location != NSNotFound) {
         return true;
     }
@@ -320,7 +321,7 @@ static NSString *kFileLinkRegex = @"\\[\\[file:([a-zA-Z0-9/\\-_\\.]*\\.(?:org|tx
 
 // This will construct the link relative to the root of the file, sort of.  It isn't perfect yet.
 - (NSString*)linkFile {
-    NSArray *captures = [[self heading] captureComponentsMatchedByRegex:kFileLinkRegex];
+    NSArray *captures = [[self heading] captureComponentsMatchedByRegex:kUnixFileLinkRegex];
     if ([captures count] > 0) {
         return [self resolveLink:[captures objectAtIndex:1]];
     }
@@ -360,7 +361,7 @@ static NSString *kFileLinkRegex = @"\\[\\[file:([a-zA-Z0-9/\\-_\\.]*\\.(?:org|tx
 
     // Collect links from body text
     {
-        NSArray *matches = [[self body] arrayOfCaptureComponentsMatchedByRegex:kFileLinkRegex];
+        NSArray *matches = [[self body] arrayOfCaptureComponentsMatchedByRegex:kUnixFileLinkRegex];
         for (NSArray *match in matches) {
             NSString *link = [self resolveLink:[match objectAtIndex:1]];
             if (link && [link length] > 1) {
@@ -391,6 +392,7 @@ static NSString *kFileLinkRegex = @"\\[\\[file:([a-zA-Z0-9/\\-_\\.]*\\.(?:org|tx
 
     // Any file: links that link to org files?
     {
+      // FIXME: No Unix Filenames matched!
         NSString *regexString = @"\\[\\[file:([a-zA-Z0-9/\\-\\._]+\\.(?:org|txt))\\]\\[([a-zA-Z0-9/\\-_\\. '!?]+)\\]\\]";
         line = [line stringByReplacingOccurrencesOfRegex:regexString withString:@"<a href='orgfile:$1'>$2</a>"];
     }

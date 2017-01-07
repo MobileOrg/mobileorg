@@ -17,6 +17,8 @@
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28C3AD8A0F43EF2300507BA6 /* MobileOrg.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 28C3AD890F43EF2300507BA6 /* MobileOrg.xcdatamodel */; };
 		28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D801B30F44B63D00FB423F /* CoreData.framework */; };
+		6C2D36161E13B1BE007D482F /* SyncSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C2D36151E13B1BE007D482F /* SyncSettingsController.m */; };
+		7419FA541E20DACA00F0EA45 /* SettingsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7419FA531E20DAC900F0EA45 /* SettingsTest.swift */; };
 		6CB501F01E20C3D70082FD40 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CB501EC1E20C3D70082FD40 /* Settings.storyboard */; };
 		6CB501F11E20C3D70082FD40 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB501ED1E20C3D70082FD40 /* SettingsController.swift */; };
 		6CB501F21E20C3D70082FD40 /* SyncSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB501EE1E20C3D70082FD40 /* SyncSettingsController.swift */; };
@@ -149,6 +151,9 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* MobileOrg_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobileOrg_Prefix.pch; sourceTree = "<group>"; };
 		6561B399A841A3A5958A5889 /* Pods-MobileOrg.appstore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileOrg.appstore.xcconfig"; path = "Pods/Target Support Files/Pods-MobileOrg/Pods-MobileOrg.appstore.xcconfig"; sourceTree = "<group>"; };
+		6C2D36141E13B19B007D482F /* SyncSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyncSettingsController.h; sourceTree = "<group>"; };
+		6C2D36151E13B1BE007D482F /* SyncSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyncSettingsController.m; sourceTree = "<group>"; };
+		7419FA531E20DAC900F0EA45 /* SettingsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTest.swift; sourceTree = "<group>"; };
 		6CB501EC1E20C3D70082FD40 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		6CB501ED1E20C3D70082FD40 /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		6CB501EE1E20C3D70082FD40 /* SyncSettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncSettingsController.swift; sourceTree = "<group>"; };
@@ -207,8 +212,6 @@
 		7945F59F11A8066200731598 /* WebDavTransferManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebDavTransferManager.h; path = WebDav/WebDavTransferManager.h; sourceTree = "<group>"; };
 		7945F5A011A8066200731598 /* WebDavTransferManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WebDavTransferManager.m; path = WebDav/WebDavTransferManager.m; sourceTree = "<group>"; };
 		7945F61111A807FD00731598 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		796CB87A11ACA1D80040167E /* DropboxTransferManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DropboxTransferManager.h; path = Dropbox/DropboxTransferManager.h; sourceTree = "<group>"; };
-		796CB87B11ACA1D80040167E /* DropboxTransferManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DropboxTransferManager.m; path = Dropbox/DropboxTransferManager.m; sourceTree = "<group>"; };
 		7982F35A1073F2FA00AEA6BC /* Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Node.h; sourceTree = "<group>"; };
 		7982F35B1073F2FA00AEA6BC /* Node.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Node.m; sourceTree = "<group>"; };
 		7982F35C1073F2FA00AEA6BC /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
@@ -442,6 +445,7 @@
 				746102FF1DFF15F300C8E34F /* MobileOrgTests-Bridging-Header.h */,
 				7476CA9E1E01C749007EAE6F /* String+RegexTests.swift */,
 				749CCE7B1E084F6A00DE4648 /* OrgfileParserTests.swift */,
+				7419FA531E20DAC900F0EA45 /* SettingsTest.swift */,
 			);
 			path = MobileOrgTests;
 			sourceTree = "<group>";
@@ -479,8 +483,6 @@
 		7945F59B11A8060B00731598 /* Dropbox */ = {
 			isa = PBXGroup;
 			children = (
-				796CB87A11ACA1D80040167E /* DropboxTransferManager.h */,
-				796CB87B11ACA1D80040167E /* DropboxTransferManager.m */,
 				744408DD1E035A1800BCE192 /* DropboxTransferManager.swift */,
 			);
 			name = Dropbox;
@@ -1010,6 +1012,7 @@
 			files = (
 				749CCE7C1E084F6A00DE4648 /* OrgfileParserTests.swift in Sources */,
 				7476CA9F1E01C749007EAE6F /* String+RegexTests.swift in Sources */,
+				7419FA541E20DACA00F0EA45 /* SettingsTest.swift in Sources */,
 				747BF9A31DFD738E00E800FB /* NodeTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

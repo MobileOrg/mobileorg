@@ -351,7 +351,7 @@ static NSString *kEncryptionPassKey  = @"EncryptionPassword";
 }
 
 - (NSURL*)urlForFilename:(NSString*)filename {
-    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [self baseUrl], filename]];
+    return [NSURL URLWithString:[[NSString stringWithFormat:@"%@%@", [self baseUrl], filename] stringByAddingPercentEncodingWithAllowedCharacters: [NSCharacterSet URLQueryAllowedCharacterSet]]] ;
 }
 
 - (bool)isConfiguredProperly {

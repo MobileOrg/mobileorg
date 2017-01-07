@@ -572,7 +572,8 @@ static SyncManager *gInstance = NULL;
     [[StatusViewController instance] setActionMessage:[NSString stringWithFormat:@"Processing %@", orgFilename]];
 
     // Setup the OrgFileParser
-    [orgFileParser setOrgFilename:orgFilename];
+
+    [orgFileParser setOrgFilename:[orgFilename stringByRemovingPercentEncoding]];
     [orgFileParser setLocalFilename:localFilename];
 
     // Kick it off on its own thread

@@ -200,27 +200,31 @@ import SwiftyDropbox
         return destURL!
       }
 
-      // Download file from dropbox
-      // files reside in app's root folder
-      UIApplication.shared.isNetworkActivityIndicatorVisible = true
-      client.files.download(path: from, overwrite: true, destination: destination)
-        .response { response, error in
-          if response != nil {
-            self.activeTransfer?.success = true
-            self.requestFinished(self.activeTransfer!)
+      // Unescape URL
+      if let unescapedFrom = from.removingPercentEncoding {
+
+        // Download file from dropbox
+        // files reside in app's root folder
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        client.files.download(path: unescapedFrom, overwrite: true, destination: destination)
+          .response { response, error in
+            if response != nil {
+              self.activeTransfer?.success = true
+              self.requestFinished(self.activeTransfer!)
+            }
+            if let error = error {
+              self.activeTransfer?.errorText = error.description
+              self.activeTransfer?.success = false
+              self.requestFinished(self.activeTransfer!)
+            }
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
           }
-          if let error = error {
-            self.activeTransfer?.errorText = error.description
-            self.activeTransfer?.success = false
-            self.requestFinished(self.activeTransfer!)
-          }
-          UIApplication.shared.isNetworkActivityIndicatorVisible = false
+          .progress { progressData in
+            let mgr = SyncManager.instance()
+            mgr?.progressTotal = 100
+            mgr?.progressCurrent = Int32(progressData.fractionCompleted * 100.0)
+            mgr?.updateStatus()
         }
-        .progress { progressData in
-          let mgr = SyncManager.instance()
-          mgr?.progressTotal = 100
-          mgr?.progressCurrent = Int32(progressData.fractionCompleted * 100.0)
-          mgr?.updateStatus()
       }
     }
   }

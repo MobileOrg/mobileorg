@@ -282,7 +282,7 @@
     if (node) {
 
         // TODO: This isn't good, I think this making a whole nother cell.
-        UITableViewCell *cell = [[self tableView] cellForRowAtIndexPath:path];
+        // UITableViewCell *cell = [[self tableView] cellForRowAtIndexPath:path];
 
         Node *editTarget = node;
         if (node.referencedNodeId && [node.referencedNodeId length] > 0) {
@@ -291,18 +291,13 @@
                 editTarget = targetNode;
             }
         }
-
-        ActionMenuController *controller = [[[ActionMenuController alloc] initWithNibName:nil bundle:nil] autorelease];
+        ActionMenuController *controller = [[[ActionMenuController alloc] init] autorelease];
+     
         [controller setNode:editTarget];
-        [controller setCell:cell];
         [controller setShowDocumentViewButton:true];
-        [controller setFirstNavController:[self navigationController]];
         [controller setParentController:self];
-        [self presentViewController:controller animated:YES completion:^{}];
+        [controller showActionSheet:self];
 
-        if (cell) {
-            [cell setHighlighted:YES];
-        }
     } else {
         // TODO: This isn't good, I think this is making a whole nother cell.
         UITableViewCell *cell = [[self tableView] cellForRowAtIndexPath:path];
@@ -338,10 +333,18 @@
     view.frame = CGRectMake(x, y, viewRect.size.width, viewRect.size.height);
 }
 
+- (void)refreshTableWithNotification:(NSNotification *)notification
+{
+  [self refreshData];
+}
+
 - (void)viewDidLoad {
 
     [super viewDidLoad];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTableWithNotification:) name:@"RefreshTable" object:nil];
+
+  
     // Initialization is a bit different if we are the topmost outline or not.
     if ([self isTopmostOutline]) {
 

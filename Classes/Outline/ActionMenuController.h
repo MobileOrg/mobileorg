@@ -26,44 +26,16 @@
 @class OutlineViewController;
 
 @interface ActionMenuController : UIViewController {
-    UILabel *titleField;
-    UIButton *doneButton;
-    UIButton *doneAndArchiveButton;
-    UIButton *flagButton;
-    UIButton *flagWithNoteButton;
-    UIButton *documentViewButton;
-    UIButton *cancelButton;
-
+  
     Node *node;
-    UITableViewCell *cell;
-    UINavigationController *firstNavController;
     OutlineViewController *parentController;
-
     bool showDocumentViewButton;
-
-    UIView *actionView;
 }
 
-- (void)onDone;
-- (void)onDoneAndArchive;
-- (void)onFlag;
-- (void)onFlagWithNote;
-- (void)onDocumentView;
-- (void)onCancel;
-
 @property (nonatomic, retain) Node *node;
-@property (nonatomic, retain) UITableViewCell *cell;
-@property (nonatomic, retain) UINavigationController *firstNavController;
 @property (nonatomic, retain) OutlineViewController *parentController;
-
-@property (nonatomic, readonly) UILabel *titleField;
-@property (nonatomic, readonly) UIButton *doneButton;
-@property (nonatomic, readonly) UIButton *doneAndArchiveButton;
-@property (nonatomic, readonly) UIButton *flagButton;
-@property (nonatomic, readonly) UIButton *flagWithNoteButton;
-@property (nonatomic, readonly) UIButton *documentViewButton;
-@property (nonatomic, readonly) UIButton *cancelButton;
-
 @property (nonatomic) bool showDocumentViewButton;
+
+- (void)showActionSheet:(UIViewController*)controller;
 
 @end

@@ -84,7 +84,6 @@
         {
             [self setTodoState:[node bestDoneState]];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshTable" object:nil userInfo:nil];
-            [flagActionSheet dismissViewControllerAnimated:YES completion:nil];
         }];
   
     UIAlertAction* markDoneArchiveAction = [UIAlertAction
@@ -94,7 +93,6 @@
         {
             [self setTodoState:@"DONEARCHIVE"];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshTable" object:nil userInfo:nil];
-            [flagActionSheet dismissViewControllerAnimated:YES completion:nil];
         }];
   
     UIAlertAction* flagAction = [UIAlertAction
@@ -104,7 +102,6 @@
         {
             [self addFlag:@"" andEdit:false];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshTable" object:nil userInfo:nil];
-            [flagActionSheet dismissViewControllerAnimated:YES completion:nil];
         }];
   
     UIAlertAction* flagWithNoteAction = [UIAlertAction
@@ -114,16 +111,12 @@
         {
             [self addFlag:@"" andEdit:true];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshTable" object:nil userInfo:nil];
-            [flagActionSheet dismissViewControllerAnimated:YES completion:nil];
         }];
   
     UIAlertAction* cancel = [UIAlertAction
         actionWithTitle:@"Cancel"
         style:UIAlertActionStyleCancel
-        handler:^(UIAlertAction * action)
-        {
-            [flagActionSheet dismissViewControllerAnimated:YES completion:nil];
-        }];
+        handler:^(UIAlertAction * action) {}];
   
     [flagActionSheet addAction:markDoneAction];
     [flagActionSheet addAction:markDoneArchiveAction];
@@ -137,7 +130,6 @@
             handler:^(UIAlertAction * action)
             {
                 [parentController selectRowAtIndexPath:[parentController pathForNode:node] withType:OutlineSelectionTypeDocumentView andAnimation:YES];
-                [flagActionSheet dismissViewControllerAnimated:YES completion:nil];
             }];
       
         [flagActionSheet addAction:showDocumentAction];
@@ -146,6 +138,12 @@
     [flagActionSheet addAction:cancel];
   
     [controller presentViewController:flagActionSheet animated:YES completion:nil];
+}
+
+- (void)dealloc {
+    [node release];
+    [parentController release];
+    [super dealloc];
 }
 
 @end

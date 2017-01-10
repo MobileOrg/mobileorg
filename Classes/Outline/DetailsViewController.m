@@ -50,6 +50,7 @@
 #import "SessionManager.h"
 #import "DataUtils.h"
 #import "ActionMenuController.h"
+#import "mobileorg-swift.h"
 
 typedef enum {
     DetailsViewSectionText,
@@ -230,8 +231,16 @@ typedef enum {
     }
 }
 
+- (void)refreshTableWithNotification:(NSNotification *)notification
+{
+  [self refreshData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+  
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTableWithNotification:) name:@"RefreshTable" object:nil];
+
 
     NSMutableArray* buttons = [[NSMutableArray alloc] initWithCapacity:2];
     UIImage *image1 = [UIImage imageNamed:@"up.png"];
@@ -260,28 +269,12 @@ typedef enum {
     [[SessionManager instance] popOutlineStateToLevel:(int)[self.navigationController.viewControllers indexOfObject:self]];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return YES;
-}
-
-- (BOOL)shouldAutorotate {
-    return YES;
-}
-
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskAll;
-}
 
 - (void)didReceiveMemoryWarning {
-    // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-
-    // Release any cached data, images, etc that aren't in use.
 }
 
 - (void)viewDidUnload {
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 #pragma mark Table view methods
@@ -473,11 +466,13 @@ typedef enum {
         [[[self tableView] cellForRowAtIndexPath:indexPath] setSelected:NO animated:YES];
         return;
     } else if (indexPath.section == DetailsViewSectionActions && indexPath.row == 1) {
-        ActionMenuController *controller = [[[ActionMenuController alloc] initWithNibName:nil bundle:nil] autorelease];
+      
+        ActionMenuController *controller = [[[ActionMenuController alloc] init] autorelease];
         [controller setNode:editTarget];
         [controller setShowDocumentViewButton:false];
-        [controller setFirstNavController:[self navigationController]];
-        [[self navigationController] presentViewController:controller animated:YES completion:^{}];
+        [controller showActionSheet:self];
+
+        [[[self tableView] cellForRowAtIndexPath:indexPath] setSelected:NO animated:YES];
         return;
     }
 

@@ -17,26 +17,15 @@
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28C3AD8A0F43EF2300507BA6 /* MobileOrg.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 28C3AD890F43EF2300507BA6 /* MobileOrg.xcdatamodel */; };
 		28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D801B30F44B63D00FB423F /* CoreData.framework */; };
-		6C2D36161E13B1BE007D482F /* SyncSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C2D36151E13B1BE007D482F /* SyncSettingsController.m */; };
-		7419FA541E20DACA00F0EA45 /* SettingsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7419FA531E20DAC900F0EA45 /* SettingsTest.swift */; };
 		6CB501F01E20C3D70082FD40 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CB501EC1E20C3D70082FD40 /* Settings.storyboard */; };
 		6CB501F11E20C3D70082FD40 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB501ED1E20C3D70082FD40 /* SettingsController.swift */; };
 		6CB501F21E20C3D70082FD40 /* SyncSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB501EE1E20C3D70082FD40 /* SyncSettingsController.swift */; };
 		6CB501F31E20C3D70082FD40 /* TextInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB501EF1E20C3D70082FD40 /* TextInputCell.swift */; };
+		7419FA541E20DACA00F0EA45 /* SettingsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7419FA531E20DAC900F0EA45 /* SettingsTest.swift */; };
 		743C12F41DFED37F0051EC6F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 743C12F31DFED37F0051EC6F /* Images.xcassets */; };
 		743C12F61DFED5950051EC6F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 743C12F51DFED5950051EC6F /* Launch Screen.storyboard */; };
 		744408DE1E035A1800BCE192 /* DropboxTransferManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744408DD1E035A1800BCE192 /* DropboxTransferManager.swift */; };
 		746103091E017E5700C8E34F /* String+RegexSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746102FC1DFF0EDB00C8E34F /* String+RegexSplitter.swift */; };
-		7461030B1E0187F500C8E34F /* Icon-beta@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7461030A1E0187F500C8E34F /* Icon-beta@2x.png */; };
-		7461030D1E01880A00C8E34F /* Icon-debug@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7461030C1E01880A00C8E34F /* Icon-debug@2x.png */; };
-		746103101E01882A00C8E34F /* Icon-beta.png in Resources */ = {isa = PBXBuildFile; fileRef = 7461030E1E01882A00C8E34F /* Icon-beta.png */; };
-		746103111E01882A00C8E34F /* Icon-debug.png in Resources */ = {isa = PBXBuildFile; fileRef = 7461030F1E01882A00C8E34F /* Icon-debug.png */; };
-		746103161E01887B00C8E34F /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 746103131E01887B00C8E34F /* Icon-Small.png */; };
-		746103171E01887B00C8E34F /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 746103141E01887B00C8E34F /* Icon.png */; };
-		746103181E01887B00C8E34F /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 746103151E01887B00C8E34F /* Icon@2x.png */; };
-		7461031C1E0189F100C8E34F /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 746103191E0189F100C8E34F /* Icon-72.png */; };
-		7461031D1E0189F100C8E34F /* Icon-beta-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 7461031A1E0189F100C8E34F /* Icon-beta-72.png */; };
-		7461031E1E0189F100C8E34F /* Icon-debug-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 7461031B1E0189F100C8E34F /* Icon-debug-72.png */; };
 		7476CA9F1E01C749007EAE6F /* String+RegexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7476CA9E1E01C749007EAE6F /* String+RegexTests.swift */; };
 		747BF9811DFCBC3F00E800FB /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 747BF9801DFCBC3F00E800FB /* libicucore.tbd */; };
 		747BF98A1DFD5CD900E800FB /* AppKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 747BF9881DFD5CD900E800FB /* AppKey.plist */; };
@@ -151,29 +140,17 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* MobileOrg_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobileOrg_Prefix.pch; sourceTree = "<group>"; };
 		6561B399A841A3A5958A5889 /* Pods-MobileOrg.appstore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileOrg.appstore.xcconfig"; path = "Pods/Target Support Files/Pods-MobileOrg/Pods-MobileOrg.appstore.xcconfig"; sourceTree = "<group>"; };
-		6C2D36141E13B19B007D482F /* SyncSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyncSettingsController.h; sourceTree = "<group>"; };
-		6C2D36151E13B1BE007D482F /* SyncSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyncSettingsController.m; sourceTree = "<group>"; };
-		7419FA531E20DAC900F0EA45 /* SettingsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTest.swift; sourceTree = "<group>"; };
 		6CB501EC1E20C3D70082FD40 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		6CB501ED1E20C3D70082FD40 /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		6CB501EE1E20C3D70082FD40 /* SyncSettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncSettingsController.swift; sourceTree = "<group>"; };
 		6CB501EF1E20C3D70082FD40 /* TextInputCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextInputCell.swift; sourceTree = "<group>"; };
+		7419FA531E20DAC900F0EA45 /* SettingsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTest.swift; sourceTree = "<group>"; };
 		743C12F31DFED37F0051EC6F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MobileOrg/Images.xcassets; sourceTree = "<group>"; };
 		743C12F51DFED5950051EC6F /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		744408DD1E035A1800BCE192 /* DropboxTransferManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DropboxTransferManager.swift; path = Dropbox/DropboxTransferManager.swift; sourceTree = "<group>"; };
 		746102FB1DFF0EDA00C8E34F /* MobileOrg-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MobileOrg-Bridging-Header.h"; sourceTree = "<group>"; };
 		746102FC1DFF0EDB00C8E34F /* String+RegexSplitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String+RegexSplitter.swift"; path = "Classes/Extensions/String+RegexSplitter.swift"; sourceTree = "<group>"; };
 		746102FF1DFF15F300C8E34F /* MobileOrgTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MobileOrgTests-Bridging-Header.h"; sourceTree = "<group>"; };
-		7461030A1E0187F500C8E34F /* Icon-beta@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-beta@2x.png"; path = "../AppIcons/Icon-beta@2x.png"; sourceTree = "<group>"; };
-		7461030C1E01880A00C8E34F /* Icon-debug@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-debug@2x.png"; path = "../AppIcons/Icon-debug@2x.png"; sourceTree = "<group>"; };
-		7461030E1E01882A00C8E34F /* Icon-beta.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-beta.png"; path = "Resources/AppIcons/Icon-beta.png"; sourceTree = SOURCE_ROOT; };
-		7461030F1E01882A00C8E34F /* Icon-debug.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-debug.png"; path = "Resources/AppIcons/Icon-debug.png"; sourceTree = SOURCE_ROOT; };
-		746103131E01887B00C8E34F /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small.png"; path = "Resources/AppIcons/Icon-Small.png"; sourceTree = SOURCE_ROOT; };
-		746103141E01887B00C8E34F /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Resources/AppIcons/Icon.png; sourceTree = SOURCE_ROOT; };
-		746103151E01887B00C8E34F /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "Resources/AppIcons/Icon@2x.png"; sourceTree = SOURCE_ROOT; };
-		746103191E0189F100C8E34F /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "Resources/AppIcons/Icon-72.png"; sourceTree = "<group>"; };
-		7461031A1E0189F100C8E34F /* Icon-beta-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-beta-72.png"; path = "Resources/AppIcons/Icon-beta-72.png"; sourceTree = "<group>"; };
-		7461031B1E0189F100C8E34F /* Icon-debug-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-debug-72.png"; path = "Resources/AppIcons/Icon-debug-72.png"; sourceTree = "<group>"; };
 		7476CA9E1E01C749007EAE6F /* String+RegexTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+RegexTests.swift"; sourceTree = "<group>"; };
 		747BF9801DFCBC3F00E800FB /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		747BF9881DFD5CD900E800FB /* AppKey.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppKey.plist; path = Configuration/AppKey.plist; sourceTree = "<group>"; };
@@ -414,20 +391,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		746103121E01884100C8E34F /* App-Icons */ = {
-			isa = PBXGroup;
-			children = (
-				746103131E01887B00C8E34F /* Icon-Small.png */,
-				746103141E01887B00C8E34F /* Icon.png */,
-				746103151E01887B00C8E34F /* Icon@2x.png */,
-				7461030E1E01882A00C8E34F /* Icon-beta.png */,
-				7461030F1E01882A00C8E34F /* Icon-debug.png */,
-				7461030A1E0187F500C8E34F /* Icon-beta@2x.png */,
-				7461030C1E01880A00C8E34F /* Icon-debug@2x.png */,
-			);
-			name = "App-Icons";
-			sourceTree = "<group>";
-		};
 		747BF98B1DFD5CF500E800FB /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
@@ -472,9 +435,6 @@
 		7936F928120DDF3E0062CF0E /* Resources-iPad */ = {
 			isa = PBXGroup;
 			children = (
-				746103191E0189F100C8E34F /* Icon-72.png */,
-				7461031A1E0189F100C8E34F /* Icon-beta-72.png */,
-				7461031B1E0189F100C8E34F /* Icon-debug-72.png */,
 				7936F929120DDF3F0062CF0E /* MainWindow-iPad.xib */,
 			);
 			name = "Resources-iPad";
@@ -653,7 +613,6 @@
 		79BA55681073A7DF00D67917 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				746103121E01884100C8E34F /* App-Icons */,
 				79F87A9810854FEA00A54CA9 /* cant-sync-offline.png */,
 				8322ED6B176AE93C008B37C7 /* cant-sync-offline@2x.png */,
 				79F87A9910854FEA00A54CA9 /* please-configure.png */,
@@ -830,7 +789,6 @@
 				7998B06E1079847C0000ED49 /* down.png in Resources */,
 				7998B06F1079847C0000ED49 /* flag.png in Resources */,
 				7998B0701079847C0000ED49 /* flagged.png in Resources */,
-				7461030B1E0187F500C8E34F /* Icon-beta@2x.png in Resources */,
 				7998B0711079847C0000ED49 /* forward.png in Resources */,
 				7998B0721079847C0000ED49 /* home.png in Resources */,
 				7998B0731079847C0000ED49 /* inbox.png in Resources */,
@@ -840,19 +798,14 @@
 				7998B0761079847C0000ED49 /* outline.png in Resources */,
 				747BF98A1DFD5CD900E800FB /* AppKey.plist in Resources */,
 				7998B0771079847C0000ED49 /* search.png in Resources */,
-				746103181E01887B00C8E34F /* Icon@2x.png in Resources */,
 				7998B0781079847C0000ED49 /* settings.png in Resources */,
-				746103101E01882A00C8E34F /* Icon-beta.png in Resources */,
 				7998B0791079847C0000ED49 /* table_gray.png in Resources */,
 				7998B07A1079847C0000ED49 /* up.png in Resources */,
 				793F7F0A107C385200674D0A /* DocumentView.css in Resources */,
 				796A6A911083E67400D0DB25 /* DocumentView.js in Resources */,
 				79F879B9108544A100A54CA9 /* press-sync.png in Resources */,
 				79F87A9A10854FEA00A54CA9 /* cant-sync-offline.png in Resources */,
-				746103161E01887B00C8E34F /* Icon-Small.png in Resources */,
-				7461031D1E0189F100C8E34F /* Icon-beta-72.png in Resources */,
 				79F87A9B10854FEA00A54CA9 /* please-configure.png in Resources */,
-				746103111E01882A00C8E34F /* Icon-debug.png in Resources */,
 				7936F92A120DDF3F0062CF0E /* MainWindow-iPad.xib in Resources */,
 				6CB501F01E20C3D70082FD40 /* Settings.storyboard in Resources */,
 				7936FA91120DF4280062CF0E /* Entitlements.plist in Resources */,
@@ -869,16 +822,12 @@
 				8322ED7F176AEF62008B37C7 /* note_entry@2x.png in Resources */,
 				8322ED80176AEF62008B37C7 /* up@2x.png in Resources */,
 				8322ED87176AF1C7008B37C7 /* capture@2x.png in Resources */,
-				7461031E1E0189F100C8E34F /* Icon-debug-72.png in Resources */,
 				8322ED88176AF1C7008B37C7 /* inbox@2x.png in Resources */,
-				7461031C1E0189F100C8E34F /* Icon-72.png in Resources */,
 				749CCE3D1E05A8A600DE4648 /* Default-568h@2x.png in Resources */,
 				8322ED89176AF1C7008B37C7 /* outline@2x.png in Resources */,
 				8322ED8A176AF1C7008B37C7 /* search@2x.png in Resources */,
 				8322ED8B176AF1C7008B37C7 /* settings@2x.png in Resources */,
 				8322ED8C176AF1C7008B37C7 /* table_gray@2x.png in Resources */,
-				746103171E01887B00C8E34F /* Icon.png in Resources */,
-				7461030D1E01880A00C8E34F /* Icon-debug@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

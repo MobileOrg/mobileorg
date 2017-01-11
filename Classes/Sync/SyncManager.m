@@ -785,7 +785,8 @@ static SyncManager *gInstance = NULL;
         }
 
         case SyncManagerTransferStateDownloadingChecksums:
-            if ([context statusCode] >= 400 && [context statusCode] < 600) {
+            if (([context statusCode] >= 400 && [context statusCode] < 600) ||
+                 [[context errorText] containsString: @".tag\" = \"not_found"]) {
                 // Fetch the Org files, just assume they don't have a checksum file since the server
                 // gave us an error code answer
                 [self downloadOrgFiles];

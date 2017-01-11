@@ -74,10 +74,22 @@ NSString *EscapeHeadings(NSString *original) {
 void UpdateAppBadge() {
     int count = 0;
     if ([[Settings instance] appBadgeMode] == AppBadgeModeTotal) {
+
         count += [[[AppInstance() noteListController] navigationController].tabBarItem.badgeValue intValue];
         count += [[[AppInstance() rootOutlineController] navigationController].tabBarItem.badgeValue intValue];
+
+        // are you running on >= iOS8?
+        // Not necessary because we're starting with 8
+        // But safe is safe 🦄
+        if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+            UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeBadge|UIUserNotificationTypeAlert|UIUserNotificationTypeSound) categories:nil];
+            [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+        }
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:count];
     }
-    [UIApplication sharedApplication].applicationIconBadgeNumber = count;
+    else {
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    }
 }
 
 // http://stackoverflow.com/questions/2576356/how-does-one-get-ui-user-interface-idiom-to-work-with-iphone-os-sdk-3-2

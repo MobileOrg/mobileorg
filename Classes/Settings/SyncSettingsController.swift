@@ -33,10 +33,14 @@ class SyncSettingsController: UITableViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    self.tableView.reloadData()
-    self.tableView.setNeedsDisplay()
+
+    NotificationCenter.default.addObserver(self, selector: #selector(dropboxAuthSuccess(sender:)), name: NSNotification.Name(rawValue: "dropboxloginsuccess"), object: nil)
   }
-  
+
+  override func viewWillDisappear(_ animated: Bool) {
+    NotificationCenter.default.removeObserver("dropboxloginsuccess")
+  }
+
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
@@ -163,7 +167,7 @@ class SyncSettingsController: UITableViewController {
       }
       self.tableView.reloadData()
       self.tableView.setNeedsDisplay()
-      
+
     } else if (indexPath.section == 1 && Settings.instance().serverMode == ServerModeDropbox) { // server settings - dropbox mode
       
       if indexPath.row == 1 { // dropbox button
@@ -172,10 +176,7 @@ class SyncSettingsController: UITableViewController {
           DropboxTransferManager.instance.unlink()
         } else {
           DropboxTransferManager.instance.login(self)
-          // FIXME: State change is not reflected in UI
         }
-        self.tableView.reloadData()
-        self.tableView.setNeedsDisplay()
       }
     }
   }
@@ -249,6 +250,10 @@ class SyncSettingsController: UITableViewController {
   func dropboxIndexChanged(sender: UITextField) {
     Settings.instance().dropboxIndex = sender.text
     print("dropboxIndexChanged")
+  }
+
+  func dropboxAuthSuccess(sender: Any?) {
+    self.tableView.reloadData()
   }
   
   func resetAppData() {

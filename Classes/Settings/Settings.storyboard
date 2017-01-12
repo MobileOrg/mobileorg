@@ -471,7 +471,7 @@
                                 <rect key="frame" x="0.0" y="100" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="ZRG-KN-ikm" id="7x8-cw-fLR">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text Field Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gpz-kW-0gC">
@@ -480,8 +480,8 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" placeholder="Text Field" textAlignment="right" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="2Sm-K3-r73">
-                                            <rect key="frame" x="282.5" y="11.5" width="77.5" height="21"/>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" placeholder="Text Field" textAlignment="right" minimumFontSize="8" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="2Sm-K3-r73">
+                                            <rect key="frame" x="142.5" y="11.5" width="217.5" height="21"/>
                                             <nil key="textColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done"/>
@@ -494,6 +494,7 @@
                                         <constraint firstItem="gpz-kW-0gC" firstAttribute="centerY" secondItem="7x8-cw-fLR" secondAttribute="centerY" id="Fiu-Vq-RJp"/>
                                         <constraint firstItem="2Sm-K3-r73" firstAttribute="centerY" secondItem="7x8-cw-fLR" secondAttribute="centerY" id="Grh-sp-Xwm"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="2Sm-K3-r73" secondAttribute="trailing" id="KWE-xp-1ZN"/>
+                                        <constraint firstItem="2Sm-K3-r73" firstAttribute="leading" secondItem="gpz-kW-0gC" secondAttribute="trailing" constant="8" id="MRJ-LJ-Axj"/>
                                         <constraint firstItem="gpz-kW-0gC" firstAttribute="leading" secondItem="7x8-cw-fLR" secondAttribute="leadingMargin" id="qFR-ge-PE9"/>
                                     </constraints>
                                 </tableViewCellContentView>

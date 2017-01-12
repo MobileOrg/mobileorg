@@ -57,6 +57,10 @@
   pod install
   #+END_SRC  
   in your shell.
+  
+  Next open the MobileOrg.xcworkspace file *not* the MobileOrg.xcodeproj file.
+  This is the current way Xcode deals with user specific files that hold settings
+  by default. For a lot of background info, see [[https://neurocline.github.io/dev/2016/04/16/xcode-xcworkspace-and-xcodeproj.html][Xcode - xcworkspace and xcodeproj]]
 
 ** Pull Requests
    Pull requests for bug fixes, features or anything else are gladly
@@ -64,6 +68,10 @@
    collaboration style. If you are planning to contribute you should
    have a fork of the mobileorg repository and issue pull requests
    from there.
+
+   It is expected that the code reviewer will merge your pull request. If you
+   wish to open a pull request for a proof of concept or feedback on an idea,
+   please clearly indicate this in the description or title.
 ** git flow branching model
    To the extent possible the MobileOrg repo follows the [[http://nvie.com/posts/a-successful-git-branching-model/][Git Flow]]
    branching model. How this affects contributing is that *all new

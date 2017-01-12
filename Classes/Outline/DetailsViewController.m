@@ -470,7 +470,7 @@ typedef enum {
         ActionMenuController *controller = [[[ActionMenuController alloc] init] autorelease];
         [controller setNode:editTarget];
         [controller setShowDocumentViewButton:false];
-        [controller showActionSheet:self];
+        [controller showActionSheet:self on:[tableView cellForRowAtIndexPath:indexPath]];
 
         [[[self tableView] cellForRowAtIndexPath:indexPath] setSelected:NO animated:YES];
         return;

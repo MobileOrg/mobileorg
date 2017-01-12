@@ -70,7 +70,7 @@
     Save();
 }
 
-- (void)showActionSheet:(UIViewController*)controller {
+- (void)showActionSheet:(UIViewController*)controller on:(UIView *)presentingView {
   
     UIAlertController * flagActionSheet =   [UIAlertController
         alertControllerWithTitle: [node headingForDisplay]
@@ -136,7 +136,8 @@
     }
 
     [flagActionSheet addAction:cancel];
-  
+
+    [[flagActionSheet popoverPresentationController] setSourceView:presentingView];
     [controller presentViewController:flagActionSheet animated:YES completion:nil];
 }
 

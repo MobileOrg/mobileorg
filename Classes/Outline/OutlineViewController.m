@@ -296,7 +296,7 @@
         [controller setNode:editTarget];
         [controller setShowDocumentViewButton:true];
         [controller setParentController:self];
-        [controller showActionSheet:self];
+        [controller showActionSheet:self on:[[self tableView] cellForRowAtIndexPath:path]];
 
     } else {
         // TODO: This isn't good, I think this is making a whole nother cell.

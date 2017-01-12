@@ -51,5 +51,7 @@
 	</array>
 	<key>CFBundleShortVersionString</key>
 	<string>1.7.1</string>
+	<key>UILaunchStoryboardName</key>
+	<string>Launch Screen</string>
 </dict>
 </plist>

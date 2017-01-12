@@ -36,6 +36,6 @@
 @property (nonatomic, retain) OutlineViewController *parentController;
 @property (nonatomic) bool showDocumentViewButton;
 
-- (void)showActionSheet:(UIViewController*)controller;
+- (void)showActionSheet:(UIViewController*)controller on:(UIView *)presentingView;
 
 @end

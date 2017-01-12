@@ -202,8 +202,7 @@ class SyncSettingsController: UITableViewController {
     // not apply to the new data.
     if let newUrlString = sender.text,
       let oldUrlString = Settings.instance().indexUrl?.absoluteString,
-      newUrlString == oldUrlString {
-      //    if sender.text == Settings.instance().indexUrl?.absoluteString {
+      newUrlString != oldUrlString {
       if newUrlString.characters.count > 0 {
         if (CountLocalEditActions() > 0) {
           let alert = UIAlertController(title: "Proceed with Change?", message:"Changing the URL to another set of files may invalidate the local changes you have made.  You may want to sync with the old URL first instead.\n\nProceed to change URL",

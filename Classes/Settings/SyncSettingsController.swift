@@ -26,8 +26,8 @@ import UIKit
 
 class SyncSettingsController: UITableViewController {
   
-  var pendingNewIndexUrl: String!
-  var urlTextField: UITextField!
+  //var pendingNewIndexUrl: String!
+  //var urlTextField: UITextField!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -190,55 +190,61 @@ class SyncSettingsController: UITableViewController {
   }
   
   func serverUrlChanged(sender: UITextField) {
-    print("server url changed")
+    
     if sender.text?.rangeOf(regex: "http.*\\.(?:org|txt)$").location == NSNotFound {
       
       let alert = UIAlertController(title: "Invalid path",
                                     message: "This setting should be the complete URL to a .org file on a WebDAV server.  For instance, http://www.example.com/private/org/index.org",
                                     preferredStyle: .alert)
-      let cancelAction = UIAlertAction( title: "Cancel", style: .cancel)
+      let cancelAction = UIAlertAction( title: "OK", style: .cancel)
       
       alert.addAction(cancelAction)
       self.present(alert, animated: true)
       
-      sender.text = ""
-      sender.placeholder = "Enter valid URL"
-    }
-    
-    if sender.text == Settings.instance().indexUrl.absoluteString {
-      if (sender.text?.characters.count)! > 0 {
-        // The user just changed URLs.  Let's see if they had any local changes.
-        // We need to warn them that that the changes they have made will likely
-        // not apply to the new data.
-        if (CountLocalEditActions() > 0) {
-          let alert = UIAlertController(title: "Proceed with Change?", message:"Changing the URL to another set of files may invalidate the local changes you have made.  You may want to sync with the old URL first instead.\n\nProceed to change URL",
-                                        preferredStyle: .alert)
-          
-          alert.addAction(UIAlertAction(title: "OK",
-                                        style: .default,
-                                        handler: {(alert: UIAlertAction!) in
-                                          self.applyNewServerUrl(url: self.pendingNewIndexUrl) }))
-          
-          alert.addAction(UIAlertAction(title: "Cancel",
-                                        style: .cancel,
-                                        handler: {(alert: UIAlertAction!) in
-                                          sender.text! = Settings.instance().indexUrl.absoluteString
-                                          sender.text! = "" }))
-          self.present(alert, animated: true)
-          pendingNewIndexUrl = sender.text!
-          urlTextField = sender
-          return
-        }
+      if (Settings.instance().indexUrl != nil) {
+        sender.text! = Settings.instance().indexUrl.absoluteString
+      } else {
+        sender.text = ""
       }
-      self.applyNewServerUrl(url: sender.text!)
+      
+    } else {
+      
+      if (Settings.instance().indexUrl != nil) { // if indexUrl already exists
+        
+        if sender.text != Settings.instance().indexUrl.absoluteString { // if the textField value is different from indexUrl
+          
+          if (CountLocalEditActions() > 0) {
+            let alert = UIAlertController(title: "Proceed with Change?", message:"Changing the URL to another set of files may invalidate the local changes you have made.  You may want to sync with the old URL first instead.\n\nProceed to change URL",
+                                          preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK",
+                                          style: .default,
+                                          handler: {(alert: UIAlertAction!) in
+                                            Settings.instance().indexUrl = URL(string: sender.text!)
+                                            self.resetAppData()
+            }))
+            
+            alert.addAction(UIAlertAction(title: "Cancel",
+                                          style: .cancel,
+                                          handler: {(alert: UIAlertAction!) in
+                                            sender.text! = Settings.instance().indexUrl.absoluteString
+                                            
+            }))
+            
+            self.present(alert, animated: true)
+          } else {
+            Settings.instance().indexUrl = URL(string: sender.text!)
+            self.resetAppData()
+          }
+        }
+      } else { // indexUrl was nil
+        Settings.instance().indexUrl = URL(string: sender.text!)
+        self.resetAppData()
+      }
+      self.tableView.reloadData()
     }
   }
   
-  func applyNewServerUrl(url: String) {
-    // Store the new URL
-    Settings.instance().indexUrl = URL(string: url)
-    self.resetAppData()
-  }
   
   func usernameChanged(sender: UITextField) {
     Settings.instance().username = sender.text

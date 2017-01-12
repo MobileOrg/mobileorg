@@ -62,8 +62,7 @@ class SettingsController: UITableViewController {
       self.syncDetailLabel.text = "WebDAV"
     }
     
-    let lastSync: Date! = Settings.instance().lastSync
-    if lastSync != nil {
+    if let lastSync = Settings.instance().lastSync {
       let formatter = DateFormatter()
       formatter.dateFormat = "YYYY-MM-dd EEE HH:mm"
       self.lastSyncLabel.text = formatter.string(from: lastSync)
@@ -72,9 +71,8 @@ class SettingsController: UITableViewController {
     }
     self.tableView.reloadData()
     self.tableView.setNeedsDisplay()
-    
   }
-  
+
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.

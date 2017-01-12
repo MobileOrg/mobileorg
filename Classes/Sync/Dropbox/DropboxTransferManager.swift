@@ -83,9 +83,11 @@ import SwiftyDropbox
     if let authResult = DropboxClientsManager.handleRedirectURL(url) {
       switch authResult {
       case .success:
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "dropboxloginsuccess"), object: nil)
+
         print("Success! User is logged into Dropbox.")
       case .cancel:
-        print("Authorization flow was manually canceled by user!")
+        print("Authorization flow was manually cancelled by user!")
       case .error(_, let description):
         print("Error: \(description)")
       }

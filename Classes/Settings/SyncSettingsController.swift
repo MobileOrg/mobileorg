@@ -25,10 +25,7 @@ import Foundation
 import UIKit
 
 class SyncSettingsController: UITableViewController {
-  
-  //var pendingNewIndexUrl: String!
-  //var urlTextField: UITextField!
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -36,10 +33,14 @@ class SyncSettingsController: UITableViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    self.tableView.reloadData()
-    self.tableView.setNeedsDisplay()
+
+    NotificationCenter.default.addObserver(self, selector: #selector(dropboxAuthSuccess(sender:)), name: NSNotification.Name(rawValue: "dropboxloginsuccess"), object: nil)
   }
-  
+
+  override func viewWillDisappear(_ animated: Bool) {
+    NotificationCenter.default.removeObserver("dropboxloginsuccess")
+  }
+
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
@@ -71,7 +72,7 @@ class SyncSettingsController: UITableViewController {
   
   override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
     if section == 1 { // server settings section
-      return "For help on configuration, visit http://mobileorg.ncogni.to ?????"
+      return "For help on configuration, visit https://mobileorg.github.io/support"
     } else {
       return ""
     }
@@ -102,31 +103,25 @@ class SyncSettingsController: UITableViewController {
       return cell
       
     } else { // second section
-      
+
       if (Settings.instance().serverMode == ServerModeWebDav) { // webdav is selected
-        
-        if indexPath.row == 0 {
-          let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextInputCell
-          
-          cell.textField.removeTarget(self, action: nil, for: .allEvents)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextInputCell
+        cell.textField.removeTarget(self, action: nil, for: .allEvents)
+
+        switch indexPath.row {
+        case 0:
           cell.textField.addTarget(self, action: #selector(serverUrlChanged), for: UIControlEvents.editingDidEnd)
           cell.textFieldLabel.text = "URL"
           cell.textField.placeholder = "Enter URL"
           cell.textField.text = Settings.instance().indexUrl?.absoluteString
           return cell
-        } else if indexPath.row == 1 {
-          let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextInputCell
-          
-          cell.textField.removeTarget(self, action: nil, for: .allEvents)
+        case 1:
           cell.textField.addTarget(self, action: #selector(usernameChanged), for: UIControlEvents.editingDidEnd)
           cell.textFieldLabel.text = "Username"
           cell.textField.placeholder = "Enter Username"
           cell.textField.text = Settings.instance().username
           return cell
-        } else {
-          let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextInputCell
-          
-          cell.textField.removeTarget(self, action: nil, for: .allEvents)
+        default:
           cell.textField.addTarget(self, action: #selector(passwordChanged), for: UIControlEvents.editingDidEnd)
           cell.textFieldLabel.text = "Password"
           cell.textField.placeholder = "Enter Password"
@@ -138,7 +133,7 @@ class SyncSettingsController: UITableViewController {
         
         if indexPath.row == 0 {
           let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextInputCell
-          
+
           cell.textField.removeTarget(self, action: nil, for: .allEvents)
           cell.textField.addTarget(self, action: #selector(dropboxIndexChanged), for: UIControlEvents.editingDidEnd)
           cell.textFieldLabel.text = "Index File"
@@ -172,7 +167,7 @@ class SyncSettingsController: UITableViewController {
       }
       self.tableView.reloadData()
       self.tableView.setNeedsDisplay()
-      
+
     } else if (indexPath.section == 1 && Settings.instance().serverMode == ServerModeDropbox) { // server settings - dropbox mode
       
       if indexPath.row == 1 { // dropbox button
@@ -181,10 +176,7 @@ class SyncSettingsController: UITableViewController {
           DropboxTransferManager.instance.unlink()
         } else {
           DropboxTransferManager.instance.login(self)
-          // FIXME: State change is not reflected in UI
         }
-        self.tableView.reloadData()
-        self.tableView.setNeedsDisplay()
       }
     }
   }
@@ -201,41 +193,34 @@ class SyncSettingsController: UITableViewController {
       alert.addAction(cancelAction)
       self.present(alert, animated: true)
       
-      if (Settings.instance().indexUrl != nil) {
-        sender.text! = Settings.instance().indexUrl.absoluteString
-      } else {
-        sender.text = ""
-      }
-      
-    } else {
-      
-      if (Settings.instance().indexUrl != nil) { // if indexUrl already exists
-        
-        if sender.text != Settings.instance().indexUrl.absoluteString { // if the textField value is different from indexUrl
+      sender.text = ""
+      sender.placeholder = "Enter valid URL"
+    }
+
+    // The user just changed URLs.  Let's see if they had any local changes.
+    // We need to warn them that that the changes they have made will likely
+    // not apply to the new data.
+    if let newUrlString = sender.text,
+      let oldUrlString = Settings.instance().indexUrl?.absoluteString,
+      newUrlString == oldUrlString {
+      //    if sender.text == Settings.instance().indexUrl?.absoluteString {
+      if newUrlString.characters.count > 0 {
+        if (CountLocalEditActions() > 0) {
+          let alert = UIAlertController(title: "Proceed with Change?", message:"Changing the URL to another set of files may invalidate the local changes you have made.  You may want to sync with the old URL first instead.\n\nProceed to change URL",
+                                        preferredStyle: .alert)
           
-          if (CountLocalEditActions() > 0) {
-            let alert = UIAlertController(title: "Proceed with Change?", message:"Changing the URL to another set of files may invalidate the local changes you have made.  You may want to sync with the old URL first instead.\n\nProceed to change URL",
-                                          preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "OK",
-                                          style: .default,
-                                          handler: {(alert: UIAlertAction!) in
-                                            Settings.instance().indexUrl = URL(string: sender.text!)
-                                            self.resetAppData()
-            }))
-            
-            alert.addAction(UIAlertAction(title: "Cancel",
-                                          style: .cancel,
-                                          handler: {(alert: UIAlertAction!) in
-                                            sender.text! = Settings.instance().indexUrl.absoluteString
-                                            
-            }))
-            
-            self.present(alert, animated: true)
-          } else {
-            Settings.instance().indexUrl = URL(string: sender.text!)
-            self.resetAppData()
-          }
+          alert.addAction(UIAlertAction(title: "OK",
+                                        style: .default,
+                                        handler: {(alert: UIAlertAction!) in
+                                          self.applyNewServerUrl(url: newUrlString) }))
+          
+          alert.addAction(UIAlertAction(title: "Cancel",
+                                        style: .cancel,
+                                        handler: {(alert: UIAlertAction!) in
+                                          sender.text = oldUrlString
+                                          sender.text = "" }))
+          self.present(alert, animated: true)
+          return
         }
       } else { // indexUrl was nil
         Settings.instance().indexUrl = URL(string: sender.text!)
@@ -243,8 +228,16 @@ class SyncSettingsController: UITableViewController {
       }
       self.tableView.reloadData()
     }
+    self.applyNewServerUrl(url: sender.text)
   }
-  
+
+  func applyNewServerUrl(url: String?) {
+    // Store the new URL
+    if let newUrlString = url {
+      Settings.instance().indexUrl = URL(string: newUrlString)
+      self.resetAppData()
+    }
+  }
   
   func usernameChanged(sender: UITextField) {
     Settings.instance().username = sender.text
@@ -257,6 +250,10 @@ class SyncSettingsController: UITableViewController {
   func dropboxIndexChanged(sender: UITextField) {
     Settings.instance().dropboxIndex = sender.text
     print("dropboxIndexChanged")
+  }
+
+  func dropboxAuthSuccess(sender: Any?) {
+    self.tableView.reloadData()
   }
   
   func resetAppData() {

@@ -64,35 +64,35 @@ typedef enum {
     NSString *encryptionPassword;
 }
 
-@property (nonatomic, copy) NSURL *indexUrl;
-@property (nonatomic, copy) NSString *username;
-@property (nonatomic, copy) NSString *password;
-@property (nonatomic, copy) NSDate *lastSync;
-@property (nonatomic, copy) NSMutableArray *primaryTags;
-@property (nonatomic, retain) NSMutableArray *mutuallyExclusiveTagGroups;
-@property (nonatomic, copy) NSMutableArray *allTags;
-@property (nonatomic, copy) NSMutableArray *todoStateGroups;
-@property (nonatomic, copy) NSMutableArray *priorities;
+@property (nonatomic, copy, nullable) NSURL *indexUrl;
+@property (nonatomic, copy, nullable) NSString *username;
+@property (nonatomic, copy, nullable) NSString *password;
+@property (nonatomic, copy, nullable) NSDate *lastSync;
+@property (nonatomic, copy, nullable) NSMutableArray *primaryTags;
+@property (nonatomic, retain,nullable) NSMutableArray *mutuallyExclusiveTagGroups;
+@property (nonatomic, copy,nullable) NSMutableArray *allTags;
+@property (nonatomic, copy,nullable) NSMutableArray *todoStateGroups;
+@property (nonatomic, copy,nullable) NSMutableArray *priorities;
 @property (nonatomic) AppBadgeMode appBadgeMode;
 @property (nonatomic) ServerMode serverMode;
 @property (nonatomic) LaunchTab launchTab;
-@property (nonatomic, copy) NSString *dropboxIndex;
-@property (nonatomic, copy) NSString *encryptionPassword;
+@property (nonatomic, copy, nullable) NSString *dropboxIndex;
+@property (nonatomic, copy, nullable) NSString *encryptionPassword;
 
-+ (Settings*)instance;
++ (nonnull Settings*)instance;
 - (void)resetPrimaryTagsAndTodoStates;
 - (void)resetAllTags;
-- (void)addPrimaryTag:(NSString*)tag;
-- (void)addTag:(NSString*)tag;
-- (void)addMutuallyExclusiveTagGroup:(NSArray*)mutexTags;
-- (void)addTodoStateGroup:(NSMutableArray*)todoStateGroup;
-- (bool)isTodoState:(NSString*)state;
-- (bool)isDoneState:(NSString*)state;
-- (void)addPriority:(NSString*)priority;
-- (bool)isPriority:(NSString*)priority;
-- (NSString*)indexFilename;
-- (NSURL*)baseUrl;
-- (NSURL*)urlForFilename:(NSString*)filename;
+- (void)addPrimaryTag:(nonnull NSString*)tag;
+- (void)addTag:(nonnull NSString*)tag;
+- (void)addMutuallyExclusiveTagGroup:(nonnull NSArray*)mutexTags;
+- (void)addTodoStateGroup:(nonnull NSMutableArray*)todoStateGroup;
+- (bool)isTodoState:(nonnull NSString*)state;
+- (bool)isDoneState:(nonnull NSString*)state;
+- (void)addPriority:(nonnull NSString*)priority;
+- (bool)isPriority:(nonnull NSString*)priority;
+- (nullable NSString*)indexFilename;
+- (nullable NSURL*)baseUrl;
+- (nullable NSURL*)urlForFilename:(nonnull NSString*)filename;
 - (bool)isConfiguredProperly;
 
 @end

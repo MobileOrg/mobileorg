@@ -98,6 +98,24 @@ class SettingsController: UITableViewController {
     }
   }
   
+  @IBAction func showCredits(_ sender: UIButton) {
+    if let url = URL(string: "https://mobileorg.github.io#credits") {
+      UIApplication.shared.openURL(url)
+    }
+  }
+
+  @IBAction func showDocumentation(_ sender: UIButton) {
+    if let url = URL(string: "https://mobileorg.github.io#documentation") {
+      UIApplication.shared.openURL(url)
+    }
+  }
+
+  @IBAction func showLicense(_ sender: Any) {
+    if let url = URL(string: "https://mobileorg.github.io#license") {
+      UIApplication.shared.openURL(url)
+    }
+  }
+
   @IBAction func encryptionPasswordChanged(sender: AnyObject){
     self.encryptionTextField.resignFirstResponder()
     Settings.instance().encryptionPassword = encryptionTextField.text

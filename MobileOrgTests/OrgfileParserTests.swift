@@ -46,7 +46,7 @@ class OrgfileParserTests: XCTestCase {
     parser.parse(moc)
 
     let settings = Settings.instance()
-    if let keywordsMetaArray = settings?.todoStateGroups {
+    if let keywordsMetaArray = settings.todoStateGroups {
       for case let keywordsArray as Array<Array<String>> in keywordsMetaArray {
         for keywords in keywordsArray {
           for keyword in keywords {

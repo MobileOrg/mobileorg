@@ -87,9 +87,10 @@ NSString *OutlineCellIdentifierForNode(Node *node) {
     return ret;
 }
 
-void SetupOutlineCellForNode(UITableViewCell *cell, Node *node) {
+void SetupOutlineCellForNode(UITableViewCell *cell, Node *node, UITableView *tableView) {
 
     int yOffset = 3;
+    int xOffset = tableView.separatorInset.left;
 
     // Get a reference to the original node
     // This is necessary for agenda views
@@ -104,7 +105,7 @@ void SetupOutlineCellForNode(UITableViewCell *cell, Node *node) {
     // <before> text
     if ([[cell reuseIdentifier] rangeOfString:@":withBeforeText"].location != NSNotFound) {
         UILabel *beforeLabel;
-        beforeLabel       = [[[UILabel alloc] initWithFrame:CGRectMake(7, yOffset, 300, 20)] autorelease];
+        beforeLabel       = [[[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 300, 20)] autorelease];
         beforeLabel.tag   = OutlineCellViewTagBeforeText;
         beforeLabel.font  = [UIFont systemFontOfSize:13.0];
         beforeLabel.textColor = [UIColor darkGrayColor];
@@ -116,7 +117,7 @@ void SetupOutlineCellForNode(UITableViewCell *cell, Node *node) {
 
     // Heading label
     {
-        int x = 7;
+        int x = xOffset;
         if ([[cell reuseIdentifier] rangeOfString:@":withPriority"].location != NSNotFound) {
             x += 30;
         }
@@ -134,7 +135,7 @@ void SetupOutlineCellForNode(UITableViewCell *cell, Node *node) {
     if ([[cell reuseIdentifier] rangeOfString:@":withPriority"].location != NSNotFound) {
 
         UILabel *priorityLabel;
-        priorityLabel      = [[[UILabel alloc] initWithFrame:CGRectMake(7, yOffset, 25, 20)] autorelease];
+        priorityLabel      = [[[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 25, 20)] autorelease];
         priorityLabel.tag  = OutlineCellViewTagPriority;
         priorityLabel.font = [UIFont systemFontOfSize:13.0];
         priorityLabel.textColor = [UIColor lightGrayColor];
@@ -152,7 +153,7 @@ void SetupOutlineCellForNode(UITableViewCell *cell, Node *node) {
 
             if (hasTodoState) {
                 RoundedLabel *todoStateLabel;
-                todoStateLabel       = [[[RoundedLabel alloc] initWithFrame:CGRectMake(7, yOffset, 83, 20)] autorelease];
+                todoStateLabel       = [[[RoundedLabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 83, 20)] autorelease];
                 todoStateLabel.tag   = OutlineCellViewTagTodoState;
                 todoStateLabel.backgroundColor = [UIColor whiteColor];
                 todoStateLabel.color = [UIColor colorWithRed:0.65 green:0 blue:0 alpha:1];
@@ -184,7 +185,7 @@ void SetupOutlineCellForNode(UITableViewCell *cell, Node *node) {
         yOffset += 22;
 
         UILabel *bodySummaryLabel;
-        bodySummaryLabel      = [[[UILabel alloc] initWithFrame:CGRectMake(7, yOffset, 300, 15)] autorelease];
+        bodySummaryLabel      = [[[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 300, 15)] autorelease];
         bodySummaryLabel.tag  = OutlineCellViewTagBodySummary;
         bodySummaryLabel.font = [UIFont systemFontOfSize:13.0];
         bodySummaryLabel.textColor = [UIColor darkGrayColor];

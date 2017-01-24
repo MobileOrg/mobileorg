@@ -238,8 +238,10 @@ typedef enum {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-  
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTableWithNotification:) name:@"RefreshTable" object:nil];
+
+    self.tableView.cellLayoutMarginsFollowReadableWidth = NO;
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTableWithNotification:) name:@"RefreshTable" object:nil];
 
 
     NSMutableArray* buttons = [[NSMutableArray alloc] initWithCapacity:2];

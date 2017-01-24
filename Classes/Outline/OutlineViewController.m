@@ -342,6 +342,8 @@
 
     [super viewDidLoad];
 
+    self.tableView.cellLayoutMarginsFollowReadableWidth = NO;
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTableWithNotification:) name:@"RefreshTable" object:nil];
 
   

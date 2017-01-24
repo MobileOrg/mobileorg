@@ -113,6 +113,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.tableView.cellLayoutMarginsFollowReadableWidth = NO;
+
     addButton = [[UIBarButtonItem alloc]
                  initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNote)];
     self.navigationItem.rightBarButtonItem = addButton;

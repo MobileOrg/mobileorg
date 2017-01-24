@@ -135,7 +135,7 @@ void SetupOutlineCellForNode(UITableViewCell *cell, Node *node, UITableView *tab
     if ([[cell reuseIdentifier] rangeOfString:@":withPriority"].location != NSNotFound) {
 
         UILabel *priorityLabel;
-        priorityLabel      = [[[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 25, 20)] autorelease];
+        priorityLabel      = [[[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 30, 20)] autorelease];
         priorityLabel.tag  = OutlineCellViewTagPriority;
         priorityLabel.font = [UIFont systemFontOfSize:13.0];
         priorityLabel.textColor = [UIColor lightGrayColor];
@@ -169,7 +169,7 @@ void SetupOutlineCellForNode(UITableViewCell *cell, Node *node, UITableView *tab
 
             if (hasTags) {
                 UILabel *tagLabel;
-                tagLabel      = [[[UILabel alloc] initWithFrame:CGRectMake(90, yOffset+1, 220, 15)] autorelease];
+                tagLabel      = [[[UILabel alloc] initWithFrame:CGRectMake(100, yOffset+1, 220, 15)] autorelease];
                 tagLabel.tag  = OutlineCellViewTagTags;
                 tagLabel.font = [UIFont boldSystemFontOfSize:10.0];
                 tagLabel.textColor = [UIColor colorWithRed:0.5 green:0.58 blue:0.682 alpha:1.0];

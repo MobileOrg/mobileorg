@@ -26,7 +26,7 @@
 
 NSString *OutlineCellIdentifierForNode(Node *node);
 
-void SetupOutlineCellForNode(UITableViewCell *cell, Node *node);
+void SetupOutlineCellForNode(UITableViewCell *cell, Node *node, UITableView *tableView);
 
 void PopulateOutlineCellForNode(UITableViewCell *cell, Node *node);
 

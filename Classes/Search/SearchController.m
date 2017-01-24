@@ -95,6 +95,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.tableView.cellLayoutMarginsFollowReadableWidth = NO;
+
     [self setTitle:@"Search"];
 
     search_bar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 20, 320, 100)];

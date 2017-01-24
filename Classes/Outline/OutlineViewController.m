@@ -342,6 +342,8 @@
 
     [super viewDidLoad];
 
+    self.tableView.cellLayoutMarginsFollowReadableWidth = NO;
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTableWithNotification:) name:@"RefreshTable" object:nil];
 
   
@@ -474,7 +476,7 @@
     cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
-        SetupOutlineCellForNode(cell, node);
+        SetupOutlineCellForNode(cell, node, tableView);
     }
 
     PopulateOutlineCellForNode(cell, node);

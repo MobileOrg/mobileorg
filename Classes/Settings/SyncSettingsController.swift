@@ -174,6 +174,7 @@ class SyncSettingsController: UITableViewController {
         
         if DropboxTransferManager.instance.isLinked() {
           DropboxTransferManager.instance.unlink()
+          self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
         } else {
           DropboxTransferManager.instance.login(self)
         }

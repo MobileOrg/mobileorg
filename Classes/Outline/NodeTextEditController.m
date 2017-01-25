@@ -60,26 +60,29 @@
 }
 
 // Called when the UIKeyboardDidShowNotification is sent.
+// Called when the UIKeyboardDidShowNotification is sent.
 - (void)keyboardWasShown:(NSNotification*)aNotification
 {
     if (keyboardShown)
         return;
 
-    // Resize the scroll view (which is the root view of the window)
-    switch ([[UIDevice currentDevice] orientation]) {
-        case UIDeviceOrientationLandscapeLeft:
-        case UIDeviceOrientationLandscapeRight:
-            [[self view] setFrame:CGRectMake(0, 0, 480, 135)];
-            break;
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
 
-        case UIDeviceOrientationUnknown:
-        case UIDeviceOrientationPortrait:
-        case UIDeviceOrientationPortraitUpsideDown:
-        case UIDeviceOrientationFaceUp:
-        case UIDeviceOrientationFaceDown:
-        default:
-            [[self view] setFrame:CGRectMake(0, 0, 320, 220)];
-            break;
+        // Get the height of the Navigation Bar
+    CGRect rect = self.navigationController.navigationBar.frame;
+    float y = rect.size.height + rect.origin.y;
+
+        // Substract keyboard and navigation bar
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(y, 0.0, kbSize.height, 0.0);
+    textView.contentInset = contentInsets;
+    textView.scrollIndicatorInsets = contentInsets;
+
+        // If text view is hidden by keyboard, scroll it so it's visible
+    CGRect aRect = self.view.frame;
+    aRect.size.height -= kbSize.height;
+    if (!CGRectContainsPoint(aRect, self.view.frame.origin) ) {
+        [textView scrollRectToVisible:self.view.frame animated:YES];
     }
 
     // Scroll the active text field into view.
@@ -94,22 +97,20 @@
 // Called when the UIKeyboardDidHideNotification is sent
 - (void)keyboardWasHidden:(NSNotification*)aNotification
 {
-    NSDictionary* info = [aNotification userInfo];
+        // Get the height of the Navigation Bar
+    CGRect rect = self.navigationController.navigationBar.frame;
+    float y = rect.size.height + rect.origin.y;
 
-    // Get the size of the keyboard.
-    NSValue* aValue = [info objectForKey:UIKeyboardFrameBeginUserInfoKey];
-    CGSize keyboardSize = [aValue CGRectValue].size;
+        // Substract keyboard and navigation bar
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(y, 0.0, 0.0, 0.0);
 
-    // Reset the height of the scroll view to its original value
-    CGRect viewFrame = [[self view] frame];
-    viewFrame.size.height += keyboardSize.height;
-    viewFrame.size.height -= 55;
-    [[self view] setFrame:viewFrame];
+    textView.contentInset = contentInsets;
+    textView.scrollIndicatorInsets = contentInsets;
 
     doneButton.enabled = NO;
-
     keyboardShown = NO;
 }
+
 
 - (id)initWithNode:(Node*)aNode andEditProperty:(NodeTextEditPropertyType)property {
     if (self = [super init]) {
@@ -126,7 +127,9 @@
     textView = [[UITextView alloc] init];
     [textView setScrollEnabled:YES];
     [textView setScrollsToTop:YES];
-    [textView setFont:[UIFont systemFontOfSize:14.0]];
+    double fontSize = IsIpad() ? 18.0 : 14.0;
+    [textView setFont:[UIFont fontWithName:@"Menlo-Regular" size:fontSize]];
+
     [textView setDelegate:self];
     [self setView:textView];
 

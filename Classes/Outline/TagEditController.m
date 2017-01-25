@@ -60,56 +60,43 @@
     [aTextField resignFirstResponder];
 }
 
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    switch(buttonIndex) {
-        case 0:
-            self.newTagString = nil;
-            break;
-        case 1:
-            [self commitNewTag];
-            break;
-    }
-}
-
 - (void)onAddTag {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"New Tag" message:@"Enter a new tag" preferredStyle:UIAlertControllerStyleAlert];
 
-    // From: http://junecloud.com/journal/code/displaying-a-password-or-text-entry-prompt-on-the-iphone.html
+    UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK"
+                                                 style:UIAlertActionStyleDefault
+                                               handler:^(UIAlertAction *action) {
+                                                   NSArray * textfields = alertController.textFields;
+                                                   UITextField * newTag = textfields[0];
+                                                   if (newTag.text != nil) {
+                                                       self.newTagString = newTag.text;
+                                                       [self commitNewTag];
+                                                   }
+                                               }];
 
-    UIAlertView *passwordAlert = [[UIAlertView alloc] initWithTitle:@"Add New Tag" message:@"\n\n\n"
-                                                           delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel",nil) otherButtonTitles:NSLocalizedString(@"OK",nil), nil];
+    UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault
+                                                   handler:^(UIAlertAction * action) {
+                                                       [alertController dismissViewControllerAnimated:YES completion:nil];
+                                                   }];
 
-    UILabel *passwordLabel = [[UILabel alloc] initWithFrame:CGRectMake(12,40,260,25)];
-    passwordLabel.font = [UIFont systemFontOfSize:16];
-    passwordLabel.textColor = [UIColor whiteColor];
-    passwordLabel.backgroundColor = [UIColor clearColor];
-    passwordLabel.shadowColor = [UIColor blackColor];
-    passwordLabel.shadowOffset = CGSizeMake(0,-1);
-    passwordLabel.textAlignment = NSTextAlignmentCenter;
-    passwordLabel.text = @"Enter new tag name and press OK";
-    [passwordAlert addSubview:passwordLabel];
+    [alertController addAction:ok];
+    [alertController addAction:cancel];
 
-    UIImageView *passwordImage = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"AlertTextField" ofType:@"png"]]];
-    passwordImage.frame = CGRectMake(11,79,262,31);
-    [passwordAlert addSubview:passwordImage];
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.placeholder = @" New Tag";
+    }];
 
-    UITextField *passwordField = [[UITextField alloc] initWithFrame:CGRectMake(16,83,252,25)];
-    passwordField.font = [UIFont systemFontOfSize:18];
-    passwordField.backgroundColor = [UIColor whiteColor];
-    passwordField.secureTextEntry = NO;
-    passwordField.keyboardAppearance = UIKeyboardAppearanceAlert;
-    passwordField.autocorrectionType = UITextAutocorrectionTypeNo;
-    passwordField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    passwordField.delegate = self;
-    passwordField.enablesReturnKeyAutomatically = YES;
-    [passwordField becomeFirstResponder];
-    [passwordAlert addSubview:passwordField];
 
-    [passwordAlert setTransform:CGAffineTransformMakeTranslation(0,109)];
-    [passwordAlert show];
-    [passwordAlert release];
-    [passwordField release];
-    [passwordImage release];
-    [passwordLabel release];
+    id rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
+    if([rootViewController isKindOfClass:[UINavigationController class]])
+      {
+        rootViewController = ((UINavigationController *)rootViewController).viewControllers.firstObject;
+      }
+    if([rootViewController isKindOfClass:[UITabBarController class]])
+      {
+        rootViewController = ((UITabBarController *)rootViewController).selectedViewController;
+      }
+    [rootViewController presentViewController:alertController animated:YES completion:nil];
 }
 
 - (id)initWithNode:(Node*)aNode {

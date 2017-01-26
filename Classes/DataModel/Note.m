@@ -26,13 +26,8 @@
 #import "GlobalUtils.h"
 
 @implementation Note
+@synthesize text, createdAt, nodeId, noteId, locallyModified, isDeleted;
 
-@dynamic text;
-@dynamic createdAt;
-@dynamic nodeId;
-@dynamic noteId;
-@dynamic locallyModified;
-@dynamic deleted;
 
 - (NSString*)heading {
     // If it is a flag entry, the flag part is the title, the rest is the body

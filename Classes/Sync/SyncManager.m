@@ -291,7 +291,7 @@ static SyncManager *gInstance = NULL;
         if (![note.locallyModified boolValue])
             continue;
 
-        if ([note.deleted boolValue])
+        if ([note.isDeleted boolValue])
             continue;
 
         [file writeData:[[note orgLine] dataUsingEncoding:NSUTF8StringEncoding]];

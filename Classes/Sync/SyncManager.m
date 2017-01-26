@@ -205,7 +205,7 @@ static SyncManager *gInstance = NULL;
         // If there is a matching entry, we need to ignore this one,
         // but replace the oldValue of the matching LocalEditAction
         // instance with the oldValue of this entity.  This will
-        // effectively let Org-mode see it as one edit event, rather
+        // effectively let Org mode see it as one edit event, rather
         // than a separate event based off an oldValue that was truly
         // the newValue of an old edit event.  Hope this makes sense.
 

@@ -2,7 +2,7 @@
   [[https://api.travis-ci.org/MobileOrg/mobileorg.png]] [[https://gitter.im/MobileOrg/Lobby][https://img.shields.io/gitter/room/nwjs/nw.js.svg]]
 
   MobileOrg is a FREE (open-source) iPhone and iPod Touch application
-  for storing, searching, viewing and editing your Org-mode files.
+  for storing, searching, viewing and editing your Org mode files.
 
   MobileOrg works offline. Although you may not always be online, you
   can always access your data. You can even capture notes while offline
@@ -22,8 +22,8 @@
    with long body text
  - Powerful support for linking between Org files
 
-* Org-mode integration
-  Org-mode has built-in support for MobileOrg (or any other mobile
+* Org mode integration
+  Org mode has built-in support for MobileOrg (or any other mobile
   client that may come along in the future and use the same asymmetric
   synchronization approach).
 

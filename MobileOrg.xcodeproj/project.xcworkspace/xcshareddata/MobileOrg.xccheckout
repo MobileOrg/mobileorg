@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>B6EE7963-D68F-4A61-B60D-C9F37C84A57D</string>
+	<key>IDESourceControlProjectName</key>
+	<string>MobileOrg</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>179CA3D8-FBC6-4D87-9847-AD6FC4A1753E</key>
+		<string>ssh://github.com/MobileOrg/mobileorg.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>MobileOrg.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>179CA3D8-FBC6-4D87-9847-AD6FC4A1753E</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/MobileOrg/mobileorg.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>179CA3D8-FBC6-4D87-9847-AD6FC4A1753E</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>179CA3D8-FBC6-4D87-9847-AD6FC4A1753E</string>
+			<key>IDESourceControlWCCName</key>
+			<string>mobileorg</string>
+		</dict>
+	</array>
+</dict>
+</plist>

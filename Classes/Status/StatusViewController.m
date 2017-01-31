@@ -60,23 +60,23 @@ static StatusViewController *gInstance = NULL;
             return;
         case UIDeviceOrientationPortraitUpsideDown:
             [self.view setTransform:CGAffineTransformMakeRotation(M_PI)];
-            [self.view setFrame:[[UIScreen mainScreen] applicationFrame]];
+            [self.view setFrame:[[UIScreen mainScreen] bounds]];
             statusView.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
             break;
         case UIDeviceOrientationLandscapeLeft:
             [self.view setTransform:CGAffineTransformMakeRotation(M_PI/2)];
-            [self.view setFrame:[[UIScreen mainScreen] applicationFrame]];
+            [self.view setFrame:[[UIScreen mainScreen] bounds]];
             statusView.center = CGPointMake(self.view.frame.size.height/2, self.view.frame.size.width/2+20);
             break;
         case UIDeviceOrientationLandscapeRight:
             [self.view setTransform:CGAffineTransformMakeRotation(-M_PI/2)];
-            [self.view setFrame:[[UIScreen mainScreen] applicationFrame]];
+            [self.view setFrame:[[UIScreen mainScreen] bounds]];
             statusView.center = CGPointMake(self.view.frame.size.height/2, self.view.frame.size.width/2+20);
             break;
         case UIDeviceOrientationPortrait:
         default:
             [self.view setTransform:CGAffineTransformMakeRotation(0)];
-            [self.view setFrame:[[UIScreen mainScreen] applicationFrame]];
+            [self.view setFrame:[[UIScreen mainScreen] bounds]];
             statusView.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
             break;
     }
@@ -112,11 +112,11 @@ static StatusViewController *gInstance = NULL;
 - (UILabel *)activityLabel {
     if (activityLabel == nil) {
         activityLabel = [[UILabel alloc] initWithFrame:CGRectMake(-50, 0, 300, 40)];
-        activityLabel.textAlignment = UITextAlignmentCenter;
+        activityLabel.textAlignment = NSTextAlignmentCenter;
         activityLabel.font = [UIFont boldSystemFontOfSize:20.0];
         activityLabel.textColor = [UIColor lightGrayColor];
         activityLabel.backgroundColor = [UIColor clearColor];
-        activityLabel.lineBreakMode = UILineBreakModeWordWrap;
+        activityLabel.lineBreakMode = NSLineBreakByWordWrapping;
         activityLabel.numberOfLines = 0;
         activityLabel.text = @"Unknown activity";
     }
@@ -134,11 +134,11 @@ static StatusViewController *gInstance = NULL;
 - (UILabel *)actionLabel {
     if (actionLabel == nil) {
         actionLabel = [[UILabel alloc] initWithFrame:CGRectMake(-50, 30, 300, 40)];
-        actionLabel.textAlignment = UITextAlignmentCenter;
+        actionLabel.textAlignment = NSTextAlignmentCenter;
         actionLabel.font = [UIFont systemFontOfSize:14.0];
         actionLabel.textColor = [UIColor lightGrayColor];
         actionLabel.backgroundColor = [UIColor clearColor];
-        actionLabel.lineBreakMode = UILineBreakModeWordWrap;
+        actionLabel.lineBreakMode = NSLineBreakByWordWrapping;
         actionLabel.numberOfLines = 0;
         actionLabel.text = @"";
     }
@@ -199,7 +199,7 @@ static StatusViewController *gInstance = NULL;
     return YES;
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 

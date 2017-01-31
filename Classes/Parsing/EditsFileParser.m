@@ -24,7 +24,8 @@
 #import "EditEntity.h"
 #import "DataUtils.h"
 #import "GlobalUtils.h"
-#import "RegexKitLite.h"
+#import "MobileOrg-Swift.h"
+
 
 @implementation EditsFileParser
 
@@ -56,7 +57,7 @@
             entireFile = [NSString stringWithFormat:@"* Error: %@\n", errorStr];
         } else if (!entireFile) {
             entireFile = @"* Bad file encoding\n  Unable to detect file encoding, please re-save this file using UTF-8.";
-            errorStr = [NSString stringWithString:@"Unknown encoding, re-save file as UTF-8"];
+            errorStr = @"Unknown encoding, re-save file as UTF-8";
         }
     } else {
         entireFile = @"";
@@ -104,7 +105,7 @@
                 if ([editEntities count] > 0) {
                     EditEntity *lastEntity = [editEntities lastObject];
                     int lastNonspaceChar;
-                    for (lastNonspaceChar = [lastEntity.newValue length]-1; lastNonspaceChar >= 0; lastNonspaceChar--) {
+                    for (lastNonspaceChar = (int)[lastEntity.newValue length]-1; lastNonspaceChar >= 0; lastNonspaceChar--) {
                         char c = [lastEntity.newValue characterAtIndex:lastNonspaceChar];
                         if (c != '\n' && c != '\r' && c != ' ' && c != '\t' && c != 0) {
                             break;
@@ -141,7 +142,7 @@
                 if ([editEntities count] > 0) {
                     EditEntity *lastEntity = [editEntities lastObject];
                     int lastNonspaceChar;
-                    for (lastNonspaceChar = [lastEntity.newValue length]-1; lastNonspaceChar >= 0; lastNonspaceChar--) {
+                    for (lastNonspaceChar = (int)[lastEntity.newValue length]-1; lastNonspaceChar >= 0; lastNonspaceChar--) {
                         char c = [lastEntity.newValue characterAtIndex:lastNonspaceChar];
                         if (c != '\n' && c != '\r' && c != ' ' && c != '\t' && c != 0) {
                             break;
@@ -243,7 +244,7 @@
     if ([editEntities count] > 0) {
         EditEntity *lastEntity = [editEntities lastObject];
         int lastNonspaceChar;
-        for (lastNonspaceChar = [lastEntity.newValue length]-1; lastNonspaceChar >= 0; lastNonspaceChar--) {
+        for (lastNonspaceChar = (int)[lastEntity.newValue length]-1; lastNonspaceChar >= 0; lastNonspaceChar--) {
             char c = [lastEntity.newValue characterAtIndex:lastNonspaceChar];
             if (c != '\n' && c != '\r' && c != ' ' && c != '\t' && c != 0) {
                 break;

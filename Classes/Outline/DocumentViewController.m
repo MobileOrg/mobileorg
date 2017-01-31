@@ -57,6 +57,8 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
                 [controller release];
                 break;
             }
+            default:
+            break;
         }
     }
 }
@@ -159,7 +161,7 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
     [super viewWillAppear:animated];
 
     // Get rid of anything else in the stored tree that has level > ours
-    [[SessionManager instance] popOutlineStateToLevel:[self.navigationController.viewControllers indexOfObject:self]];
+    [[SessionManager instance] popOutlineStateToLevel:(int)[self.navigationController.viewControllers indexOfObject:self]];
 
     timer = [[NSTimer scheduledTimerWithTimeInterval: 1.0
                                               target: self
@@ -182,7 +184,7 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
     return YES;
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 

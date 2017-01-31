@@ -61,7 +61,7 @@
     double diffx = myStartTouchPosition.x - currentTouchPosition.x + 0.1; // adding 0.1 to avoid division by zero
     double diffy = myStartTouchPosition.y - currentTouchPosition.y + 0.1; // adding 0.1 to avoid division by zero
 
-    if(abs(diffx) > MAX_TOUCH_AND_HOLD_DELTA || abs(diffy) > MAX_TOUCH_AND_HOLD_DELTA)
+    if(fabs(diffx) > MAX_TOUCH_AND_HOLD_DELTA || fabs(diffy) > MAX_TOUCH_AND_HOLD_DELTA)
     {
         if (timer) {
             [timer invalidate];
@@ -91,7 +91,7 @@
 
     if (isInTouch) {
         isInTouch = NO;
-        [super touchesEnded:nil withEvent:nil];
+        [super touchesEnded:touches withEvent:event];
         return;
     }
 

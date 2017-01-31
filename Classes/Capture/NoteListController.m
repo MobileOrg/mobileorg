@@ -113,6 +113,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.tableView.cellLayoutMarginsFollowReadableWidth = NO;
+
     addButton = [[UIBarButtonItem alloc]
                  initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNote)];
     self.navigationItem.rightBarButtonItem = addButton;
@@ -167,7 +169,7 @@
     return YES;
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 

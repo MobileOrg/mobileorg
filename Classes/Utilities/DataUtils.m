@@ -340,7 +340,7 @@ void DeleteNodesWithFilename(NSString* filename) {
     // Get our managedObjectContext
     managedObjectContext = [AppInstance() managedObjectContext];
 
-    while (node = NodeWithFilename(filename)) {
+    while ((node = NodeWithFilename(filename))) {
         [managedObjectContext deleteObject:node];
         Save();
     }
@@ -474,7 +474,7 @@ int CountLocalEditActions() {
     [request setPredicate:predicate];
 
     NSError *error = nil;
-    NSUInteger count = [managedObjectContext countForFetchRequest:request error:&error];
+    int count = (int)[managedObjectContext countForFetchRequest:request error:&error];
 
     [request release];
 
@@ -629,7 +629,7 @@ int CountNotes() {
     [request setEntity: [NSEntityDescription entityForName:@"Note" inManagedObjectContext:managedObjectContext]];
 
     NSError *error = nil;
-    NSUInteger count = [managedObjectContext countForFetchRequest:request error:&error];
+    int count = (int)[managedObjectContext countForFetchRequest:request error:&error];
 
     [request release];
 
@@ -643,11 +643,11 @@ int CountLocalNotes() {
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity: [NSEntityDescription entityForName:@"Note" inManagedObjectContext:managedObjectContext]];
 
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(locallyModified == 1)"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(locallyModified == 1 AND deleted == 0)"];
     [request setPredicate:predicate];
 
     NSError *error = nil;
-    NSUInteger count = [managedObjectContext countForFetchRequest:request error:&error];
+    int count = (int)[managedObjectContext countForFetchRequest:request error:&error];
 
     [request release];
 

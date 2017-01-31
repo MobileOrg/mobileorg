@@ -30,11 +30,11 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
 #import "OutlineViewController.h"
 #import "NoteListController.h"
 #import "SearchController.h"
-#import "SettingsController.h"
 #import "DataUtils.h"
 #import "Reachability.h"
 #import "SessionManager.h"
 #import "Settings.h"
+#import "MobileOrg-Swift.h"
 
 @interface MobileOrgAppDelegate(private)
 - (void)updateInterfaceWithReachability:(Reachability*)curReach;
@@ -168,8 +168,8 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
 
 - (SettingsController*)settingsController {
     if (settingsController == nil) {
-        settingsController = [[SettingsController alloc] initWithStyle:UITableViewStyleGrouped];
-        settingsController.title = @"Settings";
+      UIStoryboard *settingsStoryboard = [UIStoryboard storyboardWithName:@"Settings" bundle:nil];
+      settingsController = [settingsStoryboard instantiateInitialViewController];
     }
     return settingsController;
 }
@@ -213,7 +213,7 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
 
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
     if (coordinator != nil) {
-        managedObjectContext = [[NSManagedObjectContext alloc] init];
+        managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType: NSMainQueueConcurrencyType];
         [managedObjectContext setPersistentStoreCoordinator: coordinator];
     }
     return managedObjectContext;
@@ -290,16 +290,8 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
     [super dealloc];
 }
 
+  // PRAGMA MARK: - Dropbox Authorisation Flow
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-    if ([[DBSession sharedSession] handleOpenURL:url]) {
-        if ([[DBSession sharedSession] isLinked]) {
-            NSLog(@"App linked successfully!");
-            // At this point you can start making API calls
-        }
-        [[self settingsController] loginDone:[[DBSession sharedSession] isLinked]];
-        return YES;
-    }
-    // Add whatever other url handling code your app requires here
-    return NO;
+  return [[DropboxTransferManager instance] handleAuthFlowWithUrl:url];
 }
 @end

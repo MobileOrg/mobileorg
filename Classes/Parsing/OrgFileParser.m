@@ -25,7 +25,8 @@
 #import "GlobalUtils.h"
 #import "DataUtils.h"
 #import "Settings.h"
-#import "RegexKitLite.h"
+#import "MobileOrg-Swift.h"
+
 
 @implementation OrgFileParser
 
@@ -35,7 +36,7 @@
 @synthesize localFilename;
 @synthesize errorStr;
 
-- (void)parse {
+- (void)parse:(NSManagedObjectContext *)moc {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
     NSError *error = nil;
@@ -44,7 +45,7 @@
     NSMutableArray *nodeStack;
     NSManagedObjectContext *managedObjectContext;
 
-    managedObjectContext = [AppInstance() managedObjectContext];
+  managedObjectContext = moc; // [AppInstance() managedObjectContext];
 
     // Setup a level-0 node for this Org-file
     fileNode = (Node*)[NSEntityDescription insertNewObjectForEntityForName:@"Node" inManagedObjectContext:managedObjectContext];
@@ -54,7 +55,7 @@
     [fileNode setReadOnly:[NSNumber numberWithBool:true]];
 
     if (![managedObjectContext save:&error]) {
-        // TODO: Error
+        // TODO: Error handling not present
     }
 
     // If this is the index node, we have to do a couple things special
@@ -70,7 +71,7 @@
         entireFile = [NSString stringWithFormat:@"* Error: %@\n", errorStr];
     } else if (!entireFile) {
         entireFile = @"* Bad file encoding\n  Unable to detect file encoding, please re-save this file using UTF-8.";
-        errorStr = [NSString stringWithString:@"Unknown encoding, re-save file as UTF-8"];
+        errorStr = @"Unknown encoding, re-save file as UTF-8";
     }
 
     // Maintain a stack of nodes for parenting use
@@ -139,6 +140,7 @@
             //     ...
             //     },
             // }
+            // PRAGMA MARK: - Todo keyword parsing
             if (isIndex && [[[nodeStack lastObject] indentLevel] intValue] == 0) {
                 NSRange keywordRange = [line rangeOfString:@"#+TODO: "];
                 if (keywordRange.location != NSNotFound) {
@@ -147,12 +149,23 @@
                     line = [line stringByReplacingOccurrencesOfRegex:@"\\(\\w\\)" withString:@""];
 
                     // CLEANUP: This regex is a hack
-                    NSArray *splitArray = [line captureComponentsMatchedByRegex:@"#\\+TODO:\\s+([\\s\\w-]*)(\\| ([\\s\\w-]*))*"];
-                    if ([splitArray count] > 0) {
-
-                        NSString *todoWords = [[splitArray objectAtIndex:1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-                        NSString *doneWords = [[splitArray objectAtIndex:3] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-
+                    NSArray *splitArray;
+                    NSString *todoWords;
+                    NSString *doneWords;
+                    if ([line containsString:@"|"]) {
+                        splitArray = [line captureComponentsMatchedByRegex:@"#\\+TODO:\\s+([\\s\\w-]*)(\\| ([\\s\\w-]*))*"];
+                    }
+                    else {
+                        splitArray = [line captureComponentsMatchedByRegex:@"#\\+TODO:\\s+([\\s\\w-]*)\\s+([\\s\\w-]*)"];
+                    }
+                    if ([splitArray count] > 3) {
+                        todoWords = [[splitArray objectAtIndex:1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                        doneWords = [[splitArray objectAtIndex:3] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                    } else if ([splitArray count] > 2) {
+                        todoWords = [[splitArray objectAtIndex:1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                        doneWords = [[splitArray objectAtIndex:2] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                    }
+                    if ([splitArray count] > 2) {
                         // Add a new todoStateGroup
                         NSMutableArray *todoStateGroup = [NSMutableArray new];
 
@@ -318,10 +331,6 @@
                     [nodeStack removeLastObject];
                 }
 
-                // Maintain the indent level of this heading so we can see if the next heading is
-                // the same level or not
-                lastNumStars = numStars;
-
                 // Increment sequence index, which helps us define the order of children
                 sequenceIndex++;
 
@@ -416,8 +425,16 @@
                 [node setReadOnly:[NSNumber numberWithBool:readOnlyFile]];
                 [[nodeStack lastObject] addChildrenObject:node];
 
+              if( numStars > lastNumStars + 1){
+                [nodeStack addObject:node];
+              }
                 // Push this node onto the nodeStack
                 [nodeStack addObject:node];
+
+                // Maintain the indent level of this heading so we can see if the next heading is
+                // the same level or not
+                lastNumStars = numStars;
+
 
                 // For some reason when we parse biggish files, the app will behave strangly, as if we are overloading
                 // it with too many changed entities.  If we called this every iteration, it would be very slow.

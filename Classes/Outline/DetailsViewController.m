@@ -50,6 +50,7 @@
 #import "SessionManager.h"
 #import "DataUtils.h"
 #import "ActionMenuController.h"
+#import "mobileorg-swift.h"
 
 typedef enum {
     DetailsViewSectionText,
@@ -154,7 +155,7 @@ typedef enum {
         NSIndexPath *path = [c pathForNode:node];
         if (path) {
             [[self navigationController] popViewControllerAnimated:NO];
-            [[SessionManager instance] popOutlineStateToLevel:[self.navigationController.viewControllers indexOfObject:self]-1];
+            [[SessionManager instance] popOutlineStateToLevel:(int)[self.navigationController.viewControllers indexOfObject:self]-1];
             [c selectRowAtIndexPath:path withType:OutlineSelectionTypeExpandOutline andAnimation:YES];
         }
     }
@@ -224,12 +225,24 @@ typedef enum {
                 [controller release];
                 break;
             }
+            default:
+            break;
         }
     }
 }
 
+- (void)refreshTableWithNotification:(NSNotification *)notification
+{
+  [self refreshData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.tableView.cellLayoutMarginsFollowReadableWidth = NO;
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTableWithNotification:) name:@"RefreshTable" object:nil];
+
 
     NSMutableArray* buttons = [[NSMutableArray alloc] initWithCapacity:2];
     UIImage *image1 = [UIImage imageNamed:@"up.png"];
@@ -241,7 +254,6 @@ typedef enum {
 
     segmented = [[UISegmentedControl alloc] initWithItems:buttons];
     segmented.frame = CGRectMake(0, 0, 110, 30);
-    segmented.segmentedControlStyle = UISegmentedControlStyleBar;
     segmented.momentary = YES;
     [segmented addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
 
@@ -256,31 +268,15 @@ typedef enum {
     [super viewWillAppear:animated];
     [self refreshData];
 
-    [[SessionManager instance] popOutlineStateToLevel:[self.navigationController.viewControllers indexOfObject:self]];
+    [[SessionManager instance] popOutlineStateToLevel:(int)[self.navigationController.viewControllers indexOfObject:self]];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return YES;
-}
-
-- (BOOL)shouldAutorotate {
-    return YES;
-}
-
-- (NSUInteger)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskAll;
-}
 
 - (void)didReceiveMemoryWarning {
-    // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-
-    // Release any cached data, images, etc that aren't in use.
 }
 
 - (void)viewDidUnload {
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 #pragma mark Table view methods
@@ -454,7 +450,7 @@ typedef enum {
                 cell.textLabel.text = @"Flag this Node";
             }
 
-            [cell.textLabel setTextAlignment:UITextAlignmentCenter];
+            [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
             [cell.textLabel setTextColor:[UIColor colorWithRed:0.243 green:0.306 blue:0.435 alpha:1.0]];
 
             return cell;
@@ -472,11 +468,13 @@ typedef enum {
         [[[self tableView] cellForRowAtIndexPath:indexPath] setSelected:NO animated:YES];
         return;
     } else if (indexPath.section == DetailsViewSectionActions && indexPath.row == 1) {
-        ActionMenuController *controller = [[[ActionMenuController alloc] initWithNibName:nil bundle:nil] autorelease];
+      
+        ActionMenuController *controller = [[[ActionMenuController alloc] init] autorelease];
         [controller setNode:editTarget];
         [controller setShowDocumentViewButton:false];
-        [controller setFirstNavController:[self navigationController]];
-        [[self navigationController] presentModalViewController:controller animated:YES];
+        [controller showActionSheet:self on:[tableView cellForRowAtIndexPath:indexPath]];
+
+        [[[self tableView] cellForRowAtIndexPath:indexPath] setSelected:NO animated:YES];
         return;
     }
 

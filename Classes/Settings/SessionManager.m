@@ -89,7 +89,7 @@ static NSString *kWhichTabKey      = @"WhichTab";
 }
 
 - (void)storeCurrentTab {
-    int whichTab = [[AppInstance() tabBarController] selectedIndex];
+    int whichTab = (int)[[AppInstance() tabBarController] selectedIndex];
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:whichTab] forKey:kWhichTabKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }

@@ -33,6 +33,13 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
 #import "Settings.h"
 
 @implementation NSURLRequest(NSHTTPURLRequest)
+@dynamic HTTPBody;
+@dynamic HTTPShouldHandleCookies;
+@dynamic HTTPMethod;
+@dynamic HTTPBodyStream;
+@dynamic HTTPShouldUsePipelining;
+@dynamic allHTTPHeaderFields;
+
 + (BOOL)allowsAnyHTTPSCertificateForHost:(NSString *)host
 {
     return YES; // Or whatever logic
@@ -170,7 +177,7 @@ static WebDavTransferManager *gInstance = NULL;
                 activeTransfer.errorText = [NSString stringWithFormat:@"404: File not found: %@", [[activeTransfer remoteUrl] path]];
                 break;
             default:
-                activeTransfer.errorText = [NSString stringWithFormat:@"%d: Unknown error for file: %@", activeTransfer.statusCode, [[activeTransfer remoteUrl] path]];
+                activeTransfer.errorText = [NSString stringWithFormat:@"%d: Unknown error for file: %@", (unsigned int)activeTransfer.statusCode, [[activeTransfer remoteUrl] path]];
                 break;
         }
         activeTransfer.success = false;
@@ -228,7 +235,7 @@ static WebDavTransferManager *gInstance = NULL;
 
 - (void)connection:(NSURLConnection*)connection didReceiveResponse:(NSURLResponse*)response {
 
-    activeTransfer.statusCode = [ (NSHTTPURLResponse*)response statusCode];
+    activeTransfer.statusCode = (int)[ (NSHTTPURLResponse*)response statusCode];
     if (activeTransfer.statusCode >= 400 && activeTransfer.statusCode < 600) {
         activeTransfer.success = false;
     } else if (activeTransfer.statusCode == 302) {
@@ -247,7 +254,7 @@ static WebDavTransferManager *gInstance = NULL;
 
     SyncManager *mgr = [SyncManager instance];
     [mgr setProgressTotal:[self.fileSize intValue]];
-    [mgr setProgressCurrent:[data length]];
+    [mgr setProgressCurrent:(int)[data length]];
     [mgr updateStatus];
 }
 
@@ -312,7 +319,7 @@ static WebDavTransferManager *gInstance = NULL;
 }
 
 - (int)queueSize {
-    return [transfers count];
+    return (int)[transfers count];
 }
 
 - (void)abort {

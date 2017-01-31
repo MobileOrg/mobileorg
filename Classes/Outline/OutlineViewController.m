@@ -162,13 +162,15 @@
             ret = controller;
             break;
         }
+        case OutlineSelectionTypeDontCare:
+            break;
     }
 
     return ret;
 }
 
 - (NSIndexPath*)pathForNode:(Node*)node {
-    int index = [[self nodes] indexOfObject:node];
+    long index = [[self nodes] indexOfObject:node];
     if (index >= 0 && index < [nodes count]) {
         return [NSIndexPath indexPathForRow:index inSection:0];
     }
@@ -280,7 +282,7 @@
     if (node) {
 
         // TODO: This isn't good, I think this making a whole nother cell.
-        UITableViewCell *cell = [[self tableView] cellForRowAtIndexPath:path];
+        // UITableViewCell *cell = [[self tableView] cellForRowAtIndexPath:path];
 
         Node *editTarget = node;
         if (node.referencedNodeId && [node.referencedNodeId length] > 0) {
@@ -289,18 +291,13 @@
                 editTarget = targetNode;
             }
         }
-
-        ActionMenuController *controller = [[[ActionMenuController alloc] initWithNibName:nil bundle:nil] autorelease];
+        ActionMenuController *controller = [[[ActionMenuController alloc] init] autorelease];
+     
         [controller setNode:editTarget];
-        [controller setCell:cell];
         [controller setShowDocumentViewButton:true];
-        [controller setFirstNavController:[self navigationController]];
         [controller setParentController:self];
-        [self presentModalViewController:controller animated:YES];
+        [controller showActionSheet:self on:[[self tableView] cellForRowAtIndexPath:path]];
 
-        if (cell) {
-            [cell setHighlighted:YES];
-        }
     } else {
         // TODO: This isn't good, I think this is making a whole nother cell.
         UITableViewCell *cell = [[self tableView] cellForRowAtIndexPath:path];
@@ -336,10 +333,20 @@
     view.frame = CGRectMake(x, y, viewRect.size.width, viewRect.size.height);
 }
 
+- (void)refreshTableWithNotification:(NSNotification *)notification
+{
+  [self refreshData];
+}
+
 - (void)viewDidLoad {
 
     [super viewDidLoad];
 
+    self.tableView.cellLayoutMarginsFollowReadableWidth = NO;
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTableWithNotification:) name:@"RefreshTable" object:nil];
+
+  
     // Initialization is a bit different if we are the topmost outline or not.
     if ([self isTopmostOutline]) {
 
@@ -400,7 +407,7 @@
     }
 
     // Save our state by getting rid of anything above us in the session
-    [[SessionManager instance] popOutlineStateToLevel:[self.navigationController.viewControllers indexOfObject:self]];
+    [[SessionManager instance] popOutlineStateToLevel:(int)[self.navigationController.viewControllers indexOfObject:self]];
 
     // TODO: For now, just always refresh when we're going to display
     // Perhaps this isn't the best thing, it'd be nice if we didn't call
@@ -432,7 +439,7 @@
     return YES;
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 
@@ -469,7 +476,7 @@
     cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
-        SetupOutlineCellForNode(cell, node);
+        SetupOutlineCellForNode(cell, node, tableView);
     }
 
     PopulateOutlineCellForNode(cell, node);

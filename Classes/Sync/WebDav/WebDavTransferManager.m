@@ -261,7 +261,40 @@ static WebDavTransferManager *gInstance = NULL;
 -(void)connection:(NSURLConnection*)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge*)challenge {
     if ([challenge previousFailureCount] == 0) {
         if ([[challenge protectionSpace] authenticationMethod] == NSURLAuthenticationMethodServerTrust) {
-            [challenge.sender useCredential:[NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust] forAuthenticationChallenge:challenge];            
+            NSURLCredential *credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
+            [challenge.sender useCredential:credential forAuthenticationChallenge:challenge];
+
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"SSL Handshake" message:@"Server Ceritificate could not be validated.\nWould you like to continiue?" preferredStyle:UIAlertControllerStyleAlert];
+
+            UIAlertAction* ok = [UIAlertAction actionWithTitle:@"Yes"
+                                                         style:UIAlertActionStyleDefault
+                                                       handler:^(UIAlertAction *action) {
+
+
+                                                           [challenge.sender continueWithoutCredentialForAuthenticationChallenge:challenge];
+
+                                                       }];
+
+            UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction * action) {
+                                                               [alertController dismissViewControllerAnimated:YES completion:nil];
+                                                           }];
+
+            [alertController addAction:ok];
+            [alertController addAction:cancel];
+
+            id rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
+            if([rootViewController isKindOfClass:[UINavigationController class]])
+              {
+                rootViewController = ((UINavigationController *)rootViewController).viewControllers.firstObject;
+              }
+            if([rootViewController isKindOfClass:[UITabBarController class]])
+              {
+                rootViewController = ((UITabBarController *)rootViewController).selectedViewController;
+              }
+            [rootViewController presentViewController:alertController animated:YES completion:nil];
+
+
         }
         else {
             NSURLCredential *newCredential;
@@ -281,6 +314,7 @@ static WebDavTransferManager *gInstance = NULL;
 // In simulator on 4.x, the workaround for allowsAnyHTTPSCertificateForHost doesn't work,
 // so use this instead (along with the bit in didReceiveAuthenticationChallenge about NSURLAuthenticationMethodServerTrust.
 - (BOOL)connection:(NSURLConnection *)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace {
+        // return [protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust];
     return YES;
 }
 

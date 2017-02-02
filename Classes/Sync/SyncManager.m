@@ -21,7 +21,7 @@
 //
 
 #import "SyncManager.h"
-#import "WebDavTransferManager.h"
+#import "TransferManager.h"
 #import "TransferContext.h"
 #import "Settings.h"
 #import "DataUtils.h"
@@ -93,7 +93,7 @@ static SyncManager *gInstance = NULL;
 
 - (TransferManager*)transferManager {
     if ([[Settings instance] serverMode] == ServerModeWebDav) {
-        return [WebDavTransferManager instance];
+        return (TransferManager *)[WebDavTransferManager instance];
     } else if ([[Settings instance] serverMode] == ServerModeDropbox) {
         return (TransferManager *)[DropboxTransferManager instance];
     }

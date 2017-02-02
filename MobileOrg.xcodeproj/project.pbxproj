@@ -22,6 +22,7 @@
 		6CB501F21E20C3D70082FD40 /* SyncSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB501EE1E20C3D70082FD40 /* SyncSettingsController.swift */; };
 		6CB501F31E20C3D70082FD40 /* TextInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB501EF1E20C3D70082FD40 /* TextInputCell.swift */; };
 		7419FA541E20DACA00F0EA45 /* SettingsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7419FA531E20DAC900F0EA45 /* SettingsTest.swift */; };
+		7436ED731E41C05200BBD704 /* WebDavTransferManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7436ED721E41C05200BBD704 /* WebDavTransferManager.swift */; };
 		743C12F41DFED37F0051EC6F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 743C12F31DFED37F0051EC6F /* Images.xcassets */; };
 		743C12F61DFED5950051EC6F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 743C12F51DFED5950051EC6F /* Launch Screen.storyboard */; };
 		744408DE1E035A1800BCE192 /* DropboxTransferManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744408DD1E035A1800BCE192 /* DropboxTransferManager.swift */; };
@@ -49,7 +50,6 @@
 		793F7F6C107CB5FC00674D0A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 793F7F6B107CB5FC00674D0A /* SystemConfiguration.framework */; };
 		793F811F107D381A00674D0A /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 793F811E107D381A00674D0A /* SessionManager.m */; };
 		793F8128107D38C900674D0A /* OutlineState.m in Sources */ = {isa = PBXBuildFile; fileRef = 793F8127107D38C900674D0A /* OutlineState.m */; };
-		7945F5A111A8066200731598 /* WebDavTransferManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7945F5A011A8066200731598 /* WebDavTransferManager.m */; };
 		7945F61211A807FD00731598 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7945F61111A807FD00731598 /* Security.framework */; };
 		796A6A911083E67400D0DB25 /* DocumentView.js in Resources */ = {isa = PBXBuildFile; fileRef = 793F7F0B107C385900674D0A /* DocumentView.js */; };
 		7982F3621073F2FA00AEA6BC /* Node.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F35B1073F2FA00AEA6BC /* Node.m */; };
@@ -145,6 +145,7 @@
 		6CB501EE1E20C3D70082FD40 /* SyncSettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncSettingsController.swift; sourceTree = "<group>"; };
 		6CB501EF1E20C3D70082FD40 /* TextInputCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextInputCell.swift; sourceTree = "<group>"; };
 		7419FA531E20DAC900F0EA45 /* SettingsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTest.swift; sourceTree = "<group>"; };
+		7436ED721E41C05200BBD704 /* WebDavTransferManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebDavTransferManager.swift; sourceTree = "<group>"; };
 		743C12F31DFED37F0051EC6F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MobileOrg/Images.xcassets; sourceTree = "<group>"; };
 		743C12F51DFED5950051EC6F /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		744408DD1E035A1800BCE192 /* DropboxTransferManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DropboxTransferManager.swift; path = Dropbox/DropboxTransferManager.swift; sourceTree = "<group>"; };
@@ -453,6 +454,7 @@
 			children = (
 				7945F59F11A8066200731598 /* WebDavTransferManager.h */,
 				7945F5A011A8066200731598 /* WebDavTransferManager.m */,
+				7436ED721E41C05200BBD704 /* WebDavTransferManager.swift */,
 			);
 			name = WebDav;
 			sourceTree = "<group>";
@@ -940,6 +942,7 @@
 				79CB1821107425EF00A7E065 /* TransferContext.m in Sources */,
 				79CB1824107425F500A7E065 /* TransferManager.m in Sources */,
 				79CB183E1074279C00A7E065 /* Settings.m in Sources */,
+				7436ED731E41C05200BBD704 /* WebDavTransferManager.swift in Sources */,
 				79CB18BE10742C7100A7E065 /* StatusViewController.m in Sources */,
 				6CB501F11E20C3D70082FD40 /* SettingsController.swift in Sources */,
 				79CB18C710742DB900A7E065 /* StatusUtils.m in Sources */,
@@ -964,7 +967,6 @@
 				790B413F10814D8400A852F1 /* ActionMenuController.m in Sources */,
 				790B417E10814FAC00A852F1 /* OutlineTableView.m in Sources */,
 				790B455610826A0900A852F1 /* PriorityEditController.m in Sources */,
-				7945F5A111A8066200731598 /* WebDavTransferManager.m in Sources */,
 				18A3BBA716178DCD003D9320 /* Reachability.m in Sources */,
 				6CB501F31E20C3D70082FD40 /* TextInputCell.swift in Sources */,
 			);

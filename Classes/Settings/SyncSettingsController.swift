@@ -193,9 +193,6 @@ class SyncSettingsController: UITableViewController {
       
       alert.addAction(cancelAction)
       self.present(alert, animated: true)
-      
-      sender.text = ""
-      sender.placeholder = "Enter valid URL"
     }
 
     // The user just changed URLs.  Let's see if they had any local changes.

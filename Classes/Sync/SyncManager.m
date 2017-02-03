@@ -753,6 +753,19 @@ static SyncManager *gInstance = NULL;
 
 - (void)transferFailed:(TransferContext*)context {
     //NSLog(@"Failed %@ with code %d", [context remoteUrl], [context statusCode]);
+
+    switch ([context statusCode] ) {
+        case NSURLErrorAppTransportSecurityRequiresSecureConnection:
+            [self showAlert:@"ATS Error" withText:@"A secure connection could not be established.\nPlease make sure that you're using a secure connection"];
+            [self abort];
+            return;
+      case NSURLErrorSecureConnectionFailed:
+        [self showAlert:@"ATS Error" withText:@"A secure connection could not be established.\nPlease make sure that you're using a secure connection with valid certificates"];
+        [self abort];
+        return;
+
+    }
+
     switch (currentState) {
         case SyncManagerTransferStateDownloadingEditsFile:
             if ([context statusCode] == 404) {

@@ -42,7 +42,7 @@ typedef enum {
     NSString *errorText;
     bool success;
     bool abortOnFailure;
-    UInt32 statusCode;
+    int statusCode;
     bool dummy;
 }
 
@@ -50,7 +50,7 @@ typedef enum {
 @property (nonatomic, copy) NSString *localFile;
 @property (nonatomic) TransferType transferType;
 @property (nonatomic, assign) id<TransferManagerDelegate> delegate;
-@property (nonatomic) UInt32 statusCode;
+@property (nonatomic) int statusCode;
 @property (nonatomic, copy) NSString *errorText;
 @property (nonatomic) bool abortOnFailure;
 @property (nonatomic) bool success;

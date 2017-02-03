@@ -153,10 +153,20 @@ import Foundation
 
 extension WebDavTransferManager:URLSessionDataDelegate {
 
+
+
   func urlSession(_ session: URLSession, task: URLSessionTask, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+     guard challenge.previousFailureCount == 0 else {
+      challenge.sender?.cancel(challenge)
+      self.activeTransfer?.statusCode = 401
+      // Inform the user that the user name and password are incorrect
+      completionHandler(.cancelAuthenticationChallenge, nil)
+      return
+    }
     // We've got a URLAuthenticationChallenge - we simply trust the HTTPS server and we proceed
-    if let trust = challenge.protectionSpace.serverTrust {
-      completionHandler(.performDefaultHandling, nil)
+    if let _ = challenge.protectionSpace.serverTrust {
+      let credential = URLCredential(trust: challenge.protectionSpace.serverTrust!)
+      completionHandler(.useCredential, credential)
     } else {
       let credential = URLCredential(user: Settings.instance().username!,
                                      password: Settings.instance().password!,
@@ -165,6 +175,7 @@ extension WebDavTransferManager:URLSessionDataDelegate {
     }
   }
 
+  // TODO: Redirection (if needed)
   func urlSession(_ session: URLSession, task: URLSessionTask, willPerformHTTPRedirection response: HTTPURLResponse, newRequest request: URLRequest, completionHandler: @escaping (URLRequest?) -> Void) {
     // The original request was redirected to somewhere else.
     // We create a new dataTask with the given redirection request and we start it.
@@ -179,29 +190,52 @@ extension WebDavTransferManager:URLSessionDataDelegate {
   }
 
   func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-    if let err = error {
-      print("Error: \(err.localizedDescription)")
-      connection = nil
-      activeTransfer?.errorText = "Failure"
+    connection = nil
+
+    if let err = error as? NSError {
+      if activeTransfer?.statusCode == 0 {
+        activeTransfer?.statusCode = Int32(err.code)
+      }
+      activeTransfer?.errorText = "Failure: \(err.code)"
       activeTransfer?.success = false
-    } else {
+    }
+      if let statusCode = activeTransfer?.statusCode,
+                  statusCode >= 400,
+                  statusCode < 600 {
+      let file = activeTransfer?.remoteUrl.path ?? "No file name available"
+      switch statusCode {
+      case 401:
+        activeTransfer?.errorText = "401: Bad username or password"
+      case 403:
+        activeTransfer?.errorText = "403: Forbidden: \(file)"
+      case 404:
+        activeTransfer?.errorText = "404: File not found: \(file)"
+      case 405:
+        activeTransfer?.errorText = "405: Unknown method: \(file)"
+      default:
+        activeTransfer?.errorText = "\(statusCode): Unknown error for file: \(file)"
+      }
+    }
+
+
       if activeTransfer?.transferType == TransferTypeDownload,
         activeTransfer?.success == true,
         activeTransfer?.dummy == false,
         let file = activeTransfer?.localFile {
         activeTransfer?.success = data.write(toFile: file, atomically: true)
       }
-    }
+
     requestFinished(activeTransfer!)
   }
 
   func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
 
     if let httpResponse = response as? HTTPURLResponse {
-      activeTransfer?.statusCode = UInt32(httpResponse.statusCode)
+      activeTransfer?.statusCode = Int32(httpResponse.statusCode)
 
       if httpResponse.statusCode >= 400 && httpResponse.statusCode < 600 {
         activeTransfer?.success = false
+        activeTransfer?.statusCode = Int32(httpResponse.statusCode)
       } else if httpResponse.statusCode == 302 {
 
         activeTransfer?.success = false
@@ -210,14 +244,11 @@ extension WebDavTransferManager:URLSessionDataDelegate {
 
     data.length = 0
     self.fileSize = Int(response.expectedContentLength)
-    print("didReceive response")
     completionHandler(URLSession.ResponseDisposition.allow)
   }
 
   func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive responseData: Data) {
     // We've got the response body
-    print("didReceive data")
-
     data.append(responseData)
 
     let mgr = SyncManager.instance()

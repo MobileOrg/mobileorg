@@ -5,9 +5,9 @@
 	<key>Dropbox API Key</key>
 	<dict>
 		<key>AppKey</key>
-		<string>Your App Key</string>
+		<string>YourAppKey</string>
 		<key>AppSecret</key>
-		<string>Your App Key Secret</string>
+		<string>YourAppKeySecret</string>
 	</dict>
 </dict>
 </plist>

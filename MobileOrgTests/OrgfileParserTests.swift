@@ -152,6 +152,31 @@ class OrgfileParserTests: XCTestCase {
 
   }
 
+  func testParseOrgFileSkippingHeadingBugTheRealOne() {
+    let parser = OrgFileParser()
+    let bundle = Bundle(for: type(of: self))
+    let url = bundle.url(forResource: "MobileOrgTestingSample", withExtension: "org")
+
+    parser.localFilename = url?.relativePath
+    parser.orgFilename = "Heading"
+    parser.parse(moc)
+
+    try! moc?.save()
+
+    let fetchRequest = NSFetchRequest<Node>(entityName: "Node")
+    fetchRequest.predicate = NSPredicate (format: "heading == %@", "Third node with a todo list [1/3]")
+
+    do {
+      let nodes = try moc!.fetch(fetchRequest)
+      XCTAssertEqual(nodes.count, 1)
+      if let node = nodes.first {
+        XCTAssertEqual(node.outlinePath, "olp:Heading:Third node with a todo list %5b1%2f3%5d")
+      } else {
+        XCTFail()
+      }
+    } catch _ { XCTFail() }
+    
+  }
 
 
 

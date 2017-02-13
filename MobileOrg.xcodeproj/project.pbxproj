@@ -26,6 +26,7 @@
 		743C12F41DFED37F0051EC6F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 743C12F31DFED37F0051EC6F /* Images.xcassets */; };
 		743C12F61DFED5950051EC6F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 743C12F51DFED5950051EC6F /* Launch Screen.storyboard */; };
 		744408DE1E035A1800BCE192 /* DropboxTransferManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744408DD1E035A1800BCE192 /* DropboxTransferManager.swift */; };
+		744EF0401E4666B200DB1E81 /* MobileOrgTestingSample.org in Resources */ = {isa = PBXBuildFile; fileRef = 744EF03F1E4666B200DB1E81 /* MobileOrgTestingSample.org */; };
 		746103091E017E5700C8E34F /* String+RegexSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746102FC1DFF0EDB00C8E34F /* String+RegexSplitter.swift */; };
 		7476CA9F1E01C749007EAE6F /* String+RegexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7476CA9E1E01C749007EAE6F /* String+RegexTests.swift */; };
 		747BF9811DFCBC3F00E800FB /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 747BF9801DFCBC3F00E800FB /* libicucore.tbd */; };
@@ -149,6 +150,7 @@
 		743C12F31DFED37F0051EC6F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MobileOrg/Images.xcassets; sourceTree = "<group>"; };
 		743C12F51DFED5950051EC6F /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		744408DD1E035A1800BCE192 /* DropboxTransferManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DropboxTransferManager.swift; path = Dropbox/DropboxTransferManager.swift; sourceTree = "<group>"; };
+		744EF03F1E4666B200DB1E81 /* MobileOrgTestingSample.org */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MobileOrgTestingSample.org; sourceTree = "<group>"; };
 		746102FB1DFF0EDA00C8E34F /* MobileOrg-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MobileOrg-Bridging-Header.h"; sourceTree = "<group>"; };
 		746102FC1DFF0EDB00C8E34F /* String+RegexSplitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String+RegexSplitter.swift"; path = "Classes/Extensions/String+RegexSplitter.swift"; sourceTree = "<group>"; };
 		746102FF1DFF15F300C8E34F /* MobileOrgTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MobileOrgTests-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -418,6 +420,7 @@
 			isa = PBXGroup;
 			children = (
 				749CCE801E09201400DE4648 /* defaultTodoWords.org */,
+				744EF03F1E4666B200DB1E81 /* MobileOrgTestingSample.org */,
 				749CCE841E0AE23900DE4648 /* TodoList.org */,
 				749CCE861E0AE96300DE4648 /* index.org */,
 				749CCE7E1E08557800DE4648 /* headingskip.org */,
@@ -839,6 +842,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				749CCE811E09201400DE4648 /* defaultTodoWords.org in Resources */,
+				744EF0401E4666B200DB1E81 /* MobileOrgTestingSample.org in Resources */,
 				749CCE851E0AE23900DE4648 /* TodoList.org in Resources */,
 				749CCE7F1E08557800DE4648 /* headingskip.org in Resources */,
 				749CCE871E0AE96300DE4648 /* index.org in Resources */,

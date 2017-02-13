@@ -326,6 +326,11 @@
                     lastNumStars--;
                 }
 
+                // Prevent wrong indentation if previous heading level had skipped
+                while ([nodeStack count] > numStars + 1) {
+                    [nodeStack removeLastObject];
+                }
+
                 // If the last heading was
                 if (lastNumStars == numStars && [nodeStack count] > 0) {
                     [nodeStack removeLastObject];

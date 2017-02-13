@@ -213,7 +213,7 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
 
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
     if (coordinator != nil) {
-        managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType: NSMainQueueConcurrencyType];
+        managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
         [managedObjectContext setPersistentStoreCoordinator: coordinator];
     }
     return managedObjectContext;

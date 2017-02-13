@@ -28,7 +28,7 @@ class SettingsTest: XCTestCase {
   func testUrlForFilename() {
     let ampersand = "Schnuddel & Huddel"
     let umlaut = "Überraschung an der Côte d'Azure"
-
+    Settings.instance().serverMode = ServerModeDropbox
     XCTAssertEqual(Settings.instance().url(forFilename: ampersand), URL(string: "/Schnuddel%20&%20Huddel"))
     XCTAssertEqual(Settings.instance().url(forFilename: umlaut), URL(string: "/%C3%9Cberraschung%20an%20der%20C%C3%B4te%20d'Azure"))
   }

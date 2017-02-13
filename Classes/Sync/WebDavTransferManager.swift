@@ -59,16 +59,15 @@ import Foundation
       activeTransfer?.success = true
       transfers.remove(at: 0)
 
-      syncManager.transferFilename = activeTransfer?.remoteUrl.lastPathComponent
-      syncManager.progressTotal = 0
-      syncManager.updateStatus()
+      DispatchQueue.main.async(execute: {
+        syncManager.transferFilename = self.activeTransfer?.remoteUrl.lastPathComponent
+        syncManager.progressTotal = 0
+        syncManager.updateStatus()
+      })
 
       active = true
-
       UIApplication.shared.isNetworkActivityIndicatorVisible = true
-
       processRequest(activeTransfer)
-
     }
   }
 
@@ -252,9 +251,11 @@ extension WebDavTransferManager:URLSessionDataDelegate {
     data.append(responseData)
 
     let mgr = SyncManager.instance()
-    mgr?.progressTotal = Int32(fileSize)
-    mgr?.progressCurrent = Int32(responseData.count)
-    mgr?.updateStatus()
-    // self.session?.finishTasksAndInvalidate()
+    DispatchQueue.main.async(execute: {
+      mgr?.progressTotal = Int32(self.fileSize)
+      mgr?.progressCurrent = Int32(responseData.count)
+      mgr?.updateStatus()
+      // self.session?.finishTasksAndInvalidate()
+    })
   }
 }

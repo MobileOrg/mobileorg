@@ -41,8 +41,8 @@
 	<key>NSMainNibFile</key>
 	<string>MainWindow</string>
 	<key>UIRequiresFullScreen</key>
-	<true/>
-  <key>UISupportedInterfaceOrientations</key>
+	<false/>
+	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>

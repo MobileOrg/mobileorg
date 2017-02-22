@@ -123,6 +123,11 @@ NSString *ReadPossiblyEncryptedFile(NSString *filename, NSString **error) {
                 NSError *e;
                 NSString *ret = [NSString stringWithContentsOfFile:tmpFileName usedEncoding:&encoding error:&e];
 
+                if( ret == nil) {
+                  *error = @"Unable to encrypt file, please check your password";
+                  return nil;
+                }
+
                 DeleteFile(FileWithName(@"decrypted-file.org"));
                 
                return ret;

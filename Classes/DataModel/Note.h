@@ -33,7 +33,7 @@
 @property (nonatomic, retain) NSString * nodeId;
 @property (nonatomic, retain) NSString * noteId;
 @property (nonatomic, retain) NSNumber * locallyModified;
-@property (nonatomic, retain) NSNumber * deleted;
+@property (nonatomic, retain) NSNumber * isDeleted;
 
 - (NSString*)heading;
 - (NSString*)body;

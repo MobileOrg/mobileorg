@@ -119,8 +119,8 @@ xcuserdata
 # Custom ignores for MobileOrg Project
 
 vendor-libs
-Classes/Sync/Dropbox/DropboxKeys.h
-DropBoxKeys.xcconfig
+Configuration/AppKey.plist
+
 
 MobileOrg.xcworkspace
 Pods

@@ -1,0 +1,71 @@
+#+TITLE: MobileOrg iOS TestData
+#+DATE: <2017-01-17 Tue>
+#+AUTHOR: Org User
+#+EMAIL: org.user@org.mode
+#+CREATOR: Emacs 25.1.1 (Org mode version 9.0.3)
+
+* First node
+** a  local file link with no description
+  [[//127.0.0.1/c$$]]
+** more link types?
+* Second node
+  This needs =some more explanation= and could be a larger paragraph maybe
+** hipsters were here
+   Hard formatted line endings.
+   Shoreditch heirloom bushwick, kogi man braid marfa godard brooklyn cray la
+   croix vinyl green juice banh mi. Kale chips vegan tumeric, poutine brooklyn
+   woke chambray biodiesel hot chicken. Kogi direct trade drinking vinegar
+   everyday carry vice tacos, sartorial cronut gochujang tumeric seitan la croix
+   pinterest hashtag. Kinfolk skateboard air plant lumbersexual jianbing
+   gastropub. Cornhole paleo franzen, you probably haven't heard of them cronut
+   pickled polaroid coloring book four loko poke tacos pitchfork keffiyeh four
+   dollar toast. XOXO try-hard post-ironic master cleanse chia, aesthetic viral
+   occupy brooklyn. Fixie cliche quinoa, aesthetic pickled 3 wolf moon bicycle
+   rights tote bag messenger bag.
+** return of the hipster
+   single line of text, word wrap, Synth intelligentsia enamel pin semiotics vinyl leggings. IPhone flexitarian swag next level humblebrag. Brunch tacos echo park, gochujang put a bird on it pug meditation. Jianbing polaroid quinoa, schlitz fanny pack disrupt vape messenger bag etsy hell of gochujang ethical. Poutine cray PBR&B lyft. Unicorn cred next level, chartreuse post-ironic woke authentic live-edge farm-to-table. Iceland aesthetic synth, marfa green juice hashtag vice photo booth banh mi fap taxidermy glossier meditation.
+* Third node with a todo list [1/3]
+** TODO do stuff here
+*** part one
+**** sub section A
+**** sub section B
+*** part two
+    - A simple list
+    - nothing very critical
+    - but eventually work to do
+*** part three
+    | table   | of    | uselessness |
+    |---------+-------+-------------|
+    | ~one~   | table | row         |
+    | ~two~   | small | changes     |
+    | ~three~ | might | suffice     |
+** DONE some more stuff maybe
+   CLOSED: [2017-01-17 Tue 16:44]
+** TODO waiting on this one a little longer
+* And one more thing [50%]
+** TODO write some code
+   #+BEGIN_SRC lisp
+     (defun multiply-by-seven (number)       ; Interactive version.
+       "Multiply NUMBER by seven."
+       (interactive "p")
+       (message "The result is %d" (* 7 number)))
+   #+END_SRC
+*** alternatively this could be interesting
+    #+BEGIN_SRC python
+      number = 7568934
+      multiplier = [3, 1, 3, 1, 3, 1, 1]
+
+      for idx, digit in enumerate(str(number)):
+        print('Res: ' + str(int(digit) * multiplier[idx]))
+    #+END_SRC
+*** TODO  quicksort missing in place element partition
+    #+BEGIN_SRC haskell
+      quicksort [] = []
+      quicksort (p:xs) = (quicksort lesser) ++ [p] ++ (quicksort greater)
+          where
+              lesser = filter (< p) xs
+              greater = filter (>= p) xs
+    #+END_SRC
+** DONE read some docs
+   CLOSED: [2017-01-17 Tue 16:46]
+** learn a new language

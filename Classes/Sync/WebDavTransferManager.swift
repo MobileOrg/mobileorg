@@ -78,10 +78,11 @@ import Foundation
 
       guard !context.dummy else {
         activeTransfer?.success = true
-        // requestFinished(activeTransfer)
+        if let transfer = activeTransfer {
+          requestFinished(transfer)
+        }
         return
       }
-
 
       var request = URLRequest(url: context.remoteUrl, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: 30)
       if context.transferType == TransferTypeDownload {

@@ -28,6 +28,7 @@
 #import "MobileOrgAppDelegate.h"
 #import "DataUtils.h"
 #import "GlobalUtils.h"
+#import "MobileOrg-Swift.h"
 
 @implementation SearchController
 
@@ -124,7 +125,7 @@
 
 - (void)performSearch:(NSString*)term {
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Node" inManagedObjectContext:[AppInstance() managedObjectContext]];
+  NSEntityDescription *entity = [NSEntityDescription entityForName:@"Node" inManagedObjectContext:PersistenceStack.shared.moc];
     [request setEntity:entity];
 
     NSNumber *predLevel = [[NSNumber alloc] initWithInt:0];
@@ -152,7 +153,7 @@
     [predLevel release];
 
     NSError *error;
-    NSMutableArray *mutableFetchResults = [[[AppInstance() managedObjectContext] executeFetchRequest:request error:&error] mutableCopy];
+    NSMutableArray *mutableFetchResults = [[PersistenceStack.shared.moc executeFetchRequest:request error:&error] mutableCopy];
     if (mutableFetchResults == nil) {
         // TODO: Error
     }

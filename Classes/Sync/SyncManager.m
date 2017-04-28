@@ -583,7 +583,7 @@ static SyncManager *gInstance = NULL;
     // Lookup multithreaded coredata issues
     //[NSThread detachNewThreadSelector:@selector(parse) toTarget:orgFileParser withObject:nil];
 
-    NSManagedObjectContext *moc = [AppInstance() managedObjectContext];
+    NSManagedObjectContext *moc = PersistenceStack.shared.moc;
     [orgFileParser parse: moc];
 
     // Pause the TransferManager, because otherwise it would try to download
@@ -650,7 +650,7 @@ static SyncManager *gInstance = NULL;
             // Handle notes
 
             if (entity.noteId) {
-                Note *newNote = (Note*)[NSEntityDescription insertNewObjectForEntityForName:@"Note" inManagedObjectContext:[AppInstance() managedObjectContext]];
+                Note *newNote = (Note*)[NSEntityDescription insertNewObjectForEntityForName:@"Note" inManagedObjectContext:PersistenceStack.shared.moc];
                 [newNote setCreatedAt:entity.createdAt];
                 [newNote setNoteId:entity.noteId];
                 [newNote setLocallyModified:[NSNumber numberWithBool:false]];

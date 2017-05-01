@@ -1,23 +1,23 @@
 # Travis
 
-sudo: required
+# sudo: required
 
 language: objective-c
 
-addons:
-  hosts:
-    - mobileOrgWebDav.schnuddelhuddel.de
+# addons:
+#   hosts:
+#     - mobileOrgWebDav.schnuddelhuddel.de
 
-dist: trusty
+# dist: trusty
 
-services:
-  - docker
+# services:
+#   - docker
   
-before_install:
-- docker pull phylor/webdav-ssl
-- docker run -v $PWD/htpasswd:/htpasswd -v $PWD/certs:/certs -v $PWD/content:/var/www -h mobileOrgWebDav.schnuddelhuddel.de -p 32773:443 phylor/webdav-ssl
+# before_install:
+# - docker pull phylor/webdav-ssl
+# - docker run -v $PWD/htpasswd:/htpasswd -v $PWD/certs:/certs -v $PWD/content:/var/www -h mobileOrgWebDav.schnuddelhuddel.de -p 32773:443 phylor/webdav-ssl
 
-osx_image: xcode8.2
+osx_image: xcode8.3
 
 # xcode_project: MobileOrg.xcodeproj
 # xcode_scheme: MobileOrg

@@ -35,24 +35,24 @@ class WebDavTests: XCTestCase {
     super.tearDown()
   }
 
-  func testWebDAVSync() {
-
-    SyncManager.instance().sync()
-
-    // Sync is async, so we have to wait for completion
-    sleep(4)
-
-    do {
-      let fetchRequest = NSFetchRequest<Node>(entityName: "Node")
-      // fetchRequest.predicate = NSPredicate (format: "heading == %@", "on Level 1.1.1.5")
-
-      let nodes = try self.moc!.fetch(fetchRequest)
-
-      XCTAssertEqual(nodes.count, 136)
-
-    } catch _ { XCTFail() }
-
-  }
+//  func testWebDAVSync() {
+//
+//    SyncManager.instance().sync()
+//
+//    // Sync is async, so we have to wait for completion
+//    sleep(4)
+//
+//    do {
+//      let fetchRequest = NSFetchRequest<Node>(entityName: "Node")
+//      // fetchRequest.predicate = NSPredicate (format: "heading == %@", "on Level 1.1.1.5")
+//
+//      let nodes = try self.moc!.fetch(fetchRequest)
+//
+//      XCTAssertEqual(nodes.count, 136)
+//
+//    } catch _ { XCTFail() }
+//
+//  }
 
   func setUpInMemoryManagedObjectContext() -> NSManagedObjectContext {
     let managedObjectModel = NSManagedObjectModel.mergedModel(from: [Bundle.main])!

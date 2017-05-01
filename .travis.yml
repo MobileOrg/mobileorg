@@ -8,6 +8,8 @@ addons:
   hosts:
     - mobileOrgWebDav.schnuddelhuddel.de
 
+dist: trusty
+
 services:
   - docker
   

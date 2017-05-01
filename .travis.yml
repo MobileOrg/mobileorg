@@ -1,6 +1,16 @@
 # Travis
 
+sudo: required
+
 language: objective-c
+
+addons:
+  hosts:
+    - mobileOrgWebDav.schnuddelhuddel.de
+    
+before_install:
+- docker pull phylor/webdav-ssl
+- docker run -v $PWD/htpasswd:/htpasswd -v $PWD/certs:/certs -v $PWD/content:/var/www -h mobileOrgWebDav.schnuddelhuddel.de -p 32773:443 phylor/webdav-ssl
 
 osx_image: xcode8.2
 

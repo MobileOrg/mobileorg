@@ -1,0 +1,259 @@
+#+READONLY
+* Week-agenda (W18):<after>KEYS=a TITLE: Agenda</after>
+** Monday      1 May 2017 W18
+***  TODO learn a new language<before>sample:     Sched.75x:</before>
+   SCHEDULED: <2017-02-16 Thu>
+   :PROPERTIES:
+   :ORIGINAL_ID: 4D8A3601-077C-45D0-AA8E-2494ED2F7433
+   :END:
+
+** Tuesday     2 May 2017
+** Wednesday   3 May 2017
+** Thursday    4 May 2017
+** Friday      5 May 2017
+** Saturday    6 May 2017
+** Sunday      7 May 2017
+
+
+* ToDo: ALL<after>KEYS=t TITLE: ALL TODO</after>
+**  TODO do stuff here<before>sample:</before>
+
+   :PROPERTIES:
+   :ORIGINAL_ID: 35AB7EC7-4D8A-4F31-A2F8-D92D5C143720
+   :END:
+
+**  TODO waiting on this one a little longer<before>sample:</before>
+
+   :PROPERTIES:
+   :ORIGINAL_ID: C8EC5E67-CD38-4FE6-A3BC-F6ED9996B74B
+   :END:
+
+**  TODO write some code<before>sample:</before>
+   #+BEGIN_SRC lisp
+     (defun multiply-by-seven (number)       ; Interactive version.
+       "Multiply NUMBER by seven."
+       (interactive "p")
+       (message "The result is %d" (* 7 number)))
+   #+END_SRC
+   :PROPERTIES:
+   :ORIGINAL_ID: 2FD7B7D2-02BD-4A18-A9E5-FCF80949F62E
+   :END:
+
+**  TODO quicksort missing in place element partition<before>sample:</before>
+   #+BEGIN_SRC haskell
+     quicksort [] = []
+     quicksort (p:xs) = (quicksort lesser) ++ [p] ++ (quicksort greater)
+         where
+             lesser = filter (< p) xs
+             greater = filter (>= p) xs
+   #+END_SRC
+   :PROPERTIES:
+   :ORIGINAL_ID: AED20451-BE4D-4E20-BC75-B1B72D0C0880
+   :END:
+
+**  TODO learn a new language<before>sample:</before>
+   SCHEDULED: <2017-02-16 Thu>
+   :PROPERTIES:
+   :ORIGINAL_ID: 4D8A3601-077C-45D0-AA8E-2494ED2F7433
+   :END:
+
+**  TODO do stuff here<before>second:</before>
+
+   :PROPERTIES:
+   :ORIGINAL_ID: 9329C5FE-558C-4667-BD04-85DEFD184556
+   :END:
+
+**  TODO waiting on this one a little longer<before>second:</before>
+
+   :PROPERTIES:
+   :ORIGINAL_ID: 0F777A5B-8B97-41CC-813A-60E05428537F
+   :END:
+
+**  TODO write some code<before>second:</before>
+   #+BEGIN_SRC lisp
+     (defun multiply-by-seven (number)       ; Interactive version.
+       "Multiply NUMBER by seven."
+       (interactive "p")
+       (message "The result is %d" (* 7 number)))
+   #+END_SRC
+   :PROPERTIES:
+   :ORIGINAL_ID: 6B0F4ED9-993F-471B-AC24-583348C1DC68
+   :END:
+
+**  TODO quicksort missing in place element partition<before>second:</before>
+   #+BEGIN_SRC haskell
+     quicksort [] = []
+     quicksort (p:xs) = (quicksort lesser) ++ [p] ++ (quicksort greater)
+         where
+             lesser = filter (< p) xs
+             greater = filter (>= p) xs
+   #+END_SRC
+   :PROPERTIES:
+   :ORIGINAL_ID: 785933D5-5BDA-4A13-BF94-6E3C7D597EA9
+   :END:
+
+**  TODO do stuff here<before>MobileOrgTestingSample:</before>
+
+   :PROPERTIES:
+   :ORIGINAL_ID: 35AB7EC7-4D8A-4F31-A2F8-D92D5C143720
+   :END:
+
+**  TODO waiting on this one a little longer<before>MobileOrgTestingSample:</before>
+
+   :PROPERTIES:
+   :ORIGINAL_ID: C8EC5E67-CD38-4FE6-A3BC-F6ED9996B74B
+   :END:
+
+**  TODO write some code<before>MobileOrgTestingSample:</before>
+   #+BEGIN_SRC lisp
+     (defun multiply-by-seven (number)       ; Interactive version.
+       "Multiply NUMBER by seven."
+       (interactive "p")
+       (message "The result is %d" (* 7 number)))
+   #+END_SRC
+   :PROPERTIES:
+   :ORIGINAL_ID: 2FD7B7D2-02BD-4A18-A9E5-FCF80949F62E
+   :END:
+
+**  TODO quicksort missing in place element partition<before>MobileOrgTestingSample:</before>
+   #+BEGIN_SRC haskell
+     quicksort [] = []
+     quicksort (p:xs) = (quicksort lesser) ++ [p] ++ (quicksort greater)
+         where
+             lesser = filter (< p) xs
+             greater = filter (>= p) xs
+   #+END_SRC
+   :PROPERTIES:
+   :ORIGINAL_ID: AED20451-BE4D-4E20-BC75-B1B72D0C0880
+   :END:
+
+
+
+* Week-agenda (W18):<after>KEYS=n#1 TITLE: Agenda and all TODOs</after>
+** Monday      1 May 2017 W18
+***  TODO learn a new language<before>sample:     Sched.75x:</before>
+   SCHEDULED: <2017-02-16 Thu>
+   :PROPERTIES:
+   :ORIGINAL_ID: 4D8A3601-077C-45D0-AA8E-2494ED2F7433
+   :END:
+
+** Tuesday     2 May 2017
+** Wednesday   3 May 2017
+** Thursday    4 May 2017
+** Friday      5 May 2017
+** Saturday    6 May 2017
+** Sunday      7 May 2017
+
+
+* ToDo: ALL<after>KEYS=n#2 TITLE: Agenda and all TODOs</after>
+**  TODO do stuff here<before>sample:</before>
+
+   :PROPERTIES:
+   :ORIGINAL_ID: 35AB7EC7-4D8A-4F31-A2F8-D92D5C143720
+   :END:
+
+**  TODO waiting on this one a little longer<before>sample:</before>
+
+   :PROPERTIES:
+   :ORIGINAL_ID: C8EC5E67-CD38-4FE6-A3BC-F6ED9996B74B
+   :END:
+
+**  TODO write some code<before>sample:</before>
+   #+BEGIN_SRC lisp
+     (defun multiply-by-seven (number)       ; Interactive version.
+       "Multiply NUMBER by seven."
+       (interactive "p")
+       (message "The result is %d" (* 7 number)))
+   #+END_SRC
+   :PROPERTIES:
+   :ORIGINAL_ID: 2FD7B7D2-02BD-4A18-A9E5-FCF80949F62E
+   :END:
+
+**  TODO quicksort missing in place element partition<before>sample:</before>
+   #+BEGIN_SRC haskell
+     quicksort [] = []
+     quicksort (p:xs) = (quicksort lesser) ++ [p] ++ (quicksort greater)
+         where
+             lesser = filter (< p) xs
+             greater = filter (>= p) xs
+   #+END_SRC
+   :PROPERTIES:
+   :ORIGINAL_ID: AED20451-BE4D-4E20-BC75-B1B72D0C0880
+   :END:
+
+**  TODO learn a new language<before>sample:</before>
+   SCHEDULED: <2017-02-16 Thu>
+   :PROPERTIES:
+   :ORIGINAL_ID: 4D8A3601-077C-45D0-AA8E-2494ED2F7433
+   :END:
+
+**  TODO do stuff here<before>second:</before>
+
+   :PROPERTIES:
+   :ORIGINAL_ID: 9329C5FE-558C-4667-BD04-85DEFD184556
+   :END:
+
+**  TODO waiting on this one a little longer<before>second:</before>
+
+   :PROPERTIES:
+   :ORIGINAL_ID: 0F777A5B-8B97-41CC-813A-60E05428537F
+   :END:
+
+**  TODO write some code<before>second:</before>
+   #+BEGIN_SRC lisp
+     (defun multiply-by-seven (number)       ; Interactive version.
+       "Multiply NUMBER by seven."
+       (interactive "p")
+       (message "The result is %d" (* 7 number)))
+   #+END_SRC
+   :PROPERTIES:
+   :ORIGINAL_ID: 6B0F4ED9-993F-471B-AC24-583348C1DC68
+   :END:
+
+**  TODO quicksort missing in place element partition<before>second:</before>
+   #+BEGIN_SRC haskell
+     quicksort [] = []
+     quicksort (p:xs) = (quicksort lesser) ++ [p] ++ (quicksort greater)
+         where
+             lesser = filter (< p) xs
+             greater = filter (>= p) xs
+   #+END_SRC
+   :PROPERTIES:
+   :ORIGINAL_ID: 785933D5-5BDA-4A13-BF94-6E3C7D597EA9
+   :END:
+
+**  TODO do stuff here<before>MobileOrgTestingSample:</before>
+
+   :PROPERTIES:
+   :ORIGINAL_ID: 35AB7EC7-4D8A-4F31-A2F8-D92D5C143720
+   :END:
+
+**  TODO waiting on this one a little longer<before>MobileOrgTestingSample:</before>
+
+   :PROPERTIES:
+   :ORIGINAL_ID: C8EC5E67-CD38-4FE6-A3BC-F6ED9996B74B
+   :END:
+
+**  TODO write some code<before>MobileOrgTestingSample:</before>
+   #+BEGIN_SRC lisp
+     (defun multiply-by-seven (number)       ; Interactive version.
+       "Multiply NUMBER by seven."
+       (interactive "p")
+       (message "The result is %d" (* 7 number)))
+   #+END_SRC
+   :PROPERTIES:
+   :ORIGINAL_ID: 2FD7B7D2-02BD-4A18-A9E5-FCF80949F62E
+   :END:
+
+**  TODO quicksort missing in place element partition<before>MobileOrgTestingSample:</before>
+   #+BEGIN_SRC haskell
+     quicksort [] = []
+     quicksort (p:xs) = (quicksort lesser) ++ [p] ++ (quicksort greater)
+         where
+             lesser = filter (< p) xs
+             greater = filter (>= p) xs
+   #+END_SRC
+   :PROPERTIES:
+   :ORIGINAL_ID: AED20451-BE4D-4E20-BC75-B1B72D0C0880
+   :END:
+

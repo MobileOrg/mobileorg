@@ -48,7 +48,7 @@ class WebDavTests: XCTestCase {
 
       let nodes = try self.moc!.fetch(fetchRequest)
 
-      XCTAssertEqual(nodes.count, 453)
+      XCTAssertEqual(nodes.count, 136)
 
     } catch _ { XCTFail() }
 

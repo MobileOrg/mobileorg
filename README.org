@@ -62,6 +62,14 @@
   This is the current way Xcode deals with user specific files that hold settings
   by default. For a lot of background info, see [[https://neurocline.github.io/dev/2016/04/16/xcode-xcworkspace-and-xcodeproj.html][Xcode - xcworkspace and xcodeproj]]
 
+*** WebDAV tests
+
+  To allow automated tests of syncing there is an additional Xcode scheme (All Tests)
+  available. This scheme needs a running [[https://www.docker.com][docker]] instance.
+
+  To set up the WebDAV server for manual tests, please take the Test's pre-action
+  script as a starting point.
+
 ** Pull Requests
    Pull requests for bug fixes, features or anything else are gladly
    accepted. Since this is github we follow the fork/pull

@@ -37,29 +37,105 @@ class WebDavTests: XCTestCase {
 
   func testWebDAVSync() {
 
+    let syncExpectation = expectation(description: "Sync")
     SyncManager.instance().sync()
 
-    // Sync is async, so we have to wait for completion
-    sleep(4)
+    let dispatchTime = DispatchTime.now() + Double(4000000000) / Double(NSEC_PER_SEC)
+    DispatchQueue.main.asyncAfter (deadline: dispatchTime,
+                                   execute: {
+                                    (Void) -> (Void) in
 
-    do {
-      let fetchRequest = NSFetchRequest<Node>(entityName: "Node")
-      // fetchRequest.predicate = NSPredicate (format: "heading == %@", "on Level 1.1.1.5")
+                                    do {
+                                      let fetchRequest = NSFetchRequest<Node>(entityName: "Node")
+                                      // fetchRequest.predicate = NSPredicate (format: "heading == %@", "on Level 1.1.1.5")
 
-      let nodes = try self.moc!.fetch(fetchRequest)
+                                      let nodes = try self.moc!.fetch(fetchRequest)
+                                      syncExpectation.fulfill()
+                                      XCTAssertEqual(nodes.count, 136)
 
-      XCTAssertEqual(nodes.count, 136)
+                                    } catch _ { XCTFail() }
+    })
 
-    } catch _ { XCTFail() }
+    waitForExpectations(timeout: 4, handler: nil)
 
   }
 
+  func testSyncChangesOnMobile() {
+
+    let syncExpectation = expectation(description: "Sync")
+    SyncManager.instance().sync()
+
+    let dispatchTime = DispatchTime.now() + Double(4000000000) / Double(NSEC_PER_SEC)
+    DispatchQueue.main.asyncAfter (deadline: dispatchTime,
+                                   execute: {
+                                    (Void) -> (Void) in
+
+                                    do {
+
+                                      let fetchRequest = NSFetchRequest<Node>(entityName: "Node")
+                                      fetchRequest.predicate = NSPredicate (format: "heading == %@", "Seamless integration of Cloud services")
+
+                                      let nodes = try self.moc!.fetch(fetchRequest)
+
+                                      // Make local changes and sync again
+                                      let tagEditController = TagEditController(node: nodes.first!)
+
+                                      tagEditController?.newTagString = "Test456"
+                                      tagEditController?.commitNewTag()
+
+                                      Save()
+
+                                      SyncManager.instance().sync()
+                                      syncExpectation.fulfill()
+                                      XCTAssertEqual(nodes.first?.tags, ":Test456:")
+
+                                    } catch _ { XCTFail() }
+    })
+
+    waitForExpectations(timeout: 4, handler: nil)
+  }
+
+  func testSyncChangesOnMobileReverse() {
+
+    let syncExpectation = expectation(description: "Sync")
+    SyncManager.instance().sync()
+
+    let dispatchTime = DispatchTime.now() + Double(4000000000) / Double(NSEC_PER_SEC)
+    DispatchQueue.main.asyncAfter (deadline: dispatchTime,
+                                   execute: {
+                                    (Void) -> (Void) in
+
+                                    do {
+
+                                      let fetchRequest = NSFetchRequest<Node>(entityName: "Node")
+                                      fetchRequest.predicate = NSPredicate (format: "heading == %@", "Seamless integration of Cloud services")
+
+                                      let nodes = try self.moc!.fetch(fetchRequest)
+
+                                      // Make local changes and sync again
+                                      let tagEditController = TagEditController(node: nodes.first!)
+
+                                      tagEditController?.newTagString = ""
+                                      tagEditController?.commitNewTag()
+                                      
+                                      Save()
+                                      
+                                      SyncManager.instance().sync()
+                                      syncExpectation.fulfill()
+                                      XCTAssertEqual(nodes.first?.tags, "::")
+                                      
+                                    } catch _ { XCTFail() }
+    })
+    
+    waitForExpectations(timeout: 4, handler: nil)
+  }
+  
   func setUpInMemoryManagedObjectContext() -> NSManagedObjectContext {
     let managedObjectModel = NSManagedObjectModel.mergedModel(from: [Bundle.main])!
-
+    
     let persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
     try! persistentStoreCoordinator.addPersistentStore(ofType: NSInMemoryStoreType, configurationName: nil, at: nil, options: nil)
-
+    
     let managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
     managedObjectContext.persistentStoreCoordinator = persistentStoreCoordinator
     

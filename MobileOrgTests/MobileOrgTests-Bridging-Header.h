@@ -23,3 +23,4 @@
 #import "Node.h"
 #import "DataUtils.h"
 #import "Settings.h"
+#import "TagEditController.h"

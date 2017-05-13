@@ -27,6 +27,7 @@ class WebDavTests: XCTestCase {
     Settings.instance().username = "schnuddelhuddel"
     Settings.instance().password = "schnuddelhuddel"
     Settings.instance().indexUrl = URL(string:  "https://mobileOrgWebDav.schnuddelhuddel.de:32773/index.org")
+    Settings.instance().encryptionPassword = "SchnuddelHuddel"
 
   }
 

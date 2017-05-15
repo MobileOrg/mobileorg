@@ -29,7 +29,7 @@
 }
 
 @property (nonatomic, copy) NSString * oldValue;
-@property (nonatomic, copy) NSString * newValue;
+@property (nonatomic, copy) NSString * updatedValue;
 @property (nonatomic, copy) NSString * actionType;
 @property (nonatomic, retain) NSDate * createdAt;
 @property (nonatomic, copy) NSString * nodeId;

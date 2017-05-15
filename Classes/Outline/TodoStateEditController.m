@@ -36,7 +36,7 @@
 - (void)onClearState {
     [node setTodoState:@""];
 
-    self.editAction.newValue = @"";
+    self.editAction.updatedValue = @"";
 
     Save();
 
@@ -56,7 +56,7 @@
         self.editAction = FindOrCreateLocalEditActionForNode(@"edit:todo", node, &created);
         if (created) {
             self.editAction.oldValue = [node todoState];
-            self.editAction.newValue = [node todoState];
+            self.editAction.updatedValue = [node todoState];
         }
     }
     return self;
@@ -108,7 +108,7 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
 
-    if ([[[self editAction] oldValue] isEqualToString:[[self editAction] newValue]]) {
+    if ([[[self editAction] oldValue] isEqualToString:[[self editAction] updatedValue]]) {
         DeleteLocalEditAction([self editAction]);
         self.editAction = nil;
     }
@@ -204,7 +204,7 @@
 
     [node setTodoState:todoState];
 
-    self.editAction.newValue = [node todoState];
+    self.editAction.updatedValue = [node todoState];
     Save();
 
     UpdateEditActionCount();

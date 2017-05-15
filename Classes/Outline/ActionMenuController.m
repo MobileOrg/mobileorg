@@ -62,7 +62,7 @@
         action.oldValue = [node todoState];
     }
   
-    action.newValue = newState;
+    action.updatedValue = newState;
     action.nodeId = [node bestId];
   
     node.todoState = newState;

@@ -61,6 +61,9 @@ void UpdateEditActionCount() {
 // Get rid of any '*' characters in column zero by padding them with space in column 0.
 // This changes what the user entered, but they shouldn't have done it in the first place.
 NSString *EscapeHeadings(NSString *original) {
+  if( original == nil) {
+    return nil;
+  }
     NSString *ret = [NSString stringWithString:original];
     if ([original length] > 0) {
         if ([original characterAtIndex:0] == '*') {

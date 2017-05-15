@@ -374,7 +374,7 @@ LocalEditAction *FindOrCreateLocalEditActionForNode(NSString *actionType, Node *
     [action setCreatedAt:[NSDate date]];
     [action setNodeId:[node bestId]];
     [action setOldValue:@""];
-    [action setNewValue:@""];
+    [action setUpdatedValue:@""];
     *created = true;
 
     Save();
@@ -470,7 +470,7 @@ int CountLocalEditActions() {
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity: [NSEntityDescription entityForName:@"LocalEditAction" inManagedObjectContext:managedObjectContext]];
 
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(oldValue != newValue)"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(oldValue != updatedValue)"];
     [request setPredicate:predicate];
 
     NSError *error = nil;
@@ -603,7 +603,7 @@ NSArray *AllActiveNotes() {
     [request setEntity:entity];
 
     // Filter out deleted notes
-    predicate = [NSPredicate predicateWithFormat:@"(deleted == 0)"];
+    predicate = [NSPredicate predicateWithFormat:@"(removed == 0)"];
     [request setPredicate:predicate];
 
     // Sort by createdAt, ascendingly!
@@ -643,7 +643,7 @@ int CountLocalNotes() {
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity: [NSEntityDescription entityForName:@"Note" inManagedObjectContext:managedObjectContext]];
 
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(locallyModified == 1 AND deleted == 0)"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(locallyModified == 1 AND removed == 0)"];
     [request setPredicate:predicate];
 
     NSError *error = nil;

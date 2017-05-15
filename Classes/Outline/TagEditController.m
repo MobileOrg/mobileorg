@@ -46,7 +46,7 @@
 
     [node addTag:newTagString];
 
-    self.editAction.newValue = [node tags];
+    self.editAction.updatedValue = [node tags];
     Save();
 
     UpdateEditActionCount();
@@ -111,7 +111,7 @@
         self.editAction = FindOrCreateLocalEditActionForNode(@"edit:tags", node, &created);
         if (created) {
             self.editAction.oldValue = [node tags];
-            self.editAction.newValue = [node tags];
+            self.editAction.updatedValue = [node tags];
         }
     }
     return self;
@@ -271,7 +271,7 @@
         }
     }
 
-    self.editAction.newValue = [node tags];
+    self.editAction.updatedValue = [node tags];
     Save();
 
     UpdateEditActionCount();

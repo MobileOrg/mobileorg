@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16E195" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+    <entity name="FileChecksum" representedClassName="FileChecksum" syncable="YES">
+        <attribute name="checksum" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="filename" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="LocalEditAction" representedClassName="LocalEditAction" syncable="YES">
+        <attribute name="actionType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="nodeId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="oldValue" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="updatedValue" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Node" representedClassName="Node" syncable="YES">
+        <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="heading" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="indentLevel" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="inheritedTags" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nodeId" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="outlinePath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="priority" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="readOnly" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="referencedNodeId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sequenceIndex" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="tags" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="todoState" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <relationship name="children" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Node" inverseName="parent" inverseEntity="Node" indexed="YES" syncable="YES"/>
+        <relationship name="parent" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Node" inverseName="children" inverseEntity="Node" indexed="YES" syncable="YES"/>
+    </entity>
+    <entity name="Note" representedClassName="Note" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="locallyModified" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="nodeId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="noteId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="removed" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Node" positionX="205" positionY="9" width="128" height="255"/>
+        <element name="Note" positionX="18" positionY="228" width="128" height="135"/>
+        <element name="FileChecksum" positionX="484" positionY="171" width="128" height="75"/>
+        <element name="LocalEditAction" positionX="421" positionY="12" width="128" height="120"/>
+    </elements>
+</model>

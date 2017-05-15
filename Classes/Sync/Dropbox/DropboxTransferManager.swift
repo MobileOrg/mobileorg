@@ -222,7 +222,7 @@ import SwiftyDropbox
                   switch lookupError {
                   case .notFound:
                     self.activeTransfer?.statusCode = 404
-                    self.activeTransfer?.errorText = "The file \(self.activeTransfer?.remoteUrl.lastPathComponent) could not be found"
+                    self.activeTransfer?.errorText = "The file \(String(describing: self.activeTransfer?.remoteUrl.lastPathComponent)) could not be found"
                   default:
                     self.activeTransfer?.errorText = error.description
                   }

@@ -50,7 +50,7 @@
 #import "SessionManager.h"
 #import "DataUtils.h"
 #import "ActionMenuController.h"
-#import "mobileorg-swift.h"
+#import "MobileOrg-Swift.h"
 
 typedef enum {
     DetailsViewSectionText,

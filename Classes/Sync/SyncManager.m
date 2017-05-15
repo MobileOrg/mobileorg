@@ -234,7 +234,7 @@ static SyncManager *gInstance = NULL;
         // This is caught by the LocalNoteWithModification check above, since the note will be modified + have deleted flag
 
         // Don't write out goofy edits where nothing changed
-        if ([entity.oldValue isEqualToString:entity.newValue]) {
+        if ([entity.oldValue isEqualToString:entity.updatedValue]) {
             continue;
         }
 
@@ -249,8 +249,8 @@ static SyncManager *gInstance = NULL;
             [formatter release];
 
             [file writeData:[[NSString stringWithFormat:@"[%@]\n", createdAt] dataUsingEncoding:NSUTF8StringEncoding]];
-            if (entity.newValue && [entity.newValue length] > 0)
-                [file writeData:[[NSString stringWithFormat:@"%@\n", EscapeHeadings(entity.newValue)] dataUsingEncoding:NSUTF8StringEncoding]];
+            if (entity.updatedValue && [entity.updatedValue length] > 0)
+                [file writeData:[[NSString stringWithFormat:@"%@\n", EscapeHeadings(entity.updatedValue)] dataUsingEncoding:NSUTF8StringEncoding]];
             [file writeData:[[NSString stringWithFormat:@"** Note ID: %@\n", entity.noteId] dataUsingEncoding:NSUTF8StringEncoding]];
         } else {
             [file writeData:[[NSString stringWithFormat:@"* F(%@) [[%@][%@]]\n", entity.editAction, [entity.node bestId], EscapeStringForLinkTitle([entity.node heading])] dataUsingEncoding:NSUTF8StringEncoding]];
@@ -258,7 +258,7 @@ static SyncManager *gInstance = NULL;
             if (entity.oldValue && [entity.oldValue length] > 0)
                 [file writeData:[[NSString stringWithFormat:@"%@\n", EscapeHeadings(entity.oldValue)] dataUsingEncoding:NSUTF8StringEncoding]];
             [file writeData:[@"** New value\n" dataUsingEncoding:NSUTF8StringEncoding]];
-            [file writeData:[[NSString stringWithFormat:@"%@\n", EscapeHeadings(entity.newValue)] dataUsingEncoding:NSUTF8StringEncoding]];
+            [file writeData:[[NSString stringWithFormat:@"%@\n", EscapeHeadings(entity.updatedValue)] dataUsingEncoding:NSUTF8StringEncoding]];
             [file writeData:[@"** End of edit\n" dataUsingEncoding:NSUTF8StringEncoding]];
         }
     }
@@ -267,7 +267,7 @@ static SyncManager *gInstance = NULL;
     for (LocalEditAction *action in editActions) {
 
         // Don't write out goofy edits where nothing changed
-        if ([action.oldValue isEqualToString:action.newValue]) {
+        if ([action.oldValue isEqualToString:action.updatedValue]) {
             continue;
         }
 
@@ -275,13 +275,13 @@ static SyncManager *gInstance = NULL;
         [file writeData:[[NSString stringWithFormat:@"* F(%@) [[%@][%@]]\n", action.actionType, [localEditNode bestId], EscapeStringForLinkTitle([localEditNode heading])] dataUsingEncoding:NSUTF8StringEncoding]];
         if (!action.actionType || [action.actionType length] == 0) {
             // No edit action means a simple flag entry, just a note.. no old/new values.
-            [file writeData:[[NSString stringWithFormat:@"%@\n", EscapeHeadings(action.newValue)] dataUsingEncoding:NSUTF8StringEncoding]];
+            [file writeData:[[NSString stringWithFormat:@"%@\n", EscapeHeadings(action.updatedValue)] dataUsingEncoding:NSUTF8StringEncoding]];
         } else {
             [file writeData:[@"** Old value\n" dataUsingEncoding:NSUTF8StringEncoding]];
             if (action.oldValue && [action.oldValue length] > 0)
                 [file writeData:[[NSString stringWithFormat:@"%@\n", EscapeHeadings(action.oldValue)] dataUsingEncoding:NSUTF8StringEncoding]];
             [file writeData:[@"** New value\n" dataUsingEncoding:NSUTF8StringEncoding]];
-            [file writeData:[[NSString stringWithFormat:@"%@\n", EscapeHeadings(action.newValue)] dataUsingEncoding:NSUTF8StringEncoding]];
+            [file writeData:[[NSString stringWithFormat:@"%@\n", EscapeHeadings(action.updatedValue)] dataUsingEncoding:NSUTF8StringEncoding]];
             [file writeData:[@"** End of edit\n" dataUsingEncoding:NSUTF8StringEncoding]];
         }
     }
@@ -291,7 +291,7 @@ static SyncManager *gInstance = NULL;
         if (![note.locallyModified boolValue])
             continue;
 
-        if ([note.deleted boolValue])
+        if ([note.removed boolValue])
             continue;
 
         [file writeData:[[note orgLine] dataUsingEncoding:NSUTF8StringEncoding]];
@@ -655,8 +655,8 @@ static SyncManager *gInstance = NULL;
                 [newNote setNoteId:entity.noteId];
                 [newNote setLocallyModified:[NSNumber numberWithBool:false]];
                 NSString *text = @"";
-                if (entity.newValue && [entity.newValue length] > 0) {
-                    text = [NSString stringWithFormat:@"%@\n%@", entity.heading, entity.newValue];
+                if (entity.updatedValue && [entity.updatedValue length] > 0) {
+                    text = [NSString stringWithFormat:@"%@\n%@", entity.heading, entity.updatedValue];
                 } else {
                     text = entity.heading;
                 }
@@ -672,17 +672,17 @@ static SyncManager *gInstance = NULL;
         }
 
         if ([entity.editAction isEqualToString:@"edit:heading"]) {
-            [entity.node setHeading:entity.newValue];
+            [entity.node setHeading:entity.updatedValue];
         } else if ([entity.editAction isEqualToString:@"edit:body"]) {
-            [entity.node setBody:entity.newValue];
+            [entity.node setBody:entity.updatedValue];
         } else if ([entity.editAction isEqualToString:@"edit:tags"]) {
-            [entity.node setTags:entity.newValue];
+            [entity.node setTags:entity.updatedValue];
 
             // Tell the settings store about any potentially new tags
             // This feels a bit hacky here, it feels like the model should
             // implement this in setTags?
             {
-                NSArray *tagArray = [entity.newValue componentsSeparatedByString:@":"];
+                NSArray *tagArray = [entity.updatedValue componentsSeparatedByString:@":"];
                 for (NSString *element in tagArray) {
                     if (element && [element length] > 0) {
                         [[Settings instance] addTag:element];
@@ -690,9 +690,9 @@ static SyncManager *gInstance = NULL;
                 }
             }
         } else if ([entity.editAction isEqualToString:@"edit:todo"]) {
-            [entity.node setTodoState:entity.newValue];
+            [entity.node setTodoState:entity.updatedValue];
         } else if ([entity.editAction isEqualToString:@"edit:priority"]) {
-            [entity.node setPriority:entity.newValue];
+            [entity.node setPriority:entity.updatedValue];
         }
     }
 

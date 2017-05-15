@@ -27,7 +27,7 @@
 @interface EditEntity : NSObject {
     NSString *editAction;
     NSString *oldValue;
-    NSString *newValue;
+    NSString *updatedValue;
     NSString *heading;
     NSString *noteId;
     NSDate *createdAt;
@@ -36,7 +36,7 @@
 
 @property (nonatomic, copy) NSString *editAction;
 @property (nonatomic, copy) NSString *oldValue;
-@property (nonatomic, copy) NSString *newValue;
+@property (nonatomic, copy) NSString *updatedValue;
 @property (nonatomic, copy) NSString *heading;
 @property (nonatomic, copy) NSString *noteId;
 @property (nonatomic, copy) NSDate *createdAt;

@@ -191,7 +191,7 @@ extension WebDavTransferManager:URLSessionDataDelegate {
   func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
     connection = nil
 
-    if let err = error as? NSError {
+    if let err = error as NSError? {
       if activeTransfer?.statusCode == 0 {
         activeTransfer?.statusCode = Int32(err.code)
       }

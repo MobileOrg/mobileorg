@@ -216,7 +216,7 @@ import SwiftyDropbox
             }
             if let error = error {
               switch error as CallError {
-              case .routeError(let boxed, _):
+              case .routeError(let boxed, _, _, _):
                 switch boxed.unboxed as Files.DownloadError {
                 case .path(let lookupError):
                   switch lookupError {

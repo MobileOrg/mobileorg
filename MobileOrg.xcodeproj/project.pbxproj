@@ -26,6 +26,8 @@
 		743C12F41DFED37F0051EC6F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 743C12F31DFED37F0051EC6F /* Images.xcassets */; };
 		743C12F61DFED5950051EC6F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 743C12F51DFED5950051EC6F /* Launch Screen.storyboard */; };
 		744408DE1E035A1800BCE192 /* DropboxTransferManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744408DD1E035A1800BCE192 /* DropboxTransferManager.swift */; };
+		744787E01EB265A700631BA2 /* WebDavTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744787DF1EB265A700631BA2 /* WebDavTests.swift */; };
+		744787E21EB3198D00631BA2 /* PersistenceStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744787E11EB3198D00631BA2 /* PersistenceStack.swift */; };
 		744EF0401E4666B200DB1E81 /* MobileOrgTestingSample.org in Resources */ = {isa = PBXBuildFile; fileRef = 744EF03F1E4666B200DB1E81 /* MobileOrgTestingSample.org */; };
 		746103091E017E5700C8E34F /* String+RegexSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746102FC1DFF0EDB00C8E34F /* String+RegexSplitter.swift */; };
 		7476CA9F1E01C749007EAE6F /* String+RegexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7476CA9E1E01C749007EAE6F /* String+RegexTests.swift */; };
@@ -150,6 +152,8 @@
 		743C12F31DFED37F0051EC6F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MobileOrg/Images.xcassets; sourceTree = "<group>"; };
 		743C12F51DFED5950051EC6F /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		744408DD1E035A1800BCE192 /* DropboxTransferManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DropboxTransferManager.swift; path = Dropbox/DropboxTransferManager.swift; sourceTree = "<group>"; };
+		744787DF1EB265A700631BA2 /* WebDavTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebDavTests.swift; sourceTree = "<group>"; };
+		744787E11EB3198D00631BA2 /* PersistenceStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceStack.swift; sourceTree = "<group>"; };
 		744EF03F1E4666B200DB1E81 /* MobileOrgTestingSample.org */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MobileOrgTestingSample.org; sourceTree = "<group>"; };
 		746102FB1DFF0EDA00C8E34F /* MobileOrg-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MobileOrg-Bridging-Header.h"; sourceTree = "<group>"; };
 		746102FC1DFF0EDB00C8E34F /* String+RegexSplitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String+RegexSplitter.swift"; path = "Classes/Extensions/String+RegexSplitter.swift"; sourceTree = "<group>"; };
@@ -412,6 +416,7 @@
 				7476CA9E1E01C749007EAE6F /* String+RegexTests.swift */,
 				749CCE7B1E084F6A00DE4648 /* OrgfileParserTests.swift */,
 				7419FA531E20DAC900F0EA45 /* SettingsTest.swift */,
+				744787DF1EB265A700631BA2 /* WebDavTests.swift */,
 			);
 			path = MobileOrgTests;
 			sourceTree = "<group>";
@@ -492,6 +497,7 @@
 				79CB18BB10742C5900A7E065 /* Status */,
 				79BA55601073A6F800D67917 /* Sync */,
 				79BA55611073A6F800D67917 /* Utilities */,
+				744787E11EB3198D00631BA2 /* PersistenceStack.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -950,6 +956,7 @@
 				79CB18BE10742C7100A7E065 /* StatusViewController.m in Sources */,
 				6CB501F11E20C3D70082FD40 /* SettingsController.swift in Sources */,
 				79CB18C710742DB900A7E065 /* StatusUtils.m in Sources */,
+				744787E21EB3198D00631BA2 /* PersistenceStack.swift in Sources */,
 				79CB19D21074423C00A7E065 /* ChecksumFileParser.m in Sources */,
 				79CB19D51074424300A7E065 /* OrgFileParser.m in Sources */,
 				6CB501F21E20C3D70082FD40 /* SyncSettingsController.swift in Sources */,
@@ -984,6 +991,7 @@
 				7476CA9F1E01C749007EAE6F /* String+RegexTests.swift in Sources */,
 				7419FA541E20DACA00F0EA45 /* SettingsTest.swift in Sources */,
 				747BF9A31DFD738E00E800FB /* NodeTests.m in Sources */,
+				744787E01EB265A700631BA2 /* WebDavTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

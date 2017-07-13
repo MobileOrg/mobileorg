@@ -40,5 +40,6 @@
 @property (nonatomic, copy) NSString *newTagString;
 
 - (id)initWithNode:(Node*)aNode;
+- (void)commitNewTag;
 
 @end

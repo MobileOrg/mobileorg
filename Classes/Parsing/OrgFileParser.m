@@ -45,7 +45,7 @@
     NSMutableArray *nodeStack;
     NSManagedObjectContext *managedObjectContext;
 
-  managedObjectContext = moc; // [AppInstance() managedObjectContext];
+    managedObjectContext = moc;
 
     // Setup a level-0 node for this Org-file
     fileNode = (Node*)[NSEntityDescription insertNewObjectForEntityForName:@"Node" inManagedObjectContext:managedObjectContext];

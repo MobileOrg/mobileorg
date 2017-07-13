@@ -69,6 +69,11 @@ class SettingsController: UITableViewController {
     } else {
       self.lastSyncLabel.text = "Not yet synced"
     }
+
+    if let password = Settings.instance().encryptionPassword {
+      self.encryptionTextField.text = password
+    }
+
     self.tableView.reloadData()
     self.tableView.setNeedsDisplay()
   }

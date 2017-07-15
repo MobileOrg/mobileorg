@@ -48,7 +48,12 @@
 
 - (void)setUp {
     // Run at start of all tests in the class
-  self.model_ = [NSManagedObjectModel mergedModelFromBundles:nil];
+
+
+  NSString *path = [[NSBundle mainBundle] pathForResource:@"MobileOrg2" ofType:@"momd"];
+  NSURL *momURL = [NSURL fileURLWithPath:path];
+  self.model_ = [[NSManagedObjectModel alloc] initWithContentsOfURL:momURL];
+
   self.coordinator_ = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model_];
   self.context_ = [[NSManagedObjectContext alloc] initWithConcurrencyType: NSMainQueueConcurrencyType];
   [context_ setPersistentStoreCoordinator:coordinator_];

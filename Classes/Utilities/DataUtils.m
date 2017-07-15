@@ -29,6 +29,7 @@
 #import "FileChecksum.h"
 #import "Settings.h"
 #import "OutlineViewController.h"
+#import "MobileOrg-Swift.h"
 
 bool Save() {
 
@@ -36,7 +37,7 @@ bool Save() {
     NSManagedObjectContext *managedObjectContext;
 
     // Get our managedObjectContext
-    managedObjectContext = [AppInstance() managedObjectContext];
+    managedObjectContext = PersistenceStack.shared.moc; 
 
     // Call save
     if (![managedObjectContext save:&error]) {
@@ -55,7 +56,7 @@ void ClearAllFileChecksums() {
     NSManagedObjectContext *managedObjectContext;
 
     // Get our managedObjectContext
-    managedObjectContext = [AppInstance() managedObjectContext];
+    managedObjectContext = PersistenceStack.shared.moc;
 
     // Initialize a request
     request = [NSFetchRequest new];
@@ -91,7 +92,7 @@ NSString *ChecksumForFile(NSString *filename) {
     NSManagedObjectContext *managedObjectContext;
 
     // Get our managedObjectContext
-    managedObjectContext = [AppInstance() managedObjectContext];
+    managedObjectContext = PersistenceStack.shared.moc;
 
     // Initialize a request
     request = [NSFetchRequest new];
@@ -126,7 +127,7 @@ FileChecksum *CreateChecksumForFile(NSString *filename, NSString *aChecksum) {
     NSManagedObjectContext *managedObjectContext;
 
     // Get our managedObjectContext
-    managedObjectContext = [AppInstance() managedObjectContext];
+    managedObjectContext = PersistenceStack.shared.moc;
 
     // Create an action if one didn't exit
     FileChecksum *checksum = (FileChecksum*)[NSEntityDescription insertNewObjectForEntityForName:@"FileChecksum" inManagedObjectContext:managedObjectContext];
@@ -176,7 +177,7 @@ Node *NodeWithId(NSString *nodeId) {
     NSManagedObjectContext *managedObjectContext;
 
     // Get our managedObjectContext
-    managedObjectContext = [AppInstance() managedObjectContext];
+    managedObjectContext = PersistenceStack.shared.moc;
 
     // Initialize a request
     request = [NSFetchRequest new];
@@ -216,7 +217,7 @@ Node *NodeWithOutlinePath(NSString *outlinePath) {
     NSManagedObjectContext *managedObjectContext;
 
     // Get our managedObjectContext
-    managedObjectContext = [AppInstance() managedObjectContext];
+    managedObjectContext = PersistenceStack.shared.moc;
 
     // Initialize a request
     request = [NSFetchRequest new];
@@ -256,7 +257,7 @@ Node *NodeWithFilename(NSString *filename) {
     NSManagedObjectContext *managedObjectContext;
 
     // Get our managedObjectContext
-    managedObjectContext = [AppInstance() managedObjectContext];
+    managedObjectContext = PersistenceStack.shared.moc;
 
     // Initialize a request
     request = [NSFetchRequest new];
@@ -296,7 +297,7 @@ NSArray *AllFileNodes() {
     NSManagedObjectContext *managedObjectContext;
 
     // Get our managedObjectContext
-    managedObjectContext = [AppInstance() managedObjectContext];
+    managedObjectContext = PersistenceStack.shared.moc;
 
     // Initialize a request
     request = [NSFetchRequest new];
@@ -325,7 +326,7 @@ void DeleteNode(Node *node) {
     NSManagedObjectContext *managedObjectContext;
 
     // Get our managedObjectContext
-    managedObjectContext = [AppInstance() managedObjectContext];
+    managedObjectContext = PersistenceStack.shared.moc;
 
     [managedObjectContext deleteObject:node];
 
@@ -338,7 +339,7 @@ void DeleteNodesWithFilename(NSString* filename) {
     NSManagedObjectContext *managedObjectContext;
 
     // Get our managedObjectContext
-    managedObjectContext = [AppInstance() managedObjectContext];
+    managedObjectContext = PersistenceStack.shared.moc;
 
     while ((node = NodeWithFilename(filename))) {
         [managedObjectContext deleteObject:node];
@@ -358,7 +359,7 @@ LocalEditAction *FindOrCreateLocalEditActionForNode(NSString *actionType, Node *
     NSManagedObjectContext *managedObjectContext;
 
     // Get our managedObjectContext
-    managedObjectContext = [AppInstance() managedObjectContext];
+    managedObjectContext = PersistenceStack.shared.moc;
 
     // First, try to find an existing action
     for (LocalEditAction *action in AllLocalEditActionsForNode(node)) {
@@ -394,7 +395,7 @@ NSArray *AllLocalEditActions() {
     NSSortDescriptor       *sortDescriptor;
 
     // Get our managedObjectContext
-    managedObjectContext = [AppInstance() managedObjectContext];
+    managedObjectContext = PersistenceStack.shared.moc;
 
     // Initialize a request
     request = [NSFetchRequest new];
@@ -430,7 +431,7 @@ NSArray *AllLocalEditActionsForNode(Node *node) {
     NSSortDescriptor       *sortDescriptor;
 
     // Get our managedObjectContext
-    managedObjectContext = [AppInstance() managedObjectContext];
+    managedObjectContext = PersistenceStack.shared.moc;
 
     // Initialize a request
     request = [NSFetchRequest new];
@@ -465,7 +466,7 @@ NSArray *AllLocalEditActionsForNode(Node *node) {
 
 int CountLocalEditActions() {
     NSManagedObjectContext *managedObjectContext;
-    managedObjectContext = [AppInstance() managedObjectContext];
+    managedObjectContext = PersistenceStack.shared.moc;
 
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity: [NSEntityDescription entityForName:@"LocalEditAction" inManagedObjectContext:managedObjectContext]];
@@ -506,7 +507,7 @@ void DeleteLocalEditActions() {
     NSManagedObjectContext *managedObjectContext;
 
     // Get our managedObjectContext
-    managedObjectContext = [AppInstance() managedObjectContext];
+    managedObjectContext = PersistenceStack.shared.moc;
 
     // Initialize a request
     request = [NSFetchRequest new];
@@ -537,7 +538,7 @@ void DeleteLocalEditAction(LocalEditAction *action) {
     NSManagedObjectContext *managedObjectContext;
 
     // Get our managedObjectContext
-    managedObjectContext = [AppInstance() managedObjectContext];
+    managedObjectContext = PersistenceStack.shared.moc;
 
     [managedObjectContext deleteObject:action];
 
@@ -556,7 +557,7 @@ NSArray *AllNotes() {
     NSSortDescriptor       *sortDescriptor;
 
     // Get our managedObjectContext
-    managedObjectContext = [AppInstance() managedObjectContext];
+    managedObjectContext = PersistenceStack.shared.moc;
 
     // Initialize a request
     request = [NSFetchRequest new];
@@ -592,7 +593,7 @@ NSArray *AllActiveNotes() {
     NSPredicate            *predicate;
 
     // Get our managedObjectContext
-    managedObjectContext = [AppInstance() managedObjectContext];
+    managedObjectContext = PersistenceStack.shared.moc;
 
     // Initialize a request
     request = [NSFetchRequest new];
@@ -623,7 +624,7 @@ NSArray *AllActiveNotes() {
 
 int CountNotes() {
     NSManagedObjectContext *managedObjectContext;
-    managedObjectContext = [AppInstance() managedObjectContext];
+    managedObjectContext = PersistenceStack.shared.moc;
 
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity: [NSEntityDescription entityForName:@"Note" inManagedObjectContext:managedObjectContext]];
@@ -638,7 +639,7 @@ int CountNotes() {
 
 int CountLocalNotes() {
     NSManagedObjectContext *managedObjectContext;
-    managedObjectContext = [AppInstance() managedObjectContext];
+    managedObjectContext = PersistenceStack.shared.moc;
 
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity: [NSEntityDescription entityForName:@"Note" inManagedObjectContext:managedObjectContext]];
@@ -663,7 +664,7 @@ void DeleteNotes() {
     NSManagedObjectContext *managedObjectContext;
 
     // Get our managedObjectContext
-    managedObjectContext = [AppInstance() managedObjectContext];
+    managedObjectContext = PersistenceStack.shared.moc;
 
     // Initialize a request
     request = [NSFetchRequest new];
@@ -690,7 +691,7 @@ void DeleteNotes() {
 
 bool LocalNoteWithModifications(NSString *noteId) {
     NSManagedObjectContext *managedObjectContext;
-    managedObjectContext = [AppInstance() managedObjectContext];
+    managedObjectContext = PersistenceStack.shared.moc;
 
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity: [NSEntityDescription entityForName:@"Note" inManagedObjectContext:managedObjectContext]];

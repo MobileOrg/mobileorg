@@ -185,8 +185,10 @@
             self.navigationController.tabBarItem.badgeValue = [[NSNumber numberWithInt:numLocalEdits] stringValue];
             self.navigationItem.leftBarButtonItem.enabled = YES;
         } else {
-            self.navigationController.tabBarItem.badgeValue = nil;
-            self.navigationItem.leftBarButtonItem.enabled = NO;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.navigationController.tabBarItem.badgeValue = nil;
+                self.navigationItem.leftBarButtonItem.enabled = NO;
+            });
         }
 
         UpdateAppBadge();

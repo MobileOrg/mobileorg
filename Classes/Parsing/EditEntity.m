@@ -25,7 +25,7 @@
 @implementation EditEntity
 
 @synthesize editAction;
-@synthesize oldValue, newValue;
+@synthesize oldValue, updatedValue;
 @synthesize heading;
 @synthesize noteId;
 @synthesize createdAt;
@@ -34,7 +34,7 @@
 - (void)dealloc {
     [editAction release];
     [oldValue release];
-    [newValue release];
+    [updatedValue release];
     [heading release];
     [noteId release];
     [createdAt release];

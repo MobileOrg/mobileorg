@@ -30,14 +30,14 @@
     NSArray *allTags;
     NSArray *primaryTags;
     LocalEditAction *editAction;
-    NSString *newTagString;
+    NSString *recentTagString;
 }
 
 @property (nonatomic, retain) Node *node;
 @property (nonatomic, retain) NSArray *allTags;
 @property (nonatomic, retain) NSArray *primaryTags;
 @property (nonatomic, retain) LocalEditAction *editAction;
-@property (nonatomic, copy) NSString *newTagString;
+@property (nonatomic, copy) NSString *recentTagString;
 
 - (id)initWithNode:(Node*)aNode;
 - (void)commitNewTag;

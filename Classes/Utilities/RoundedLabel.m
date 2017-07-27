@@ -77,10 +77,14 @@ void CGContextAddRoundRect(CGContextRef context, CGRect rect, float radius)
 - (void)setText:(NSString *)text {
     [label setText:text];
 
-    CGSize textSize = CGSizeMake(self.bounds.size.width, 1979);
-    CGSize size = [text sizeWithFont:[label font]
-                   constrainedToSize:textSize
-                       lineBreakMode:NSLineBreakByWordWrapping];
+    // CGSize textSize = CGSizeMake(self.bounds.size.width, 1979);
+    CGSize maximumLabelSize = CGSizeMake(self.frame.size.width, FLT_MAX);
+    CGSize size = [text boundingRectWithSize:maximumLabelSize
+                                options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin
+                                  attributes:nil context:nil].size;
+//    CGSize size = [text sizeWithFont:[label font]
+//                   constrainedToSize:textSize
+//                       lineBreakMode:NSLineBreakByWordWrapping];
 
     CGRect bounds = self.bounds;
     bounds.size = size;

@@ -156,7 +156,7 @@
 
     if (created) {
         self.editAction.oldValue = valueBeforeEditing;
-        self.editAction.newValue = valueBeforeEditing;
+        self.editAction.updatedValue = valueBeforeEditing;
     }
 
     doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(onDone)];
@@ -209,7 +209,7 @@
 
 // Sent right after a change has been made
 - (void)textViewDidChange:(UITextView *)aTextView {
-    [self.editAction setNewValue:aTextView.text];
+    [self.editAction setUpdatedValue:aTextView.text];
 
     if (self.editProperty == NodeTextEditPropertyHeading) {
         [node setHeading:aTextView.text];
@@ -232,7 +232,7 @@
 
     [self unregisterForKeyboardNotifications];
 
-    if ([self.editAction.oldValue isEqualToString:self.editAction.newValue]) {
+    if ([self.editAction.oldValue isEqualToString:self.editAction.updatedValue]) {
         DeleteLocalEditAction([self editAction]);
         self.editAction = nil;
     }

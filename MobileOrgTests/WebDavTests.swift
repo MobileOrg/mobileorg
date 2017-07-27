@@ -77,11 +77,12 @@ class WebDavTests: XCTestCase {
                                       fetchRequest.predicate = NSPredicate (format: "heading == %@", "Seamless integration of Cloud services")
 
                                       let nodes = try self.moc!.fetch(fetchRequest)
+                                      print(nodes.count)
 
                                       // Make local changes and sync again
                                       let tagEditController = TagEditController(node: nodes.first!)
 
-                                      tagEditController?.newTagString = "Test456"
+                                      tagEditController?.recentTagString = "Test456"
                                       tagEditController?.commitNewTag()
 
                                       Save()
@@ -116,7 +117,7 @@ class WebDavTests: XCTestCase {
                                       // Make local changes and sync again
                                       let tagEditController = TagEditController(node: nodes.first!)
 
-                                      tagEditController?.newTagString = ""
+                                      tagEditController?.recentTagString = ""
                                       tagEditController?.commitNewTag()
                                       
                                       Save()
@@ -132,9 +133,11 @@ class WebDavTests: XCTestCase {
   }
   
   func setUpInMemoryManagedObjectContext() -> NSManagedObjectContext {
-    let managedObjectModel = NSManagedObjectModel.mergedModel(from: [Bundle.main])!
-    
-    let persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
+    let path = Bundle.main.path(forResource: "MobileOrg2", ofType: "momd")
+    let momURL = URL.init(fileURLWithPath: path!)
+    let managedObjectModel = NSManagedObjectModel.init(contentsOf: momURL)
+
+    let persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel!)
     try! persistentStoreCoordinator.addPersistentStore(ofType: NSInMemoryStoreType, configurationName: nil, at: nil, options: nil)
     
     let managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)

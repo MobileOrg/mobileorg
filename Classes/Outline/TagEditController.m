@@ -32,21 +32,21 @@
 @synthesize node;
 @synthesize editAction;
 @synthesize allTags, primaryTags;
-@synthesize newTagString;
+@synthesize recentTagString;
 
 - (void)commitNewTag {
-    [[Settings instance] addTag:newTagString];
+    [[Settings instance] addTag:recentTagString];
 
     self.allTags = [[Settings instance] allTags];
     self.allTags = [self.allTags sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 
-    if ([node hasInheritedTag:newTagString]) {
+    if ([node hasInheritedTag:recentTagString]) {
         return;
     }
 
-    [node addTag:newTagString];
+    [node addTag:recentTagString];
 
-    self.editAction.newValue = [node tags];
+    self.editAction.updatedValue = [node tags];
     Save();
 
     UpdateEditActionCount();
@@ -56,7 +56,7 @@
 
 // Delegate method for when a new tag is entered
 - (void)textFieldDidEndEditing:(UITextField*)aTextField {
-    self.newTagString = aTextField.text;
+    self.recentTagString = aTextField.text;
     [aTextField resignFirstResponder];
 }
 
@@ -69,7 +69,7 @@
                                                    NSArray * textfields = alertController.textFields;
                                                    UITextField * newTag = textfields[0];
                                                    if (newTag.text != nil) {
-                                                       self.newTagString = newTag.text;
+                                                       self.recentTagString = newTag.text;
                                                        [self commitNewTag];
                                                    }
                                                }];
@@ -111,7 +111,7 @@
         self.editAction = FindOrCreateLocalEditActionForNode(@"edit:tags", node, &created);
         if (created) {
             self.editAction.oldValue = [node tags];
-            self.editAction.newValue = [node tags];
+            self.editAction.updatedValue = [node tags];
         }
     }
     return self;
@@ -149,7 +149,7 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
 
-    if ([[[self editAction] oldValue] isEqualToString:[[self editAction] newValue]]) {
+    if ([[[self editAction] oldValue] isEqualToString:[[self editAction] updatedValue]]) {
         DeleteLocalEditAction([self editAction]);
         self.editAction = nil;
     }
@@ -271,7 +271,7 @@
         }
     }
 
-    self.editAction.newValue = [node tags];
+    self.editAction.updatedValue = [node tags];
     Save();
 
     UpdateEditActionCount();
@@ -284,7 +284,7 @@
     [allTags release];
     [primaryTags release];
     [editAction release];
-    self.newTagString = nil;
+    self.recentTagString = nil;
     [super dealloc];
 }
 

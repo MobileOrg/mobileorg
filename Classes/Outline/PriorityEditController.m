@@ -35,7 +35,7 @@
 
 - (void)onClearPriority {
     node.priority = @"";
-    self.editAction.newValue = @"";
+    self.editAction.updatedValue = @"";
     Save();
     UpdateEditActionCount();
     [[self tableView] reloadData];
@@ -52,7 +52,7 @@
         self.editAction = FindOrCreateLocalEditActionForNode(@"edit:priority", node, &created);
         if (created) {
             self.editAction.oldValue = [node priority];
-            self.editAction.newValue = [node priority];
+            self.editAction.updatedValue = [node priority];
         }
     }
     return self;
@@ -71,7 +71,7 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
 
-    if ([[[self editAction] oldValue] isEqualToString:[[self editAction] newValue]]) {
+    if ([[[self editAction] oldValue] isEqualToString:[[self editAction] updatedValue]]) {
         DeleteLocalEditAction([self editAction]);
         self.editAction = nil;
     }
@@ -140,7 +140,7 @@
     NSString *priority = [priorities objectAtIndex:[indexPath row]];
     node.priority = priority;
 
-    self.editAction.newValue = priority;
+    self.editAction.updatedValue = priority;
 
     Save();
 

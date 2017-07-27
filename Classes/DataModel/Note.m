@@ -32,7 +32,7 @@
 @dynamic nodeId;
 @dynamic noteId;
 @dynamic locallyModified;
-@dynamic deleted;
+@dynamic removed;
 
 - (NSString*)heading {
     // If it is a flag entry, the flag part is the title, the rest is the body

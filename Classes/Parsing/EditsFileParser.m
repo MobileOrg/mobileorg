@@ -105,14 +105,14 @@
                 if ([editEntities count] > 0) {
                     EditEntity *lastEntity = [editEntities lastObject];
                     int lastNonspaceChar;
-                    for (lastNonspaceChar = (int)[lastEntity.newValue length]-1; lastNonspaceChar >= 0; lastNonspaceChar--) {
-                        char c = [lastEntity.newValue characterAtIndex:lastNonspaceChar];
+                    for (lastNonspaceChar = (int)[lastEntity.updatedValue length]-1; lastNonspaceChar >= 0; lastNonspaceChar--) {
+                        char c = [lastEntity.updatedValue characterAtIndex:lastNonspaceChar];
                         if (c != '\n' && c != '\r' && c != ' ' && c != '\t' && c != 0) {
                             break;
                         }
                     }
-                    if (lastNonspaceChar >= 0 && lastNonspaceChar < [lastEntity.newValue length]-1) {
-                        lastEntity.newValue = [lastEntity.newValue substringToIndex:lastNonspaceChar+1];
+                    if (lastNonspaceChar >= 0 && lastNonspaceChar < [lastEntity.updatedValue length]-1) {
+                        lastEntity.updatedValue = [lastEntity.updatedValue substringToIndex:lastNonspaceChar+1];
                     }
                 }
 
@@ -142,14 +142,14 @@
                 if ([editEntities count] > 0) {
                     EditEntity *lastEntity = [editEntities lastObject];
                     int lastNonspaceChar;
-                    for (lastNonspaceChar = (int)[lastEntity.newValue length]-1; lastNonspaceChar >= 0; lastNonspaceChar--) {
-                        char c = [lastEntity.newValue characterAtIndex:lastNonspaceChar];
+                    for (lastNonspaceChar = (int)[lastEntity.updatedValue length]-1; lastNonspaceChar >= 0; lastNonspaceChar--) {
+                        char c = [lastEntity.updatedValue characterAtIndex:lastNonspaceChar];
                         if (c != '\n' && c != '\r' && c != ' ' && c != '\t' && c != 0) {
                             break;
                         }
                     }
-                    if (lastNonspaceChar >= 0 && lastNonspaceChar < [lastEntity.newValue length]-1) {
-                        lastEntity.newValue = [lastEntity.newValue substringToIndex:lastNonspaceChar+1];
+                    if (lastNonspaceChar >= 0 && lastNonspaceChar < [lastEntity.updatedValue length]-1) {
+                        lastEntity.updatedValue = [lastEntity.updatedValue substringToIndex:lastNonspaceChar+1];
                     }
                 }
 
@@ -195,13 +195,13 @@
                 }
 
                 if (awaitingBodyTextForNonEditNode) {
-                    NSString *v = [[editEntities lastObject] newValue];
+                    NSString *v = [[editEntities lastObject] updatedValue];
                     if (v && [v length] > 0) {
                         v = [v stringByAppendingFormat:@"\n%@", line];
                     } else {
                         v = line;
                     }
-                    [[editEntities lastObject] setNewValue:v];
+                    [[editEntities lastObject] setUpdatedValue:v];
                     continue;
                 }
 
@@ -228,13 +228,13 @@
                     }
                     [[editEntities lastObject] setOldValue:v];
                 } else if (awaitingNewValue) {
-                    NSString *v = [[editEntities lastObject] newValue];
+                    NSString *v = [[editEntities lastObject] updatedValue];
                     if (v && [v length] > 0) {
                         v = [v stringByAppendingFormat:@"\n%@", line];
                     } else {
                         v = line;
                     }
-                    [[editEntities lastObject] setNewValue:v];
+                    [[editEntities lastObject] setUpdatedValue:v];
                 }
             }
         }
@@ -244,14 +244,14 @@
     if ([editEntities count] > 0) {
         EditEntity *lastEntity = [editEntities lastObject];
         int lastNonspaceChar;
-        for (lastNonspaceChar = (int)[lastEntity.newValue length]-1; lastNonspaceChar >= 0; lastNonspaceChar--) {
-            char c = [lastEntity.newValue characterAtIndex:lastNonspaceChar];
+        for (lastNonspaceChar = (int)[lastEntity.updatedValue length]-1; lastNonspaceChar >= 0; lastNonspaceChar--) {
+            char c = [lastEntity.updatedValue characterAtIndex:lastNonspaceChar];
             if (c != '\n' && c != '\r' && c != ' ' && c != '\t' && c != 0) {
                 break;
             }
         }
-        if (lastNonspaceChar >= 0 && lastNonspaceChar < [lastEntity.newValue length]-1) {
-            lastEntity.newValue = [lastEntity.newValue substringToIndex:lastNonspaceChar+1];
+        if (lastNonspaceChar >= 0 && lastNonspaceChar < [lastEntity.updatedValue length]-1) {
+            lastEntity.updatedValue = [lastEntity.updatedValue substringToIndex:lastNonspaceChar+1];
         }
     }
 

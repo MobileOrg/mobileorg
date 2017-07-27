@@ -216,13 +216,13 @@ import SwiftyDropbox
             }
             if let error = error {
               switch error as CallError {
-              case .routeError(let boxed, _):
+              case .routeError(let boxed, _, _, _):
                 switch boxed.unboxed as Files.DownloadError {
                 case .path(let lookupError):
                   switch lookupError {
                   case .notFound:
                     self.activeTransfer?.statusCode = 404
-                    self.activeTransfer?.errorText = "The file \(self.activeTransfer?.remoteUrl.lastPathComponent) could not be found"
+                    self.activeTransfer?.errorText = "The file \(String(describing: self.activeTransfer?.remoteUrl.lastPathComponent)) could not be found"
                   default:
                     self.activeTransfer?.errorText = error.description
                   }

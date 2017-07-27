@@ -228,9 +228,19 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
     if (managedObjectModel != nil) {
         return managedObjectModel;
     }
-    managedObjectModel = [[NSManagedObjectModel mergedModelFromBundles:nil] retain];
-    return managedObjectModel;
-}
+
+  NSString *path = [[NSBundle mainBundle] pathForResource:@"MobileOrg2" ofType:@"momd"];
+  NSURL *momURL = [NSURL fileURLWithPath:path];
+  managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:momURL];
+
+  return managedObjectModel; }
+
+
+
+
+//    managedObjectModel = [[NSManagedObjectModel mergedModelFromBundles:nil] retain];
+//    return managedObjectModel;
+//}
 
 /**
  Returns the persistent store coordinator for the application.

@@ -78,6 +78,10 @@ class WebDavTests: XCTestCase {
 
                                       let nodes = try self.moc!.fetch(fetchRequest)
                                       print(nodes.count)
+                                      if nodes.count == 0 {
+                                        XCTFail()
+                                        return
+                                      }
 
                                       // Make local changes and sync again
                                       let tagEditController = TagEditController(node: nodes.first!)
@@ -113,6 +117,11 @@ class WebDavTests: XCTestCase {
                                       fetchRequest.predicate = NSPredicate (format: "heading == %@", "Seamless integration of Cloud services")
 
                                       let nodes = try self.moc!.fetch(fetchRequest)
+
+                                      if nodes.count == 0 {
+                                        XCTFail()
+                                        return
+                                      }
 
                                       // Make local changes and sync again
                                       let tagEditController = TagEditController(node: nodes.first!)

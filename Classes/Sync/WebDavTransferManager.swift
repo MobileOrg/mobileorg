@@ -109,7 +109,9 @@ import Foundation
   }
 
   func requestFinished(_ context: TransferContext) {
-    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    DispatchQueue.main.async(execute: {
+      UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    })
     if !context.success && context.abortOnFailure {
       transfers.removeAll()
     }

@@ -98,7 +98,7 @@ class WebDavTests: XCTestCase {
                                     } catch _ { XCTFail() }
     })
 
-    waitForExpectations(timeout: 4, handler: nil)
+    waitForExpectations(timeout: 5, handler: nil)
   }
 
   func testSyncChangesOnMobileReverse() {
@@ -138,7 +138,7 @@ class WebDavTests: XCTestCase {
                                     } catch _ { XCTFail() }
     })
     
-    waitForExpectations(timeout: 4, handler: nil)
+    waitForExpectations(timeout: 5, handler: nil)
   }
   
   func setUpInMemoryManagedObjectContext() -> NSManagedObjectContext {

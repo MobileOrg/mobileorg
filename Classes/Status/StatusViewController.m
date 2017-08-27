@@ -128,7 +128,9 @@ static StatusViewController *gInstance = NULL;
 }
 
 - (void)setActivityMessage:(NSString *)aMessage {
+  dispatch_async(dispatch_get_main_queue(), ^{
     self.activityLabel.text = aMessage;
+  });
 }
 
 - (UILabel *)actionLabel {
@@ -150,7 +152,9 @@ static StatusViewController *gInstance = NULL;
 }
 
 - (void)setActionMessage:(NSString *)aMessage {
+  dispatch_async(dispatch_get_main_queue(), ^{
     self.actionLabel.text = aMessage;
+  });
 }
 
 - (UIButton*)abortButton {

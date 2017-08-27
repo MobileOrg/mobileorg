@@ -128,10 +128,11 @@ static SyncManager *gInstance = NULL;
     // Then call synchronize at the end
 
     // This is lame, we should just subscribe to SyncComplete in SearchController but I'm being lazy.
-    [[AppInstance() searchController] reset];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[AppInstance() searchController] reset];
+    });
 
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SyncComplete" object:nil];
-
     [[StatusViewController instance] hide];
 }
 
@@ -346,8 +347,9 @@ static SyncManager *gInstance = NULL;
     DeleteLocalEditActions();
 
     // Reset the note list, just in case it is viewing a note that no longer exists
-    [[[AppInstance() noteListController] navigationController] popToRootViewControllerAnimated:NO];
-
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[[AppInstance() noteListController] navigationController] popToRootViewControllerAnimated:NO];
+    });
     // If there were no errors, we can safely delete the new notes
     DeleteNotes();
 

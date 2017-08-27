@@ -34,9 +34,9 @@
 
 - (void)refreshData {
     self.notesArray = [[AllActiveNotes() mutableCopy] autorelease];
-
-    [[self tableView] reloadData];
-
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[self tableView] reloadData];
+    });
     int noteCount = CountLocalNotes();
     if (noteCount > 0) {
         self.navigationController.tabBarItem.badgeValue = [[NSNumber numberWithInt:noteCount] stringValue];

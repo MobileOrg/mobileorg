@@ -91,7 +91,9 @@ void UpdateAppBadge() {
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:count];
     }
     else {
-        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+        });
     }
 }
 

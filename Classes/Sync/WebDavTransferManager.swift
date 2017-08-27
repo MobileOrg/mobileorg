@@ -63,10 +63,12 @@ import Foundation
         syncManager.transferFilename = self.activeTransfer?.remoteUrl.lastPathComponent
         syncManager.progressTotal = 0
         syncManager.updateStatus()
-      })
 
-      active = true
+
+      self.active = true
       UIApplication.shared.isNetworkActivityIndicatorVisible = true
+
+      })
       processRequest(activeTransfer)
     }
   }
@@ -227,7 +229,9 @@ extension WebDavTransferManager:URLSessionDataDelegate {
         activeTransfer?.success = data.write(toFile: file, atomically: true)
       }
 
-    requestFinished(activeTransfer!)
+    if let transfer = activeTransfer {
+      requestFinished(transfer)
+    }
   }
 
   func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {

@@ -527,9 +527,9 @@ void DeleteLocalEditActions() {
 
     // Save
     Save();
-
-    [[AppInstance() rootOutlineController] updateBadge];
-
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[AppInstance() rootOutlineController] updateBadge];
+    });
     // Clean up
     [request release];
 }

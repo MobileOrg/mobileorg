@@ -43,9 +43,11 @@ static StatusViewController *gInstance = NULL;
 }
 
 - (void)hide {
-    if ([[self view] superview]) {
-        [self.view removeFromSuperview];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([[self view] superview]) {
+            [self.view removeFromSuperview];
+        }
+    });
 }
 
 - (void)handleRotate {

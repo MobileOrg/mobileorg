@@ -26,15 +26,15 @@
 @class LocalEditAction;
 @class FileChecksum;
 
-bool Save();
+bool Save(void);
 
-void ClearAllFileChecksums();
+void ClearAllFileChecksums(void);
 
 NSString *ChecksumForFile(NSString *filename);
 
 FileChecksum *CreateChecksumForFile(NSString *filename, NSString *checksum);
 
-Node *RootNode();
+Node *RootNode(void);
 
 // Find a Node instance given an id:someid or an olp:someolp
 Node *ResolveNode(NSString *someId);
@@ -48,38 +48,38 @@ Node *NodeWithOutlinePath(NSString *outlinePath);
 // Find a level-0 Node instance for a given filename
 Node *NodeWithFilename(NSString *filename);
 
-NSArray *AllFileNodes();
+NSArray *AllFileNodes(void);
 
 void DeleteNode(Node *node);
 
 void DeleteNodesWithFilename(NSString* filename);
 
-void DeleteAllNodes();
+void DeleteAllNodes(void);
 
 LocalEditAction *FindOrCreateLocalEditActionForNode(NSString *actionType, Node *node, bool *created);
 
-NSArray *AllLocalEditActions();
+NSArray *AllLocalEditActions(void);
 
 NSArray *AllLocalEditActionsForNode(Node *node);
 
-int CountLocalEditActions();
+int CountLocalEditActions(void);
 
 NSString *EscapeStringForOutlinePath(NSString *input);
 
 NSString *EscapeStringForLinkTitle(NSString *input);
 
-void DeleteLocalEditActions();
+void DeleteLocalEditActions(void);
 
 void DeleteLocalEditAction(LocalEditAction *action);
 
-NSArray *AllNotes();
+NSArray *AllNotes(void);
 
-NSArray *AllActiveNotes();
+NSArray *AllActiveNotes(void);
 
-int CountNotes();
+int CountNotes(void);
 
-int CountLocalNotes();
+int CountLocalNotes(void);
 
-void DeleteNotes();
+void DeleteNotes(void);
 
 bool LocalNoteWithModifications(NSString *noteId);

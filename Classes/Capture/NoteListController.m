@@ -213,8 +213,6 @@
 
         cell.detailTextLabel.text = createdAtStr;
 
-        cell.accessoryType = UIButtonTypeDetailDisclosure;
-
         return cell;
 
     } else {
@@ -236,8 +234,6 @@
         [formatter setDateFormat:@"YYYY-MM-dd EEE HH:mm"];
         cell.detailTextLabel.text = [formatter stringFromDate:[note createdAt]];
         [formatter release];
-
-        cell.accessoryType = UIButtonTypeDetailDisclosure;
 
         return cell;
     }

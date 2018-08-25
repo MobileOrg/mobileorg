@@ -193,7 +193,7 @@ void SetupOutlineCellForNode(UITableViewCell *cell, Node *node, UITableView *tab
         [cell.contentView addSubview:bodySummaryLabel];
     }
 
-    [cell setAccessoryType:UITableViewCellAccessoryDetailDisclosureButton];
+    [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
 }
 
 void PopulateOutlineCellForNode(UITableViewCell *cell, Node *node) {

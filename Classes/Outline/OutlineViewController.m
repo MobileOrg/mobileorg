@@ -64,24 +64,28 @@
         // Fetch children from coredata
         [self setNodes:[[self root] sortedChildren]];
 
-        // Rebuild table contents
-        [[self tableView] reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // Rebuild table contents
+            [[self tableView] reloadData];
 
-        // Refresh the title
-        if ([self isTopmostOutline]) {
-            [self setTitle:@"Outlines"];
-        } else {
-            [self setTitle:[[self root] headingForDisplay]];
-        }
+            // Refresh the title
+            if ([self isTopmostOutline]) {
+                [self setTitle:@"Outlines"];
+            } else {
+                [self setTitle:[[self root] headingForDisplay]];
+            }
 
-        [self updateBadge];
+            [self updateBadge];
+        });
 
         return true;
 
     } else {
-        [self setTitle:@"Outlines"];
-        [self updateBadge];
-        [[self tableView] reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self setTitle:@"Outlines"];
+            [self updateBadge];
+            [[self tableView] reloadData];
+        });
         return false;
     }
 }

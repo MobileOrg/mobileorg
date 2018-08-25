@@ -27,5 +27,5 @@
 // - PushStatus("filename.org")
 // PopActivity("Downloading Org files")
 
-void ShowStatusView();
-void HideStatusView();
+void ShowStatusView(void);
+void HideStatusView(void);

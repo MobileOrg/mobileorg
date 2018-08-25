@@ -78,6 +78,10 @@ class WebDavTests: XCTestCase {
 
                                       let nodes = try self.moc!.fetch(fetchRequest)
                                       print(nodes.count)
+                                      if nodes.count == 0 {
+                                        XCTFail()
+                                        return
+                                      }
 
                                       // Make local changes and sync again
                                       let tagEditController = TagEditController(node: nodes.first!)
@@ -94,7 +98,7 @@ class WebDavTests: XCTestCase {
                                     } catch _ { XCTFail() }
     })
 
-    waitForExpectations(timeout: 4, handler: nil)
+    waitForExpectations(timeout: 5, handler: nil)
   }
 
   func testSyncChangesOnMobileReverse() {
@@ -114,6 +118,11 @@ class WebDavTests: XCTestCase {
 
                                       let nodes = try self.moc!.fetch(fetchRequest)
 
+                                      if nodes.count == 0 {
+                                        XCTFail()
+                                        return
+                                      }
+
                                       // Make local changes and sync again
                                       let tagEditController = TagEditController(node: nodes.first!)
 
@@ -129,7 +138,7 @@ class WebDavTests: XCTestCase {
                                     } catch _ { XCTFail() }
     })
     
-    waitForExpectations(timeout: 4, handler: nil)
+    waitForExpectations(timeout: 5, handler: nil)
   }
   
   func setUpInMemoryManagedObjectContext() -> NSManagedObjectContext {
@@ -137,7 +146,7 @@ class WebDavTests: XCTestCase {
     let momURL = URL.init(fileURLWithPath: path!)
     let managedObjectModel = NSManagedObjectModel.init(contentsOf: momURL)
 
-    let persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel!)
+    let persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
     try! persistentStoreCoordinator.addPersistentStore(ofType: NSInMemoryStoreType, configurationName: nil, at: nil, options: nil)
     
     let managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)

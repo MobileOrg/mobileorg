@@ -24,23 +24,23 @@
 
 @class MobileOrgAppDelegate;
 
-MobileOrgAppDelegate *AppInstance();
+MobileOrgAppDelegate *AppInstance(void);
 
-NSString *UUID();
+NSString *UUID(void);
 
 NSString *FileWithName(NSString *name);
 
-NSString *TemporaryFilename();
+NSString *TemporaryFilename(void);
 
 void DeleteFile(NSString *filename);
 
-void UpdateEditActionCount();
+void UpdateEditActionCount(void);
 
 NSString *EscapeHeadings(NSString *original);
 
-void UpdateAppBadge();
+void UpdateAppBadge(void);
 
-BOOL IsIpad();
+BOOL IsIpad(void);
 
 NSString *ReadPossiblyEncryptedFile(NSString *filename, NSString **error);
 

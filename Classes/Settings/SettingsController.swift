@@ -83,7 +83,7 @@ class SettingsController: UITableViewController {
     // Dispose of any resources that can be recreated.
   }
   
-  func onSyncComplete() {
+  @objc func onSyncComplete() {
     Settings.instance().lastSync = Date()
   }
   

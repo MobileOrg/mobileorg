@@ -186,7 +186,7 @@ class OrgfileParserTests: XCTestCase {
     let momURL = URL.init(fileURLWithPath: path!)
     let managedObjectModel = NSManagedObjectModel.init(contentsOf: momURL)
 
-    let persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
+    let persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel!)
     try! persistentStoreCoordinator.addPersistentStore(ofType: NSInMemoryStoreType, configurationName: nil, at: nil, options: nil)
 
     let managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)

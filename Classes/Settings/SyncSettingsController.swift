@@ -182,7 +182,7 @@ class SyncSettingsController: UITableViewController {
     }
   }
   
-  func serverUrlChanged(sender: UITextField) {
+  @objc func serverUrlChanged(sender: UITextField) {
     
     if sender.text?.rangeOf(regex: "http.*\\.(?:org|txt)$").location == NSNotFound {
       
@@ -236,20 +236,20 @@ class SyncSettingsController: UITableViewController {
     }
   }
   
-  func usernameChanged(sender: UITextField) {
+  @objc func usernameChanged(sender: UITextField) {
     Settings.instance().username = sender.text
   }
   
-  func passwordChanged(sender: UITextField) {
+  @objc func passwordChanged(sender: UITextField) {
     Settings.instance().password = sender.text
   }
   
-  func dropboxIndexChanged(sender: UITextField) {
+  @objc func dropboxIndexChanged(sender: UITextField) {
     Settings.instance().dropboxIndex = sender.text
     print("dropboxIndexChanged")
   }
 
-  func dropboxAuthSuccess(sender: Any?) {
+  @objc func dropboxAuthSuccess(sender: Any?) {
     self.tableView.reloadData()
   }
   

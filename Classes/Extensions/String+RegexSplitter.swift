@@ -60,7 +60,7 @@ public extension NSString {
       let matches = rgx.matches(in: swiftString, options: [], range: NSRange(location: 0, length: swiftString.characters.count))
       for match in matches {
         for n in 0..<match.numberOfRanges {
-          let range = match.rangeAt(n)
+            let range = match.range(at: n)
           // This should not happen 🙄
           guard range.location <= swiftString.characters.count else {
             print("\(swiftString) -- \(range.location) <= \(swiftString.characters.count)")

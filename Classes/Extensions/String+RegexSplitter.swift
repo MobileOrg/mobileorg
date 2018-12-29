@@ -57,18 +57,18 @@ public extension NSString {
       let swiftString = String(self)
       let rgx = try NSRegularExpression(pattern: regex, options: [])
 
-      let matches = rgx.matches(in: swiftString, options: [], range: NSRange(location: 0, length: swiftString.characters.count))
+      let matches = rgx.matches(in: swiftString, options: [], range: NSRange(swiftString.startIndex..., in: swiftString))
       for match in matches {
         for n in 0..<match.numberOfRanges {
             let range = match.range(at: n)
-          // This should not happen 🙄
-          guard range.location <= swiftString.characters.count else {
-            print("\(swiftString) -- \(range.location) <= \(swiftString.characters.count)")
-            break }
+            guard range.lowerBound != NSNotFound else {
+                //In the case of no match a range {NSNotFound, 0} is returned
+                break;
+            }
 
           let begin = swiftString.index(swiftString.startIndex, offsetBy: range.location)
           let end = swiftString.index(swiftString.startIndex, offsetBy: range.location+range.length)
-          result.append(swiftString.substring(with: begin..<end))
+          result.append(String(swiftString[begin..<end]))
         }
       }
       return result

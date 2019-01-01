@@ -23,7 +23,7 @@
 import Foundation
 import SwiftyDropbox
 
-@objc final class DropboxTransferManager: NSObject {
+@objcMembers final class DropboxTransferManager: NSObject {
 
   var activeTransfer:TransferContext? = nil
   var transfers:[TransferContext] = []

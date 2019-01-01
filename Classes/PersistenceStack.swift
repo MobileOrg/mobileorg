@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-@objc final class PersistenceStack:NSObject {
+@objcMembers final class PersistenceStack:NSObject {
 
   static let shared = PersistenceStack()
 

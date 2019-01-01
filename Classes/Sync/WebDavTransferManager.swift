@@ -23,7 +23,7 @@
 
 import Foundation
 
-@objc final class WebDavTransferManager: NSObject {
+@objcMembers final class WebDavTransferManager: NSObject {
 
   var activeTransfer:TransferContext? = nil
   var transfers:[TransferContext] = []

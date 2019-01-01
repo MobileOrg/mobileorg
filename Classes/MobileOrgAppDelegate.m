@@ -301,7 +301,7 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
 }
 
   // PRAGMA MARK: - Dropbox Authorisation Flow
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url {
-  return [[DropboxTransferManager instance] handleAuthFlowWithUrl:url];
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    return [[DropboxTransferManager instance] handleAuthFlowWithUrl:url];
 }
 @end

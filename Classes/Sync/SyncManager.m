@@ -846,25 +846,21 @@ static SyncManager *gInstance = NULL;
 }
 
 
-  - (void) showAlert:(NSString*)alertTitle withText:(NSString*)alertMessage {
-
-  UIAlertController *alertController = [UIAlertController alertControllerWithTitle:alertTitle message:alertMessage preferredStyle:UIAlertControllerStyleAlert];
-  UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-  [alertController addAction:ok];
-
-
-  id rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
-  if([rootViewController isKindOfClass:[UINavigationController class]])
-    {
-    rootViewController = ((UINavigationController *)rootViewController).viewControllers.firstObject;
+- (void)showAlert:(NSString*)alertTitle withText:(NSString*)alertMessage {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:alertTitle message:alertMessage preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+    [alertController addAction:ok];
+    
+    id rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
+    if ([rootViewController isKindOfClass:[UINavigationController class]]) {
+        rootViewController = ((UINavigationController *)rootViewController).viewControllers.firstObject;
     }
-  if([rootViewController isKindOfClass:[UITabBarController class]])
-    {
-    rootViewController = ((UITabBarController *)rootViewController).selectedViewController;
+    if ([rootViewController isKindOfClass:[UITabBarController class]]) {
+        rootViewController = ((UITabBarController *)rootViewController).selectedViewController;
     }
-  [rootViewController presentViewController:alertController animated:YES completion:nil];
-
-
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [rootViewController presentViewController:alertController animated:YES completion:nil];
+    });
 }
 
 - (void)dealloc {

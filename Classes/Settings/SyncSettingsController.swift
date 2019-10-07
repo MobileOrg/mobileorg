@@ -110,19 +110,19 @@ class SyncSettingsController: UITableViewController {
 
         switch indexPath.row {
         case 0:
-          cell.textField.addTarget(self, action: #selector(serverUrlChanged), for: UIControlEvents.editingDidEnd)
+          cell.textField.addTarget(self, action: #selector(serverUrlChanged), for: UIControl.Event.editingDidEnd)
           cell.textFieldLabel.text = "URL"
           cell.textField.placeholder = "Enter URL"
           cell.textField.text = Settings.instance().indexUrl?.absoluteString
           return cell
         case 1:
-          cell.textField.addTarget(self, action: #selector(usernameChanged), for: UIControlEvents.editingDidEnd)
+          cell.textField.addTarget(self, action: #selector(usernameChanged), for: UIControl.Event.editingDidEnd)
           cell.textFieldLabel.text = "Username"
           cell.textField.placeholder = "Enter Username"
           cell.textField.text = Settings.instance().username
           return cell
         default:
-          cell.textField.addTarget(self, action: #selector(passwordChanged), for: UIControlEvents.editingDidEnd)
+          cell.textField.addTarget(self, action: #selector(passwordChanged), for: UIControl.Event.editingDidEnd)
           cell.textFieldLabel.text = "Password"
           cell.textField.placeholder = "Enter Password"
           cell.textField.isSecureTextEntry = true
@@ -135,7 +135,7 @@ class SyncSettingsController: UITableViewController {
           let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextInputCell
 
           cell.textField.removeTarget(self, action: nil, for: .allEvents)
-          cell.textField.addTarget(self, action: #selector(dropboxIndexChanged), for: UIControlEvents.editingDidEnd)
+          cell.textField.addTarget(self, action: #selector(dropboxIndexChanged), for: UIControl.Event.editingDidEnd)
           cell.textFieldLabel.text = "Index File"
           cell.textField.text = Settings.instance().dropboxIndex
           return cell
@@ -174,7 +174,7 @@ class SyncSettingsController: UITableViewController {
         
         if DropboxTransferManager.instance.isLinked() {
           DropboxTransferManager.instance.unlink()
-          self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+          self.tableView.reloadRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
         } else {
           DropboxTransferManager.instance.login(self)
         }

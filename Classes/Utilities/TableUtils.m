@@ -22,9 +22,9 @@
 
 #import "TableUtils.h"
 #import "Node.h"
-#import "RoundedLabel.h"
 #import "Settings.h"
 #import "DataUtils.h"
+#import "MobileOrg-Swift.h"
 
 typedef enum {
     OutlineCellViewTagHeading = 1,
@@ -108,7 +108,7 @@ void SetupOutlineCellForNode(UITableViewCell *cell, Node *node, UITableView *tab
         beforeLabel       = [[[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 300, 20)] autorelease];
         beforeLabel.tag   = OutlineCellViewTagBeforeText;
         beforeLabel.font  = [UIFont systemFontOfSize:13.0];
-        beforeLabel.textColor = [UIColor darkGrayColor];
+        beforeLabel.textColor = [UIColor mo_darkGrayColor];
         beforeLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [cell.contentView addSubview:beforeLabel];
 
@@ -126,7 +126,7 @@ void SetupOutlineCellForNode(UITableViewCell *cell, Node *node, UITableView *tab
         headingLabel      = [[[UILabel alloc] initWithFrame:CGRectMake(x, yOffset, 300, 20)] autorelease];
         headingLabel.tag  = OutlineCellViewTagHeading;
         headingLabel.font = [UIFont boldSystemFontOfSize:15.0];
-        headingLabel.textColor = [UIColor blackColor];
+        headingLabel.textColor = [UIColor mo_textColor];
         headingLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [cell.contentView addSubview:headingLabel];
     }
@@ -138,7 +138,7 @@ void SetupOutlineCellForNode(UITableViewCell *cell, Node *node, UITableView *tab
         priorityLabel      = [[[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 30, 20)] autorelease];
         priorityLabel.tag  = OutlineCellViewTagPriority;
         priorityLabel.font = [UIFont systemFontOfSize:13.0];
-        priorityLabel.textColor = [UIColor lightGrayColor];
+        priorityLabel.textColor = [UIColor mo_secondaryTextColor];
         [cell.contentView addSubview:priorityLabel];
     }
 
@@ -153,15 +153,14 @@ void SetupOutlineCellForNode(UITableViewCell *cell, Node *node, UITableView *tab
 
             if (hasTodoState) {
                 RoundedLabel *todoStateLabel;
-                todoStateLabel       = [[[RoundedLabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 83, 20)] autorelease];
+                todoStateLabel       = [[[RoundedLabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 83, 16)] autorelease];
                 todoStateLabel.tag   = OutlineCellViewTagTodoState;
-                todoStateLabel.backgroundColor = [UIColor whiteColor];
-                todoStateLabel.color = [UIColor colorWithRed:0.65 green:0 blue:0 alpha:1];
+                todoStateLabel.backgroundColor = [UIColor mo_redColor];
 
                 if ([[targetNode todoState] length] > 0) {
                     todoStateLabel.text = [node todoState];
                     if ([[Settings instance] isDoneState:[targetNode todoState]])
-                        todoStateLabel.color = [UIColor colorWithRed:0.25 green:0.65 blue:0 alpha:1];
+                        todoStateLabel.backgroundColor = [UIColor mo_greenColor];
                 }
 
                 [cell.contentView addSubview:todoStateLabel];
@@ -172,7 +171,7 @@ void SetupOutlineCellForNode(UITableViewCell *cell, Node *node, UITableView *tab
                 tagLabel      = [[[UILabel alloc] initWithFrame:CGRectMake(100, yOffset+1, 220, 15)] autorelease];
                 tagLabel.tag  = OutlineCellViewTagTags;
                 tagLabel.font = [UIFont boldSystemFontOfSize:10.0];
-                tagLabel.textColor = [UIColor colorWithRed:0.5 green:0.58 blue:0.682 alpha:1.0];
+                tagLabel.textColor = [UIColor mo_tertiaryTextColor];
                 tagLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
                 [cell.contentView addSubview:tagLabel];
             }
@@ -188,7 +187,7 @@ void SetupOutlineCellForNode(UITableViewCell *cell, Node *node, UITableView *tab
         bodySummaryLabel      = [[[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 300, 15)] autorelease];
         bodySummaryLabel.tag  = OutlineCellViewTagBodySummary;
         bodySummaryLabel.font = [UIFont systemFontOfSize:13.0];
-        bodySummaryLabel.textColor = [UIColor darkGrayColor];
+        bodySummaryLabel.textColor = [UIColor mo_secondaryTextColor];
         bodySummaryLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [cell.contentView addSubview:bodySummaryLabel];
     }

@@ -26,6 +26,7 @@
 #import "DataUtils.h"
 #import "LocalEditAction.h"
 #import "GlobalUtils.h"
+#import "MobileOrg-Swift.h"
 
 @implementation TagEditController
 
@@ -208,7 +209,7 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
         if ([node hasInheritedTag:tag]) {
             [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
-            [[cell textLabel] setTextColor:[UIColor lightGrayColor]];
+            [[cell textLabel] setTextColor:[UIColor mo_lightGrayColor]];
         } else if ([node hasTag:tag]) {
             [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
         }

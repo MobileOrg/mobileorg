@@ -145,10 +145,10 @@ class SyncSettingsController: UITableViewController {
           
           if (DropboxTransferManager.instance.isLinked()) {
             cell.textLabel?.text = "Unlink from Dropbox"
-            cell.textLabel?.textColor = UIColor.red
+            cell.textLabel?.textColor = .mo_red
           } else {
             cell.textLabel?.text = "Link to Dropbox"
-            cell.textLabel?.textColor = UIColor.green
+            cell.textLabel?.textColor = .mo_green
           }
           return cell
         }

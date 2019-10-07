@@ -26,6 +26,7 @@
 #import "DataUtils.h"
 #import "LocalEditAction.h"
 #import "GlobalUtils.h"
+#import "MobileOrg-Swift.h"
 
 @implementation TodoStateEditController
 
@@ -171,9 +172,9 @@
             [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
         }
         if ([cellIdentifier rangeOfString:@"IsTodo"].location != NSNotFound) {
-            [[cell textLabel] setTextColor:[UIColor colorWithRed:0.65 green:0 blue:0 alpha:1]];
+            [[cell textLabel] setTextColor:[UIColor mo_redColor]];
         } else {
-            [[cell textLabel] setTextColor:[UIColor colorWithRed:0.25 green:0.65 blue:0 alpha:1]];
+            [[cell textLabel] setTextColor:[UIColor mo_greenColor]];
         }
     }
 

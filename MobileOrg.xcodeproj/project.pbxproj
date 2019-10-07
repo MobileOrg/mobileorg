@@ -117,6 +117,7 @@
 		8322ED8A176AF1C7008B37C7 /* search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8322ED84176AF1C2008B37C7 /* search@2x.png */; };
 		8322ED8B176AF1C7008B37C7 /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8322ED85176AF1C4008B37C7 /* settings@2x.png */; };
 		8322ED8C176AF1C7008B37C7 /* table_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8322ED86176AF1C6008B37C7 /* table_gray@2x.png */; };
+		83B1312C234AD16D0043D955 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83B1312B234AD16D0043D955 /* CloudKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -287,6 +288,7 @@
 		8322ED84176AF1C2008B37C7 /* search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search@2x.png"; sourceTree = "<group>"; };
 		8322ED85176AF1C4008B37C7 /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
 		8322ED86176AF1C6008B37C7 /* table_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "table_gray@2x.png"; sourceTree = "<group>"; };
+		83B1312B234AD16D0043D955 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		83BCC85D203E92C700064F22 /* MobileOrg.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = MobileOrg.entitlements; path = MobileOrg/MobileOrg.entitlements; sourceTree = "<group>"; };
 		8B262305779E2631EE21FE20 /* Pods-MobileOrg.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileOrg.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MobileOrg/Pods-MobileOrg.debug.xcconfig"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MobileOrg-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MobileOrg-Info.plist"; sourceTree = "<group>"; };
@@ -303,6 +305,7 @@
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
+				83B1312C234AD16D0043D955 /* CloudKit.framework in Frameworks */,
 				28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */,
 				793F7F6C107CB5FC00674D0A /* SystemConfiguration.framework in Frameworks */,
 				7945F61211A807FD00731598 /* Security.framework in Frameworks */,
@@ -338,7 +341,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
+		29B97314FDCFA39411CA2CEA = {
 			isa = PBXGroup;
 			children = (
 				83BCC85D203E92C700064F22 /* MobileOrg.entitlements */,
@@ -388,6 +391,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				83B1312B234AD16D0043D955 /* CloudKit.framework */,
 				747BF9801DFCBC3F00E800FB /* libicucore.tbd */,
 				18A3BBA216178BDD003D9320 /* QuartzCore.framework */,
 				7945F61111A807FD00731598 /* Security.framework */,
@@ -786,7 +790,7 @@
 				French,
 				German,
 			);
-			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
+			mainGroup = 29B97314FDCFA39411CA2CEA;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -874,7 +878,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-MobileOrg/Pods-MobileOrg-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-MobileOrg/Pods-MobileOrg-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyDropbox/SwiftyDropbox.framework",
 			);
@@ -885,7 +889,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MobileOrg/Pods-MobileOrg-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MobileOrg/Pods-MobileOrg-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		3A00323B994F9BD13A52A837 /* [CP] Check Pods Manifest.lock */ = {
@@ -1035,7 +1039,7 @@
 				INFOPLIST_FILE = "MobileOrg-Info-Debug.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mobileorg.mobileorg-Debug";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mobileorg.mobileorg-LocalDev";
 				PRODUCT_NAME = MobileOrg;
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "MobileOrg-Bridging-Header.h";
@@ -1213,6 +1217,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
@@ -1255,7 +1260,7 @@
 				INFOPLIST_FILE = "MobileOrg-Info-AdHoc.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mobileorg.mobileorg-Debug";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mobileorg.mobileorg-LocalDev";
 				PRODUCT_NAME = MobileOrg;
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "MobileOrg-Bridging-Header.h";
@@ -1287,6 +1292,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
@@ -1328,7 +1334,7 @@
 				INFOPLIST_FILE = "MobileOrg-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mobileorg.mobileorg-Debug";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mobileorg.mobileorg-LocalDev";
 				PRODUCT_NAME = MobileOrg;
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "MobileOrg-Bridging-Header.h";
@@ -1360,6 +1366,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;

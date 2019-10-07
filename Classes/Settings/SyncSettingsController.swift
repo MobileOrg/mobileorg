@@ -20,7 +20,6 @@
 //  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //
 
-
 import Foundation
 import UIKit
 
@@ -50,21 +49,21 @@ class SyncSettingsController: UITableViewController {
     return 2;
   }
   
-  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    switch section {
-    case 0: // server mode
-      return 2
-    case 1:// server settings
-      if (Settings.instance().serverMode == ServerModeDropbox) {
-        return 2
-      } else {
-        return 3
-      }
-    default:
-      break
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section {
+        case 0: // server mode
+            return 3
+        case 1: // server settings
+            switch Settings.instance().serverMode {
+            case ServerModeDropbox: return 2
+            case ServerModeWebDav: return 3
+            case ServerModeICloud: return 0
+            default: return 0
+            }
+        default:
+            return 0
+        }
     }
-    return 0
-  }
   
   override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String {
     return ""
@@ -83,24 +82,34 @@ class SyncSettingsController: UITableViewController {
     
     if indexPath.section == 0 { // first section
       
-      let cell = tableView.dequeueReusableCell(withIdentifier: "ServiceCell", for: indexPath) as UITableViewCell
-      
-      if indexPath.row == 0 { // first row - dropbox
-        cell.textLabel?.text = "Dropbox"
-        if Settings.instance().serverMode == ServerModeDropbox {
-          cell.accessoryType = .checkmark
-        } else {
-          cell.accessoryType = .none
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ServiceCell", for: indexPath) as UITableViewCell
+
+        switch indexPath.row {
+        case 0: // Dropbox
+            cell.textLabel?.text = "Dropbox"
+            if Settings.instance().serverMode == ServerModeDropbox {
+                cell.accessoryType = .checkmark
+            } else {
+                cell.accessoryType = .none
+            }
+        case 1: // WebDAV
+            cell.textLabel?.text = "WebDAV"
+            if Settings.instance().serverMode == ServerModeWebDav {
+                cell.accessoryType = .checkmark
+            } else {
+                cell.accessoryType = .none
+            }
+        case 2: // iCloud
+            cell.textLabel?.text = "iCloud"
+            if Settings.instance().serverMode == ServerModeICloud {
+                cell.accessoryType = .checkmark
+            } else {
+                cell.accessoryType = .none
+            }
+        default:
+            fatalError("Unexpected row index: \(indexPath.row)")
         }
-      } else { // second row - webdav
-        cell.textLabel?.text = "WebDAV"
-        if Settings.instance().serverMode == ServerModeWebDav {
-          cell.accessoryType = .checkmark
-        } else {
-          cell.accessoryType = .none
-        }
-      }
-      return cell
+        return cell
       
     } else { // second section
 
@@ -156,31 +165,29 @@ class SyncSettingsController: UITableViewController {
     }
   }
   
-  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    
-    if indexPath.section == 0 { // server mode
-      
-      if indexPath.row == 0 { // dropbox
-        Settings.instance().serverMode = ServerModeDropbox
-      } else { // webdav
-        Settings.instance().serverMode = ServerModeWebDav
-      }
-      self.tableView.reloadData()
-      self.tableView.setNeedsDisplay()
-
-    } else if (indexPath.section == 1 && Settings.instance().serverMode == ServerModeDropbox) { // server settings - dropbox mode
-      
-      if indexPath.row == 1 { // dropbox button
-        
-        if DropboxTransferManager.instance.isLinked() {
-          DropboxTransferManager.instance.unlink()
-          self.tableView.reloadRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
-        } else {
-          DropboxTransferManager.instance.login(self)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 { // server mode
+            Settings.instance().serverMode = {
+                switch indexPath.row {
+                case 0: return ServerModeDropbox
+                case 1: return ServerModeWebDav
+                case 2: return ServerModeICloud
+                default: fatalError("Unexpected row selected: \(indexPath.row)")
+                }
+            }()
+            self.tableView.reloadData()
+            self.tableView.setNeedsDisplay()
+        } else if (indexPath.section == 1 && Settings.instance().serverMode == ServerModeDropbox) { // server settings - dropbox mode
+            if indexPath.row == 1 { // dropbox button
+                if DropboxTransferManager.instance.isLinked() {
+                    DropboxTransferManager.instance.unlink()
+                    self.tableView.reloadRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+                } else {
+                    DropboxTransferManager.instance.login(self)
+                }
+            }
         }
-      }
     }
-  }
   
   @objc func serverUrlChanged(sender: UITextField) {
     

@@ -31,7 +31,8 @@ typedef enum {
 typedef enum {
     ServerModeUnknown = 0,
     ServerModeWebDav,
-    ServerModeDropbox
+    ServerModeDropbox,
+    ServerModeICloud
 } ServerMode;
 
 typedef enum {

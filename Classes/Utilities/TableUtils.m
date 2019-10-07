@@ -22,7 +22,6 @@
 
 #import "TableUtils.h"
 #import "Node.h"
-#import "RoundedLabel.h"
 #import "Settings.h"
 #import "DataUtils.h"
 #import "MobileOrg-Swift.h"
@@ -139,7 +138,7 @@ void SetupOutlineCellForNode(UITableViewCell *cell, Node *node, UITableView *tab
         priorityLabel      = [[[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 30, 20)] autorelease];
         priorityLabel.tag  = OutlineCellViewTagPriority;
         priorityLabel.font = [UIFont systemFontOfSize:13.0];
-        priorityLabel.textColor = [UIColor mo_lightGrayColor];
+        priorityLabel.textColor = [UIColor mo_secondaryTextColor];
         [cell.contentView addSubview:priorityLabel];
     }
 
@@ -154,15 +153,14 @@ void SetupOutlineCellForNode(UITableViewCell *cell, Node *node, UITableView *tab
 
             if (hasTodoState) {
                 RoundedLabel *todoStateLabel;
-                todoStateLabel       = [[[RoundedLabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 83, 20)] autorelease];
+                todoStateLabel       = [[[RoundedLabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 83, 16)] autorelease];
                 todoStateLabel.tag   = OutlineCellViewTagTodoState;
-                todoStateLabel.backgroundColor = [UIColor mo_backgroundColor];
-                todoStateLabel.color = [UIColor mo_redColor];
+                todoStateLabel.backgroundColor = [UIColor mo_redColor];
 
                 if ([[targetNode todoState] length] > 0) {
                     todoStateLabel.text = [node todoState];
                     if ([[Settings instance] isDoneState:[targetNode todoState]])
-                        todoStateLabel.color = [UIColor mo_greenColor];
+                        todoStateLabel.backgroundColor = [UIColor mo_greenColor];
                 }
 
                 [cell.contentView addSubview:todoStateLabel];

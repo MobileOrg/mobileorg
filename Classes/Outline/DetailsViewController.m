@@ -358,7 +358,7 @@ typedef enum {
                     if (cell == nil) {
                         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
                         [[cell textLabel] setFont:[UIFont italicSystemFontOfSize:13.0]];
-                        [[cell textLabel] setTextColor:[UIColor grayColor]];
+                        [[cell textLabel] setTextColor:[UIColor mo_grayColor]];
                     } else {
 
                     }
@@ -400,7 +400,7 @@ typedef enum {
                     [[cell detailTextLabel] setText:[editTarget todoState]];
                 } else {
                     [[cell detailTextLabel] setText:@"None"];
-                    [[cell detailTextLabel] setTextColor:[UIColor grayColor]];
+                    [[cell detailTextLabel] setTextColor:[UIColor mo_grayColor]];
                     [[cell detailTextLabel] setFont:[UIFont italicSystemFontOfSize:13.0]];
                 }
             } else if ([indexPath row] == DetailsViewPropertiesPriority) {
@@ -409,7 +409,7 @@ typedef enum {
                     [[cell detailTextLabel] setText:[editTarget priority]];
                 } else {
                     [[cell detailTextLabel] setText:@"None"];
-                    [[cell detailTextLabel] setTextColor:[UIColor grayColor]];
+                    [[cell detailTextLabel] setTextColor:[UIColor mo_grayColor]];
                     [[cell detailTextLabel] setFont:[UIFont italicSystemFontOfSize:13.0]];
                 }
             } else if ([indexPath row] == DetailsViewPropertiesTags) {
@@ -418,7 +418,7 @@ typedef enum {
                     [[cell detailTextLabel] setText:[editTarget tagsForDisplay]];
                 } else {
                     [[cell detailTextLabel] setText:@"None"];
-                    [[cell detailTextLabel] setTextColor:[UIColor grayColor]];
+                    [[cell detailTextLabel] setTextColor:[UIColor mo_grayColor]];
                     [[cell detailTextLabel] setFont:[UIFont italicSystemFontOfSize:13.0]];
                 }
             }
@@ -448,7 +448,7 @@ typedef enum {
             }
 
             [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
-            [cell.textLabel setTextColor:[UIColor colorWithRed:0.243 green:0.306 blue:0.435 alpha:1.0]];
+            [cell.textLabel setTextColor:[UIColor mo_tertiaryTextColor]];
 
             return cell;
         }

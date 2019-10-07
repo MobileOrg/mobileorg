@@ -238,10 +238,6 @@
     }
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return YES;
-}
-
 - (BOOL)shouldAutorotate {
     return YES;
 }
@@ -252,9 +248,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-}
-
-- (void)viewDidUnload {
 }
 
 - (void)dealloc {

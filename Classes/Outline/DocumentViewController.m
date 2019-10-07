@@ -176,10 +176,6 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
     [timer release];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return YES;
-}
-
 - (BOOL)shouldAutorotate {
     return YES;
 }
@@ -194,13 +190,6 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
     [super didReceiveMemoryWarning];
 
     // Release any cached data, images, etc that aren't in use.
-}
-
-- (void)viewDidUnload {
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-
-    [webView release];
 }
 
 - (void)dealloc {

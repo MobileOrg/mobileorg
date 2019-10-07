@@ -55,11 +55,12 @@ class SettingsController: UITableViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    
-    if(Settings.instance().serverMode == ServerModeDropbox) {
-      self.syncDetailLabel.text = "DropBox"
-    } else {
-      self.syncDetailLabel.text = "WebDAV"
+
+    switch Settings.instance().serverMode {
+    case ServerModeDropbox: self.syncDetailLabel.text = "DropBox"
+    case ServerModeWebDav: self.syncDetailLabel.text = "WebDAV"
+    case ServerModeICloud: self.syncDetailLabel.text = "iCloud"
+    default: fatalError("Unexpected server mode: \(Settings.instance().serverMode)")
     }
     
     if let lastSync = Settings.instance().lastSync {

@@ -276,9 +276,6 @@ typedef enum {
     [super didReceiveMemoryWarning];
 }
 
-- (void)viewDidUnload {
-}
-
 #pragma mark Table view methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

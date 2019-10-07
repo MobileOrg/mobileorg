@@ -21,6 +21,7 @@
 //
 
 #import "RoundedLabel.h"
+#import "MobileOrg-Swift.h"
 
 @implementation RoundedLabel
 
@@ -30,12 +31,12 @@
     if (self = [super initWithFrame:frame]) {
         label      = [[[UILabel alloc] init] autorelease];
         label.font = [UIFont boldSystemFontOfSize:10.0];
-        label.textColor = [UIColor whiteColor];
-        label.backgroundColor = [UIColor colorWithRed:0.52 green:0 blue:0 alpha:1];
+        label.textColor = [UIColor mo_whiteColor];
+        label.backgroundColor = [UIColor mo_redColor];
         [self addSubview:label];
 
-        [self setColor:[UIColor blueColor]];
-        [self setBackgroundColor:[UIColor whiteColor]];
+        [self setColor:[UIColor mo_blueColor]];
+        [self setBackgroundColor:[UIColor mo_whiteColor]];
     }
     return self;
 }

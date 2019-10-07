@@ -22,6 +22,7 @@
 
 #import "StatusViewController.h"
 #import "GlobalUtils.h"
+#import "MobileOrg-Swift.h"
 
 static StatusViewController *gInstance = NULL;
 
@@ -95,7 +96,7 @@ static StatusViewController *gInstance = NULL;
 
     lastOrientation = UIDeviceOrientationPortrait;
 
-    self.view.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.85];
+    self.view.backgroundColor = [UIColor mo_lightLightGrayColor];
 
     statusView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 220)];
     statusView.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
@@ -116,7 +117,7 @@ static StatusViewController *gInstance = NULL;
         activityLabel = [[UILabel alloc] initWithFrame:CGRectMake(-50, 0, 300, 40)];
         activityLabel.textAlignment = NSTextAlignmentCenter;
         activityLabel.font = [UIFont boldSystemFontOfSize:20.0];
-        activityLabel.textColor = [UIColor lightGrayColor];
+        activityLabel.textColor = [UIColor mo_lightGrayColor];
         activityLabel.backgroundColor = [UIColor clearColor];
         activityLabel.lineBreakMode = NSLineBreakByWordWrapping;
         activityLabel.numberOfLines = 0;
@@ -140,7 +141,7 @@ static StatusViewController *gInstance = NULL;
         actionLabel = [[UILabel alloc] initWithFrame:CGRectMake(-50, 30, 300, 40)];
         actionLabel.textAlignment = NSTextAlignmentCenter;
         actionLabel.font = [UIFont systemFontOfSize:14.0];
-        actionLabel.textColor = [UIColor lightGrayColor];
+        actionLabel.textColor = [UIColor mo_lightGrayColor];
         actionLabel.backgroundColor = [UIColor clearColor];
         actionLabel.lineBreakMode = NSLineBreakByWordWrapping;
         actionLabel.numberOfLines = 0;

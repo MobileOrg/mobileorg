@@ -25,7 +25,13 @@
 int main(int argc, char *argv[]) {
     
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-    int retVal = UIApplicationMain(argc, argv, nil, nil);
-    [pool release];
-    return retVal;
+    @try {
+        // Even though an integer return type is specified, this function never returns. 
+        int retVal = UIApplicationMain(argc, argv, nil, nil);
+        return retVal;
+    } @catch (NSException *exception) {
+        NSLog(@"%@", exception.debugDescription);
+    } @finally {
+        [pool release];
+    }
 }

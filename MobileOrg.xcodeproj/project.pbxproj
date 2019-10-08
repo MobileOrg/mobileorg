@@ -17,6 +17,7 @@
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D801B30F44B63D00FB423F /* CoreData.framework */; };
 		5420E7C9234D15F20008ADAC /* ICloudTransferManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5420E7C8234D15F20008ADAC /* ICloudTransferManager.swift */; };
+		5420E7CB234D2EA00008ADAC /* ICloudOrgDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5420E7CA234D2EA00008ADAC /* ICloudOrgDocument.swift */; };
 		54CD6301234BC02D00D485E1 /* UIColor+MobileOrg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CD6300234BC02D00D485E1 /* UIColor+MobileOrg.swift */; };
 		54CD6303234BC9A200D485E1 /* RoundedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CD6302234BC9A200D485E1 /* RoundedLabel.swift */; };
 		6CB501F01E20C3D70082FD40 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CB501EC1E20C3D70082FD40 /* Settings.storyboard */; };
@@ -145,6 +146,7 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* MobileOrg_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobileOrg_Prefix.pch; sourceTree = "<group>"; };
 		5420E7C8234D15F20008ADAC /* ICloudTransferManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudTransferManager.swift; sourceTree = "<group>"; };
+		5420E7CA234D2EA00008ADAC /* ICloudOrgDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudOrgDocument.swift; sourceTree = "<group>"; };
 		54CD6300234BC02D00D485E1 /* UIColor+MobileOrg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+MobileOrg.swift"; sourceTree = "<group>"; };
 		54CD6302234BC9A200D485E1 /* RoundedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedLabel.swift; sourceTree = "<group>"; };
 		6561B399A841A3A5958A5889 /* Pods-MobileOrg.appstore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileOrg.appstore.xcconfig"; path = "Pods/Target Support Files/Pods-MobileOrg/Pods-MobileOrg.appstore.xcconfig"; sourceTree = "<group>"; };
@@ -412,6 +414,7 @@
 			isa = PBXGroup;
 			children = (
 				5420E7C8234D15F20008ADAC /* ICloudTransferManager.swift */,
+				5420E7CA234D2EA00008ADAC /* ICloudOrgDocument.swift */,
 			);
 			name = iCloud;
 			sourceTree = "<group>";
@@ -997,6 +1000,7 @@
 				793F811F107D381A00674D0A /* SessionManager.m in Sources */,
 				793F8128107D38C900674D0A /* OutlineState.m in Sources */,
 				790B413F10814D8400A852F1 /* ActionMenuController.m in Sources */,
+				5420E7CB234D2EA00008ADAC /* ICloudOrgDocument.swift in Sources */,
 				790B417E10814FAC00A852F1 /* OutlineTableView.m in Sources */,
 				790B455610826A0900A852F1 /* PriorityEditController.m in Sources */,
 				18A3BBA716178DCD003D9320 /* Reachability.m in Sources */,

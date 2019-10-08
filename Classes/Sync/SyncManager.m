@@ -92,12 +92,16 @@ static SyncManager *gInstance = NULL;
 }
 
 - (TransferManager*)transferManager {
-    if ([[Settings instance] serverMode] == ServerModeWebDav) {
-        return (TransferManager *)[WebDavTransferManager instance];
-    } else if ([[Settings instance] serverMode] == ServerModeDropbox) {
-        return (TransferManager *)[DropboxTransferManager instance];
+    switch ([[Settings instance] serverMode]) {
+        case ServerModeWebDav:
+            return (TransferManager *)[WebDavTransferManager instance];
+        case ServerModeDropbox:
+            return (TransferManager *)[DropboxTransferManager instance];
+        case ServerModeICloud:
+            return (TransferManager *)[ICloudTransferManager instance];
+        case ServerModeUnknown:
+            return nil;
     }
-    return nil;
 }
 
 // Sync process:

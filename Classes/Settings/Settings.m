@@ -355,22 +355,25 @@ static NSString *kEncryptionPassKey  = @"EncryptionPassword";
 }
 
 - (bool)isConfiguredProperly {
-    if (self.serverMode == ServerModeWebDav) {
-        NSString *indexUrlStr = [indexUrl absoluteString];
-        if (indexUrl && [indexUrlStr length] > 0) {
-            if ([indexUrlStr rangeOfRegex:@"http[s]?://.*\\.(?:org|txt)"].location == 0) {
+    switch (self.serverMode) {
+        case ServerModeWebDav: {
+            NSString *indexUrlStr = [indexUrl absoluteString];
+            if (indexUrl && [indexUrlStr length] > 0 && [indexUrlStr rangeOfRegex:@"http[s]?://.*\\.(?:org|txt)"].location == 0) {
                 return true;
             }
-        }
-        return false;
-    } else if (self.serverMode == ServerModeDropbox) {
-        if ([self.dropboxIndex compare:@""] != NSOrderedSame && [[DropboxTransferManager instance] isLinked]) {
-            return true;
-        } else {
             return false;
         }
-    } else {
-        return false;
+        case ServerModeDropbox: {
+            if ([self.dropboxIndex compare:@""] != NSOrderedSame && [[DropboxTransferManager instance] isLinked]) {
+                return true;
+            }
+            return false;
+        }
+        case ServerModeICloud: {
+            return [[ICloudTransferManager instance] isAvailable];
+        }
+        case ServerModeUnknown:
+            return false;
     }
 }
 

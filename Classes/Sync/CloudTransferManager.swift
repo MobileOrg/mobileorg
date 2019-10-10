@@ -116,11 +116,24 @@ final class CloudTransferManager: NSObject {
         guard let localURL = transfer.localFile.removingPercentEncoding else {
             fatalError("Cannot create local URL from \(String(describing: transfer.localFile))")
         }
+        let processFileOperationResult: FileOperationCompletion = { result in
+            switch result {
+            case .success(_):
+                transfer.success = true
+            case .failure(let error):
+                transfer.errorText = error.localizedDescription
+                transfer.success = false
+            }
+            SyncManager.instance()?.progressTotal = 100
+            SyncManager.instance()?.progressCurrent = 100
+            SyncManager.instance()?.updateStatus()
+            self.requestFinished(transfer)
+        }
         switch transfer.transferType {
         case TransferTypeDownload:
-            self.downloadFile(from: remoteURL, to: localURL)
+            self.downloadFile(from: remoteURL, to: localURL, completionHandler: processFileOperationResult)
         case TransferTypeUpload:
-            self.uploadFile(to: remoteURL, from: localURL)
+            self.uploadFile(to: remoteURL, from: localURL, completionHandler: processFileOperationResult)
         default:
             fatalError("Unsupported transfer type: \(transfer.transferType)")
         }
@@ -140,51 +153,35 @@ final class CloudTransferManager: NSObject {
 
     // MARK: Upload & download
 
-    private func uploadFile(to: String, from: String) {
-        guard let activeTransfer = self.activeTransfer else {
-            fatalError("The active transfer is expected but does not exist.")
-        }
-        defer { self.requestFinished(activeTransfer) }
+    typealias FileOperationResult = Result<Any?, Error>
+    typealias FileOperationCompletion = (FileOperationResult) -> Void
 
-        do {
-            assert(FileManager.default.fileExists(atPath: from))
-            assert(FileManager.default.isReadableFile(atPath: from))
-            // FIXME: move to the background thread
-            if FileManager.default.fileExists(atPath: to) {
-                try FileManager.default.removeItem(atPath: to)
+    private func uploadFile(to: String, from: String, completionHandler: @escaping FileOperationCompletion) {
+        DispatchQueue.global().async {
+            do {
+                assert(FileManager.default.fileExists(atPath: from))
+                assert(FileManager.default.isReadableFile(atPath: from))
+                if FileManager.default.fileExists(atPath: to) { try FileManager.default.removeItem(atPath: to) }
+                try FileManager.default.copyItem(atPath: from, toPath: to)
+            } catch {
+                print(error.localizedDescription)
+                DispatchQueue.main.async { completionHandler(.failure(error)) }
             }
-            try FileManager.default.copyItem(atPath: from, toPath: to)
-        } catch {
-            activeTransfer.success = false
-            activeTransfer.errorText = error.localizedDescription
-            print(error.localizedDescription)
+            DispatchQueue.main.async { completionHandler(.success(nil)) }
         }
-
-        SyncManager.instance()?.progressTotal = 100
-        SyncManager.instance()?.progressCurrent = 100
-        SyncManager.instance()?.updateStatus()
-        activeTransfer.success = true
     }
 
-    private func downloadFile(from: String, to: String) {
-        guard let activeTransfer = self.activeTransfer else {
-            fatalError("The active transfer is expected but does not exist.")
+    private func downloadFile(from: String, to: String, completionHandler: @escaping FileOperationCompletion) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            do {
+                if FileManager.default.fileExists(atPath: to) { try FileManager.default.removeItem(atPath: to) }
+                try FileManager.default.copyItem(atPath: from, toPath: to)
+            } catch {
+                print(error.localizedDescription)
+                DispatchQueue.main.async { completionHandler(.failure(error)) }
+            }
+            DispatchQueue.main.async { completionHandler(.success(nil)) }
         }
-        defer { self.requestFinished(activeTransfer) }
-
-        do {
-            // FIXME: move to the background thread
-            try FileManager.default.copyItem(atPath: from, toPath: to)
-        } catch {
-            activeTransfer.success = false
-            activeTransfer.errorText = error.localizedDescription
-            print(error.localizedDescription)
-        }
-
-        SyncManager.instance()?.progressTotal = 100
-        SyncManager.instance()?.progressCurrent = 100
-        SyncManager.instance()?.updateStatus()
-        activeTransfer.success = true
     }
 
 }

@@ -106,6 +106,7 @@ final class CloudTransferManager: NSObject {
         self.activeTransfer = transfer
         guard self.containerURL != nil else {
             transfer.errorText = "Cannot reach iCloud storage.";
+            transfer.statusCode = 503
             transfer.success = false
             self.requestFinished(transfer)
             return
@@ -128,6 +129,7 @@ final class CloudTransferManager: NSObject {
                 transfer.success = true
             case .failure(let error):
                 transfer.errorText = error.localizedDescription
+                transfer.statusCode = 404
                 transfer.success = false
             }
             SyncManager.instance()?.progressTotal = 100

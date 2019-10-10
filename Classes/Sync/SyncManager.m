@@ -768,11 +768,11 @@ static SyncManager *gInstance = NULL;
 
     switch ([context statusCode] ) {
         case NSURLErrorAppTransportSecurityRequiresSecureConnection:
-            [self showAlert:@"ATS Error" withText:@"A secure connection could not be established.\nPlease make sure that you're using a secure connection"];
+            [UIAlertController show:@"ATS Error" message:@"A secure connection could not be established.\nPlease make sure that you're using a secure connection"];
             [self abort];
             return;
       case NSURLErrorSecureConnectionFailed:
-        [self showAlert:@"ATS Error" withText:@"A secure connection could not be established.\nPlease make sure that you're using a secure connection with valid certificates"];
+        [UIAlertController show:@"ATS Error" message:@"A secure connection could not be established.\nPlease make sure that you're using a secure connection with valid certificates"];
         [self abort];
         return;
 
@@ -783,7 +783,7 @@ static SyncManager *gInstance = NULL;
             if ([context statusCode] == 404) {
                 [self uploadEmptyEditsFile];
             } else {
-                [self showAlert:@"Error syncing changes" withText:[NSString stringWithFormat:@"An error was encountered while attempting to fetch mobileorg.org from the server.  The error was:\n\n%@", [context errorText]]];
+                [UIAlertController show:@"Error syncing changes" message:[NSString stringWithFormat:@"An error was encountered while attempting to fetch mobileorg.org from the server.  The error was:\n\n%@", [context errorText]]];
 
                 [self abort];
             }
@@ -792,7 +792,7 @@ static SyncManager *gInstance = NULL;
         case SyncManagerTransferStateUploadingEmptyEditsFile:
         {
             // Abort.. we tried to make the mobileorg.org file and couldn't
-            [self showAlert:@"Error creating mobileorg.org" withText:[NSString stringWithFormat:@"An error was encountered while attempting to create mobileorg.org on the server.  The error was:\n\n%@", [context errorText]]];
+            [UIAlertController show:@"Error creating mobileorg.org" message:[NSString stringWithFormat:@"An error was encountered while attempting to create mobileorg.org on the server.  The error was:\n\n%@", [context errorText]]];
 
             [self abort];
 
@@ -802,7 +802,7 @@ static SyncManager *gInstance = NULL;
         case SyncManagerTransferStateUploadingLocalChanges:
         {
             // Abort.. we couldn't upload local changes
-            [self showAlert:@"Error uploading mobileorg.org" withText:[NSString stringWithFormat:@"An error was encountered while attempting to upload mobileorg.org to the server.  The error was:\n\n%@", [context errorText]]];
+            [UIAlertController show:@"Error uploading mobileorg.org" message:[NSString stringWithFormat:@"An error was encountered while attempting to upload mobileorg.org to the server.  The error was:\n\n%@", [context errorText]]];
 
             [self abort];
 
@@ -818,7 +818,7 @@ static SyncManager *gInstance = NULL;
             } else {
                 DeleteFile([context localFile]);
 
-                [self showAlert:@"Error downloading checksums" withText:[NSString stringWithFormat:@"An error was encountered while downloading checksums.dat from the server.  This file isn't required, but the error received was unusual.  The error was:\n\n%@", [context errorText]]];
+                [UIAlertController show:@"Error downloading checksums" message:[NSString stringWithFormat:@"An error was encountered while downloading checksums.dat from the server.  This file isn't required, but the error received was unusual.  The error was:\n\n%@", [context errorText]]];
 
                 [self abort];
             }
@@ -828,7 +828,7 @@ static SyncManager *gInstance = NULL;
             // Only abort if we were downloading the index org file
             if ([[context.remoteUrl absoluteString] isEqualToString:[[[Settings instance] indexUrl] absoluteString]]) {
 
-              [self showAlert:@"Error downloading Org-file" withText:[NSString stringWithFormat:@"An error was encountered while attempting to download %@ from the server.  The error was:\n\n%@", [[context remoteUrl] path], [context errorText]]];
+              [UIAlertController show:@"Error downloading Org-file" message:[NSString stringWithFormat:@"An error was encountered while attempting to download %@ from the server.  The error was:\n\n%@", [[context remoteUrl] path], [context errorText]]];
 
                 [self abort];
 
@@ -853,24 +853,6 @@ static SyncManager *gInstance = NULL;
         [[StatusViewController instance] progressBar].hidden = YES;
     }
     [[StatusViewController instance] setActionMessage:transferFilename];
-}
-
-
-- (void)showAlert:(NSString*)alertTitle withText:(NSString*)alertMessage {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:alertTitle message:alertMessage preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-    [alertController addAction:ok];
-    
-    id rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
-    if ([rootViewController isKindOfClass:[UINavigationController class]]) {
-        rootViewController = ((UINavigationController *)rootViewController).viewControllers.firstObject;
-    }
-    if ([rootViewController isKindOfClass:[UITabBarController class]]) {
-        rootViewController = ((UITabBarController *)rootViewController).selectedViewController;
-    }
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [rootViewController presentViewController:alertController animated:YES completion:nil];
-    });
 }
 
 - (void)dealloc {

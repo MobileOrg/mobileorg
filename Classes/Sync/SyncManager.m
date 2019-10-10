@@ -98,7 +98,7 @@ static SyncManager *gInstance = NULL;
         case ServerModeDropbox:
             return (TransferManager *)[DropboxTransferManager instance];
         case ServerModeICloud:
-            return (TransferManager *)[ICloudTransferManager instance];
+            return (TransferManager *)[CloudTransferManager instance];
         case ServerModeUnknown:
             return nil;
     }
@@ -745,6 +745,12 @@ static SyncManager *gInstance = NULL;
                     // Strip off the leading slash only
                     orgFilename = [[[context remoteUrl] absoluteString] substringFromIndex:1];
                     break;
+                case ServerModeICloud: {
+                    NSString *basePath = [[[[Settings instance] baseUrl] path] stringByRemovingPercentEncoding];
+                    orgFilename = [[[[context remoteUrl] path] stringByRemovingPercentEncoding] stringByReplacingOccurrencesOfString:basePath withString:@""];
+                    if ([orgFilename hasPrefix:@"/"]) { orgFilename = [orgFilename substringFromIndex:1]; }
+                    break;
+                }
                 default:
                     NSLog(@"Fix me, unsupported server mode!");
                     break;

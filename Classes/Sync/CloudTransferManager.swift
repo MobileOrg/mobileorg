@@ -35,6 +35,7 @@ final class CloudTransferManager: NSObject {
     override init() {
         super.init()
         self.obtainContainer()
+        self.askCloudStorageToSynchronizeDocuments()
     }
 
     @objc var isAvailable: Bool {
@@ -68,13 +69,18 @@ final class CloudTransferManager: NSObject {
                     return
                 }
             }
-            // Start pre-synchronization
-            do {
-                try FileManager.default.startDownloadingUbiquitousItem(at: documentURL)
-            } catch {
-                UIAlertController.show("iCloud Error", message: error.localizedDescription)
+            DispatchQueue.main.async {
+                self.containerURL = documentURL
             }
-            DispatchQueue.main.async { self.containerURL = documentURL }
+        }
+    }
+
+    private func askCloudStorageToSynchronizeDocuments() {
+        guard let documentURL = self.containerURL else { return }
+        do {
+            try FileManager.default.startDownloadingUbiquitousItem(at: documentURL)
+        } catch {
+            UIAlertController.show("iCloud Error", message: error.localizedDescription)
         }
     }
 
@@ -156,6 +162,10 @@ final class CloudTransferManager: NSObject {
     typealias FileOperationResult = Result<Any?, Error>
     typealias FileOperationCompletion = (FileOperationResult) -> Void
 
+    /// Upload the file to iCloud storage.
+    /// - Parameter to: The destination as an absolute path
+    /// - Parameter from: The source as an absolute path
+    /// - Parameter completionHandler: Will be executed on the main-thread. Trigger `FileOperationResult` as a result.
     private func uploadFile(to: String, from: String, completionHandler: @escaping FileOperationCompletion) {
         DispatchQueue.global().async {
             do {
@@ -171,6 +181,10 @@ final class CloudTransferManager: NSObject {
         }
     }
 
+    /// Download the file from iCloud storage.
+    /// - Parameter from: The source as an absolute path
+    /// - Parameter to: The destination as an absolute path
+    /// - Parameter completionHandler: Will be executed on the main-thread. Trigger `FileOperationResult` as a result.
     private func downloadFile(from: String, to: String, completionHandler: @escaping FileOperationCompletion) {
         DispatchQueue.global(qos: .userInitiated).async {
             do {

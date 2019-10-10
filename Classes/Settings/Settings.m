@@ -331,22 +331,28 @@ static NSString *kEncryptionPassKey  = @"EncryptionPassword";
 
 
 - (NSString*)indexFilename {
-    if (self.serverMode == ServerModeWebDav) {
-        return [[[self indexUrl] path] lastPathComponent];
-    } else if (self.serverMode == ServerModeDropbox) {
-        return self.dropboxIndex;
-    } else {
-        return nil;
+    switch (self.serverMode) {
+        case ServerModeWebDav:
+            return [[[self indexUrl] path] lastPathComponent];
+        case ServerModeDropbox:
+            return self.dropboxIndex;
+        case ServerModeICloud:
+            return [[CloudTransferManager instance] indexFilename];
+        case ServerModeUnknown:
+            return nil;
     }
 }
 
 - (NSURL*)baseUrl {
-    if (self.serverMode == ServerModeWebDav) {
-        return [NSURL URLWithString:[[[self indexUrl] absoluteString] stringByReplacingOccurrencesOfString:[self indexFilename] withString:@""]];
-    } else if (self.serverMode == ServerModeDropbox) {
-        return [NSURL URLWithString:@"/"];
-    } else {
-        return nil;
+    switch (self.serverMode) {
+        case ServerModeWebDav:
+            return [NSURL URLWithString:[[[self indexUrl] absoluteString] stringByReplacingOccurrencesOfString:[self indexFilename] withString:@""]];
+        case ServerModeDropbox:
+            return [NSURL URLWithString:@"/"];
+        case ServerModeICloud:
+            return [[CloudTransferManager instance] iCloudStorageDocumentsURL];
+        case ServerModeUnknown:
+            return nil;
     }
 }
 
@@ -370,7 +376,7 @@ static NSString *kEncryptionPassKey  = @"EncryptionPassword";
             return false;
         }
         case ServerModeICloud: {
-            return [[ICloudTransferManager instance] isAvailable];
+            return [[CloudTransferManager instance] isAvailable];
         }
         case ServerModeUnknown:
             return false;

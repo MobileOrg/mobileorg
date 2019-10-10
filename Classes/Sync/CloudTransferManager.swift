@@ -38,7 +38,6 @@ final class CloudTransferManager: NSObject {
     }
 
     @objc var isAvailable: Bool {
-        // FIXME: handle the case and show a warning that iCloud is not available
         return self.ubiquityIdentityToken != nil
     }
 
@@ -53,6 +52,8 @@ final class CloudTransferManager: NSObject {
     // We populate it in the init but the execution is asynchronous, can be nil if you are too fast
     private var containerURL: URL?
 
+    // This function is called during the initalization of the class
+    // No fatalErrors here, please, or it will be impossible to run an application to access the data
     private func obtainContainer() {
         guard self.containerURL == nil else { return }
         DispatchQueue.global().async {
@@ -63,16 +64,15 @@ final class CloudTransferManager: NSObject {
                 do {
                     try FileManager.default.createDirectory(at: documentURL, withIntermediateDirectories: true, attributes: nil)
                 } catch {
-                    // FIXME: propagate to the global manager and switch to os_log
-                    fatalError(error.localizedDescription)
+                    UIAlertController.show("iCloud Error", message: error.localizedDescription)
+                    return
                 }
             }
             // Start pre-synchronization
-            // FIXME: the logic has to be flexible, let's resync time-to-time in the automatic mode
             do {
                 try FileManager.default.startDownloadingUbiquitousItem(at: documentURL)
             } catch {
-                fatalError("Unable to start pre-sync: \(error).")
+                UIAlertController.show("iCloud Error", message: error.localizedDescription)
             }
             DispatchQueue.main.async { self.containerURL = documentURL }
         }
@@ -128,8 +128,11 @@ final class CloudTransferManager: NSObject {
 
     private func requestFinished(_ transfer: TransferContext) {
         if !transfer.success && transfer.abortOnFailure { self.transfers.removeAll() }
-        if transfer.success { transfer.delegate.transferComplete?(transfer) }
-        else { transfer.delegate.transferFailed?(transfer) }
+        if transfer.success {
+            transfer.delegate.transferComplete?(transfer)
+        } else {
+            transfer.delegate.transferFailed?(transfer)
+        }
         self.active = false
         self.activeTransfer = nil
         self.dispatchNextTransfer()

@@ -9,7 +9,7 @@
   and sync the next time you have connectivity.
 
 * MobileOrg feature overview
- - Support for Dropbox or WebDAV as a transfer mechanism
+ - Support for Dropbox, WebDAV and iCloud as a transfer mechanism
  - Org files are stored offline and available anywhere
  - Complete editing support, including editable headings, body text, todo
    state, tags and priority.
@@ -69,6 +69,12 @@
 
   To set up the WebDAV server for manual tests, please take the Test's pre-action
   script as a starting point.
+
+*** iCloud tests
+
+  You have to log in into iCloud account on the simulator to be able to run unit-tests.
+  Otherwise, the test run skips iCloud unit-tests with a warning in the console.
+
 
 ** Pull Requests
    Pull requests for bug fixes, features or anything else are gladly

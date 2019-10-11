@@ -1063,7 +1063,7 @@
 				CODE_SIGN_ENTITLEMENTS = MobileOrg/MobileOrg.entitlements;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 30;
-				DEVELOPMENT_TEAM = JNXMP9L64V;
+				DEVELOPMENT_TEAM = 59B7VFRF7R;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -1077,7 +1077,7 @@
 				INFOPLIST_FILE = "MobileOrg-Info-Debug.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "net.justsitandgrin.mobileorg-LocalDev";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mobileorg.mobileorg-LocalDev";
 				PRODUCT_NAME = MobileOrg;
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "MobileOrg-Bridging-Header.h";
@@ -1286,7 +1286,7 @@
 				CODE_SIGN_ENTITLEMENTS = MobileOrg/MobileOrg.entitlements;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 30;
-				DEVELOPMENT_TEAM = JNXMP9L64V;
+				DEVELOPMENT_TEAM = 59B7VFRF7R;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -1298,7 +1298,7 @@
 				INFOPLIST_FILE = "MobileOrg-Info-AdHoc.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "net.justsitandgrin.mobileorg-LocalDev";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mobileorg.mobileorg-LocalDev";
 				PRODUCT_NAME = MobileOrg;
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "MobileOrg-Bridging-Header.h";
@@ -1360,7 +1360,7 @@
 				CODE_SIGN_ENTITLEMENTS = MobileOrg/MobileOrg.entitlements;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 30;
-				DEVELOPMENT_TEAM = JNXMP9L64V;
+				DEVELOPMENT_TEAM = 59B7VFRF7R;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -1372,7 +1372,7 @@
 				INFOPLIST_FILE = "MobileOrg-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "net.justsitandgrin.mobileorg-LocalDev";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mobileorg.mobileorg-LocalDev";
 				PRODUCT_NAME = MobileOrg;
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "MobileOrg-Bridging-Header.h";

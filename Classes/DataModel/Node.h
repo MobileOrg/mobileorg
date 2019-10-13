@@ -68,6 +68,11 @@
 - (NSString*)ownerFile;
 - (NSString*)bestDoneState;
 
+- (NSString *)scheduled;
+- (NSDate *)scheduledDate;
+- (NSString *)deadline;
+- (NSDate *)deadlineDate;
+
 @end
 
 

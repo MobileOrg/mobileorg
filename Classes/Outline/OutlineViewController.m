@@ -33,6 +33,7 @@
 #import "DocumentViewController.h"
 #import "ActionMenuController.h"
 #import "OutlineTableView.h"
+#import "MobileOrg-Swift.h"
 
 //
 // Private interface
@@ -326,7 +327,12 @@
 }
 
 - (void)loadView {
-    self.tableView = [[OutlineTableView alloc] init];
+    self.tableView = ^OutlineTableView* {
+        OutlineTableView *outlineTableView = [[OutlineTableView alloc] init];
+        outlineTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        [outlineTableView registerClass:[OutlineCell class] forCellReuseIdentifier:[OutlineCell reuseIdentifier]];
+        return outlineTableView;
+    }();
     OutlineTableView *v = (OutlineTableView*)self.tableView;
     [v setController:self];
 }
@@ -339,8 +345,7 @@
     view.frame = CGRectMake(x, y, viewRect.size.width, viewRect.size.height);
 }
 
-- (void)refreshTableWithNotification:(NSNotification *)notification
-{
+- (void)refreshTableWithNotification:(NSNotification *)notification {
   [self refreshData];
 }
 
@@ -463,32 +468,36 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    Node *node = ^Node *{
+        Node *localNode = [[self nodes] objectAtIndex:[indexPath row]];
+        // Get a reference to the original node. This is necessary for agenda views.
+        if (localNode.referencedNodeId && [localNode.referencedNodeId length] > 0) {
+            Node *resolvedNode = ResolveNode(localNode.referencedNodeId);
+            if (resolvedNode) { return resolvedNode; }
+        }
+        return localNode;
+    }();
 
-    NSString *cellIdentifier;
-    Node *node;
-    UITableViewCell *cell;
+    OutlineCell *cell = [tableView dequeueReusableCellWithIdentifier:[OutlineCell reuseIdentifier]];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
-    // Extract the node from our array
-    node = [[self nodes] objectAtIndex:[indexPath row]];
-
-    // Various node configurations have different cell identifiers for reuse
-    cellIdentifier = OutlineCellIdentifierForNode(node);
-
-    // Setup the cell using our helper methods
-    cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
-        SetupOutlineCellForNode(cell, node, tableView);
-    }
-
-    PopulateOutlineCellForNode(cell, node);
-
+    [cell updateWithTitle:node.headingForDisplay
+                     note:node.bodyForDisplay
+                   status:node.todoState
+                     done:[[Settings instance] isDoneState:[node todoState]]
+                 priority:node.priority
+                     tags:node.tags
+                scheduled:node.scheduledDate
+                 deadline:node.deadlineDate];
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    Node *node = [[self nodes] objectAtIndex:[indexPath row]];
-    return RowHeightForOutlineCellForNode(node);
+    return UITableViewAutomaticDimension;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewAutomaticDimension;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

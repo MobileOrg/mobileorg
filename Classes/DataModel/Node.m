@@ -149,7 +149,12 @@ static NSString *kUnixFileLinkRegex = @"\\[\\[file:(.*\\.(?:org|txt))\\]\\[(.*)\
             continue;  // We don't want the :END: line either.
         }
 
-        if (! inDrawer) {
+        // Ignore SCHEDULED & DEADLINE lines
+        if ([line isMatchedByRegex:@"^(\\s)*(SCHEDULED|DEADLINE)+:.*$"]) {
+            continue;
+        }
+
+        if (!inDrawer) {
             [goodLines addObject:line];
         }
     }
@@ -596,7 +601,7 @@ static NSString *kUnixFileLinkRegex = @"\\[\\[file:(.*\\.(?:org|txt))\\]\\[(.*)\
 // MARK: Scheduled & Deadline
 
 - (NSString *)scheduled {
-    NSString *bodyWithoutDrawer = [self bodyForDisplay];
+    NSString *bodyWithoutDrawer = [self body];
     NSArray *components = [bodyWithoutDrawer captureComponentsMatchedByRegex:@"SCHEDULED: <(\\d+-\\d+-\\d+ \\S+(.)*)>"];
     if ([components count] > 0) {
         return [components objectAtIndex:1];
@@ -610,7 +615,7 @@ static NSString *kUnixFileLinkRegex = @"\\[\\[file:(.*\\.(?:org|txt))\\]\\[(.*)\
 }
 
 - (NSString *)deadline {
-    NSString *bodyWithoutDrawer = [self bodyForDisplay];
+    NSString *bodyWithoutDrawer = [self body];
     NSArray *components = [bodyWithoutDrawer captureComponentsMatchedByRegex:@"DEADLINE: <(\\d+-\\d+-\\d+ \\S+)>"];
     if ([components count] > 0) {
         return [components objectAtIndex:1];

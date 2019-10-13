@@ -98,4 +98,13 @@
   XCTAssertTrue(node.isLink);
 }
 
+- (void)testScheduledAndDeadlineRemovedFromMiddleOfBodyInDisplayedBody {
+  Node *node = (Node *)[NSEntityDescription insertNewObjectForEntityForName:@"Node"
+                                                     inManagedObjectContext:context_];
+  node.body = @"foo \n DEADLINE: <2020-01-01 Tue> SCHEDULED: <2020-01-01 Sat> \n baz \n";
+
+  XCTAssertEqualObjects(@"foo \n baz", [node bodyForDisplay],
+                       @"The text outside the scheduled & deadline notes should be concatenated.", nil);
+}
+
 @end

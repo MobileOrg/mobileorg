@@ -593,4 +593,46 @@ static NSString *kUnixFileLinkRegex = @"\\[\\[file:(.*\\.(?:org|txt))\\]\\[(.*)\
     return ret;
 }
 
+// MARK: Scheduled & Deadline
+
+- (NSString *)scheduled {
+    NSString *bodyWithoutDrawer = [self bodyForDisplay];
+    NSArray *components = [bodyWithoutDrawer captureComponentsMatchedByRegex:@"SCHEDULED: <(\\d+-\\d+-\\d+ \\S+(.)*)>"];
+    if ([components count] > 0) {
+        return [components objectAtIndex:1];
+    }
+    return nil;
+}
+
+- (NSDate *)scheduledDate {
+    if (self.scheduled.length == 0 ) { return nil; }
+    return [self detectedDateInString:self.scheduled];
+}
+
+- (NSString *)deadline {
+    NSString *bodyWithoutDrawer = [self bodyForDisplay];
+    NSArray *components = [bodyWithoutDrawer captureComponentsMatchedByRegex:@"DEADLINE: <(\\d+-\\d+-\\d+ \\S+)>"];
+    if ([components count] > 0) {
+        return [components objectAtIndex:1];
+    }
+    return nil;
+}
+
+- (NSDate *)deadlineDate {
+    if (self.deadline.length == 0 ) { return nil; }
+    return [self detectedDateInString:self.deadline];
+}
+
+- (NSDate *)detectedDateInString:(NSString *)string {
+    // FIXME: allocate the detector only once and reuse to improve performance
+    NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:(NSTextCheckingTypeDate) error:nil];
+    NSArray *matches = [detector matchesInString:string options:0 range:NSMakeRange(0, string.length)];
+    for (NSTextCheckingResult *match in matches) {
+         if ([match resultType] == NSTextCheckingTypeDate) {
+             return [match date];
+         }
+    }
+    return nil;
+}
+
 @end

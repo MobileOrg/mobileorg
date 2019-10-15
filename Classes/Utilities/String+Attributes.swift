@@ -43,7 +43,7 @@ extension String {
     func asStatus(done: Bool = false) -> NSAttributedString {
         let attributes: [ NSAttributedString.Key: Any ] = [
             .font : UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .caption1).pointSize, weight: .semibold),
-            .foregroundColor: done ? UIColor.mo_tertiaryText : UIColor.mo_orange
+            .foregroundColor: done ? UIColor.mo_tertiaryText : UIColor.mo_accent
         ]
         return NSAttributedString(string: self, attributes: attributes)
     }
@@ -72,8 +72,8 @@ extension String {
         ]
         // FIXME: custom attributes for the date when overdue or coming soon
         // FIXME: replace nearby dates with human-readable versions (today, tomorrow, etc.)
-        let date = StoredPropertiesHolder._dateFormatter.string(from: date)
-        return NSAttributedString(string: "\(self) \(date)", attributes: attributes)
+        let _date = StoredPropertiesHolder._dateFormatter.string(from: date)
+        return NSAttributedString(string: "\(self) \(_date)", attributes: attributes)
     }
 
     func asDeadline(with date: Date, done: Bool = false) -> NSAttributedString {

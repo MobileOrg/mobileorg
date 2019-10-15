@@ -189,13 +189,6 @@
         }
         return note.heading;
     }();
-    NSString *createdAt = ^NSString *{
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"YYYY-MM-dd EEE HH:mm"];
-        NSString *createdAtStr = [formatter stringFromDate:[note createdAt]];
-        [formatter release];
-        return createdAtStr;
-    }();
     UIImage *image = ^UIImage *{
         NSString *resourceName = [note isFlagEntry] ? @"flagged" : @"note_entry";
         NSString *path = [[NSBundle mainBundle] pathForResource:resourceName ofType:@"png"];
@@ -204,13 +197,14 @@
 
     OutlineCell *cell = [tableView dequeueReusableCellWithIdentifier:[OutlineCell reuseIdentifier]];
     [cell updateWithTitle:title
-                     note:nil
-                   status:nil
-                     done:false
-                 priority:nil
-                     tags:nil
-                scheduled:nil
-                 deadline:nil];
+                      note:nil
+                    status:nil
+                      done:false
+                  priority:nil
+                      tags:nil
+                 scheduled:nil
+                  deadline:nil
+                 createdAt:[note createdAt]];
     cell.imageView.image = image;
     return cell;
 }

@@ -37,8 +37,8 @@ final class OutlineCell: UITableViewCell {
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
-    @objc func update(title: String, note: String?, status: String?, done: Bool = false, priority: String?, tags: String?, scheduled: Date?, deadline: Date?) {
-        self.textLabel?.attributedText = self.setup(title: title, note: note, status: status, done: done, priority: priority, tags: tags, scheduled: scheduled, deadline: deadline)
+    @objc func update(title: String, note: String?, status: String?, done: Bool = false, priority: String?, tags: String?, scheduled: Date?, deadline: Date?, createdAt: Date?) {
+        self.textLabel?.attributedText = self.setup(title: title, note: note, status: status, done: done, priority: priority, tags: tags, scheduled: scheduled, deadline: deadline, createdAt: createdAt)
     }
 
     /// Format the data as an attributed string
@@ -48,6 +48,7 @@ final class OutlineCell: UITableViewCell {
     /// [ Note ]
     /// [ Scheduled ]
     /// [ Deadline ]
+    /// [ CreatedAt ]
     /// Base rules:
     /// - No more than 3 colours per cell;
     /// - No more than 2 font sizes per cell.
@@ -59,7 +60,8 @@ final class OutlineCell: UITableViewCell {
         priority: String?,
         tags: String?,
         scheduled: Date?,
-        deadline: Date?) -> NSAttributedString {
+        deadline: Date?,
+        createdAt: Date?) -> NSAttributedString {
         let string = NSMutableAttributedString()
 
         if let status = status, !status.isEmpty {
@@ -86,6 +88,9 @@ final class OutlineCell: UITableViewCell {
         }
         if let deadline = deadline {
             string.newLine().append("Deadline:".description.asDeadline(with: deadline, done: done))
+        }
+        if let createdAt = createdAt {
+            string.newLine().append("Created:".description.asCreatedAt(with: createdAt))
         }
 
         return string

@@ -100,7 +100,6 @@
 		79CB19D21074423C00A7E065 /* ChecksumFileParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB19D11074423C00A7E065 /* ChecksumFileParser.m */; };
 		79CB19D51074424300A7E065 /* OrgFileParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB19D41074424300A7E065 /* OrgFileParser.m */; };
 		79CB1F1110758EA200A7E065 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB1F1010758EA200A7E065 /* DetailsViewController.m */; };
-		79CB1F201075900F00A7E065 /* TableUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB1F1F1075900F00A7E065 /* TableUtils.m */; };
 		79CB20B510762CC000A7E065 /* NodeTextEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB20B410762CC000A7E065 /* NodeTextEditController.m */; };
 		79F879B9108544A100A54CA9 /* press-sync.png in Resources */ = {isa = PBXBuildFile; fileRef = 79F879B8108544A100A54CA9 /* press-sync.png */; };
 		79F87A9A10854FEA00A54CA9 /* cant-sync-offline.png in Resources */ = {isa = PBXBuildFile; fileRef = 79F87A9810854FEA00A54CA9 /* cant-sync-offline.png */; };
@@ -273,8 +272,6 @@
 		79CB19D41074424300A7E065 /* OrgFileParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrgFileParser.m; sourceTree = "<group>"; };
 		79CB1F0F10758EA200A7E065 /* DetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
 		79CB1F1010758EA200A7E065 /* DetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
-		79CB1F1E1075900F00A7E065 /* TableUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableUtils.h; sourceTree = "<group>"; };
-		79CB1F1F1075900F00A7E065 /* TableUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableUtils.m; sourceTree = "<group>"; };
 		79CB20B310762CC000A7E065 /* NodeTextEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NodeTextEditController.h; sourceTree = "<group>"; };
 		79CB20B410762CC000A7E065 /* NodeTextEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NodeTextEditController.m; sourceTree = "<group>"; };
 		79F879B8108544A100A54CA9 /* press-sync.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "press-sync.png"; sourceTree = "<group>"; };
@@ -658,8 +655,6 @@
 				7982F3B91073FBF800AEA6BC /* DataUtils.m */,
 				79CB18C510742DB900A7E065 /* StatusUtils.h */,
 				79CB18C610742DB900A7E065 /* StatusUtils.m */,
-				79CB1F1E1075900F00A7E065 /* TableUtils.h */,
-				79CB1F1F1075900F00A7E065 /* TableUtils.m */,
 				54CD6300234BC02D00D485E1 /* UIColor+MobileOrg.swift */,
 				5420E7CC234FB4150008ADAC /* UIAlertController+MobileOrg.swift */,
 				54E9BAA823531E12008419C4 /* String+Attributes.swift */,
@@ -1017,7 +1012,6 @@
 				79CB19D51074424300A7E065 /* OrgFileParser.m in Sources */,
 				6CB501F21E20C3D70082FD40 /* SyncSettingsController.swift in Sources */,
 				79CB1F1110758EA200A7E065 /* DetailsViewController.m in Sources */,
-				79CB1F201075900F00A7E065 /* TableUtils.m in Sources */,
 				79CB20B510762CC000A7E065 /* NodeTextEditController.m in Sources */,
 				791653A81078109B00695E4C /* EditsFileParser.m in Sources */,
 				54E9BAAB2353504A008419C4 /* OutlineCell.swift in Sources */,

@@ -115,6 +115,7 @@
     [super viewDidLoad];
 
     self.tableView.cellLayoutMarginsFollowReadableWidth = NO;
+    [self.tableView registerClass:[OutlineCell class] forCellReuseIdentifier:[OutlineCell reuseIdentifier]];
 
     addButton = [[UIBarButtonItem alloc]
                  initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNote)];
@@ -181,53 +182,37 @@
 
     Note *note = (Note*)[notesArray objectAtIndex:indexPath.row];
 
-    if ([note isFlagEntry]) {
-
-        static NSString *CellIdentifier = @"NoteFlaggedCell";
-
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+    NSString *title = ^NSString *{
+        if ([note isFlagEntry]) {
+            Node *node = ResolveNode(note.nodeId);
+            return node.headingForDisplay;
         }
-
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"flagged" ofType:@"png"];
-        UIImage *flagImage = [UIImage imageWithContentsOfFile:path];
-        cell.imageView.image = flagImage;
-
-        Node *node = ResolveNode(note.nodeId);
-        cell.textLabel.text = [node headingForDisplay];
-
+        return note.heading;
+    }();
+    NSString *createdAt = ^NSString *{
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"YYYY-MM-dd EEE HH:mm"];
         NSString *createdAtStr = [formatter stringFromDate:[note createdAt]];
         [formatter release];
+        return createdAtStr;
+    }();
+    UIImage *image = ^UIImage *{
+        NSString *resourceName = [note isFlagEntry] ? @"flagged" : @"note_entry";
+        NSString *path = [[NSBundle mainBundle] pathForResource:resourceName ofType:@"png"];
+        return [UIImage imageWithContentsOfFile:path];
+    }();
 
-        cell.detailTextLabel.text = createdAtStr;
-
-        return cell;
-
-    } else {
-
-        static NSString *CellIdentifier = @"NoteCell";
-
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
-        }
-
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"note_entry" ofType:@"png"];
-        UIImage *flagImage = [UIImage imageWithContentsOfFile:path];
-        cell.imageView.image = flagImage;
-
-        cell.textLabel.text = [note heading];
-
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"YYYY-MM-dd EEE HH:mm"];
-        cell.detailTextLabel.text = [formatter stringFromDate:[note createdAt]];
-        [formatter release];
-
-        return cell;
-    }
+    OutlineCell *cell = [tableView dequeueReusableCellWithIdentifier:[OutlineCell reuseIdentifier]];
+    [cell updateWithTitle:title
+                     note:nil
+                   status:nil
+                     done:false
+                 priority:nil
+                     tags:nil
+                scheduled:nil
+                 deadline:nil];
+    cell.imageView.image = image;
+    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

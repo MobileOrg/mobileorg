@@ -138,6 +138,8 @@ static NSString *kUnixFileLinkRegex = @"\\[\\[file:(.*\\.(?:org|txt))\\]\\[(.*)\
 
     NSMutableArray* goodLines = [[NSMutableArray alloc] init];
     BOOL inDrawer = NO;
+    // FIXME: filter habit states, like:
+    // - State "DONE" from "TODO" [DATE]
     for (NSString* line in lines) {
         if (!inDrawer && [line isMatchedByRegex:@"^\\s*:.+:\\s*$"] &&
             ![line isMatchedByRegex:@"^\\s*:END:\\s*$"]) {

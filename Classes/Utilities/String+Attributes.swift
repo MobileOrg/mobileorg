@@ -80,6 +80,10 @@ extension String {
         return self.asScheduled(with: date, done: done)
     }
 
+    func asCreatedAt(with date: Date) -> NSAttributedString {
+        return self.asScheduled(with: date, done: false)
+    }
+
     // MARK: Private
 
     private struct StoredPropertiesHolder {

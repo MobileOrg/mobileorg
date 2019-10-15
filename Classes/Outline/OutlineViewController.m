@@ -488,7 +488,8 @@
                  priority:node.priority
                      tags:node.tags
                 scheduled:node.scheduledDate
-                 deadline:node.deadlineDate];
+                 deadline:node.deadlineDate
+                createdAt:nil];
     return cell;
 }
 

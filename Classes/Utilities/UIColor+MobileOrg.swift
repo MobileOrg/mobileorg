@@ -77,5 +77,6 @@ extension UIColor {
     @objc(mo_greenColor)    static let mo_green: UIColor = { return .systemGreen }()
     @objc(mo_blueColor)     static let mo_blue: UIColor = { return .systemBlue }()
     @objc(mo_orangeColor)   static let mo_orange: UIColor = { return .systemOrange }()
+    @objc(mo_accentColor)   static let mo_accent: UIColor = { return .mo_blue }()
 
 }

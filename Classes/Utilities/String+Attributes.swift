@@ -70,6 +70,8 @@ extension String {
             .font : UIFont.preferredFont(forTextStyle: .caption1),
             .foregroundColor: done ? UIColor.mo_tertiaryText : UIColor.mo_secondaryText
         ]
+        // FIXME: custom attributes for the date when overdue or coming soon
+        // FIXME: replace nearby dates with human-readable versions (today, tomorrow, etc.)
         let date = StoredPropertiesHolder._dateFormatter.string(from: date)
         return NSAttributedString(string: "\(self) \(date)", attributes: attributes)
     }

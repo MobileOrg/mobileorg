@@ -66,8 +66,8 @@ public extension NSString {
                 break;
             }
 
-          let begin = swiftString.index(swiftString.startIndex, offsetBy: range.location)
-          let end = swiftString.index(swiftString.startIndex, offsetBy: range.location+range.length)
+          let begin = swiftString.utf16.index(swiftString.startIndex, offsetBy: range.location)
+          let end = swiftString.utf16.index(swiftString.startIndex, offsetBy: range.location+range.length)
           result.append(String(swiftString[begin..<end]))
         }
       }

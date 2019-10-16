@@ -22,6 +22,8 @@
 
 #import <CoreData/CoreData.h>
 
+FOUNDATION_EXPORT NSString *const kUnixFileLinkRegex;
+
 @class LocalEditAction;
 
 @interface Node :  NSManagedObject

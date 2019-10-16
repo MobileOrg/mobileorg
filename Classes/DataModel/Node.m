@@ -45,7 +45,7 @@
 @dynamic notes;
 @dynamic children;
 
-static NSString *kUnixFileLinkRegex = @"\\[\\[file:(.*\\.(?:org|txt))\\]\\[(.*)\\]\\]";
+NSString *const kUnixFileLinkRegex = @"\\[\\[file:(.*\\.(?:org|txt))\\]\\[(.*)\\]\\]";
 
 
 - (NSComparisonResult)sequenceIndexCompare:(Node*)obj

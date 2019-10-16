@@ -75,6 +75,26 @@ class String_RegexTests: XCTestCase {
     XCTAssertEqual(output, test)
   }
 
+    // https://github.com/MobileOrg/mobileorg/issues/220
+    func testCaptureComponentsMatchedByForFilesWithEmojisInFileNames() {
+        let filename = "/internal/📝journal📝.org"
+        let orgURLString = "[[file:\(filename)][\(filename)]]"
+        let input = orgURLString as NSString
+        let output = [orgURLString, filename, filename]
+        let test = input.captureComponentsMatchedBy(regex: kUnixFileLinkRegex)
+        XCTAssertEqual(output, test)
+    }
+
+    // https://github.com/MobileOrg/mobileorg/issues/220
+    func testCaptureComponentsMatchedByForFilesWithEmojiAsFilename() {
+        let filename = "🎯.org"
+        let orgURLString = "[[file:\(filename)][\(filename)]]"
+        let input = orgURLString as NSString
+        let output = [orgURLString, filename, filename]
+        let test = input.captureComponentsMatchedBy(regex: kUnixFileLinkRegex)
+        XCTAssertEqual(output, test)
+    }
+
   override func setUp() {
     super.setUp()
     // Put setup code here. This method is called before the invocation of each test method in the class.

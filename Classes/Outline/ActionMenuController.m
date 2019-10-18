@@ -26,9 +26,9 @@
 #import "GlobalUtils.h"
 #import "DataUtils.h"
 #import "Note.h"
-#import "NoteListController.h"
 #import "OutlineViewController.h"
 #import "LocalEditAction.h"
+#import "MobileOrg-Swift.h"
 
 @implementation ActionMenuController
 
@@ -46,10 +46,10 @@
   
     Save();
   
-    [[AppInstance() noteListController] updateNoteCount];
+    [[AppInstance() noteListViewController] updateNoteCount];
   
     if (edit) {
-        [[AppInstance() noteListController] editNote:note withKeyboard:true];
+        [[AppInstance() noteListViewController] editNote:note withKeyboard:true];
         [[AppInstance() tabBarController] setSelectedIndex:1];
     }
 }

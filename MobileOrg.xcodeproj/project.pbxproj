@@ -23,6 +23,8 @@
 		54CD6303234BC9A200D485E1 /* RoundedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CD6302234BC9A200D485E1 /* RoundedLabel.swift */; };
 		54E9BAA923531E12008419C4 /* String+Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E9BAA823531E12008419C4 /* String+Attributes.swift */; };
 		54E9BAAB2353504A008419C4 /* OutlineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E9BAAA2353504A008419C4 /* OutlineCell.swift */; };
+		54F9827F235A536C00CC6122 /* AddNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F9827E235A536C00CC6122 /* AddNoteViewController.swift */; };
+		54F98281235A53B800CC6122 /* NoteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F98280235A53B800CC6122 /* NoteListViewController.swift */; };
 		6CB501F01E20C3D70082FD40 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CB501EC1E20C3D70082FD40 /* Settings.storyboard */; };
 		6CB501F11E20C3D70082FD40 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB501ED1E20C3D70082FD40 /* SettingsController.swift */; };
 		6CB501F21E20C3D70082FD40 /* SyncSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB501EE1E20C3D70082FD40 /* SyncSettingsController.swift */; };
@@ -154,6 +156,8 @@
 		54CD6302234BC9A200D485E1 /* RoundedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedLabel.swift; sourceTree = "<group>"; };
 		54E9BAA823531E12008419C4 /* String+Attributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Attributes.swift"; sourceTree = "<group>"; };
 		54E9BAAA2353504A008419C4 /* OutlineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineCell.swift; sourceTree = "<group>"; };
+		54F9827E235A536C00CC6122 /* AddNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNoteViewController.swift; sourceTree = "<group>"; };
+		54F98280235A53B800CC6122 /* NoteListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteListViewController.swift; sourceTree = "<group>"; };
 		6561B399A841A3A5958A5889 /* Pods-MobileOrg.appstore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileOrg.appstore.xcconfig"; path = "Pods/Target Support Files/Pods-MobileOrg/Pods-MobileOrg.appstore.xcconfig"; sourceTree = "<group>"; };
 		6CB501EC1E20C3D70082FD40 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		6CB501ED1E20C3D70082FD40 /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
@@ -557,6 +561,8 @@
 				7998B387107BAA7D0000ED49 /* NewNoteController.m */,
 				7998B2D4107B6F820000ED49 /* NoteListController.h */,
 				7998B2D5107B6F820000ED49 /* NoteListController.m */,
+				54F9827E235A536C00CC6122 /* AddNoteViewController.swift */,
+				54F98280235A53B800CC6122 /* NoteListViewController.swift */,
 			);
 			path = Capture;
 			sourceTree = "<group>";
@@ -1007,6 +1013,7 @@
 				6CB501F11E20C3D70082FD40 /* SettingsController.swift in Sources */,
 				79CB18C710742DB900A7E065 /* StatusUtils.m in Sources */,
 				54CD6301234BC02D00D485E1 /* UIColor+MobileOrg.swift in Sources */,
+				54F9827F235A536C00CC6122 /* AddNoteViewController.swift in Sources */,
 				744787E21EB3198D00631BA2 /* PersistenceStack.swift in Sources */,
 				79CB19D21074423C00A7E065 /* ChecksumFileParser.m in Sources */,
 				79CB19D51074424300A7E065 /* OrgFileParser.m in Sources */,
@@ -1015,6 +1022,7 @@
 				79CB20B510762CC000A7E065 /* NodeTextEditController.m in Sources */,
 				791653A81078109B00695E4C /* EditsFileParser.m in Sources */,
 				54E9BAAB2353504A008419C4 /* OutlineCell.swift in Sources */,
+				54F98281235A53B800CC6122 /* NoteListViewController.swift in Sources */,
 				791653C2107814C500695E4C /* EditEntity.m in Sources */,
 				7998AC131079180F0000ED49 /* TagEditController.m in Sources */,
 				746103091E017E5700C8E34F /* String+RegexSplitter.swift in Sources */,

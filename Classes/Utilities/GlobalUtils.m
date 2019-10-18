@@ -78,7 +78,7 @@ void UpdateAppBadge() {
     int count = 0;
     if ([[Settings instance] appBadgeMode] == AppBadgeModeTotal) {
 
-        count += [[[AppInstance() noteListController] navigationController].tabBarItem.badgeValue intValue];
+        count += [[[AppInstance() noteListViewController] navigationController].tabBarItem.badgeValue intValue];
         count += [[[AppInstance() rootOutlineController] navigationController].tabBarItem.badgeValue intValue];
 
         // are you running on >= iOS8?

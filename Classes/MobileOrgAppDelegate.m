@@ -28,7 +28,6 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
 
 #import "MobileOrgAppDelegate.h"
 #import "OutlineViewController.h"
-#import "NoteListController.h"
 #import "SearchController.h"
 #import "DataUtils.h"
 #import "Reachability.h"
@@ -65,7 +64,7 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
 
     [window setRootViewController:[self tabBarController]];
 
-    [self.noteListController updateNoteCount];
+    [self.noteListViewController updateNoteCount];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reachabilityChanged:)
@@ -87,7 +86,7 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
             // (Allow maybe a minute or two before this setting 'sctivates' again)
             // (this can be done by storing the time and doing a difference.)
         [[self tabBarController] setSelectedIndex:1]; // Capture!!
-        [[self noteListController] addNote];
+        [[self noteListViewController] addNote];
     }
 }
 
@@ -136,17 +135,17 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
     return rootOutlineNavigationController;
 }
 
-- (NoteListController*)noteListController {
-    if (noteListController == nil) {
-        noteListController = [[NoteListController alloc] initWithStyle:UITableViewStylePlain];
-        noteListController.title = @"Capture";
+- (NoteListViewController*)noteListViewController {
+    if (noteListViewController == nil) {
+        noteListViewController = [[NoteListViewController alloc] initWithStyle:UITableViewStylePlain];
+        noteListViewController.title = @"Capture";
     }
-    return noteListController;
+    return noteListViewController;
 }
 
 - (UINavigationController*)noteListNavigationController {
     if (noteListNavigationController == nil) {
-        noteListNavigationController = [[UINavigationController alloc] initWithRootViewController:self.noteListController];
+        noteListNavigationController = [[UINavigationController alloc] initWithRootViewController:self.noteListViewController];
     }
     return noteListNavigationController;
 }

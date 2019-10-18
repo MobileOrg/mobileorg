@@ -352,7 +352,7 @@ static SyncManager *gInstance = NULL;
 
     // Reset the note list, just in case it is viewing a note that no longer exists
     dispatch_async(dispatch_get_main_queue(), ^{
-        [[[AppInstance() noteListController] navigationController] popToRootViewControllerAnimated:NO];
+        [[[AppInstance() noteListViewController] navigationController] popToRootViewControllerAnimated:NO];
     });
     // If there were no errors, we can safely delete the new notes
     DeleteNotes();

@@ -37,7 +37,7 @@ final class OutlineCell: UITableViewCell {
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
-    @objc func update(title: String, note: String?, status: String?, done: Bool = false, priority: String?, tags: String?, scheduled: Date?, deadline: Date?, createdAt: Date?) {
+    @objc func update(title: String, note: String? = nil, status: String? = nil, done: Bool = false, priority: String? = nil, tags: String? = nil, scheduled: Date? = nil, deadline: Date? = nil, createdAt: Date? = nil) {
         self.textLabel?.attributedText = self.setup(title: title, note: note, status: status, done: done, priority: priority, tags: tags, scheduled: scheduled, deadline: deadline, createdAt: createdAt)
     }
 

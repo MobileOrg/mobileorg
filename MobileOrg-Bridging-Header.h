@@ -6,6 +6,8 @@
 #import "TransferContext.h"
 #import "StatusUtils.h"
 #import "SyncManager.h"
+#import "Note.h"
+#import "Node.h"
 
 #import "Settings.h"
 #import "DataUtils.h"

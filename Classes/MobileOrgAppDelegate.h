@@ -23,7 +23,7 @@
 #import <CoreData/CoreData.h>
 
 @class OutlineViewController;
-@class NoteListController;
+@class NoteListViewController;
 @class SearchController;
 @class SettingsController;
 @class Reachability;
@@ -39,7 +39,7 @@
     OutlineViewController *rootOutlineController;
     UINavigationController *rootOutlineNavigationController;
 
-    NoteListController *noteListController;
+    NoteListViewController *noteListViewController;
     UINavigationController *noteListNavigationController;
 
     SearchController *searchController;
@@ -64,7 +64,7 @@
 @property (nonatomic, readonly) OutlineViewController *rootOutlineController;
 @property (nonatomic, readonly) UINavigationController *rootOutlineNavigationController;
 
-@property (nonatomic, readonly) NoteListController *noteListController;
+@property (nonatomic, readonly) NoteListViewController *noteListViewController;
 @property (nonatomic, readonly) UINavigationController *noteListNavigationController;
 
 @property (nonatomic, readonly) SearchController *searchController;

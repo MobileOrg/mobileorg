@@ -64,8 +64,8 @@
 
     Save();
 
-    [[AppInstance() noteListController] updateNoteCount];
-    [[AppInstance() noteListController] editNote:newNote withKeyboard:true];
+    [[AppInstance() noteListViewController] updateNoteCount];
+    [[AppInstance() noteListViewController] editNote:newNote withKeyboard:true];
 }
 
 - (void)done {

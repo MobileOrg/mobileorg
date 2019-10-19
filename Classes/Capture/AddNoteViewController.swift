@@ -64,7 +64,6 @@ final class AddNoteViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.save()
         self.registerForKeyboardNotifications()
     }
 

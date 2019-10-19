@@ -37,8 +37,6 @@ import Foundation
         self.navigationItem.leftBarButtonItem = self.editButton
 
         NotificationCenter.default.addObserver(self, selector: #selector(onSyncComplete), name: self.syncCompleteNotificationName, object: nil)
-
-        self.refresh()
     }
 
     deinit {
@@ -94,7 +92,7 @@ import Foundation
     }
 
     @objc func updateNoteCount() {
-        self.refresh()
+        self.updateBadge()
     }
 
     // MARK: Private functions & variables
@@ -126,7 +124,10 @@ import Foundation
 
     private func refresh() {
         self.notes = AllActiveNotes() as? [Note] ?? []
-        DispatchQueue.main.async { self.tableView.reloadData() }
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.cleanUpEmptyNotes()
+        }
         self.updateEditButton()
         self.updateBadge()
     }
@@ -142,6 +143,13 @@ import Foundation
 
     private func updateEditButton() {
         self.navigationItem.leftBarButtonItem?.isEnabled = CountLocalNotes() > 0
+    }
+
+    private func cleanUpEmptyNotes() {
+        // Get indices for empty notes
+        let emptyNotesIndices = self.notes.indices.filter { (self.notes[$0].text?.isEmpty ?? true) }
+        // NOTE: this will affect the data source, should be aligned with .reloadData
+        emptyNotesIndices.forEach { self.deleteNote(at: $0) }
     }
 
     private func deleteNote(at index: Int) {

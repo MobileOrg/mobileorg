@@ -60,19 +60,13 @@ import Foundation
 
     // MARK: Public API
 
-    @objc func updateNoteCount() {
-        self.refresh()
+    @objc func edit(note: Note) {
+        self.navigationController?.popViewController(animated: false)
+        let controller = AddNoteViewController(with: note)
+        self.navigationController?.pushViewController(controller, animated: true)
     }
 
-    // MARK: Private functions & variables
-
-    private let syncCompleteNotificationName = NSNotification.Name(rawValue: "SyncComplete")
-
-    private lazy var addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
-    private lazy var doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(edit(_:)))
-    private lazy var editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(edit(_:)))
-
-    @objc private func addNote() {
+    @objc func addNote() {
         self.stopEditing()
 
         let newNote: Note = {
@@ -86,14 +80,21 @@ import Foundation
         }()
         Save()
 
-        self.edit(note: newNote, showKeyboard: true)
+        self.edit(note: newNote)
         self.updateNoteCount()
     }
 
-    private func edit(note: Note, showKeyboard: Bool) {
-        self.navigationController?.popViewController(animated: false)
-        // ...
+    @objc func updateNoteCount() {
+        self.refresh()
     }
+
+    // MARK: Private functions & variables
+
+    private let syncCompleteNotificationName = NSNotification.Name(rawValue: "SyncComplete")
+
+    private lazy var addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
+    private lazy var doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(edit(_:)))
+    private lazy var editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(edit(_:)))
 
     @objc private func edit(_ sender: Any) {
         guard self.isEditing else {
@@ -195,7 +196,7 @@ import Foundation
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // FIXME: check for out of bounds
         let note = self.notes[indexPath.row]
-        self.edit(note: note, showKeyboard: false)
+        self.edit(note: note)
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

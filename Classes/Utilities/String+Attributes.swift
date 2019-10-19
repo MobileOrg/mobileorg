@@ -66,31 +66,50 @@ extension String {
     }
 
     func asScheduled(with date: Date, done: Bool = false) -> NSAttributedString {
+        return self.with(date: date, done: done)
+    }
+
+    func asDeadline(with date: Date, done: Bool = false) -> NSAttributedString {
+        return self.with(date: date, done: done)
+    }
+
+    func asCreatedAt(with date: Date) -> NSAttributedString {
+        return self.with(date: date, relative: true)
+    }
+
+    // MARK: Private
+
+    private func with(date: Date, done: Bool = false, relative: Bool = false) -> NSAttributedString {
         let attributes: [ NSAttributedString.Key: Any ] = [
             .font : UIFont.preferredFont(forTextStyle: .caption1),
             .foregroundColor: done ? UIColor.mo_tertiaryText : UIColor.mo_secondaryText
         ]
         // FIXME: custom attributes for the date when overdue or coming soon
-        // FIXME: replace nearby dates with human-readable versions (today, tomorrow, etc.)
-        let _date = StoredPropertiesHolder._dateFormatter.string(from: date)
-        return NSAttributedString(string: "\(self) \(_date)", attributes: attributes)
+        let _date = self.format(date: date, relative: relative)
+        return NSAttributedString(string: "\(self)\(_date)", attributes: attributes)
     }
 
-    func asDeadline(with date: Date, done: Bool = false) -> NSAttributedString {
-        return self.asScheduled(with: date, done: done)
+    private func format(date: Date, relative: Bool = false) -> String {
+        if relative {
+            if #available(iOS 13, *) {
+                return StoredPropertiesHolder._relativeDateFormatter.localizedString(for: date, relativeTo: Date())
+            }
+        }
+        return StoredPropertiesHolder._dateFormatter.string(from: date)
     }
-
-    func asCreatedAt(with date: Date) -> NSAttributedString {
-        return self.asScheduled(with: date, done: false)
-    }
-
-    // MARK: Private
 
     private struct StoredPropertiesHolder {
         static var _dateFormatter: DateFormatter = {
             let formatter = DateFormatter()
             formatter.dateStyle = .long
-            formatter.timeStyle = .none // FIXME: We need time for tasks with timestamps
+            formatter.timeStyle = .short // FIXME: Remove time if it is midnight
+            return formatter
+        }()
+        @available(iOS 13.0, *)
+        static var _relativeDateFormatter: RelativeDateTimeFormatter = {
+            let formatter = RelativeDateTimeFormatter()
+            formatter.dateTimeStyle = .numeric
+            formatter.unitsStyle = .full
             return formatter
         }()
     }

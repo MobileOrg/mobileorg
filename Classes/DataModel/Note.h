@@ -24,16 +24,16 @@
 
 @class Node;
 
-@interface Note :  NSManagedObject
-{
-}
+NS_ASSUME_NONNULL_BEGIN;
 
-@property (nonatomic, retain) NSString * text;
-@property (nonatomic, retain) NSDate * createdAt;
-@property (nonatomic, retain) NSString * nodeId;
+@interface Note :  NSManagedObject
+
+@property (nonatomic, retain, nullable) NSString * text;
+@property (nonatomic, retain, nullable) NSDate * createdAt;
+@property (nonatomic, retain, nullable) NSString * nodeId;
 @property (nonatomic, retain) NSString * noteId;
-@property (nonatomic, retain) NSNumber * locallyModified;
-@property (nonatomic, retain) NSNumber * removed;
+@property (nonatomic, retain, nullable) NSNumber * locallyModified;
+@property (nonatomic, retain, nullable) NSNumber * removed;
 
 - (NSString*)heading;
 - (NSString*)body;
@@ -41,3 +41,5 @@
 - (NSString*)orgLine;
 
 @end
+
+NS_ASSUME_NONNULL_END;

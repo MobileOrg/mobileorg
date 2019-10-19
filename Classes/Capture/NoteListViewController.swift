@@ -60,10 +60,8 @@ import Foundation
 
     @objc func edit(note: Note) {
         let noteListIsOnTop = self.navigationController?.topViewController is NoteListViewController
-        // If the list view is not on top then unwind to it
-        if !noteListIsOnTop {
-            self.navigationController?.popToRootViewController(animated: false)
-        }
+        // If the note list is not on top then unwind to it
+        if !noteListIsOnTop { self.navigationController?.popToRootViewController(animated: false) }
         let controller = AddNoteViewController(with: note)
         // Do not animate the push if we are replacing new note controller
         self.navigationController?.pushViewController(controller, animated: noteListIsOnTop)
@@ -123,10 +121,23 @@ import Foundation
     }
 
     private func refresh() {
-        self.notes = AllActiveNotes() as? [Note] ?? []
+        // INFO: do not extract the notes calculation, it has to be called only once within .refresh function
+        self.notes = {
+            let notes = AllActiveNotes() as? [Note] ?? []
+            let emptyNotes = notes.filter { $0.text?.isEmpty ?? false }
+            emptyNotes.forEach {
+                $0.locallyModified = true
+                $0.removed = true
+                Save()
+            }
+            let notesWithoutEmpty = Array(Set(notes).subtracting(Set(emptyNotes)))
+            let notesSortedByCreatedAt = notesWithoutEmpty.sorted {
+                return Calendar.current.compare($0.createdAt ?? Date(), to: $1.createdAt ?? Date(), toGranularity: .second) == .orderedDescending
+            }
+            return notesSortedByCreatedAt
+        }()
         DispatchQueue.main.async {
             self.tableView.reloadData()
-            self.cleanUpEmptyNotes()
         }
         self.updateEditButton()
         self.updateBadge()
@@ -145,24 +156,19 @@ import Foundation
         self.navigationItem.leftBarButtonItem?.isEnabled = CountLocalNotes() > 0
     }
 
-    private func cleanUpEmptyNotes() {
-        // Get indices for empty notes
-        let emptyNotesIndices = self.notes.indices.filter { (self.notes[$0].text?.isEmpty ?? true) }
-        // NOTE: this will affect the data source, should be aligned with .reloadData
-        emptyNotesIndices.forEach { self.deleteNote(at: $0) }
-    }
-
     private func deleteNote(at index: Int) {
-        if self.notes.indices.contains(index) {
-            let noteToDelete = self.notes[index]
-            noteToDelete.locallyModified = true
-            noteToDelete.removed = true
-            Save()
+        guard self.notes.indices.contains(index) else {
+            assertionFailure("Notes do not contain an object at \(index)")
+            return
         }
+
+        let noteToDelete = self.notes[index]
+        noteToDelete.locallyModified = true
+        noteToDelete.removed = true
+        Save()
 
         self.notes.remove(at: index)
         self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
-        self.refresh()
 
         if self.notes.isEmpty {
             self.stopEditing()
@@ -206,7 +212,9 @@ import Foundation
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         switch editingStyle {
-        case .delete: self.deleteNote(at: indexPath.row)
+        case .delete:
+            self.deleteNote(at: indexPath.row)
+            self.refresh()
         default: break
         }
     }

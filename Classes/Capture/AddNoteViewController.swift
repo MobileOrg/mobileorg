@@ -31,6 +31,7 @@ final class AddNoteViewController: UIViewController {
         view.scrollsToTop = true
         view.font = UIFont.preferredFont(forTextStyle: .body)
         view.delegate = self
+        view.textContainerInset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
         return view
     }()
 

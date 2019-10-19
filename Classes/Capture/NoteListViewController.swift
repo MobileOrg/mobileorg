@@ -26,6 +26,9 @@ import Foundation
 
     var notes = [Note]()
 
+    override var shouldAutorotate: Bool { true }
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask { .all }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -55,14 +58,14 @@ import Foundation
         self.stopEditing()
     }
 
-    override var shouldAutorotate: Bool { true }
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask { .all }
-
     // MARK: Public API
 
     @objc func edit(note: Note) {
         self.navigationController?.popViewController(animated: false)
         let controller = AddNoteViewController(with: note)
+        // TODO: Store that we are about to be editing this note..? maybe
+        // Rethink this
+        // SettingsController.storeSelectedNote(_)
         self.navigationController?.pushViewController(controller, animated: true)
     }
 
@@ -136,11 +139,12 @@ import Foundation
     }
 
     private func deleteNote(at index: Int) {
-        // FIXME: check for out of bounds
-        let noteToDelete = self.notes[index]
-        noteToDelete.locallyModified = true
-        noteToDelete.removed = true
-        Save()
+        if self.notes.indices.contains(index) {
+            let noteToDelete = self.notes[index]
+            noteToDelete.locallyModified = true
+            noteToDelete.removed = true
+            Save()
+        }
 
         self.notes.remove(at: index)
         self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
@@ -159,7 +163,9 @@ import Foundation
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // FIXME: check for out of bounds
+        guard self.notes.indices.contains(indexPath.row) else {
+            fatalError("\(indexPath.row) is out of bounds")
+        }
         let note = self.notes[indexPath.row]
         let title: String = {
             guard note.isFlagEntry() else { return note.heading() }
@@ -194,7 +200,9 @@ import Foundation
     // MARK: UITableViewDelegate
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // FIXME: check for out of bounds
+        guard self.notes.indices.contains(indexPath.row) else {
+            fatalError("\(indexPath.row) is out of bounds")
+        }
         let note = self.notes[indexPath.row]
         self.edit(note: note)
     }

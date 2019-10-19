@@ -84,13 +84,13 @@ final class OutlineCell: UITableViewCell {
             string.newLine().append(note.asNote(done: done))
         }
         if let scheduled = scheduled {
-            string.newLine().append("Scheduled:".asScheduled(with: scheduled, done: done))
+            string.newLine().append("Scheduled: ".asScheduled(with: scheduled, done: done))
         }
         if let deadline = deadline {
-            string.newLine().append("Deadline:".description.asDeadline(with: deadline, done: done))
+            string.newLine().append("Deadline: ".asDeadline(with: deadline, done: done))
         }
         if let createdAt = createdAt {
-            string.newLine().append("Created:".description.asCreatedAt(with: createdAt))
+            string.newLine().append("".asCreatedAt(with: createdAt))
         }
 
         return string

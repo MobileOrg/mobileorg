@@ -95,12 +95,12 @@ final class AddNoteViewController: UIViewController {
     // MARK: Operations on notes
 
     private func save() {
-        guard !(self.note.text?.isEmpty ?? true) else { return }
-        guard self.note.text != self.textView.text else { return }
-        self.note.text = self.textView.text
-        self.note.createdAt = Date()
-        self.note.locallyModified = true
-        Save()
+        if !(self.note.text?.isEmpty ?? true) || self.note.text != self.textView.text {
+            self.note.text = self.textView.text
+            self.note.createdAt = Date()
+            self.note.locallyModified = true
+            Save()
+        }
     }
 
     @objc private func add() {

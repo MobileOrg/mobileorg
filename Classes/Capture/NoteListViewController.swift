@@ -99,7 +99,7 @@ import Foundation
 
     private let syncCompleteNotificationName = NSNotification.Name(rawValue: "SyncComplete")
 
-    private lazy var addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
+    private lazy var addButton = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(addNote))
     private lazy var doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(edit(_:)))
     private lazy var editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(edit(_:)))
 

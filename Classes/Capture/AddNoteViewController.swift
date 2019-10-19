@@ -75,7 +75,7 @@ final class AddNoteViewController: UIViewController {
 
     // MARK: Actions
 
-    private lazy var addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(add))
+    private lazy var addButton = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(add))
     private lazy var doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneAction))
 
     private func adjustButtons(notification: Notification) {

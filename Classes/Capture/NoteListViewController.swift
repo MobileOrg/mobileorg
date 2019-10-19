@@ -61,12 +61,18 @@ import Foundation
     // MARK: Public API
 
     @objc func edit(note: Note) {
-        self.navigationController?.popViewController(animated: false)
+        let noteListIsOnTop = self.navigationController?.topViewController is NoteListViewController
+        // If the list view is not on top then unwind to it
+        if !noteListIsOnTop {
+            self.navigationController?.popToRootViewController(animated: false)
+        }
         let controller = AddNoteViewController(with: note)
+        // Do not animate the push if we are replacing new note controller
+        self.navigationController?.pushViewController(controller, animated: noteListIsOnTop)
+
         // TODO: Store that we are about to be editing this note..? maybe
         // Rethink this
         // SettingsController.storeSelectedNote(_)
-        self.navigationController?.pushViewController(controller, animated: true)
     }
 
     @objc func addNote() {

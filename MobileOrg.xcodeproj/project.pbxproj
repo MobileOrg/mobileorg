@@ -90,8 +90,6 @@
 		7998B0781079847C0000ED49 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 7998B0681079847C0000ED49 /* settings.png */; };
 		7998B0791079847C0000ED49 /* table_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 7998B0691079847C0000ED49 /* table_gray.png */; };
 		7998B07A1079847C0000ED49 /* up.png in Resources */ = {isa = PBXBuildFile; fileRef = 7998B06A1079847C0000ED49 /* up.png */; };
-		7998B2D6107B6F820000ED49 /* NoteListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7998B2D5107B6F820000ED49 /* NoteListController.m */; };
-		7998B388107BAA7D0000ED49 /* NewNoteController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7998B387107BAA7D0000ED49 /* NewNoteController.m */; };
 		79BA55621073A6F800D67917 /* MobileOrgAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 79BA555B1073A6F800D67917 /* MobileOrgAppDelegate.m */; };
 		79CB17F9107420E300A7E065 /* SyncManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB17F8107420E300A7E065 /* SyncManager.m */; };
 		79CB1821107425EF00A7E065 /* TransferContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB1820107425EF00A7E065 /* TransferContext.m */; };
@@ -251,10 +249,6 @@
 		7998B0681079847C0000ED49 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		7998B0691079847C0000ED49 /* table_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = table_gray.png; sourceTree = "<group>"; };
 		7998B06A1079847C0000ED49 /* up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = up.png; sourceTree = "<group>"; };
-		7998B2D4107B6F820000ED49 /* NoteListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteListController.h; sourceTree = "<group>"; };
-		7998B2D5107B6F820000ED49 /* NoteListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteListController.m; sourceTree = "<group>"; };
-		7998B386107BAA7D0000ED49 /* NewNoteController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewNoteController.h; sourceTree = "<group>"; };
-		7998B387107BAA7D0000ED49 /* NewNoteController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewNoteController.m; sourceTree = "<group>"; };
 		79BA555A1073A6F800D67917 /* MobileOrgAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobileOrgAppDelegate.h; sourceTree = "<group>"; };
 		79BA555B1073A6F800D67917 /* MobileOrgAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MobileOrgAppDelegate.m; sourceTree = "<group>"; };
 		79CB17F7107420E300A7E065 /* SyncManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyncManager.h; sourceTree = "<group>"; };
@@ -557,10 +551,6 @@
 		79BA55591073A6F800D67917 /* Capture */ = {
 			isa = PBXGroup;
 			children = (
-				7998B386107BAA7D0000ED49 /* NewNoteController.h */,
-				7998B387107BAA7D0000ED49 /* NewNoteController.m */,
-				7998B2D4107B6F820000ED49 /* NoteListController.h */,
-				7998B2D5107B6F820000ED49 /* NoteListController.m */,
 				54F9827E235A536C00CC6122 /* AddNoteViewController.swift */,
 				54F98280235A53B800CC6122 /* NoteListViewController.swift */,
 			);
@@ -1028,8 +1018,6 @@
 				746103091E017E5700C8E34F /* String+RegexSplitter.swift in Sources */,
 				7998B00410797EBE0000ED49 /* TodoStateEditController.m in Sources */,
 				5420E7C9234D15F20008ADAC /* CloudTransferManager.swift in Sources */,
-				7998B2D6107B6F820000ED49 /* NoteListController.m in Sources */,
-				7998B388107BAA7D0000ED49 /* NewNoteController.m in Sources */,
 				793F7D8D107C1E6000674D0A /* SearchController.m in Sources */,
 				745B1E311EC98C9B00D80421 /* MobileOrg2.xcdatamodeld in Sources */,
 				793F7EE5107C362E00674D0A /* DocumentViewController.m in Sources */,

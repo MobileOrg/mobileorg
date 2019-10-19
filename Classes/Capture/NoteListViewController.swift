@@ -168,7 +168,7 @@ import Foundation
         Save()
 
         self.notes.remove(at: index)
-        self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+        self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .left)
 
         if self.notes.isEmpty {
             self.stopEditing()

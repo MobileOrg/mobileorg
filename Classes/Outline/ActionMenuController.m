@@ -49,7 +49,7 @@
     [[AppInstance() noteListViewController] updateNoteCount];
   
     if (edit) {
-        [[AppInstance() noteListViewController] editNote:note withKeyboard:true];
+        [[AppInstance() noteListViewController] editWithNote:note];
         [[AppInstance() tabBarController] setSelectedIndex:1];
     }
 }

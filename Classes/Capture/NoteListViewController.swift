@@ -124,7 +124,7 @@ import Foundation
         // INFO: do not extract the notes calculation, it has to be called only once within .refresh function
         self.notes = {
             let notes = AllActiveNotes() as? [Note] ?? []
-            let emptyNotes = notes.filter { $0.text?.isEmpty ?? false }
+            let emptyNotes = notes.filter { $0.text?.isEmpty ?? true }
             emptyNotes.forEach {
                 $0.locallyModified = true
                 $0.removed = true

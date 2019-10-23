@@ -31,11 +31,15 @@ final class CloudTransferManager: NSObject {
     private var activeTransfer: TransferContext? = nil
     private var paused = false
     private var active = false
+    private let cloudSynchronizationQueue = DispatchQueue(label: "mobileorg.cloudSynchronizationQueue", qos: .background)
 
     override init() {
         super.init()
-        self.obtainContainer()
-        self.askCloudStorageToSynchronizeDocuments()
+        self.obtainContainer() { success in
+            if success {
+                self.askCloudStorageToSynchronizeDocuments()
+            }
+        }
     }
 
     @objc var isAvailable: Bool {
@@ -55,32 +59,44 @@ final class CloudTransferManager: NSObject {
 
     // This function is called during the initalization of the class
     // No fatalErrors here, please, or it will be impossible to run an application to access the data
-    private func obtainContainer() {
-        guard self.containerURL == nil else { return }
+    private func obtainContainer(completion: @escaping (Bool) -> Void) {
+        guard self.containerURL == nil else {
+            completion(false)
+            return
+        }
         DispatchQueue.global().async {
             // If you specify nil for this parameter, this method returns the first container listed in the com.apple.developer.ubiquity-container-identifiers entitlement array
             let url = FileManager.default.url(forUbiquityContainerIdentifier: nil)
-            guard let documentURL = url?.appendingPathComponent("Documents") else { return }
+            guard let documentURL = url?.appendingPathComponent("Documents") else {
+                completion(false)
+                return                
+            }
             if !FileManager.default.fileExists(atPath: documentURL.path) {
                 do {
                     try FileManager.default.createDirectory(at: documentURL, withIntermediateDirectories: true, attributes: nil)
                 } catch {
                     UIAlertController.show("iCloud Error", message: error.localizedDescription)
+                    completion(false)
                     return
                 }
             }
             DispatchQueue.main.async {
                 self.containerURL = documentURL
+                completion(true)
             }
         }
     }
 
     private func askCloudStorageToSynchronizeDocuments() {
         guard let documentURL = self.containerURL else { return }
-        do {
-            try FileManager.default.startDownloadingUbiquitousItem(at: documentURL)
-        } catch {
-            UIAlertController.show("iCloud Error", message: error.localizedDescription)
+        self.cloudSynchronizationQueue.async {
+            do {
+                try FileManager.default.startDownloadingUbiquitousItem(at: documentURL)
+            } catch {
+                DispatchQueue.main.async {
+                    UIAlertController.show("iCloud Synchronisation Error", message: error.localizedDescription)
+                }
+            }
         }
     }
 

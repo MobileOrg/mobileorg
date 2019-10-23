@@ -35,11 +35,16 @@ final class CloudTransferManager: NSObject {
 
     override init() {
         super.init()
-        self.obtainContainer() { success in
+        self.obtainContainer() { [weak self] (success) in
+            guard let self = self else { return }
             if success {
-                self.askCloudStorageToSynchronizeDocuments()
+                NotificationCenter.default.addObserver(self, selector: #selector(self.askCloudStorageToSynchronizeDocuments), name: UIApplication.didBecomeActiveNotification, object: nil)
             }
         }
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
     }
 
     @objc var isAvailable: Bool {
@@ -69,7 +74,7 @@ final class CloudTransferManager: NSObject {
             let url = FileManager.default.url(forUbiquityContainerIdentifier: nil)
             guard let documentURL = url?.appendingPathComponent("Documents") else {
                 completion(false)
-                return                
+                return
             }
             if !FileManager.default.fileExists(atPath: documentURL.path) {
                 do {
@@ -87,10 +92,12 @@ final class CloudTransferManager: NSObject {
         }
     }
 
-    private func askCloudStorageToSynchronizeDocuments() {
+    @objc private func askCloudStorageToSynchronizeDocuments() {
         guard let documentURL = self.containerURL else { return }
         self.cloudSynchronizationQueue.async {
             do {
+                // If a cloud-based file or directory has not been downloaded yet, calling this method starts the download process.
+                // If the item exists locally, calling this method synchronizes the local copy with the version in the cloud.
                 try FileManager.default.startDownloadingUbiquitousItem(at: documentURL)
             } catch {
                 DispatchQueue.main.async {

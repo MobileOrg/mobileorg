@@ -23,6 +23,8 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>db-${APP_KEY}</string>
@@ -30,7 +32,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>32</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>dbapi-2</string>
@@ -40,10 +42,17 @@
 	<true/>
 	<key>NSMainNibFile</key>
 	<string>MainWindow</string>
+	<key>NSMainNibFile~ipad</key>
+	<string>MainWindow-iPad</string>
+	<key>UILaunchImages</key>
+	<dict>
+		<key>UILaunchImageName</key>
+		<string>Default-568h</string>
+		<key>UILaunchImageSize</key>
+		<string>{320, 568}</string>
+	</dict>
 	<key>UILaunchStoryboardName</key>
 	<string>Launch Screen</string>
-	<key>UIPrerenderedIcon</key>
-	<true/>
 	<key>UIRequiresFullScreen</key>
 	<false/>
 	<key>UISupportedInterfaceOrientations</key>

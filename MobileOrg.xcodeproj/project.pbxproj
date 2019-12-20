@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		18A3BBA316178BDD003D9320 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A3BBA216178BDD003D9320 /* QuartzCore.framework */; };
 		18A3BBA716178DCD003D9320 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3BBA616178DCD003D9320 /* Reachability.m */; };
-		1CB7009C5E5623027D2F7449 /* Pods_MobileOrg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA0A3BD3D41BA77D0F500F29 /* Pods_MobileOrg.framework */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -123,6 +122,10 @@
 		8322ED8B176AF1C7008B37C7 /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8322ED85176AF1C4008B37C7 /* settings@2x.png */; };
 		8322ED8C176AF1C7008B37C7 /* table_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8322ED86176AF1C6008B37C7 /* table_gray@2x.png */; };
 		83B1312C234AD16D0043D955 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83B1312B234AD16D0043D955 /* CloudKit.framework */; };
+		CE67A65B23A5CDD900B2B0BD /* SwiftyDropbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE67A65923A5CB6500B2B0BD /* SwiftyDropbox.framework */; };
+		CE67A65C23A5CDD900B2B0BD /* SwiftyDropbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE67A65923A5CB6500B2B0BD /* SwiftyDropbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CE67A65F23A5CE1800B2B0BD /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE67A65E23A5CE1800B2B0BD /* Alamofire.framework */; };
+		CE67A66023A5CE1800B2B0BD /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE67A65E23A5CE1800B2B0BD /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -134,6 +137,21 @@
 			remoteInfo = MobileOrg;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CE67A65D23A5CDD900B2B0BD /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				CE67A65C23A5CDD900B2B0BD /* SwiftyDropbox.framework in Embed Frameworks */,
+				CE67A66023A5CE1800B2B0BD /* Alamofire.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		18A3BBA216178BDD003D9320 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -156,7 +174,6 @@
 		54E9BAAA2353504A008419C4 /* OutlineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineCell.swift; sourceTree = "<group>"; };
 		54F9827E235A536C00CC6122 /* AddNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNoteViewController.swift; sourceTree = "<group>"; };
 		54F98280235A53B800CC6122 /* NoteListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteListViewController.swift; sourceTree = "<group>"; };
-		6561B399A841A3A5958A5889 /* Pods-MobileOrg.appstore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileOrg.appstore.xcconfig"; path = "Pods/Target Support Files/Pods-MobileOrg/Pods-MobileOrg.appstore.xcconfig"; sourceTree = "<group>"; };
 		6CB501EC1E20C3D70082FD40 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		6CB501ED1E20C3D70082FD40 /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		6CB501EE1E20C3D70082FD40 /* SyncSettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncSettingsController.swift; sourceTree = "<group>"; };
@@ -226,8 +243,7 @@
 		7982F37C1073F6B700AEA6BC /* GlobalUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalUtils.m; sourceTree = "<group>"; };
 		7982F3B81073FBF800AEA6BC /* DataUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataUtils.h; sourceTree = "<group>"; };
 		7982F3B91073FBF800AEA6BC /* DataUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataUtils.m; sourceTree = "<group>"; };
-		799774AA122C69260006EFC6 /* MobileOrg-Info-AdHoc.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MobileOrg-Info-AdHoc.plist"; sourceTree = "<group>"; };
-		799774AB122C69260006EFC6 /* MobileOrg-Info-Debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MobileOrg-Info-Debug.plist"; sourceTree = "<group>"; };
+		799774AB122C69260006EFC6 /* MobileOrg-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MobileOrg-Info.plist"; sourceTree = "<group>"; };
 		7998AC111079180F0000ED49 /* TagEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagEditController.h; sourceTree = "<group>"; };
 		7998AC121079180F0000ED49 /* TagEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagEditController.m; sourceTree = "<group>"; };
 		7998AE2310794DBF0000ED49 /* AlertTextField.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AlertTextField.png; sourceTree = "<group>"; };
@@ -275,7 +291,6 @@
 		79F879B8108544A100A54CA9 /* press-sync.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "press-sync.png"; sourceTree = "<group>"; };
 		79F87A9810854FEA00A54CA9 /* cant-sync-offline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cant-sync-offline.png"; sourceTree = "<group>"; };
 		79F87A9910854FEA00A54CA9 /* please-configure.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "please-configure.png"; sourceTree = "<group>"; };
-		8202E5BD58AEDFCB8A890758 /* Pods-MobileOrg.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileOrg.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-MobileOrg/Pods-MobileOrg.adhoc.xcconfig"; sourceTree = "<group>"; };
 		8322ED69176AB305008B37C7 /* press-sync@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "press-sync@2x.png"; sourceTree = "<group>"; };
 		8322ED6B176AE93C008B37C7 /* cant-sync-offline@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cant-sync-offline@2x.png"; sourceTree = "<group>"; };
 		8322ED6D176AE94A008B37C7 /* please-configure@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "please-configure@2x.png"; sourceTree = "<group>"; };
@@ -296,9 +311,16 @@
 		8322ED86176AF1C6008B37C7 /* table_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "table_gray@2x.png"; sourceTree = "<group>"; };
 		83B1312B234AD16D0043D955 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		83BCC85D203E92C700064F22 /* MobileOrg.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = MobileOrg.entitlements; path = MobileOrg/MobileOrg.entitlements; sourceTree = "<group>"; };
-		8B262305779E2631EE21FE20 /* Pods-MobileOrg.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileOrg.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MobileOrg/Pods-MobileOrg.debug.xcconfig"; sourceTree = "<group>"; };
-		8D1107310486CEB800E47090 /* MobileOrg-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MobileOrg-Info.plist"; sourceTree = "<group>"; };
-		DA0A3BD3D41BA77D0F500F29 /* Pods_MobileOrg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MobileOrg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE67A65923A5CB6500B2B0BD /* SwiftyDropbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyDropbox.framework; path = Carthage/Build/iOS/SwiftyDropbox.framework; sourceTree = "<group>"; };
+		CE67A65E23A5CE1800B2B0BD /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		CECD59F423B8D6C200348D89 /* MobileOrgTests-AppStore.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "MobileOrgTests-AppStore.xcconfig"; path = "Configuration/MobileOrgTests-AppStore.xcconfig"; sourceTree = "<group>"; };
+		CECD59F523B8D6C200348D89 /* MobileOrg-AdHoc.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "MobileOrg-AdHoc.xcconfig"; path = "Configuration/MobileOrg-AdHoc.xcconfig"; sourceTree = "<group>"; };
+		CECD59F623B8D6C200348D89 /* MobileOrgTests-Shared.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "MobileOrgTests-Shared.xcconfig"; path = "Configuration/MobileOrgTests-Shared.xcconfig"; sourceTree = "<group>"; };
+		CECD59F723B8D6C200348D89 /* MobileOrgTests-Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "MobileOrgTests-Debug.xcconfig"; path = "Configuration/MobileOrgTests-Debug.xcconfig"; sourceTree = "<group>"; };
+		CECD59F823B8D6C200348D89 /* MobileOrgTests-AdHoc.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "MobileOrgTests-AdHoc.xcconfig"; path = "Configuration/MobileOrgTests-AdHoc.xcconfig"; sourceTree = "<group>"; };
+		CECD59F923B8D6C200348D89 /* MobileOrg-Shared.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "MobileOrg-Shared.xcconfig"; path = "Configuration/MobileOrg-Shared.xcconfig"; sourceTree = "<group>"; };
+		CECD59FA23B8D6C200348D89 /* MobileOrg-Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "MobileOrg-Debug.xcconfig"; path = "Configuration/MobileOrg-Debug.xcconfig"; sourceTree = "<group>"; };
+		CECD59FB23B8D6C200348D89 /* MobileOrg-AppStore.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "MobileOrg-AppStore.xcconfig"; path = "Configuration/MobileOrg-AppStore.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -307,15 +329,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				747BF9811DFCBC3F00E800FB /* libicucore.tbd in Frameworks */,
+				CE67A65B23A5CDD900B2B0BD /* SwiftyDropbox.framework in Frameworks */,
 				18A3BBA316178BDD003D9320 /* QuartzCore.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
+				CE67A65F23A5CE1800B2B0BD /* Alamofire.framework in Frameworks */,
 				83B1312C234AD16D0043D955 /* CloudKit.framework in Frameworks */,
 				28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */,
 				793F7F6C107CB5FC00674D0A /* SystemConfiguration.framework in Frameworks */,
 				7945F61211A807FD00731598 /* Security.framework in Frameworks */,
-				1CB7009C5E5623027D2F7449 /* Pods_MobileOrg.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,7 +384,6 @@
 				747BF9981DFD719400E800FB /* MobileOrgTests */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				CC470B9380ADEC11A31E3DE2 /* Pods */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -387,9 +409,7 @@
 				7936FA90120DF4280062CF0E /* Entitlements.plist */,
 				743C12F51DFED5950051EC6F /* Launch Screen.storyboard */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
-				8D1107310486CEB800E47090 /* MobileOrg-Info.plist */,
-				799774AA122C69260006EFC6 /* MobileOrg-Info-AdHoc.plist */,
-				799774AB122C69260006EFC6 /* MobileOrg-Info-Debug.plist */,
+				799774AB122C69260006EFC6 /* MobileOrg-Info.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -397,6 +417,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CE67A65E23A5CE1800B2B0BD /* Alamofire.framework */,
+				CE67A65923A5CB6500B2B0BD /* SwiftyDropbox.framework */,
 				83B1312B234AD16D0043D955 /* CloudKit.framework */,
 				747BF9801DFCBC3F00E800FB /* libicucore.tbd */,
 				18A3BBA216178BDD003D9320 /* QuartzCore.framework */,
@@ -406,7 +428,6 @@
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
 				28D801B30F44B63D00FB423F /* CoreData.framework */,
-				DA0A3BD3D41BA77D0F500F29 /* Pods_MobileOrg.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -446,6 +467,14 @@
 		747BF98B1DFD5CF500E800FB /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
+				CECD59F523B8D6C200348D89 /* MobileOrg-AdHoc.xcconfig */,
+				CECD59FB23B8D6C200348D89 /* MobileOrg-AppStore.xcconfig */,
+				CECD59FA23B8D6C200348D89 /* MobileOrg-Debug.xcconfig */,
+				CECD59F923B8D6C200348D89 /* MobileOrg-Shared.xcconfig */,
+				CECD59F823B8D6C200348D89 /* MobileOrgTests-AdHoc.xcconfig */,
+				CECD59F423B8D6C200348D89 /* MobileOrgTests-AppStore.xcconfig */,
+				CECD59F723B8D6C200348D89 /* MobileOrgTests-Debug.xcconfig */,
+				CECD59F623B8D6C200348D89 /* MobileOrgTests-Shared.xcconfig */,
 				747BF9881DFD5CD900E800FB /* AppKey.plist */,
 			);
 			name = Configuration;
@@ -739,16 +768,6 @@
 			path = ThirdParty;
 			sourceTree = "<group>";
 		};
-		CC470B9380ADEC11A31E3DE2 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				8B262305779E2631EE21FE20 /* Pods-MobileOrg.debug.xcconfig */,
-				8202E5BD58AEDFCB8A890758 /* Pods-MobileOrg.adhoc.xcconfig */,
-				6561B399A841A3A5958A5889 /* Pods-MobileOrg.appstore.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -756,13 +775,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "MobileOrg" */;
 			buildPhases = (
-				3A00323B994F9BD13A52A837 /* [CP] Check Pods Manifest.lock */,
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				743C12F21DFEC9A80051EC6F /* Run Script */,
 				83E77D421E2727790049AB02 /* ShellScript */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
-				2F55B0EE1CCB83973FFF76A4 /* [CP] Embed Pods Frameworks */,
+				CEE3E41823C5E55C004648D1 /* ShellScript */,
+				CE67A65D23A5CDD900B2B0BD /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -797,7 +816,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Sean Escriva";
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
@@ -821,13 +840,14 @@
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "MobileOrg" */;
 			compatibilityVersion = "Xcode 8.0";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 1;
 			knownRegions = (
-				English,
-				Japanese,
-				French,
-				German,
+				fr,
+				de,
+				ja,
+				en,
+				Base,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
@@ -911,44 +931,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2F55B0EE1CCB83973FFF76A4 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MobileOrg/Pods-MobileOrg-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyDropbox/SwiftyDropbox.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyDropbox.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MobileOrg/Pods-MobileOrg-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3A00323B994F9BD13A52A837 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MobileOrg-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		743C12F21DFEC9A80051EC6F /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -974,7 +956,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "git=`sh /etc/profile; which git`\nappBuild=`\"$git\" rev-list HEAD --count`\nif [ $CONFIGURATION = \"Debug\" ]; then\nbranchName=`\"$git\" rev-parse --abbrev-ref HEAD`\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild-$branchName\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild-$branchName\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}.dSYM/Contents/Info.plist\"\nelse\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}.dSYM/Contents/Info.plist\"\nfi\necho \"Incremented the build number ${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"";
+			shellScript = "git=`sh /etc/profile; which git`\nappBuild=`\"$git\" rev-list HEAD --count`\nif [ $CONFIGURATION = \"Debug\" ]; then\nbranchName=`\"$git\" rev-parse --abbrev-ref HEAD`\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild-$branchName\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild-$branchName\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}.dSYM/Contents/Info.plist\"\nelse\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}.dSYM/Contents/Info.plist\"\nfi\necho \"Incremented the build number ${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n";
+		};
+		CEE3E41823C5E55C004648D1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "carthage copy-frameworks\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1059,35 +1058,34 @@
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8B262305779E2631EE21FE20 /* Pods-MobileOrg.debug.xcconfig */;
+			baseConfigurationReference = CECD59FA23B8D6C200348D89 /* MobileOrg-Debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon${BUNDLE_ID_SUFFIX}";
-				BUNDLE_ID_SUFFIX = .debug;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = MobileOrg/MobileOrg.entitlements;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 30;
-				DEVELOPMENT_TEAM = 59B7VFRF7R;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MobileOrg_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				INFOPLIST_FILE = "MobileOrg-Info-Debug.plist";
+				INFOPLIST_FILE = "MobileOrg-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mobileorg.mobileorg-LocalDev";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mobileorg.mobileorg${BUNDLE_ID_SUFFIX}";
 				PRODUCT_NAME = MobileOrg;
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "MobileOrg-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_OPTIMIZATION_LEVEL = "${SWIFT_OPTIMIZATION_LEVEL}";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1097,6 +1095,7 @@
 		};
 		747BF99E1DFD719400E800FB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CECD59F723B8D6C200348D89 /* MobileOrgTests-Debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1109,7 +1108,6 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 9VWR9JYXC6;
@@ -1125,11 +1123,10 @@
 				INFOPLIST_FILE = MobileOrgTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = de.schnuddelhuddel.MobileOrgTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MobileOrgTests/MobileOrgTests-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_OPTIMIZATION_LEVEL = "${SWIFT_OPTIMIZATION_LEVEL}";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MobileOrg.app/MobileOrg";
@@ -1138,6 +1135,7 @@
 		};
 		747BF99F1DFD719400E800FB /* AdHoc */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CECD59F823B8D6C200348D89 /* MobileOrgTests-AdHoc.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1156,7 +1154,6 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1176,11 +1173,11 @@
 				INFOPLIST_FILE = MobileOrgTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = de.schnuddelhuddel.MobileOrgTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "MobileOrgTests/MobileOrgTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "${SWIFT_OPTIMIZATION_LEVEL}";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MobileOrg.app/MobileOrg";
@@ -1190,6 +1187,7 @@
 		};
 		747BF9A01DFD719400E800FB /* AppStore */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CECD59F423B8D6C200348D89 /* MobileOrgTests-AppStore.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1208,7 +1206,6 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1228,11 +1225,11 @@
 				INFOPLIST_FILE = MobileOrgTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = de.schnuddelhuddel.MobileOrgTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "MobileOrgTests/MobileOrgTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "${SWIFT_OPTIMIZATION_LEVEL}";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MobileOrg.app/MobileOrg";
@@ -1282,32 +1279,32 @@
 		};
 		79BA556F1073A82500D67917 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8202E5BD58AEDFCB8A890758 /* Pods-MobileOrg.adhoc.xcconfig */;
+			baseConfigurationReference = CECD59F523B8D6C200348D89 /* MobileOrg-AdHoc.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon${BUNDLE_ID_SUFFIX}";
-				BUNDLE_ID_SUFFIX = .adhoc;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = MobileOrg/MobileOrg.entitlements;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 30;
-				DEVELOPMENT_TEAM = 59B7VFRF7R;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MobileOrg_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				INFOPLIST_FILE = "MobileOrg-Info-AdHoc.plist";
+				INFOPLIST_FILE = "MobileOrg-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mobileorg.mobileorg-LocalDev";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mobileorg.mobileorg${BUNDLE_ID_SUFFIX}";
 				PRODUCT_NAME = MobileOrg;
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "MobileOrg-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "${SWIFT_OPTIMIZATION_LEVEL}";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1356,21 +1353,20 @@
 		};
 		79BA55711073A82C00D67917 /* AppStore */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6561B399A841A3A5958A5889 /* Pods-MobileOrg.appstore.xcconfig */;
+			baseConfigurationReference = CECD59FB23B8D6C200348D89 /* MobileOrg-AppStore.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon${BUNDLE_ID_SUFFIX}";
-				BUNDLE_ID_SUFFIX = "";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = MobileOrg/MobileOrg.entitlements;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 30;
-				DEVELOPMENT_TEAM = 59B7VFRF7R;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MobileOrg_Prefix.pch;
@@ -1378,10 +1374,11 @@
 				INFOPLIST_FILE = "MobileOrg-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mobileorg.mobileorg-LocalDev";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mobileorg.mobileorg${BUNDLE_ID_SUFFIX}";
 				PRODUCT_NAME = MobileOrg;
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "MobileOrg-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "${SWIFT_OPTIMIZATION_LEVEL}";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1413,7 +1410,6 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_INPUT_FILETYPE = sourcecode.c.objc;
 				GCC_NO_COMMON_BLOCKS = YES;

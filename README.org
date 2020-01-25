@@ -87,19 +87,12 @@
    wish to open a pull request for a proof of concept or feedback on an idea,
    please clearly indicate this in the description or title.
 ** git flow branching model
-   To the extent possible the MobileOrg repo follows the [[http://nvie.com/posts/a-successful-git-branching-model/][Git Flow]]
+   MobileOrg loosely follows branching inspired by the [[http://nvie.com/posts/a-successful-git-branching-model/][Git Flow]]
    branching model. How this affects contributing is that *all new
    work should be based off the develop* branch and be named either
    *feature/your-new-feature*, *hotfix/some-bug-fix* or similar. See
    the previous link for more information. This will make it much
    easier to merge your work.
-
-   There is a [[https://github.com/nvie/gitflow][git extension]] if you're interested in learning a new
-   command for this workflow, but it isn't required. You can just as
-   easily manually do:
-   #+BEGIN_SRC 
-    git checkout -b feature/new-hotness
-   #+END_SRC
 
    If you like to work further with your fork you should incorporate
    your changes into the develop-branch not by merging your branch
@@ -127,14 +120,13 @@
   - Russell McClellan
   - Mario Martelli
 * Support
-  MobileOrg will always stay free in the app store, but the Apple
-  Developer program costs money. Currently I pay $99 a year to
-  maintain this and keep it in the app store. If you'd like to donate
-  toward that get in touch.
-  
-  You support MobileOrg just by using it, thanks for your continued interest.
+MobileOrg will always stay free in the app store, but the Apple
+Developer program costs money. Currently I pay $99 a year to
+maintain this and keep it in the app store. If you'd like to donate
+toward that you can use the Sponsor button on the Github Repo.
+
+You support MobileOrg just by using it or assisting with bug fixes and feature
+development. Thanks for your continued interest.
 * License
-    MobileOrg is distributed under the GNU Public License version 2.
-    See LICENSE.txt for more info.
-
-
+MobileOrg is distributed under the GNU Public License version 2.
+See LICENSE.txt for more info.

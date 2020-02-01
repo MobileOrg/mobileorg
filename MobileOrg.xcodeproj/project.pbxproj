@@ -123,9 +123,7 @@
 		8322ED8C176AF1C7008B37C7 /* table_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8322ED86176AF1C6008B37C7 /* table_gray@2x.png */; };
 		83B1312C234AD16D0043D955 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83B1312B234AD16D0043D955 /* CloudKit.framework */; };
 		CE67A65B23A5CDD900B2B0BD /* SwiftyDropbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE67A65923A5CB6500B2B0BD /* SwiftyDropbox.framework */; };
-		CE67A65C23A5CDD900B2B0BD /* SwiftyDropbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE67A65923A5CB6500B2B0BD /* SwiftyDropbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CE67A65F23A5CE1800B2B0BD /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE67A65E23A5CE1800B2B0BD /* Alamofire.framework */; };
-		CE67A66023A5CE1800B2B0BD /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE67A65E23A5CE1800B2B0BD /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,21 +135,6 @@
 			remoteInfo = MobileOrg;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		CE67A65D23A5CDD900B2B0BD /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				CE67A65C23A5CDD900B2B0BD /* SwiftyDropbox.framework in Embed Frameworks */,
-				CE67A66023A5CE1800B2B0BD /* Alamofire.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		18A3BBA216178BDD003D9320 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -781,7 +764,6 @@
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
 				CEE3E41823C5E55C004648D1 /* ShellScript */,
-				CE67A65D23A5CDD900B2B0BD /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

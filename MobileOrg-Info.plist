@@ -44,13 +44,6 @@
 	<string>MainWindow</string>
 	<key>NSMainNibFile~ipad</key>
 	<string>MainWindow-iPad</string>
-	<key>UILaunchImages</key>
-	<dict>
-		<key>UILaunchImageName</key>
-		<string>Default-568h</string>
-		<key>UILaunchImageSize</key>
-		<string>{320, 568}</string>
-	</dict>
 	<key>UILaunchStoryboardName</key>
 	<string>Launch Screen</string>
 	<key>UIRequiresFullScreen</key>

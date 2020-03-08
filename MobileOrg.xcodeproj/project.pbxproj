@@ -1065,14 +1065,12 @@
 				GCC_PREFIX_HEADER = MobileOrg_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "MobileOrg-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mobileorg.mobileorg${BUNDLE_ID_SUFFIX}";
 				PRODUCT_NAME = MobileOrg;
-				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "MobileOrg-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "${SWIFT_OPTIMIZATION_LEVEL}";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
@@ -1299,14 +1297,12 @@
 				GCC_PREFIX_HEADER = MobileOrg_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "MobileOrg-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mobileorg.mobileorg${BUNDLE_ID_SUFFIX}";
 				PRODUCT_NAME = MobileOrg;
-				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "MobileOrg-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "${SWIFT_OPTIMIZATION_LEVEL}";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
@@ -1376,14 +1372,12 @@
 				GCC_PREFIX_HEADER = MobileOrg_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "MobileOrg-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mobileorg.mobileorg${BUNDLE_ID_SUFFIX}";
 				PRODUCT_NAME = MobileOrg;
-				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "MobileOrg-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "${SWIFT_OPTIMIZATION_LEVEL}";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;

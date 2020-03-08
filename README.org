@@ -54,7 +54,7 @@
   instructions [[https://github.com/Carthage/Carthage#installing-carthage][from here.]]
   Install the needed dependencies by running
   #+BEGIN_SRC shell
-  carthage bootstrap
+  carthage bootstrap --platform ios
   #+END_SRC  
   in your shell.
 

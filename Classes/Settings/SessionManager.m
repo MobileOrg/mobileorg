@@ -102,7 +102,7 @@ static NSString *kWhichTabKey      = @"WhichTab";
 
 - (void)popOutlineStateToLevel:(int)level {
     if (!isRestoring && ![self isSearchMode]) {
-        while ([self.outlineStates count] > level) {
+        while ([self.outlineStates count] > (NSUInteger)level) {
             [self.outlineStates removeLastObject];
         }
         [self saveOutlineState];

@@ -150,7 +150,7 @@
     NSString *todoState;
 
     NSArray *todoStateGroup = [todoStateGroups objectAtIndex:indexPath.section];
-    if (indexPath.row < [[todoStateGroup objectAtIndex:0] count]) {
+    if (indexPath.row < (NSInteger)[[todoStateGroup objectAtIndex:0] count]) {
         todoState = [[todoStateGroup objectAtIndex:0] objectAtIndex:indexPath.row];
         cellIdentifier = [cellIdentifier stringByAppendingString:@"IsTodo"];
     } else {
@@ -186,7 +186,7 @@
 
     NSString *todoState;
     NSArray *todoStateGroup = [todoStateGroups objectAtIndex:indexPath.section];
-    if (indexPath.row < [[todoStateGroup objectAtIndex:0] count]) {
+    if (indexPath.row < (NSInteger)[[todoStateGroup objectAtIndex:0] count]) {
         todoState = [[todoStateGroup objectAtIndex:0] objectAtIndex:indexPath.row];
     } else {
         todoState = [[todoStateGroup objectAtIndex:1] objectAtIndex:indexPath.row-[[todoStateGroup objectAtIndex:0] count]];

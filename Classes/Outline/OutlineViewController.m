@@ -172,7 +172,7 @@
 
 - (NSIndexPath*)pathForNode:(Node*)node {
     long index = [[self nodes] indexOfObject:node];
-    if (index >= 0 && index < [nodes count]) {
+    if (index >= 0 && index < (NSInteger)[nodes count]) {
         return [NSIndexPath indexPathForRow:index inSection:0];
     }
     return nil;

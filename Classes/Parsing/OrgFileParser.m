@@ -92,7 +92,7 @@
         lines = [entireFile componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\r\n"]];
 
         // Until we hit the end of the file
-        for (int i = 0; i < [lines count]; i++) {
+        for (int i = 0; i < (NSInteger)[lines count]; i++) {
 
             if ([[NSThread currentThread] isCancelled]) {
                 // TODO: Add support for cancellation
@@ -106,12 +106,12 @@
             int numStars = 0;
 
             if ([line length] > 0) {
-                while (numStars < [line length] && [line characterAtIndex:numStars] == '*') {
+                while (numStars < (NSInteger)[line length] && [line characterAtIndex:numStars] == '*') {
                     numStars++;
                 }
 
                 // Oops, it wasn't really a headling, there has to be a space following the last star!
-                if (numStars >= [line length] || [line characterAtIndex:numStars] != ' ') {
+                if (numStars >= (NSInteger)[line length] || [line characterAtIndex:numStars] != ' ') {
                     numStars = 0;
                 }
             }
@@ -321,7 +321,7 @@
                 }
 
                 // Prevent wrong indentation if previous heading level had skipped
-                while ([nodeStack count] > numStars + 1) {
+                while ((NSInteger)[nodeStack count] > numStars + 1) {
                     [nodeStack removeLastObject];
                 }
 

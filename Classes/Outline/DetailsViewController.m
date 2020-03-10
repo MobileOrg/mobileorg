@@ -101,7 +101,7 @@ typedef enum {
         }
 
         [segmented setEnabled:(index > 0) forSegmentAtIndex:0];
-        [segmented setEnabled:(index < [sortedChildren count] - 1) forSegmentAtIndex:1];
+        [segmented setEnabled:(index < (NSInteger)[sortedChildren count] - 1) forSegmentAtIndex:1];
     } else {
         [segmented setEnabled:NO forSegmentAtIndex:0];
         [segmented setEnabled:NO forSegmentAtIndex:1];

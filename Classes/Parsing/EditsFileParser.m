@@ -82,7 +82,7 @@
         lines = [entireFile componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\r\n"]];
         
         // Until we hit the end of the file
-        for (int i = 0; i < [lines count]; i++) {
+        for (int i = 0; i < (NSInteger)[lines count]; i++) {
 
             if ([[NSThread currentThread] isCancelled]) {
                 // TODO: Add support for cancellation
@@ -107,7 +107,7 @@
                             break;
                         }
                     }
-                    if (lastNonspaceChar >= 0 && lastNonspaceChar < [lastEntity.updatedValue length]-1) {
+                    if (lastNonspaceChar >= 0 && lastNonspaceChar < (NSInteger)[lastEntity.updatedValue length]-1) {
                         lastEntity.updatedValue = [lastEntity.updatedValue substringToIndex:lastNonspaceChar+1];
                     }
                 }
@@ -143,7 +143,7 @@
                             break;
                         }
                     }
-                    if (lastNonspaceChar >= 0 && lastNonspaceChar < [lastEntity.updatedValue length]-1) {
+                    if (lastNonspaceChar >= 0 && lastNonspaceChar < (NSInteger)[lastEntity.updatedValue length]-1) {
                         lastEntity.updatedValue = [lastEntity.updatedValue substringToIndex:lastNonspaceChar+1];
                     }
                 }
@@ -242,7 +242,7 @@
                 break;
             }
         }
-        if (lastNonspaceChar >= 0 && lastNonspaceChar < [lastEntity.updatedValue length]-1) {
+        if (lastNonspaceChar >= 0 && lastNonspaceChar < (NSInteger)[lastEntity.updatedValue length]-1) {
             lastEntity.updatedValue = [lastEntity.updatedValue substringToIndex:lastNonspaceChar+1];
         }
     }

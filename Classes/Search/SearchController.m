@@ -44,7 +44,7 @@
 
 - (NSIndexPath*)pathForNode:(Node*)node {
     int index = (int)[[self nodesArray] indexOfObject:node];
-    if (index >= 0 && index < [nodesArray count]) {
+    if (index >= 0 && index < (NSInteger)[nodesArray count]) {
         return [NSIndexPath indexPathForRow:index inSection:0];
     }
     return nil;

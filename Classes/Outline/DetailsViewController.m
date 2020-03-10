@@ -45,7 +45,6 @@
 #import "PriorityEditController.h"
 #import "OutlineViewController.h"
 #import "SearchController.h"
-#import "DocumentViewController.h"
 #import "OutlineState.h"
 #import "SessionManager.h"
 #import "DataUtils.h"
@@ -176,10 +175,9 @@ typedef enum {
 }
 
 - (void)showDocumentView {
-    DocumentViewController *docViewController = [[DocumentViewController alloc] initWithNibName:nil bundle:nil];
-    [docViewController setNode:node];
-    [self.navigationController pushViewController:docViewController animated:YES];
-    [docViewController release];
+    PreviewViewController *controller = [[PreviewViewController alloc] initWith:node];
+    [self.navigationController pushViewController:controller animated:YES];
+    [controller release];
 
     OutlineState *state = [[OutlineState new] autorelease];
     state.selectionType = OutlineSelectionTypeDocumentView;
@@ -212,16 +210,12 @@ typedef enum {
     if ([outlineStates count] > 0) {
 
         OutlineState *thisState = [OutlineState fromDictionary:[outlineStates objectAtIndex:0]];
-        NSArray *newStates = [outlineStates subarrayWithRange:NSMakeRange(1, [outlineStates count]-1)];
 
         switch (thisState.selectionType) {
             case OutlineSelectionTypeDocumentView:
             {
-                DocumentViewController *controller = [[DocumentViewController alloc] initWithNibName:nil bundle:nil];
-                [controller setNode:node];
-                [controller setScrollTo:thisState.scrollPositionY];
+                PreviewViewController *controller = [[PreviewViewController alloc] initWith:node positionToScroll:thisState.scrollPositionY];
                 [self.navigationController pushViewController:controller animated:NO];
-                [controller restore:newStates];
                 [controller release];
                 break;
             }

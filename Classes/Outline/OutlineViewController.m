@@ -29,7 +29,6 @@
 #import "Settings.h"
 #import "SessionManager.h"
 #import "OutlineState.h"
-#import "DocumentViewController.h"
 #import "ActionMenuController.h"
 #import "OutlineTableView.h"
 #import "MobileOrg-Swift.h"
@@ -160,8 +159,7 @@
         }
         case OutlineSelectionTypeDocumentView:
         {
-            DocumentViewController *controller = [[[DocumentViewController alloc] init] autorelease];
-            [controller setNode:node];
+            PreviewViewController *controller = [[PreviewViewController alloc] initWith:node];
             [[self navigationController] pushViewController:controller animated:animation];
             ret = controller;
             break;

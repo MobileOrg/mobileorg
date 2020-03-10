@@ -18,6 +18,7 @@
 		5420E7C9234D15F20008ADAC /* CloudTransferManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5420E7C8234D15F20008ADAC /* CloudTransferManager.swift */; };
 		5420E7CD234FB4150008ADAC /* UIAlertController+MobileOrg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5420E7CC234FB4150008ADAC /* UIAlertController+MobileOrg.swift */; };
 		5420E7D1234FC7AA0008ADAC /* CloudTransferManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5420E7D0234FC7AA0008ADAC /* CloudTransferManagerTests.swift */; };
+		549D4BC72417D27900039E1E /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549D4BC62417D27900039E1E /* PreviewViewController.swift */; };
 		54CD6301234BC02D00D485E1 /* UIColor+MobileOrg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CD6300234BC02D00D485E1 /* UIColor+MobileOrg.swift */; };
 		54CD6303234BC9A200D485E1 /* RoundedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CD6302234BC9A200D485E1 /* RoundedLabel.swift */; };
 		54E9BAA923531E12008419C4 /* String+Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E9BAA823531E12008419C4 /* String+Attributes.swift */; };
@@ -56,7 +57,6 @@
 		7936F92A120DDF3F0062CF0E /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7936F929120DDF3F0062CF0E /* MainWindow-iPad.xib */; };
 		7936FA91120DF4280062CF0E /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7936FA90120DF4280062CF0E /* Entitlements.plist */; };
 		793F7D8D107C1E6000674D0A /* SearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 793F7D8C107C1E6000674D0A /* SearchController.m */; };
-		793F7EE5107C362E00674D0A /* DocumentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 793F7EE4107C362E00674D0A /* DocumentViewController.m */; };
 		793F7F0A107C385200674D0A /* DocumentView.css in Resources */ = {isa = PBXBuildFile; fileRef = 793F7F09107C385200674D0A /* DocumentView.css */; };
 		793F7F6C107CB5FC00674D0A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 793F7F6B107CB5FC00674D0A /* SystemConfiguration.framework */; };
 		793F811F107D381A00674D0A /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 793F811E107D381A00674D0A /* SessionManager.m */; };
@@ -151,6 +151,7 @@
 		5420E7C8234D15F20008ADAC /* CloudTransferManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudTransferManager.swift; sourceTree = "<group>"; };
 		5420E7CC234FB4150008ADAC /* UIAlertController+MobileOrg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+MobileOrg.swift"; sourceTree = "<group>"; };
 		5420E7D0234FC7AA0008ADAC /* CloudTransferManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudTransferManagerTests.swift; sourceTree = "<group>"; };
+		549D4BC62417D27900039E1E /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 		54CD6300234BC02D00D485E1 /* UIColor+MobileOrg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+MobileOrg.swift"; sourceTree = "<group>"; };
 		54CD6302234BC9A200D485E1 /* RoundedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedLabel.swift; sourceTree = "<group>"; };
 		54E9BAA823531E12008419C4 /* String+Attributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Attributes.swift"; sourceTree = "<group>"; };
@@ -200,8 +201,6 @@
 		7936FA90120DF4280062CF0E /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		793F7D8B107C1E6000674D0A /* SearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchController.h; sourceTree = "<group>"; };
 		793F7D8C107C1E6000674D0A /* SearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchController.m; sourceTree = "<group>"; };
-		793F7EE3107C362E00674D0A /* DocumentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DocumentViewController.h; sourceTree = "<group>"; };
-		793F7EE4107C362E00674D0A /* DocumentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DocumentViewController.m; sourceTree = "<group>"; };
 		793F7F09107C385200674D0A /* DocumentView.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = DocumentView.css; sourceTree = "<group>"; };
 		793F7F0B107C385900674D0A /* DocumentView.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = DocumentView.js; sourceTree = "<group>"; };
 		793F7F6B107CB5FC00674D0A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = /System/Library/Frameworks/SystemConfiguration.framework; sourceTree = "<absolute>"; };
@@ -577,8 +576,6 @@
 				790B413E10814D8400A852F1 /* ActionMenuController.m */,
 				79CB1F0F10758EA200A7E065 /* DetailsViewController.h */,
 				79CB1F1010758EA200A7E065 /* DetailsViewController.m */,
-				793F7EE3107C362E00674D0A /* DocumentViewController.h */,
-				793F7EE4107C362E00674D0A /* DocumentViewController.m */,
 				79CB20B310762CC000A7E065 /* NodeTextEditController.h */,
 				79CB20B410762CC000A7E065 /* NodeTextEditController.m */,
 				790B417C10814FAC00A852F1 /* OutlineTableView.h */,
@@ -591,6 +588,7 @@
 				7998B00310797EBE0000ED49 /* TodoStateEditController.m */,
 				790B455410826A0900A852F1 /* PriorityEditController.h */,
 				790B455510826A0900A852F1 /* PriorityEditController.m */,
+				549D4BC62417D27900039E1E /* PreviewViewController.swift */,
 			);
 			path = Outline;
 			sourceTree = "<group>";
@@ -991,6 +989,7 @@
 				54F9827F235A536C00CC6122 /* AddNoteViewController.swift in Sources */,
 				744787E21EB3198D00631BA2 /* PersistenceStack.swift in Sources */,
 				79CB19D21074423C00A7E065 /* ChecksumFileParser.m in Sources */,
+				549D4BC72417D27900039E1E /* PreviewViewController.swift in Sources */,
 				79CB19D51074424300A7E065 /* OrgFileParser.m in Sources */,
 				6CB501F21E20C3D70082FD40 /* SyncSettingsController.swift in Sources */,
 				79CB1F1110758EA200A7E065 /* DetailsViewController.m in Sources */,
@@ -1005,7 +1004,6 @@
 				5420E7C9234D15F20008ADAC /* CloudTransferManager.swift in Sources */,
 				793F7D8D107C1E6000674D0A /* SearchController.m in Sources */,
 				745B1E311EC98C9B00D80421 /* MobileOrg2.xcdatamodeld in Sources */,
-				793F7EE5107C362E00674D0A /* DocumentViewController.m in Sources */,
 				793F811F107D381A00674D0A /* SessionManager.m in Sources */,
 				793F8128107D38C900674D0A /* OutlineState.m in Sources */,
 				790B413F10814D8400A852F1 /* ActionMenuController.m in Sources */,

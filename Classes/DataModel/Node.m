@@ -446,7 +446,7 @@ NSString *const kUnixFileLinkRegex = @"\\[\\[file:(.*\\.(?:org|txt))\\]\\[(.*)\\
             title = [NSString stringWithFormat:@"%@<span class='tags'>%@</span>", title, [self tags]];
         }
         if (level == 0) {
-            ret = [ret stringByAppendingString:@"<html><head><meta name='viewport' content='width=960, user-scalable=yes'><link rel='stylesheet' href='DocumentView.css' /><script type='text/javascript' src='DocumentView.js'></script></head><body>"];
+            ret = [ret stringByAppendingString:@"<html><head><meta name='viewport' content='initial-scale=1.0, maximum-scale=1.0, user-scalable=yes'><link rel='stylesheet' href='DocumentView.css' /><script type='text/javascript' src='DocumentView.js'></script></head><body>"];
             ret = [ret stringByAppendingFormat:@"<h1>%@</h1>", title];
         } else if (level == 1) {
             ret = [ret stringByAppendingFormat:@"<h2>%@</h2>", title];

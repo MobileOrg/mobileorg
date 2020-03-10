@@ -176,7 +176,7 @@
 
     NSArray *lines = [textView.text componentsSeparatedByString:@"\n"];
     for (NSString *line in lines) {
-        NSArray *captures = [line captureComponentsMatchedByRegex:@"( +).+"];
+        NSArray<NSString *> *captures = [line captureComponentsMatchedByRegex:@"( +).+"];
         if ([captures count] > 0) {
             int spaces = (int)[[captures objectAtIndex:0] length];
             if (spaces < indentLevel)

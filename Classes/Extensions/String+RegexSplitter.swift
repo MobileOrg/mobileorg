@@ -93,6 +93,7 @@ public extension NSString {
   }
 
 
+    // FIXME: this is a performance bottle-neck, we have to store compiled rgx when possible
   @objc func stringByReplacingOccurrencesOf(regex: String, withString: String) -> String {
 
     let rgx = try! NSRegularExpression(pattern: regex,

@@ -81,13 +81,6 @@ void UpdateAppBadge() {
         count += [[[AppInstance() noteListViewController] navigationController].tabBarItem.badgeValue intValue];
         count += [[[AppInstance() rootOutlineController] navigationController].tabBarItem.badgeValue intValue];
 
-        // are you running on >= iOS8?
-        // Not necessary because we're starting with 8
-        // But safe is safe 🦄
-        if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
-            UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeBadge|UIUserNotificationTypeAlert|UIUserNotificationTypeSound) categories:nil];
-            [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-        }
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:count];
     }
     else {

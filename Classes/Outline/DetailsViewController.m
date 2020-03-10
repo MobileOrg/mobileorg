@@ -443,6 +443,7 @@ typedef enum {
         }
     }
 
+    [NSException raise:@"Unexpected state" format:@"Cannot find a suitable cell for the IndexPath: %@", indexPath];
     return nil;
 }
 

@@ -261,13 +261,6 @@
             [controller restore:newStates];
         }
 
-        // We should set the new doc view's scrollY here.. this is kind of ugly.
-        // It'd be better to refactor this so each object restores its own state
-        // rather than letting the one above him do it.
-        if ([controller respondsToSelector:@selector(setScrollTo:)]) {
-            [controller setScrollTo:thisState.scrollPositionY];
-        }
-
         [[self tableView] reloadData];
         [[self tableView] setNeedsDisplay];
         [[self tableView] scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionMiddle animated:NO];

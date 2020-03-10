@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -759,11 +759,11 @@
 			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "MobileOrg" */;
 			buildPhases = (
 				1D60588D0D05DD3D006BFB54 /* Resources */,
-				743C12F21DFEC9A80051EC6F /* Run Script */,
-				83E77D421E2727790049AB02 /* ShellScript */,
+				743C12F21DFEC9A80051EC6F /* Update Dropbox Keys Script */,
+				83E77D421E2727790049AB02 /* Update Bundle Version Script */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
-				CEE3E41823C5E55C004648D1 /* ShellScript */,
+				CEE3E41823C5E55C004648D1 /* Copy Carthage Frameworks  Script */,
 			);
 			buildRules = (
 			);
@@ -913,43 +913,47 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		743C12F21DFEC9A80051EC6F /* Run Script */ = {
+		743C12F21DFEC9A80051EC6F /* Update Dropbox Keys Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Run Script";
+			name = "Update Dropbox Keys Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "pbuddy=/usr/libexec/PlistBuddy\nAPIKEY=`/usr/libexec/PlistBuddy -c 'print :Dropbox\\ API\\ Key:AppKey' Configuration/AppKey.plist`\nAPISECRET=`/usr/libexec/PlistBuddy -c 'print :Dropbox\\ API\\ Key:AppSecret' Configuration/AppKey.plist`\n$pbuddy -c \"set :CFBundleURLTypes:0:CFBundleURLSchemes:0 db-${APIKEY}\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"";
+			shellScript = "pbuddy=/usr/libexec/PlistBuddy\nAPIKEY=`/usr/libexec/PlistBuddy -c 'print :Dropbox\\ API\\ Key:AppKey' Configuration/AppKey.plist`\nAPISECRET=`/usr/libexec/PlistBuddy -c 'print :Dropbox\\ API\\ Key:AppSecret' Configuration/AppKey.plist`\n$pbuddy -c \"set :CFBundleURLTypes:0:CFBundleURLSchemes:0 db-${APIKEY}\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n";
 		};
-		83E77D421E2727790049AB02 /* ShellScript */ = {
+		83E77D421E2727790049AB02 /* Update Bundle Version Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Update Bundle Version Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "git=`sh /etc/profile; which git`\nappBuild=`\"$git\" rev-list HEAD --count`\nif [ $CONFIGURATION = \"Debug\" ]; then\nbranchName=`\"$git\" rev-parse --abbrev-ref HEAD`\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild-$branchName\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild-$branchName\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}.dSYM/Contents/Info.plist\"\nelse\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}.dSYM/Contents/Info.plist\"\nfi\necho \"Incremented the build number ${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n";
 		};
-		CEE3E41823C5E55C004648D1 /* ShellScript */ = {
+		CEE3E41823C5E55C004648D1 /* Copy Carthage Frameworks  Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
+				"$(SRCROOT)/Configuration/Carthage-in.xcfilelist",
 			);
 			inputPaths = (
 			);
+			name = "Copy Carthage Frameworks  Script";
 			outputFileListPaths = (
+				"$(SRCROOT)/Configuration/Carthage-out.xcfilelist",
 			);
 			outputPaths = (
 			);
@@ -1062,7 +1066,10 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "MobileOrg-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mobileorg.mobileorg${BUNDLE_ID_SUFFIX}";
 				PRODUCT_NAME = MobileOrg;
 				SDKROOT = iphoneos;
@@ -1104,7 +1111,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = MobileOrgTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = de.schnuddelhuddel.MobileOrgTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MobileOrgTests/MobileOrgTests-Bridging-Header.h";
@@ -1154,7 +1165,11 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = MobileOrgTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = de.schnuddelhuddel.MobileOrgTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -1206,7 +1221,11 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = MobileOrgTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = de.schnuddelhuddel.MobileOrgTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -1281,7 +1300,10 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "MobileOrg-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mobileorg.mobileorg${BUNDLE_ID_SUFFIX}";
 				PRODUCT_NAME = MobileOrg;
 				SDKROOT = iphoneos;
@@ -1355,7 +1377,10 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "MobileOrg-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mobileorg.mobileorg${BUNDLE_ID_SUFFIX}";
 				PRODUCT_NAME = MobileOrg;
 				SDKROOT = iphoneos;

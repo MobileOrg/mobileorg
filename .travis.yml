@@ -1,32 +1,30 @@
 # Travis
 
-# sudo: required
-
+os: osx
+osx_image: xcode11.3
 language: objective-c
 
-# addons:
-#   hosts:
-#     - mobileOrgWebDav.schnuddelhuddel.de
+branches:
+  only:
+    - develop
 
-# dist: trusty
+cache:
+  directories:
+  - Carthage
 
-# services:
-#   - docker
-  
-# before_install:
-# - docker pull phylor/webdav-ssl
-# - docker run -v $PWD/htpasswd:/htpasswd -v $PWD/certs:/certs -v $PWD/content:/var/www -h mobileOrgWebDav.schnuddelhuddel.de -p 32773:443 phylor/webdav-ssl
-
-osx_image: xcode8.3
-
-# xcode_project: MobileOrg.xcodeproj
-xcode_scheme: MobileOrg
+before_install:
+  - export IOS_SIMULATOR_DESTINATION="platform=iOS Simulator,name=iPhone 8,OS=13.3"
 
 install:
-  pod install --repo-update 
+- brew install carthage || true
+- brew outdated carthage || brew upgrade carthage
+- carthage bootstrap --platform iOS --cache-builds
+
+before_script:
+  - set -o pipefail
 
 script:
-  xcodebuild test CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO  -workspace MobileOrg.xcworkspace -scheme MobileOrg -destination 'platform=iOS Simulator,name=iPhone 6,OS=9.3'|xcpretty
+  - travis_retry xcodebuild test -scheme MobileOrg -destination "$IOS_SIMULATOR_DESTINATION" | xcpretty -c
 
 notifications:
   irc: 

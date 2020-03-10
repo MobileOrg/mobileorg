@@ -132,7 +132,7 @@ typedef enum {
         [self changeNode:[sortedChildren objectAtIndex:new_index]];
 
         // Save session
-        OutlineState *state = [[OutlineState new] autorelease];
+        OutlineState *state = [OutlineState new];
         state.selectedChildIndex = new_index;
         state.selectionType = OutlineSelectionTypeDetails;
         [[SessionManager instance] replaceTopOutlineState:state];
@@ -177,9 +177,8 @@ typedef enum {
 - (void)showDocumentView {
     PreviewViewController *controller = [[PreviewViewController alloc] initWith:node];
     [self.navigationController pushViewController:controller animated:YES];
-    [controller release];
 
-    OutlineState *state = [[OutlineState new] autorelease];
+    OutlineState *state = [OutlineState new];
     state.selectionType = OutlineSelectionTypeDocumentView;
     [[SessionManager instance] pushOutlineState:state];
 }
@@ -216,7 +215,6 @@ typedef enum {
             {
                 PreviewViewController *controller = [[PreviewViewController alloc] initWith:node positionToScroll:thisState.scrollPositionY];
                 [self.navigationController pushViewController:controller animated:NO];
-                [controller release];
                 break;
             }
             default:
@@ -253,9 +251,6 @@ typedef enum {
 
     UIBarButtonItem* container_item = [[UIBarButtonItem alloc] initWithCustomView:segmented];
     self.navigationItem.rightBarButtonItem = container_item;
-
-    [container_item release];
-    [buttons release];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -304,7 +299,7 @@ typedef enum {
 
                 UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
                 if (cell == nil) {
-                    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
                 } else {
 
                 }
@@ -329,7 +324,7 @@ typedef enum {
 
                     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
                     if (cell == nil) {
-                        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+                        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
                         [[cell textLabel] setFont:[UIFont systemFontOfSize:13.0]];
                     } else {
 
@@ -350,7 +345,7 @@ typedef enum {
 
                     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
                     if (cell == nil) {
-                        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+                        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
                         [[cell textLabel] setFont:[UIFont italicSystemFontOfSize:13.0]];
                         [[cell textLabel] setTextColor:[UIColor mo_grayColor]];
                     } else {
@@ -382,7 +377,7 @@ typedef enum {
 
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             if (cell == nil) {
-                cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier];
                 [[cell detailTextLabel] setFont:[UIFont systemFontOfSize:13.0]];
             } else {
 
@@ -430,7 +425,7 @@ typedef enum {
 
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             if (cell == nil) {
-                cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             } else {
 
             }
@@ -460,7 +455,7 @@ typedef enum {
         return;
     } else if (indexPath.section == DetailsViewSectionActions && indexPath.row == 1) {
       
-        ActionMenuController *controller = [[[ActionMenuController alloc] init] autorelease];
+        ActionMenuController *controller = [[ActionMenuController alloc] init];
         [controller setNode:editTarget];
         [controller setShowDocumentViewButton:false];
         [controller showActionSheet:self on:[tableView cellForRowAtIndexPath:indexPath]];
@@ -477,31 +472,19 @@ typedef enum {
     if ([indexPath section] == DetailsViewSectionText && [indexPath row] == 0) {
         NodeTextEditController *controller = [[NodeTextEditController alloc] initWithNode:editTarget andEditProperty:NodeTextEditPropertyHeading];
         [[self navigationController] pushViewController:controller animated:YES];
-        [controller release];
     } else if ([indexPath section] == DetailsViewSectionText && [indexPath row] == 1) {
         NodeTextEditController *controller = [[NodeTextEditController alloc] initWithNode:editTarget andEditProperty:NodeTextEditPropertyBody];
         [[self navigationController] pushViewController:controller animated:YES];
-        [controller release];
     } else if ([indexPath section] == DetailsViewSectionProperties && [indexPath row] == DetailsViewPropertiesTodoState) {
         TodoStateEditController *controller = [[TodoStateEditController alloc] initWithNode:editTarget];
         [[self navigationController] pushViewController:controller animated:YES];
-        [controller release];
     } else if ([indexPath section] == DetailsViewSectionProperties && [indexPath row] == DetailsViewPropertiesPriority) {
         PriorityEditController *controller = [[PriorityEditController alloc] initWithNode:editTarget];
         [[self navigationController] pushViewController:controller animated:YES];
-        [controller release];
     } else if ([indexPath section] == DetailsViewSectionProperties && [indexPath row] == DetailsViewPropertiesTags) {
         TagEditController *controller = [[TagEditController alloc] initWithNode:editTarget];
         [[self navigationController] pushViewController:controller animated:YES];
-        [controller release];
     }
-}
-
-- (void)dealloc {
-    self.node = nil;
-    self.editTarget = nil;
-    [segmented release];
-    [super dealloc];
 }
 
 @end

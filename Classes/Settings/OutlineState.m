@@ -40,7 +40,7 @@
 }
 
 + (OutlineState*)fromDictionary:(NSDictionary*)dict {
-    OutlineState *state = [[OutlineState new] autorelease];
+    OutlineState *state = [OutlineState new];
     state.selectionType = [[dict valueForKey:@"SelectionType"] intValue];
     state.selectedChildIndex = [[dict valueForKey:@"SelectedChild"] intValue];
     state.scrollPositionY = [[dict valueForKey:@"ScrollY"] intValue];

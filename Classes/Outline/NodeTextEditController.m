@@ -250,13 +250,4 @@
     [super didReceiveMemoryWarning];
 }
 
-- (void)dealloc {
-    [valueBeforeEditing release];
-    [editAction release];
-    [node release];
-    [textView release];
-    [doneButton release];
-    [super dealloc];
-}
-
 @end

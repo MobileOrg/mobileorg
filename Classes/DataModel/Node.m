@@ -162,8 +162,6 @@ NSString *const kUnixFileLinkRegex = @"\\[\\[file:(.*\\.(?:org|txt))\\]\\[(.*)\\
     }
 
     NSString *result = [goodLines componentsJoinedByString:@"\n"];
-    [goodLines release];
-
     return result;
 }
 

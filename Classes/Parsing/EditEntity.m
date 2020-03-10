@@ -31,15 +31,4 @@
 @synthesize createdAt;
 @synthesize node;
 
-- (void)dealloc {
-    [editAction release];
-    [oldValue release];
-    [updatedValue release];
-    [heading release];
-    [noteId release];
-    [createdAt release];
-    [node release];
-    [super dealloc];
-}
-
 @end

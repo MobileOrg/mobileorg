@@ -38,7 +38,7 @@ typedef enum {
     NSURL *remoteUrl;
     NSString *localFile;
     TransferType transferType;
-    id<TransferManagerDelegate> delegate;
+    __unsafe_unretained id<TransferManagerDelegate> delegate;
     NSString *errorText;
     bool success;
     bool abortOnFailure;

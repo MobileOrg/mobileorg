@@ -38,15 +38,11 @@
     if (self = [super init]) {
         NSMutableArray *newArray = [NSMutableArray new];
         self.editEntities = newArray;
-        [newArray release];
     }
     return self;
 }
 
 - (void)parse {
-
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-
     NSString *errorStr = nil;
     NSString *entireFile;
 
@@ -122,7 +118,6 @@
                 [entity setEditAction:[captures objectAtIndex:1]];
                 [entity setNode:node];
                 [editEntities addObject:entity];
-                [entity release];
 
                 awaitingOldValue = false;
 
@@ -162,7 +157,6 @@
                     [entity setEditAction:@""];
                     [entity setHeading:[line substringFromIndex:2]];
                     [editEntities addObject:entity];
-                    [entity release];
 
                     awaitingTimestampForNonEditNode = true;
                     awaitingBodyTextForNonEditNode = false;
@@ -181,8 +175,6 @@
                     NSDate *date = [df dateFromString:bareDate];
 
                     [[editEntities lastObject] setCreatedAt:date];
-
-                    [df release];
 
                     awaitingTimestampForNonEditNode = false;
                     awaitingBodyTextForNonEditNode = true;
@@ -256,19 +248,11 @@
     }
 
     [delegate performSelectorOnMainThread:completionSelector withObject:nil waitUntilDone:NO];
-
-    [pool release];
 }
 
 - (void)reset {
     [editEntities removeAllObjects];
     self.editsFilename = nil;
-}
-
-- (void)dealloc {
-    [editEntities release];
-    [editsFilename release];
-    [super dealloc];
 }
 
 @end

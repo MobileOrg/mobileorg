@@ -76,13 +76,13 @@
         alertControllerWithTitle: [node headingForDisplay]
         message:nil
         preferredStyle:UIAlertControllerStyleActionSheet];
-  
+
     UIAlertAction* markDoneAction = [UIAlertAction
         actionWithTitle:@"Mark as Done"
         style:UIAlertActionStyleDefault
         handler:^(UIAlertAction * action)
         {
-            [self setTodoState:[node bestDoneState]];
+            [self setTodoState:[self.node bestDoneState]];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshTable" object:nil userInfo:nil];
         }];
   
@@ -129,7 +129,7 @@
             style:UIAlertActionStyleDefault
             handler:^(UIAlertAction * action)
             {
-                [parentController selectRowAtIndexPath:[parentController pathForNode:node] withType:OutlineSelectionTypeDocumentView andAnimation:YES];
+                [self.parentController selectRowAtIndexPath:[self.parentController pathForNode:self.node] withType:OutlineSelectionTypeDocumentView andAnimation:YES];
             }];
       
         [flagActionSheet addAction:showDocumentAction];
@@ -139,12 +139,6 @@
 
     [[flagActionSheet popoverPresentationController] setSourceView:presentingView];
     [controller presentViewController:flagActionSheet animated:YES completion:nil];
-}
-
-- (void)dealloc {
-    [node release];
-    [parentController release];
-    [super dealloc];
 }
 
 @end

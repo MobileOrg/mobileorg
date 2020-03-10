@@ -137,7 +137,6 @@
         state.selectedChildIndex = indexPath.row;
         state.selectionType = selectionType;
         [[SessionManager instance] pushOutlineState:state];
-        [state release];
     }
 
     id ret = nil;
@@ -145,14 +144,14 @@
     switch (selectionType) {
         case OutlineSelectionTypeExpandOutline:
         {
-            OutlineViewController *controller = [[[OutlineViewController alloc] initWithRootNode:node] autorelease];
+            OutlineViewController *controller = [[OutlineViewController alloc] initWithRootNode:node];
             [[self navigationController] pushViewController:controller animated:animation];
             ret = controller;
             break;
         }
         case OutlineSelectionTypeDetails:
         {
-            DetailsViewController *controller = [[[DetailsViewController    alloc] initWithNode:node] autorelease];
+            DetailsViewController *controller = [[DetailsViewController    alloc] initWithNode:node];
             [[self navigationController] pushViewController:controller animated:animation];
             ret = controller;
             break;
@@ -288,7 +287,7 @@
                 editTarget = targetNode;
             }
         }
-        ActionMenuController *controller = [[[ActionMenuController alloc] init] autorelease];
+        ActionMenuController *controller = [[ActionMenuController alloc] init];
      
         [controller setNode:editTarget];
         [controller setShowDocumentViewButton:true];
@@ -504,21 +503,11 @@
 }
 
 - (void)dealloc {
-
     if ([self isTopmostOutline]) {
         [[NSNotificationCenter defaultCenter] removeObserver:self
                                                         name:@"SyncComplete"
                                                       object:nil];
-        [pressSyncView release];
-        [pleaseConfigureView release];
-        [offlineCantSyncView release];
     }
-
-    [nodes release];
-    [root release];
-    [syncButton release];
-    [homeButton release];
-    [super dealloc];
 }
 
 @end

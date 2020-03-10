@@ -81,23 +81,18 @@ static NSString *kEncryptionPassKey  = @"EncryptionPassword";
         NSString *indexUrlString = [[NSUserDefaults standardUserDefaults] objectForKey:kIndexUrlKey];
         if (indexUrlString) {
             indexUrl = [NSURL URLWithString:indexUrlString];
-            [indexUrl retain];
         }
 
         username = [[NSUserDefaults    standardUserDefaults] objectForKey:kUsernameKey];
-        [username retain];
 
         password = [[NSUserDefaults    standardUserDefaults] objectForKey:kPasswordKey];
-        [password retain];
 
         encryptionPassword = [[NSUserDefaults standardUserDefaults] objectForKey:kEncryptionPassKey];
         if (!encryptionPassword) {
             encryptionPassword = @"";
         }
-        [encryptionPassword retain];        
-        
+
         lastSync = [[NSUserDefaults standardUserDefaults] objectForKey:kLastSyncKey];
-        [lastSync retain];
 
         allTags = [[[NSUserDefaults standardUserDefaults] objectForKey:kAllTagsKey] mutableCopy];
         if (!allTags) {
@@ -140,7 +135,6 @@ static NSString *kEncryptionPassKey  = @"EncryptionPassword";
         }
 
         dropboxIndex = [[NSUserDefaults standardUserDefaults] objectForKey:kDropboxIndexKey];
-        [dropboxIndex retain];
 
         if (!dropboxIndex || [dropboxIndex compare:@""] == NSOrderedSame) {
             dropboxIndex = @"index.org";
@@ -150,35 +144,30 @@ static NSString *kEncryptionPassKey  = @"EncryptionPassword";
 }
 
 - (void)setIndexUrl:(NSURL*)aIndexUrl {
-    [indexUrl release];
     indexUrl = [aIndexUrl copy];
     [[NSUserDefaults standardUserDefaults] setObject:[aIndexUrl absoluteString] forKey:kIndexUrlKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)setUsername:(NSString*)aUsername {
-    [username release];
     username = [aUsername copy];
     [[NSUserDefaults standardUserDefaults] setObject:aUsername forKey:kUsernameKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)setPassword:(NSString*)aPassword {
-    [password release];
     password = [aPassword copy];
     [[NSUserDefaults standardUserDefaults] setObject:aPassword forKey:kPasswordKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)setEncryptionPassword:(NSString *)aEncryptionPassword {
-    [encryptionPassword release];
     encryptionPassword = [aEncryptionPassword copy];
     [[NSUserDefaults standardUserDefaults] setObject:aEncryptionPassword forKey:kEncryptionPassKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)setLastSync:(NSDate *)aLastSync {
-    [lastSync release];
     lastSync = [aLastSync copy];
     [[NSUserDefaults standardUserDefaults] setObject:lastSync forKey:kLastSyncKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -207,7 +196,6 @@ static NSString *kEncryptionPassKey  = @"EncryptionPassword";
 }
 
 - (void)setAllTags:(NSMutableArray*)theAllTags {
-    [allTags release];
     allTags = [theAllTags mutableCopy];
     [[NSUserDefaults standardUserDefaults] setObject:allTags forKey:kAllTagsKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -236,7 +224,6 @@ static NSString *kEncryptionPassKey  = @"EncryptionPassword";
 }
 
 - (void)setPrimaryTags:(NSMutableArray*)thePrimaryTags {
-    [primaryTags release];
     primaryTags = [thePrimaryTags mutableCopy];
     [[NSUserDefaults standardUserDefaults] setObject:primaryTags forKey:kPrimaryTagsKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -249,7 +236,6 @@ static NSString *kEncryptionPassKey  = @"EncryptionPassword";
 }
 
 - (void)setTodoStateGroups:(NSMutableArray*)theTodoStateGroups {
-    [todoStateGroups release];
     todoStateGroups = [theTodoStateGroups mutableCopy];
     [[NSUserDefaults standardUserDefaults] setObject:todoStateGroups forKey:kTodoStateGroupsKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -282,7 +268,6 @@ static NSString *kEncryptionPassKey  = @"EncryptionPassword";
 }
 
 - (void)setPriorities:(NSMutableArray*)thePriorities {
-    [priorities release];
     priorities = [thePriorities mutableCopy];
     [[NSUserDefaults standardUserDefaults] setObject:priorities forKey:kPrioritiesKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -323,7 +308,6 @@ static NSString *kEncryptionPassKey  = @"EncryptionPassword";
 }
 
 - (void)setDropboxIndex:(NSString*)anIndex {
-    [dropboxIndex release];
     dropboxIndex = [anIndex copy];
     [[NSUserDefaults standardUserDefaults] setObject:anIndex forKey:kDropboxIndexKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -381,20 +365,6 @@ static NSString *kEncryptionPassKey  = @"EncryptionPassword";
         case ServerModeUnknown:
             return false;
     }
-}
-
-- (void)dealloc {
-    [indexUrl release];
-    [username release];
-    [password release];
-    [lastSync release];
-    [allTags release];
-    [primaryTags release];
-    [mutuallyExclusiveTagGroups release];
-    [todoStateGroups release];
-    [dropboxIndex release];
-    [encryptionPassword release];
-    [super dealloc];
 }
 
 @end

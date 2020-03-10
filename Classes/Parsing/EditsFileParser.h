@@ -23,7 +23,7 @@
 #import <Foundation/Foundation.h>
 
 @interface EditsFileParser : NSObject {
-    id delegate;
+    __unsafe_unretained id delegate;
     SEL completionSelector;
     NSString *editsFilename;
     NSMutableArray *editEntities;

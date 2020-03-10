@@ -26,16 +26,14 @@
 #import "OutlineViewController.h"
 #import "CommonCrypto/CommonCryptor.h"
 #import "CommonCrypto/CommonDigest.h"
+#import "MobileOrg-Swift.h"
 
 MobileOrgAppDelegate *AppInstance() {
     return (MobileOrgAppDelegate*)[[UIApplication sharedApplication] delegate];
 }
 
 NSString *UUID() {
-    CFUUIDRef uuidObj = CFUUIDCreate(nil);
-    NSString *uuidString = (NSString*)CFUUIDCreateString(nil, uuidObj);
-    CFRelease(uuidObj);
-    return [uuidString autorelease];
+    return [[NSUUID alloc] init].UUIDString;
 }
 
 NSString *FileWithName(NSString *name) {
@@ -99,7 +97,7 @@ BOOL IsIpad() {
     return NO;
 }
 
-NSString *ReadPossiblyEncryptedFile(NSString *filename, NSString **error) {
+NSString *ReadPossiblyEncryptedFile(NSString *filename, NSString * __strong *error) {
     *error = nil;
     
     NSMutableData *data = [NSMutableData dataWithContentsOfFile:filename];

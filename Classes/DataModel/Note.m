@@ -81,7 +81,6 @@
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"YYYY-MM-dd EEE HH:mm"];
     NSString *timestamp = [formatter stringFromDate:[self createdAt]];
-    [formatter release];
 
     NSString *bodyStr = [self body];
     if (bodyStr && [bodyStr length] > 0) {

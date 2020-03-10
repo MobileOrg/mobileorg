@@ -109,9 +109,4 @@
     }
 }
 
-- (void)dealloc {
-    self.checksumPairs = nil;
-    [super dealloc];
-}
-
 @end

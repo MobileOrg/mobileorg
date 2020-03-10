@@ -76,9 +76,6 @@ void ClearAllFileChecksums() {
 
     // Save
     Save();
-
-    // Clean up
-    [request release];
 }
 
 NSString *ChecksumForFile(NSString *filename) {
@@ -114,9 +111,6 @@ NSString *ChecksumForFile(NSString *filename) {
         FileChecksum *checksum = [results objectAtIndex:0];
         ret = checksum.checksum;
     }
-
-    // Clean up
-    [request release];
 
     // Return checksum, if any
     return ret;
@@ -199,9 +193,6 @@ Node *NodeWithId(NSString *nodeId) {
         ret = [results objectAtIndex:0];
     }
 
-    // Clean up
-    [request release];
-
     // Return matching node, if any
     return ret;
 }
@@ -238,9 +229,6 @@ Node *NodeWithOutlinePath(NSString *outlinePath) {
     if (results && [results count] > 0) {
         ret = [results objectAtIndex:0];
     }
-
-    // Clean up
-    [request release];
 
     // Return matching node, if any
     return ret;
@@ -280,9 +268,6 @@ Node *NodeWithFilename(NSString *filename) {
         ret = [results objectAtIndex:0];
     }
 
-    // Clean up
-    [request release];
-
     // Return matching node, if any
     return ret;
 }
@@ -313,9 +298,6 @@ NSArray *AllFileNodes() {
 
     // Perform the query
     results = [managedObjectContext executeFetchRequest:request error:&error];
-
-    // Clean up
-    [request release];
 
     // Return matching nodes, if any
     return results;
@@ -408,13 +390,9 @@ NSArray *AllLocalEditActions() {
     // Sort by createdAt, ascendingly!
     sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"createdAt" ascending:YES];
     [request setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
-    [sortDescriptor release];
 
     // Perform the query
     results = [managedObjectContext executeFetchRequest:request error:&error];
-
-    // Clean up
-    [request release];
 
     // Return matching nodes, if any
     return results;
@@ -452,13 +430,9 @@ NSArray *AllLocalEditActionsForNode(Node *node) {
     // Sort by createdAt, ascendingly!
     sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"createdAt" ascending:YES];
     [request setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
-    [sortDescriptor release];
 
     // Perform the query
     results = [managedObjectContext executeFetchRequest:request error:&error];
-
-    // Clean up
-    [request release];
 
     // Return matching nodes, if any
     return results;
@@ -476,8 +450,6 @@ int CountLocalEditActions() {
 
     NSError *error = nil;
     int count = (int)[managedObjectContext countForFetchRequest:request error:&error];
-
-    [request release];
 
     return count;
 }
@@ -530,8 +502,6 @@ void DeleteLocalEditActions() {
     dispatch_async(dispatch_get_main_queue(), ^{
         [[AppInstance() rootOutlineController] updateBadge];
     });
-    // Clean up
-    [request release];
 }
 
 void DeleteLocalEditAction(LocalEditAction *action) {
@@ -570,13 +540,9 @@ NSArray *AllNotes() {
     // Sort by createdAt, ascendingly!
     sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"createdAt" ascending:NO];
     [request setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
-    [sortDescriptor release];
 
     // Perform the query
     results = [managedObjectContext executeFetchRequest:request error:&error];
-
-    // Clean up
-    [request release];
 
     // Return matching nodes, if any
     return results;
@@ -610,13 +576,9 @@ NSArray *AllActiveNotes() {
     // Sort by createdAt, ascendingly!
     sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"createdAt" ascending:NO];
     [request setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
-    [sortDescriptor release];
 
     // Perform the query
     results = [managedObjectContext executeFetchRequest:request error:&error];
-
-    // Clean up
-    [request release];
 
     // Return matching nodes, if any
     return results;
@@ -631,8 +593,6 @@ int CountNotes() {
 
     NSError *error = nil;
     int count = (int)[managedObjectContext countForFetchRequest:request error:&error];
-
-    [request release];
 
     return count;
 }
@@ -649,9 +609,6 @@ int CountLocalNotes() {
 
     NSError *error = nil;
     int count = (int)[managedObjectContext countForFetchRequest:request error:&error];
-
-    [request release];
-
     return count;
 }
 
@@ -684,9 +641,6 @@ void DeleteNotes() {
 
     // Save
     Save();
-
-    // Clean up
-    [request release];
 }
 
 bool LocalNoteWithModifications(NSString *noteId) {
@@ -701,8 +655,5 @@ bool LocalNoteWithModifications(NSString *noteId) {
 
     NSError *error = nil;
     NSUInteger count = [managedObjectContext countForFetchRequest:request error:&error];
-
-    [request release];
-
     return (count > 0);
 }

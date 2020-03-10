@@ -37,8 +37,6 @@
 @synthesize errorStr;
 
 - (void)parse:(NSManagedObjectContext *)moc {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-
     NSError *error = nil;
     NSString *entireFile;
     Node *fileNode;
@@ -194,10 +192,6 @@
 
                         // Add the group to the Settings instance using
                         [[Settings instance] addTodoStateGroup:todoStateGroup];
-
-                        [todoStates release];
-                        [doneStates release];
-                        [todoStateGroup release];
                     }
                 }
             }
@@ -493,25 +487,15 @@
                 }
             }
         }
-
-        [bodyBuffer release];
     }
 
     // TODO: When we go back to doing the processing on another thread, we'll need this
     //[delegate performSelectorOnMainThread:completionSelector withObject:nil waitUntilDone:NO];
 
     // For now, just make the call the normal way
-    [delegate performSelector:completionSelector withObject:nil];
-
-    [nodeStack release];
-    [pool release];
-}
-
-- (void)dealloc {
-    [errorStr release];
-    [orgFilename release];
-    [localFilename release];
-    [super dealloc];
+    if (delegate != nil && completionSelector != nil) {
+        ((void (*)(id, SEL))[delegate methodForSelector:completionSelector])(delegate, completionSelector);
+    }
 }
 
 @end

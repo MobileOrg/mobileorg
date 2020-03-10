@@ -65,7 +65,6 @@
 
     UIBarButtonItem *clearButton = [[UIBarButtonItem alloc] initWithTitle:@"Clear" style:UIBarButtonItemStylePlain target:self action:@selector(onClearPriority)];
     self.navigationItem.rightBarButtonItem = clearButton;
-    [clearButton release];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -115,7 +114,7 @@
 
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         if ([node.priority isEqualToString:priority]) {
             [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
         }
@@ -140,13 +139,6 @@
     [tableView reloadData];
 
     [[self navigationController] popViewControllerAnimated:YES];
-}
-
-- (void)dealloc {
-    [node release];
-    [priorities release];
-    [editAction release];
-    [super dealloc];
 }
 
 @end

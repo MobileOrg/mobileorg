@@ -364,11 +364,4 @@ static WebDavTransferManager *gInstance = NULL;
     active = false;
 }
 
-- (void)dealloc {
-    [data release];
-    self.activeTransfer = nil;
-    [transfers release];
-    [super dealloc];
-}
-
 @end

@@ -29,6 +29,6 @@
 @property (nonatomic, retain) NSMutableDictionary *checksumPairs;
 
 - (void)reset;
-- (void)parse:(NSString*)filename;
+- (void)parse:(NSString*)file;
 
 @end

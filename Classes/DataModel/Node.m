@@ -576,10 +576,12 @@ NSString *const kUnixFileLinkRegex = @"\\[\\[file:(.*\\.(?:org|txt))\\]\\[(.*)\\
     NSString *ret = @"DONE";
 
     // Default to the first DONE entry in the first todo state group
-    NSArray *todoStateGroup = [[[Settings instance] todoStateGroups] objectAtIndex:0];
-    if (todoStateGroup && [todoStateGroup count] > 1) {
-        if ([[todoStateGroup objectAtIndex:1] count] > 0) {
-            ret = [[todoStateGroup objectAtIndex:1] objectAtIndex:0];
+    {
+        NSArray *todoStateGroup = [[[Settings instance] todoStateGroups] objectAtIndex:0];
+        if (todoStateGroup && [todoStateGroup count] > 1) {
+            if ([[todoStateGroup objectAtIndex:1] count] > 0) {
+                ret = [[todoStateGroup objectAtIndex:1] objectAtIndex:0];
+            }
         }
     }
 

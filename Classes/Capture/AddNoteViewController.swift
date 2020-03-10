@@ -153,10 +153,7 @@ private extension AddNoteViewController {
             switch notification.name {
             case UIResponder.keyboardWillHideNotification: return .zero
             case UIResponder.keyboardWillChangeFrameNotification:
-                let bottom: CGFloat = {
-                    if #available(iOS 11.0, *) { return keyboardViewEndFrame.height - view.safeAreaInsets.bottom }
-                    else { return keyboardViewEndFrame.height }
-                }()
+                let bottom: CGFloat = keyboardViewEndFrame.height - view.safeAreaInsets.bottom
                 return UIEdgeInsets(top: 0, left: 0, bottom: bottom, right: 0)
             default: fatalError("Unexpected notification for the function: \(notification.name)")
             }

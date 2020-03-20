@@ -48,9 +48,8 @@ static NSString *kWhichTabKey      = @"WhichTab";
         NSMutableArray *existingStates = [[[NSUserDefaults standardUserDefaults] objectForKey:kOutlineStatesKey] mutableCopy];
         if (existingStates) {
             self.outlineStates = existingStates;
-            [existingStates release];
         } else {
-            self.outlineStates = [[NSMutableArray new] autorelease];
+            self.outlineStates = [NSMutableArray new];
             self.isRestoring = false;
         }
     }
@@ -103,7 +102,7 @@ static NSString *kWhichTabKey      = @"WhichTab";
 
 - (void)popOutlineStateToLevel:(int)level {
     if (!isRestoring && ![self isSearchMode]) {
-        while ([self.outlineStates count] > level) {
+        while ([self.outlineStates count] > (NSUInteger)level) {
             [self.outlineStates removeLastObject];
         }
         [self saveOutlineState];
@@ -129,11 +128,6 @@ static NSString *kWhichTabKey      = @"WhichTab";
 
 - (void)setSelectedNote:(Note*)note {
     // TODO
-}
-
-- (void)dealloc {
-    [outlineStates release];
-    [super dealloc];
 }
 
 @end

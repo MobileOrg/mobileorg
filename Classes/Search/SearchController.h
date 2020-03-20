@@ -38,3 +38,4 @@
 - (id)selectRowAtIndexPath:(NSIndexPath*)indexPath withType:(OutlineSelectionType)selectionType andAnimation:(bool)animation;
 
 @end
+

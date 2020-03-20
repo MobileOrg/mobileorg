@@ -8,6 +8,5 @@
 #include "MobileOrg-Shared.xcconfig"
 
 BUNDLE_ID_SUFFIX = .adhoc
+ONLY_ACTIVE_ARCH = NO
 COPY_PHASE_STRIP = YES
-INFOPLIST_FILE = MobileOrg-Info-AdHoc.plist
-ENABLE_TESTABILITY = NO

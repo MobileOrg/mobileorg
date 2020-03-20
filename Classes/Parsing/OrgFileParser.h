@@ -24,7 +24,7 @@
 #import <CoreData/CoreData.h>
 
 @interface OrgFileParser : NSObject {
-    id delegate;
+    __unsafe_unretained id delegate;
     SEL completionSelector;
     NSString *orgFilename;
     NSString *localFilename;

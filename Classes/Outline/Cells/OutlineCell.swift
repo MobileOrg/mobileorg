@@ -32,7 +32,7 @@ final class OutlineCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         self.textLabel?.numberOfLines = 0
-        if #available(iOS 10.0, *) { self.textLabel?.adjustsFontForContentSizeCategory = true }
+        self.textLabel?.adjustsFontForContentSizeCategory = true
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }

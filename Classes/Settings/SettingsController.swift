@@ -106,19 +106,19 @@ class SettingsController: UITableViewController {
   
   @IBAction func showCredits(_ sender: UIButton) {
     if let url = URL(string: "https://mobileorg.github.io/credits") {
-      UIApplication.shared.openURL(url)
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
   }
 
   @IBAction func showDocumentation(_ sender: UIButton) {
     if let url = URL(string: "https://mobileorg.github.io/documentation") {
-      UIApplication.shared.openURL(url)
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
   }
 
   @IBAction func showLicense(_ sender: Any) {
     if let url = URL(string: "https://mobileorg.github.io/license") {
-      UIApplication.shared.openURL(url)
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
   }
 

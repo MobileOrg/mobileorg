@@ -26,16 +26,14 @@
 #import "OutlineViewController.h"
 #import "CommonCrypto/CommonCryptor.h"
 #import "CommonCrypto/CommonDigest.h"
+#import "MobileOrg-Swift.h"
 
 MobileOrgAppDelegate *AppInstance() {
     return (MobileOrgAppDelegate*)[[UIApplication sharedApplication] delegate];
 }
 
 NSString *UUID() {
-    CFUUIDRef uuidObj = CFUUIDCreate(nil);
-    NSString *uuidString = (NSString*)CFUUIDCreateString(nil, uuidObj);
-    CFRelease(uuidObj);
-    return [uuidString autorelease];
+    return [[NSUUID alloc] init].UUIDString;
 }
 
 NSString *FileWithName(NSString *name) {
@@ -81,13 +79,6 @@ void UpdateAppBadge() {
         count += [[[AppInstance() noteListViewController] navigationController].tabBarItem.badgeValue intValue];
         count += [[[AppInstance() rootOutlineController] navigationController].tabBarItem.badgeValue intValue];
 
-        // are you running on >= iOS8?
-        // Not necessary because we're starting with 8
-        // But safe is safe 🦄
-        if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
-            UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeBadge|UIUserNotificationTypeAlert|UIUserNotificationTypeSound) categories:nil];
-            [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-        }
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:count];
     }
     else {
@@ -106,7 +97,7 @@ BOOL IsIpad() {
     return NO;
 }
 
-NSString *ReadPossiblyEncryptedFile(NSString *filename, NSString **error) {
+NSString *ReadPossiblyEncryptedFile(NSString *filename, NSString * __strong *error) {
     *error = nil;
     
     NSMutableData *data = [NSMutableData dataWithContentsOfFile:filename];

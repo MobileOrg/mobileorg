@@ -35,6 +35,7 @@
 #import "LocalEditAction.h"
 #import "StatusViewController.h"
 #import "MobileOrgAppDelegate.h"
+#import "SearchController.h"
 #import "MobileOrg-Swift.h"
 
 
@@ -173,8 +174,6 @@ static SyncManager *gInstance = NULL;
     context.delegate     = self;
 
     [[self transferManager] enqueueTransfer:context];
-
-    [context release];
 }
 
 - (void)doneDownloadingEditsFile:(NSString*)editsFilename {
@@ -251,7 +250,6 @@ static SyncManager *gInstance = NULL;
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
             [formatter setDateFormat:@"YYYY-MM-dd EEE HH:mm"];
             NSString *createdAt = [formatter stringFromDate:entity.createdAt];
-            [formatter release];
 
             [file writeData:[[NSString stringWithFormat:@"[%@]\n", createdAt] dataUsingEncoding:NSUTF8StringEncoding]];
             if (entity.updatedValue && [entity.updatedValue length] > 0)
@@ -327,8 +325,6 @@ static SyncManager *gInstance = NULL;
         context.delegate     = self;
 
         [[self transferManager] enqueueTransfer:context];
-
-        [context release];
     }
 }
 
@@ -399,8 +395,6 @@ static SyncManager *gInstance = NULL;
     context.delegate     = self;
 
     [[self transferManager] enqueueTransfer:context];
-
-    [context release];
 }
 
 - (void)doneUploadingEmptyEditsFile {
@@ -426,8 +420,6 @@ static SyncManager *gInstance = NULL;
     context.delegate     = self;
 
     [[self transferManager] enqueueTransfer:context];
-
-    [context release];
 }
 
 - (void)processChecksumFile:(NSString*)filename {
@@ -477,8 +469,6 @@ static SyncManager *gInstance = NULL;
     for (Node *node in orphans) {
         DeleteNode(node);
     }
-
-    [orphans release];
 }
 
 - (void)doneDownloadingOrgFiles {
@@ -507,7 +497,6 @@ static SyncManager *gInstance = NULL;
     for (NSString *link in links) {
         [self downloadOrgFile:link];
     }
-    [links release];
 }
 
 - (void)downloadOrgFile:(NSString*)name {
@@ -559,9 +548,6 @@ static SyncManager *gInstance = NULL;
         context.delegate     = self;
 
         [[self transferManager] enqueueTransfer:context];
-
-        [context release];
-
     } else {
 
         // We didn't have to download the file, so just go ahead and parse the links out of it and queue up additional requests
@@ -853,16 +839,6 @@ static SyncManager *gInstance = NULL;
         [[StatusViewController instance] progressBar].hidden = YES;
     }
     [[StatusViewController instance] setActionMessage:transferFilename];
-}
-
-- (void)dealloc {
-    [downloadedFiles release];
-    [checksumParser release];
-    [orgFileParser release];
-    [editsFileParser release];
-    [transferState release];
-    [transferFilename release];
-    [super dealloc];
 }
 
 @end

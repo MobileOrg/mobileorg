@@ -70,7 +70,7 @@ import SwiftyDropbox
     DropboxClientsManager.authorizeFromController(UIApplication.shared,
                                                   controller: rootController,
                                                   openURL: { (url: URL) -> Void in
-                                                    UIApplication.shared.openURL(url)})
+                                                    UIApplication.shared.open(url, options: [:], completionHandler: nil)})
   }
 
 

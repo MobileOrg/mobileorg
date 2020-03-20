@@ -38,15 +38,11 @@
     if (self = [super init]) {
         NSMutableArray *newArray = [NSMutableArray new];
         self.editEntities = newArray;
-        [newArray release];
     }
     return self;
 }
 
 - (void)parse {
-
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-
     NSString *errorStr = nil;
     NSString *entireFile;
 
@@ -86,7 +82,7 @@
         lines = [entireFile componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\r\n"]];
         
         // Until we hit the end of the file
-        for (int i = 0; i < [lines count]; i++) {
+        for (int i = 0; i < (NSInteger)[lines count]; i++) {
 
             if ([[NSThread currentThread] isCancelled]) {
                 // TODO: Add support for cancellation
@@ -111,7 +107,7 @@
                             break;
                         }
                     }
-                    if (lastNonspaceChar >= 0 && lastNonspaceChar < [lastEntity.updatedValue length]-1) {
+                    if (lastNonspaceChar >= 0 && lastNonspaceChar < (NSInteger)[lastEntity.updatedValue length]-1) {
                         lastEntity.updatedValue = [lastEntity.updatedValue substringToIndex:lastNonspaceChar+1];
                     }
                 }
@@ -122,7 +118,6 @@
                 [entity setEditAction:[captures objectAtIndex:1]];
                 [entity setNode:node];
                 [editEntities addObject:entity];
-                [entity release];
 
                 awaitingOldValue = false;
 
@@ -148,7 +143,7 @@
                             break;
                         }
                     }
-                    if (lastNonspaceChar >= 0 && lastNonspaceChar < [lastEntity.updatedValue length]-1) {
+                    if (lastNonspaceChar >= 0 && lastNonspaceChar < (NSInteger)[lastEntity.updatedValue length]-1) {
                         lastEntity.updatedValue = [lastEntity.updatedValue substringToIndex:lastNonspaceChar+1];
                     }
                 }
@@ -162,7 +157,6 @@
                     [entity setEditAction:@""];
                     [entity setHeading:[line substringFromIndex:2]];
                     [editEntities addObject:entity];
-                    [entity release];
 
                     awaitingTimestampForNonEditNode = true;
                     awaitingBodyTextForNonEditNode = false;
@@ -181,8 +175,6 @@
                     NSDate *date = [df dateFromString:bareDate];
 
                     [[editEntities lastObject] setCreatedAt:date];
-
-                    [df release];
 
                     awaitingTimestampForNonEditNode = false;
                     awaitingBodyTextForNonEditNode = true;
@@ -250,25 +242,17 @@
                 break;
             }
         }
-        if (lastNonspaceChar >= 0 && lastNonspaceChar < [lastEntity.updatedValue length]-1) {
+        if (lastNonspaceChar >= 0 && lastNonspaceChar < (NSInteger)[lastEntity.updatedValue length]-1) {
             lastEntity.updatedValue = [lastEntity.updatedValue substringToIndex:lastNonspaceChar+1];
         }
     }
 
     [delegate performSelectorOnMainThread:completionSelector withObject:nil waitUntilDone:NO];
-
-    [pool release];
 }
 
 - (void)reset {
     [editEntities removeAllObjects];
     self.editsFilename = nil;
-}
-
-- (void)dealloc {
-    [editEntities release];
-    [editsFilename release];
-    [super dealloc];
 }
 
 @end

@@ -44,7 +44,7 @@
 
 - (NSIndexPath*)pathForNode:(Node*)node {
     int index = (int)[[self nodesArray] indexOfObject:node];
-    if (index >= 0 && index < [nodesArray count]) {
+    if (index >= 0 && index < (NSInteger)[nodesArray count]) {
         return [NSIndexPath indexPathForRow:index inSection:0];
     }
     return nil;
@@ -74,14 +74,14 @@
     switch (selectionType) {
         case OutlineSelectionTypeExpandOutline:
         {
-            OutlineViewController *controller = [[[OutlineViewController alloc] initWithRootNode:node] autorelease];
+            OutlineViewController *controller = [[OutlineViewController alloc] initWithRootNode:node];
             [[self navigationController] pushViewController:controller animated:animation];
             ret = controller;
             break;
         }
         case OutlineSelectionTypeDetails:
         {
-            DetailsViewController *controller = [[[DetailsViewController alloc] initWithNode:node] autorelease];
+            DetailsViewController *controller = [[DetailsViewController alloc] initWithNode:node];
             [[self navigationController] pushViewController:controller animated:animation];
             ret = controller;
             break;
@@ -118,7 +118,6 @@
     [scopes addObject: NSLocalizedString(@"Todo State", @"Search todo state only")];
     search_bar.scopeButtonTitles = scopes;
     search_bar.selectedScopeButtonIndex = 0;
-    [scopes release];
 
     self.tableView.tableHeaderView = search_bar;
 }
@@ -128,7 +127,6 @@
   NSEntityDescription *entity = [NSEntityDescription entityForName:@"Node" inManagedObjectContext:PersistenceStack.shared.moc];
     [request setEntity:entity];
 
-    NSNumber *predLevel = [[NSNumber alloc] initWithInt:0];
     NSPredicate *predicate = nil;
 
     switch (search_bar.selectedScopeButtonIndex) {
@@ -150,7 +148,6 @@
             break;
     }
     [request setPredicate:predicate];
-    [predLevel release];
 
     NSError *error;
     NSMutableArray *mutableFetchResults = [[PersistenceStack.shared.moc executeFetchRequest:request error:&error] mutableCopy];
@@ -168,14 +165,10 @@
     for (Node *node in nodesToRemove) {
         [mutableFetchResults removeObject:node];
     }
-    [nodesToRemove release];
 
     [self setNodesArray:mutableFetchResults];
 
     [[self tableView] reloadData];
-
-    [mutableFetchResults release];
-    [request release];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
@@ -238,7 +231,7 @@
 
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
 
     // Set up the cell...
@@ -264,7 +257,6 @@
     if ([context_str length] == 0) {
         context_str = @"Root";
     }
-    [context release];
 
     cell.detailTextLabel.text = context_str;
     cell.accessoryType = UIButtonTypeDetailDisclosure;
@@ -280,12 +272,6 @@
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
     [self selectRowAtIndexPath:indexPath withType:OutlineSelectionTypeDetails andAnimation:YES];
-}
-
-- (void)dealloc {
-    [search_bar release];
-    [nodesArray release];
-    [super dealloc];
 }
 
 @end

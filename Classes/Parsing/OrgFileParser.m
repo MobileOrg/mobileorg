@@ -37,8 +37,6 @@
 @synthesize errorStr;
 
 - (void)parse:(NSManagedObjectContext *)moc {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-
     NSError *error = nil;
     NSString *entireFile;
     Node *fileNode;
@@ -94,7 +92,7 @@
         lines = [entireFile componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\r\n"]];
 
         // Until we hit the end of the file
-        for (int i = 0; i < [lines count]; i++) {
+        for (int i = 0; i < (NSInteger)[lines count]; i++) {
 
             if ([[NSThread currentThread] isCancelled]) {
                 // TODO: Add support for cancellation
@@ -108,12 +106,12 @@
             int numStars = 0;
 
             if ([line length] > 0) {
-                while (numStars < [line length] && [line characterAtIndex:numStars] == '*') {
+                while (numStars < (NSInteger)[line length] && [line characterAtIndex:numStars] == '*') {
                     numStars++;
                 }
 
                 // Oops, it wasn't really a headling, there has to be a space following the last star!
-                if (numStars >= [line length] || [line characterAtIndex:numStars] != ' ') {
+                if (numStars >= (NSInteger)[line length] || [line characterAtIndex:numStars] != ' ') {
                     numStars = 0;
                 }
             }
@@ -194,10 +192,6 @@
 
                         // Add the group to the Settings instance using
                         [[Settings instance] addTodoStateGroup:todoStateGroup];
-
-                        [todoStates release];
-                        [doneStates release];
-                        [todoStateGroup release];
                     }
                 }
             }
@@ -327,7 +321,7 @@
                 }
 
                 // Prevent wrong indentation if previous heading level had skipped
-                while ([nodeStack count] > numStars + 1) {
+                while ((NSInteger)[nodeStack count] > numStars + 1) {
                     [nodeStack removeLastObject];
                 }
 
@@ -493,25 +487,15 @@
                 }
             }
         }
-
-        [bodyBuffer release];
     }
 
     // TODO: When we go back to doing the processing on another thread, we'll need this
     //[delegate performSelectorOnMainThread:completionSelector withObject:nil waitUntilDone:NO];
 
     // For now, just make the call the normal way
-    [delegate performSelector:completionSelector withObject:nil];
-
-    [nodeStack release];
-    [pool release];
-}
-
-- (void)dealloc {
-    [errorStr release];
-    [orgFilename release];
-    [localFilename release];
-    [super dealloc];
+    if (delegate != nil && completionSelector != nil) {
+        ((void (*)(id, SEL))[delegate methodForSelector:completionSelector])(delegate, completionSelector);
+    }
 }
 
 @end

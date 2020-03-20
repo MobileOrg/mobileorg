@@ -38,12 +38,12 @@
     [self.checksumPairs removeAllObjects];
 }
 
-- (void)parse:(NSString*)filename {
+- (void)parse:(NSString*)file {
     [checksumPairs removeAllObjects];
 
     NSError *error = nil;
     NSStringEncoding encoding;
-    NSString *entireFile = [NSString stringWithContentsOfFile:filename usedEncoding:&encoding error:&error];
+    NSString *entireFile = [NSString stringWithContentsOfFile:file usedEncoding:&encoding error:&error];
     if (error) {
         //NSLog(@"Failed to read contents of file because: %@ (%@)", [error description], [error userInfo]);
         entireFile = @"";
@@ -107,11 +107,6 @@
             }
         }
     }
-}
-
-- (void)dealloc {
-    self.checksumPairs = nil;
-    [super dealloc];
 }
 
 @end

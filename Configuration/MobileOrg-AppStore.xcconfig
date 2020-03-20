@@ -7,7 +7,6 @@
 
 #include "MobileOrg-Shared.xcconfig"
 
-BUNDLE_ID_SUFFIX = 
+BUNDLE_ID_SUFFIX =
+ONLY_ACTIVE_ARCH = NO
 COPY_PHASE_STRIP = YES
-INFOPLIST_FILE = MobileOrg-Info.plist
-ENABLE_TESTABILITY = NO

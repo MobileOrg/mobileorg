@@ -29,7 +29,6 @@
 #import "Settings.h"
 #import "SessionManager.h"
 #import "OutlineState.h"
-#import "DocumentViewController.h"
 #import "ActionMenuController.h"
 #import "OutlineTableView.h"
 #import "MobileOrg-Swift.h"
@@ -138,7 +137,6 @@
         state.selectedChildIndex = indexPath.row;
         state.selectionType = selectionType;
         [[SessionManager instance] pushOutlineState:state];
-        [state release];
     }
 
     id ret = nil;
@@ -146,22 +144,21 @@
     switch (selectionType) {
         case OutlineSelectionTypeExpandOutline:
         {
-            OutlineViewController *controller = [[[OutlineViewController alloc] initWithRootNode:node] autorelease];
+            OutlineViewController *controller = [[OutlineViewController alloc] initWithRootNode:node];
             [[self navigationController] pushViewController:controller animated:animation];
             ret = controller;
             break;
         }
         case OutlineSelectionTypeDetails:
         {
-            DetailsViewController *controller = [[[DetailsViewController    alloc] initWithNode:node] autorelease];
+            DetailsViewController *controller = [[DetailsViewController    alloc] initWithNode:node];
             [[self navigationController] pushViewController:controller animated:animation];
             ret = controller;
             break;
         }
         case OutlineSelectionTypeDocumentView:
         {
-            DocumentViewController *controller = [[[DocumentViewController alloc] init] autorelease];
-            [controller setNode:node];
+            PreviewViewController *controller = [[PreviewViewController alloc] initWith:node];
             [[self navigationController] pushViewController:controller animated:animation];
             ret = controller;
             break;
@@ -175,7 +172,7 @@
 
 - (NSIndexPath*)pathForNode:(Node*)node {
     long index = [[self nodes] indexOfObject:node];
-    if (index >= 0 && index < [nodes count]) {
+    if (index >= 0 && index < (NSInteger)[nodes count]) {
         return [NSIndexPath indexPathForRow:index inSection:0];
     }
     return nil;
@@ -263,13 +260,6 @@
             [controller restore:newStates];
         }
 
-        // We should set the new doc view's scrollY here.. this is kind of ugly.
-        // It'd be better to refactor this so each object restores its own state
-        // rather than letting the one above him do it.
-        if ([controller respondsToSelector:@selector(setScrollTo:)]) {
-            [controller setScrollTo:thisState.scrollPositionY];
-        }
-
         [[self tableView] reloadData];
         [[self tableView] setNeedsDisplay];
         [[self tableView] scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
@@ -297,7 +287,7 @@
                 editTarget = targetNode;
             }
         }
-        ActionMenuController *controller = [[[ActionMenuController alloc] init] autorelease];
+        ActionMenuController *controller = [[ActionMenuController alloc] init];
      
         [controller setNode:editTarget];
         [controller setShowDocumentViewButton:true];
@@ -513,21 +503,11 @@
 }
 
 - (void)dealloc {
-
     if ([self isTopmostOutline]) {
         [[NSNotificationCenter defaultCenter] removeObserver:self
                                                         name:@"SyncComplete"
                                                       object:nil];
-        [pressSyncView release];
-        [pleaseConfigureView release];
-        [offlineCantSyncView release];
     }
-
-    [nodes release];
-    [root release];
-    [syncButton release];
-    [homeButton release];
-    [super dealloc];
 }
 
 @end

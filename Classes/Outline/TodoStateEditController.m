@@ -69,7 +69,6 @@
 
     UIBarButtonItem *clearButton = [[UIBarButtonItem alloc] initWithTitle:@"Clear" style:UIBarButtonItemStylePlain target:self action:@selector(onClearState)];
     self.navigationItem.rightBarButtonItem = clearButton;
-    [clearButton release];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -151,7 +150,7 @@
     NSString *todoState;
 
     NSArray *todoStateGroup = [todoStateGroups objectAtIndex:indexPath.section];
-    if (indexPath.row < [[todoStateGroup objectAtIndex:0] count]) {
+    if (indexPath.row < (NSInteger)[[todoStateGroup objectAtIndex:0] count]) {
         todoState = [[todoStateGroup objectAtIndex:0] objectAtIndex:indexPath.row];
         cellIdentifier = [cellIdentifier stringByAppendingString:@"IsTodo"];
     } else {
@@ -167,7 +166,7 @@
 
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         if ([todoState isEqualToString:[node todoState]]) {
             [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
         }
@@ -187,7 +186,7 @@
 
     NSString *todoState;
     NSArray *todoStateGroup = [todoStateGroups objectAtIndex:indexPath.section];
-    if (indexPath.row < [[todoStateGroup objectAtIndex:0] count]) {
+    if (indexPath.row < (NSInteger)[[todoStateGroup objectAtIndex:0] count]) {
         todoState = [[todoStateGroup objectAtIndex:0] objectAtIndex:indexPath.row];
     } else {
         todoState = [[todoStateGroup objectAtIndex:1] objectAtIndex:indexPath.row-[[todoStateGroup objectAtIndex:0] count]];
@@ -204,14 +203,6 @@
 
     [[self navigationController] popViewControllerAnimated:YES];
 }
-
-- (void)dealloc {
-    [node release];
-    [todoStateGroups release];
-    [editAction release];
-    [super dealloc];
-}
-
 
 @end
 

@@ -32,7 +32,6 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     if (timer) {
         [timer invalidate];
-        [timer release];
         timer = nil;
     }
 
@@ -43,11 +42,11 @@
         isInTouch = NO;
         myStartTouchPosition = [touch locationInView:self];
 
-        timer = [[NSTimer scheduledTimerWithTimeInterval: 0.3
-                                                  target: self
-                                                selector: @selector(timerFired:)
-                                                userInfo: nil
-                                                 repeats: NO] retain];
+        timer = [NSTimer scheduledTimerWithTimeInterval: 0.3
+                                                 target: self
+                                               selector: @selector(timerFired:)
+                                               userInfo: nil
+                                                repeats: NO];
     }
 
     [super touchesBegan:touches withEvent:event];
@@ -65,7 +64,6 @@
     {
         if (timer) {
             [timer invalidate];
-            [timer release];
             timer = nil;
         }
     }
@@ -85,7 +83,6 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     if (timer) {
         [timer invalidate];
-        [timer release];
         timer = nil;
     }
 
@@ -96,12 +93,6 @@
     }
 
     [super touchesEnded:touches withEvent:event];
-}
-
-- (void)dealloc {
-    [timer release];
-    [controller release];
-    [super dealloc];
 }
 
 @end

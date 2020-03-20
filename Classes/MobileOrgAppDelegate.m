@@ -70,8 +70,8 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
                                              selector:@selector(reachabilityChanged:)
                                                  name:kReachabilityChangedNotification object: nil];
 
-    internetReach = [[Reachability reachabilityForInternetConnection] retain];
-    [internetReach startNotifer];
+    internetReach = [Reachability reachabilityForInternetConnection];
+    [internetReach startNotifier];
     [self updateInterfaceWithReachability:internetReach];
 
     [[SessionManager instance] restore];
@@ -281,22 +281,7 @@ __asm__(".weak_reference _OBJC_CLASS_$_NSURL");
 #pragma mark Memory management
 
 - (void)dealloc {
-
     [[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:kReachabilityChangedNotification];
-
-    [rootOutlineController release];
-    [rootOutlineNavigationController release];
-
-    [tabBarController release];
-
-    [managedObjectContext release];
-    [managedObjectModel release];
-    [persistentStoreCoordinator release];
-
-    [internetReach release];
-
-    [window release];
-    [super dealloc];
 }
 
   // PRAGMA MARK: - Dropbox Authorisation Flow

@@ -46,11 +46,4 @@
     return self;
 }
 
-- (void)dealloc {
-    self.remoteUrl = nil;
-    self.localFile = nil;
-    self.errorText = nil;
-    [super dealloc];
-}
-
 @end

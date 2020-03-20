@@ -20,6 +20,7 @@
 //  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //
 
+#import "MobileOrgAppDelegate.h"
 #import "StatusViewController.h"
 #import "GlobalUtils.h"
 #import "MobileOrg-Swift.h"
@@ -162,7 +163,7 @@ static StatusViewController *gInstance = NULL;
 
 - (UIButton*)abortButton {
     if (abortButton == nil) {
-        abortButton = [[UIButton buttonWithType:UIButtonTypeRoundedRect] retain];
+        abortButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         abortButton.frame = CGRectMake(40, 100, 120, 40);
         [abortButton setTitle:@"Abort" forState:UIControlStateNormal];
         [abortButton addTarget:self action:@selector(abort) forControlEvents:UIControlEventTouchUpInside];
@@ -178,7 +179,7 @@ static StatusViewController *gInstance = NULL;
 
 - (UIProgressView*)progressBar {
     if (progressBar == nil) {
-        progressBar = [[[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault] retain];
+        progressBar = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
         progressBar.frame = CGRectMake(20, 75, 160, 40);
     }
     return progressBar;
@@ -212,11 +213,6 @@ static StatusViewController *gInstance = NULL;
     [super didReceiveMemoryWarning];
 
     // Release any cached data, images, etc that aren't in use.
-}
-
-- (void)dealloc {
-    [statusView release];
-    [super dealloc];
 }
 
 @end

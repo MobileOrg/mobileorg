@@ -128,7 +128,6 @@
                                                                target:self
                                                                action:@selector(onAddTag)];
     self.navigationItem.rightBarButtonItem = addButton;
-    [addButton release];
 }
 
 /*
@@ -206,7 +205,7 @@
 
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         if ([node hasInheritedTag:tag]) {
             [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
             [[cell textLabel] setTextColor:[UIColor mo_lightGrayColor]];
@@ -269,15 +268,6 @@
     UpdateEditActionCount();
 
     [tableView reloadData];
-}
-
-- (void)dealloc {
-    [node release];
-    [allTags release];
-    [primaryTags release];
-    [editAction release];
-    self.recentTagString = nil;
-    [super dealloc];
 }
 
 @end

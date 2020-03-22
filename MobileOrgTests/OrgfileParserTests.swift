@@ -66,47 +66,50 @@ class OrgfileParserTests: XCTestCase {
 
 
   // Parse OrgFiles for todo-keywords of different kind
-  func testParseOrgFileDifferentTodoWords() {
-    let parser = OrgFileParser()
+    func testParseOrgFileDifferentTodoWords() throws {
+        guard let capturedMOC = moc else {
+            XCTFail("MOC is nil")
+            return
+        }
 
-    let bundle = Bundle(for: type(of: self))
+        let parser = OrgFileParser()
+        let bundle = Bundle(for: type(of: self))
 
-    // Parse the index file (here are the todo keywords stored for processing)
-    let indexUrl = bundle.url(forResource: "index", withExtension: "org")
-    parser.localFilename = indexUrl?.relativePath
-    parser.orgFilename = "index.org"
-    parser.parse(moc)
+        // Parse the index file (here are the todo keywords stored for processing)
+        let indexUrl = bundle.url(forResource: "index", withExtension: "org")
+        parser.localFilename = indexUrl?.relativePath
+        parser.orgFilename = "index.org"
+        parser.parse(capturedMOC)
 
-    // now parse the todo list
-    let url = bundle.url(forResource: "TodoList", withExtension: "org")
-    parser.localFilename = url?.relativePath
-    parser.orgFilename = "TodoList.org"
-    parser.parse(moc)
+        // now parse the todo list
+        let url = bundle.url(forResource: "TodoList", withExtension: "org")
+        parser.localFilename = url?.relativePath
+        parser.orgFilename = "TodoList.org"
+        parser.parse(capturedMOC)
 
-    do {
-      // Test todo state (waiting)
-      let fetchRequest = NSFetchRequest<Node>(entityName: "Node")
-      fetchRequest.predicate = NSPredicate (format: "heading == %@", "on Level 1.1.1.5")
+        XCTAssertNoThrow(try capturedMOC.save())
+        capturedMOC.processPendingChanges()
 
-      var nodes = try moc!.fetch(fetchRequest)
-      if nodes.count == 1,
-        let node = nodes.first {
-        XCTAssertEqual(node.todoState, "WAITING")
-      } else {
-        XCTFail()
-      }
+        do {
+            // Test todo state (waiting)
+            let fetchRequest = NSFetchRequest<Node>(entityName: "Node")
+            fetchRequest.predicate = NSPredicate (format: "heading == %@", "on Level 1.1.1.5")
 
-      // Test done state (works for me)
-      fetchRequest.predicate = NSPredicate (format: "heading == %@", "on Level 1.1.1.3")
-      nodes = try moc!.fetch(fetchRequest)
-      if nodes.count == 1,
-        let node = nodes.first {
-        XCTAssertEqual(node.todoState, "WORKS-FOR-ME")
-      } else {
-        XCTFail()
-      }
-    } catch _ { XCTFail() }
-  }
+            if let firstNode = try capturedMOC.fetch(fetchRequest).first {
+                XCTAssertEqual(firstNode.todoState, "WAITING")
+            } else {
+                XCTFail("Cannot fetch a proper node")
+            }
+
+            // Test done state (works for me)
+            fetchRequest.predicate = NSPredicate (format: "heading == %@", "on Level 1.1.1.3")
+            if let firstNode = try capturedMOC.fetch(fetchRequest).first {
+                XCTAssertEqual(firstNode.todoState, "WORKS-FOR-ME")
+            } else {
+                XCTFail("Cannot fetch a proper node")
+            }
+        } catch _ { XCTFail() }
+    }
 
 
   // Tackles bug described in:

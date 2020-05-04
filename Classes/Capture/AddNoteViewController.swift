@@ -54,12 +54,114 @@ final class AddNoteViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    private lazy var toolsBar: UIToolbar = {
+        let bar = UIToolbar()
+        let button1 = UIButton( type: .custom )
+        button1.setImage( UIImage( named: "linkkey.png" ), for: .normal )
+        button1.addTarget(self, action: #selector(addLinkMarkup), for: .touchUpInside)
+        button1.frame = CGRect( x: 0, y: 0, width: 53, height: 51 )
+        button1.bounds = CGRect( x: 0, y: 0, width: 53, height: 51 )
+        let urlButton = UIBarButtonItem( customView: button1 )
+        let button2 = UIButton( type: .custom )
+        button2.setImage( UIImage( named: "datepick.png" ), for: .normal )
+        button2.addTarget(self, action: #selector(setDatePickerView), for: .touchUpInside)
+        button2.frame = CGRect( x: 0, y: 0, width: 53, height: 51 )
+        button2.bounds = CGRect( x: 0, y: 0, width: 53, height: 51 )
+        let dateButton = UIBarButtonItem( customView: button2 )
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        bar.items = [urlButton, dateButton, spacer ]
+        bar.sizeToFit()
+        return bar
+    }()
+
+    @objc func addLinkMarkup() {
+        guard self.textView.text != nil else { return } // If no selected text, ignore.  Consider popup?
+        if let range = self.textView.selectedTextRange, !range.isEmpty {
+            let selectedText = self.textView.text( in: range )
+            self.textView.replace( range, withText: "[[\(selectedText!)][]]" )
+            let newCursor = self.textView.position(from: range.end, offset: 4)!
+            self.textView.selectedTextRange = self.textView.textRange( from: newCursor, to: newCursor)
+        }
+    }
+
+    let datePicker: UIDatePicker = {
+        let picker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 216))
+        picker.datePickerMode = .dateAndTime
+        return picker
+    }()
+
+    private lazy var datePickBar: UIToolbar = {
+        let bar = UIToolbar()
+        let cancelButton = UIBarButtonItem( title: "Cancel", style: .plain, target: self, action: #selector(setDefaultInputView) )
+        let scheduleButton = UIBarButtonItem( title: "Schd", style: .plain, target: self, action: #selector(insertDateSchedule) )
+        let deadlineButton = UIBarButtonItem( title: "Dead", style: .plain, target: self, action: #selector(insertDateDeadline) )
+        let agendaButton = UIBarButtonItem( title: "Agenda", style: .plain, target: self, action: #selector(insertDateAgenda) )
+        let plainButton = UIBarButtonItem( title: "Plain", style: .plain, target: self, action: #selector(insertDatePlain) )
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        bar.items = [ scheduleButton, deadlineButton, agendaButton, plainButton, spacer, cancelButton ]
+        bar.sizeToFit()
+        return bar
+    }()
+
+    private func datePicked() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-dd E hh:mm"
+        //dateFormatter.formatOptions = [.withTime]
+        return dateFormatter.string( from: self.datePicker.date )
+    }
+
+    private func replaceSelected( with newString: String ) {
+        print( "replaceSelected" )
+        if self.textView.text != nil {
+            if let range = self.textView.selectedTextRange {
+                self.textView.replace( range, withText: newString )
+            }
+        }
+    }
+
+    @objc func insertDateSchedule() {
+        let date = datePicked()
+        replaceSelected( with: "SCHEDULED: <\(date)>" )
+        self.setDefaultInputView()
+    }
+
+    @objc func insertDateDeadline() {
+        let date = datePicked()
+        replaceSelected( with: "DEADLINE: <\(date)>" )
+        self.setDefaultInputView()
+    }
+
+    @objc func insertDateAgenda() {
+        let date = datePicked()
+        replaceSelected( with: "<\(date)>" )
+        self.setDefaultInputView()
+    }
+
+    @objc func insertDatePlain() {
+        let date = datePicked()
+        replaceSelected( with: "[\(date)]" )
+        self.setDefaultInputView()
+    }
+
+    @objc func setDefaultInputView() {
+        self.textView.inputView = nil
+        self.textView.inputAccessoryView = self.toolsBar
+        self.textView.reloadInputViews()
+    }
+
+    @objc func setDatePickerView() {
+        self.textView.inputAccessoryView = self.datePickBar
+        self.textView.inputView = self.datePicker
+        self.textView.reloadInputViews()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.textView.text = self.note.text
         self.view = self.textView
         if self.note.text?.isEmpty ?? true { self.textView.becomeFirstResponder() }
         self.navigationItem.rightBarButtonItem = self.addButton
+        self.setDefaultInputView()
     }
 
     override func viewWillAppear(_ animated: Bool) {

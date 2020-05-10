@@ -124,8 +124,6 @@
 		83B1312C234AD16D0043D955 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83B1312B234AD16D0043D955 /* CloudKit.framework */; };
 		CE67A65B23A5CDD900B2B0BD /* SwiftyDropbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE67A65923A5CB6500B2B0BD /* SwiftyDropbox.framework */; };
 		CE67A65F23A5CE1800B2B0BD /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE67A65E23A5CE1800B2B0BD /* Alamofire.framework */; };
-		F02A539B245F8B1E005A1948 /* linkkey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F02A5399245F8B1E005A1948 /* linkkey@2x.png */; };
-		F02A539C245F8B1E005A1948 /* datepick@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F02A539A245F8B1E005A1948 /* datepick@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -306,8 +304,6 @@
 		CECD59F923B8D6C200348D89 /* MobileOrg-Shared.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "MobileOrg-Shared.xcconfig"; path = "Configuration/MobileOrg-Shared.xcconfig"; sourceTree = "<group>"; };
 		CECD59FA23B8D6C200348D89 /* MobileOrg-Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "MobileOrg-Debug.xcconfig"; path = "Configuration/MobileOrg-Debug.xcconfig"; sourceTree = "<group>"; };
 		CECD59FB23B8D6C200348D89 /* MobileOrg-AppStore.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "MobileOrg-AppStore.xcconfig"; path = "Configuration/MobileOrg-AppStore.xcconfig"; sourceTree = "<group>"; };
-		F02A5399245F8B1E005A1948 /* linkkey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "linkkey@2x.png"; sourceTree = "<group>"; };
-		F02A539A245F8B1E005A1948 /* datepick@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "datepick@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -686,8 +682,6 @@
 		79BA55681073A7DF00D67917 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				F02A539A245F8B1E005A1948 /* datepick@2x.png */,
-				F02A5399245F8B1E005A1948 /* linkkey@2x.png */,
 				79F87A9810854FEA00A54CA9 /* cant-sync-offline.png */,
 				8322ED6B176AE93C008B37C7 /* cant-sync-offline@2x.png */,
 				79F87A9910854FEA00A54CA9 /* please-configure.png */,
@@ -854,7 +848,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
-				F02A539B245F8B1E005A1948 /* linkkey@2x.png in Resources */,
 				7998AE2410794DBF0000ED49 /* AlertTextField.png in Resources */,
 				7998B06B1079847C0000ED49 /* back.png in Resources */,
 				7998B06C1079847C0000ED49 /* capture.png in Resources */,
@@ -866,7 +859,6 @@
 				7998B0711079847C0000ED49 /* forward.png in Resources */,
 				7998B0721079847C0000ED49 /* home.png in Resources */,
 				7998B0731079847C0000ED49 /* inbox.png in Resources */,
-				F02A539C245F8B1E005A1948 /* datepick@2x.png in Resources */,
 				7998B0741079847C0000ED49 /* noflag.png in Resources */,
 				7998B0751079847C0000ED49 /* note_entry.png in Resources */,
 				743C12F41DFED37F0051EC6F /* Images.xcassets in Resources */,

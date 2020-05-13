@@ -54,12 +54,11 @@ final class AddNoteViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private lazy var toolsBar: UIToolbar = {
-        let bar = UIToolbar()
+    private var toolsBar: UIToolbar = {
+        let bar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 45))
         bar.items = [
             UIBarButtonItem(title: "🔗", style: .plain, target: self, action: #selector(addLinkMarkup)),
             UIBarButtonItem(title: "📅", style: .plain, target: self, action: #selector(setDatePickerView)),
-            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         ]
         bar.sizeToFit()
         return bar
@@ -84,13 +83,13 @@ final class AddNoteViewController: UIViewController {
         case plain = "Plain"
     }
 
-    private lazy var datePickBar: UIToolbar = {
-        let bar = UIToolbar()
-        let cancelButton = UIBarButtonItem( title: "Cancel", style: .plain, target: self, action: #selector(setDefaultInputView) )
-        let scheduleButton = UIBarButtonItem( title: DateType.schedule.rawValue, style: .plain, target: self, action: #selector(insertDate(_:)) )
-        let deadlineButton = UIBarButtonItem( title: DateType.deadline.rawValue, style: .plain, target: self, action: #selector(insertDate(_:)) )
-        let agendaButton = UIBarButtonItem( title: DateType.agenda.rawValue, style: .plain, target: self, action: #selector(insertDate(_:)) )
-        let plainButton = UIBarButtonItem( title: DateType.plain.rawValue, style: .plain, target: self, action: #selector(insertDate(_:)) )
+    private var datePickBar: UIToolbar = {
+        let bar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 45))
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(setDefaultInputView))
+        let scheduleButton = UIBarButtonItem(title: DateType.schedule.rawValue, style: .plain, target: self, action: #selector(insertDate(_:)))
+        let deadlineButton = UIBarButtonItem(title: DateType.deadline.rawValue, style: .plain, target: self, action: #selector(insertDate(_:)))
+        let agendaButton = UIBarButtonItem(title: DateType.agenda.rawValue, style: .plain, target: self, action: #selector(insertDate(_:)))
+        let plainButton = UIBarButtonItem(title: DateType.plain.rawValue, style: .plain, target: self, action: #selector(insertDate(_:)))
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         bar.items = [ scheduleButton, deadlineButton, agendaButton, plainButton, spacer, cancelButton ]
         bar.sizeToFit()
@@ -126,9 +125,19 @@ final class AddNoteViewController: UIViewController {
         self.setDefaultInputView()
     }
 
+    func updateConstraintsWhenCustomKeyboardIsShown(customInputView: UIView) {
+        guard let superview = customInputView.superview else { return }
+        for constraint in superview.constraints {
+            if (constraint.secondItem === customInputView && constraint.secondAttribute == .top) {
+                constraint.priority = UILayoutPriority(999)
+            }
+        }
+    }
+
     @objc func setDefaultInputView() {
-        self.textView.inputView = nil
         self.textView.inputAccessoryView = self.toolsBar
+        self.textView.inputView = nil
+        updateConstraintsWhenCustomKeyboardIsShown(customInputView: self.datePicker)
         self.textView.reloadInputViews()
     }
 

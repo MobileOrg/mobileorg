@@ -54,12 +54,106 @@ final class AddNoteViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    private var toolsBar: UIToolbar = {
+        let bar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 45))
+        bar.items = [
+            UIBarButtonItem(title: "🔗", style: .plain, target: self, action: #selector(addLinkMarkup)),
+            UIBarButtonItem(title: "📅", style: .plain, target: self, action: #selector(setDatePickerView)),
+        ]
+        bar.sizeToFit()
+        return bar
+    }()
+
+    @objc func addLinkMarkup() {
+        if let range = self.textView.selectedTextRange, !range.isEmpty {
+            guard let selectedText = self.textView.text( in: range ) else { return }
+            self.textView.replace( range, withText: "[[\(selectedText)][]]" )
+            if let newCursor = self.textView.position(from: range.end, offset: 4) {
+                self.textView.selectedTextRange = self.textView.textRange( from: newCursor, to: newCursor)
+            }
+        }
+    }
+
+    let datePicker = UIDatePicker()
+
+    enum DateType: String {
+        case schedule = "Schd"
+        case deadline = "Dead"
+        case agenda = "Agenda"
+        case plain = "Plain"
+    }
+
+    private var datePickBar: UIToolbar = {
+        let bar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 45))
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(setDefaultInputView))
+        let scheduleButton = UIBarButtonItem(title: DateType.schedule.rawValue, style: .plain, target: self, action: #selector(insertDate(_:)))
+        let deadlineButton = UIBarButtonItem(title: DateType.deadline.rawValue, style: .plain, target: self, action: #selector(insertDate(_:)))
+        let agendaButton = UIBarButtonItem(title: DateType.agenda.rawValue, style: .plain, target: self, action: #selector(insertDate(_:)))
+        let plainButton = UIBarButtonItem(title: DateType.plain.rawValue, style: .plain, target: self, action: #selector(insertDate(_:)))
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        bar.items = [ scheduleButton, deadlineButton, agendaButton, plainButton, spacer, cancelButton ]
+        bar.sizeToFit()
+        return bar
+    }()
+
+    private func datePicked() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-dd E hh:mm"
+        return dateFormatter.string( from: self.datePicker.date )
+    }
+
+    private func replaceSelected( with newString: String ) {
+        guard let range = self.textView.selectedTextRange else { return }
+        self.textView.replace( range, withText: newString )
+    }
+
+    @objc private func insertDate(_ sender: UIBarButtonItem) {
+        guard let title = sender.title else { return }
+        let date = datePicked()
+        switch DateType(rawValue: title) {
+        case .agenda:
+            replaceSelected( with: "<\(date)>" )
+        case .deadline:
+            replaceSelected( with: "DEADLINE: <\(date)>" )
+        case .plain:
+            replaceSelected( with: "[\(date)]" )
+        case .schedule:
+            replaceSelected( with: "SCHEDULED: <\(date)>" )
+        case .none:
+            break
+        }
+        self.setDefaultInputView()
+    }
+
+    func updateConstraintsWhenCustomKeyboardIsShown(customInputView: UIView) {
+        guard let superview = customInputView.superview else { return }
+        for constraint in superview.constraints {
+            if (constraint.secondItem === customInputView && constraint.secondAttribute == .top) {
+                constraint.priority = UILayoutPriority(999)
+            }
+        }
+    }
+
+    @objc func setDefaultInputView() {
+        self.textView.inputAccessoryView = self.toolsBar
+        self.textView.inputView = nil
+        updateConstraintsWhenCustomKeyboardIsShown(customInputView: self.datePicker)
+        self.textView.reloadInputViews()
+    }
+
+    @objc func setDatePickerView() {
+        self.textView.inputAccessoryView = self.datePickBar
+        self.textView.inputView = self.datePicker
+        self.textView.reloadInputViews()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.textView.text = self.note.text
         self.view = self.textView
         if self.note.text?.isEmpty ?? true { self.textView.becomeFirstResponder() }
         self.navigationItem.rightBarButtonItem = self.addButton
+        self.setDefaultInputView()
     }
 
     override func viewWillAppear(_ animated: Bool) {

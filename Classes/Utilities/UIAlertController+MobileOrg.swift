@@ -46,16 +46,12 @@ extension UIAlertController {
 
     private static var mo_presentingViewController: UIViewController? {
         let rootViewController = UIApplication.shared.delegate?.window??.rootViewController
-        switch type(of: rootViewController) {
-        case is UINavigationController.Type:
-            guard let controller = (rootViewController as? UINavigationController)?.topViewController else { fallthrough }
+        if let controller = (rootViewController as? UINavigationController)?.topViewController {
             return controller
-        case is UITableViewController.Type:
-            guard let controller = (rootViewController as? UITabBarController)?.selectedViewController else { fallthrough }
+        } else if let controller = (rootViewController as? UITabBarController)?.selectedViewController {
             return controller
-        default:
-            return rootViewController
         }
+        return rootViewController
     }
     
 }

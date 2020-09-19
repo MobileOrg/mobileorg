@@ -57,7 +57,7 @@ class SettingsController: UITableViewController {
     super.viewWillAppear(animated)
 
     switch Settings.instance().serverMode {
-    case ServerModeDropbox: self.syncDetailLabel.text = "DropBox"
+    case ServerModeDropbox: self.syncDetailLabel.text = "Dropbox"
     case ServerModeWebDav: self.syncDetailLabel.text = "WebDAV"
     case ServerModeICloud: self.syncDetailLabel.text = "iCloud"
     default: fatalError("Unexpected server mode: \(Settings.instance().serverMode)")

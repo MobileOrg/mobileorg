@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,6 +17,7 @@
 		5420E7C9234D15F20008ADAC /* CloudTransferManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5420E7C8234D15F20008ADAC /* CloudTransferManager.swift */; };
 		5420E7CD234FB4150008ADAC /* UIAlertController+MobileOrg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5420E7CC234FB4150008ADAC /* UIAlertController+MobileOrg.swift */; };
 		5420E7D1234FC7AA0008ADAC /* CloudTransferManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5420E7D0234FC7AA0008ADAC /* CloudTransferManagerTests.swift */; };
+		5459EDBF25288F44001A77EA /* SwiftyDropbox in Frameworks */ = {isa = PBXBuildFile; productRef = 5459EDBE25288F44001A77EA /* SwiftyDropbox */; };
 		549D4BC72417D27900039E1E /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549D4BC62417D27900039E1E /* PreviewViewController.swift */; };
 		54CD6301234BC02D00D485E1 /* UIColor+MobileOrg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CD6300234BC02D00D485E1 /* UIColor+MobileOrg.swift */; };
 		54CD6303234BC9A200D485E1 /* RoundedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CD6302234BC9A200D485E1 /* RoundedLabel.swift */; };
@@ -310,6 +311,7 @@
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
 				83B1312C234AD16D0043D955 /* CloudKit.framework in Frameworks */,
+				5459EDBF25288F44001A77EA /* SwiftyDropbox in Frameworks */,
 				28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */,
 				793F7F6C107CB5FC00674D0A /* SystemConfiguration.framework in Frameworks */,
 				7945F61211A807FD00731598 /* Security.framework in Frameworks */,
@@ -757,6 +759,9 @@
 			dependencies = (
 			);
 			name = MobileOrg;
+			packageProductDependencies = (
+				5459EDBE25288F44001A77EA /* SwiftyDropbox */,
+			);
 			productName = MobileOrg;
 			productReference = 1D6058910D05DD3D006BFB54 /* MobileOrg.app */;
 			productType = "com.apple.product-type.application";
@@ -819,6 +824,9 @@
 				Base,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
+			packageReferences = (
+				5459EDBD25288F44001A77EA /* XCRemoteSwiftPackageReference "SwiftyDropbox" */,
+			);
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1103,6 +1111,25 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5459EDBD25288F44001A77EA /* XCRemoteSwiftPackageReference "SwiftyDropbox" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dropbox/SwiftyDropbox.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5459EDBE25288F44001A77EA /* SwiftyDropbox */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5459EDBD25288F44001A77EA /* XCRemoteSwiftPackageReference "SwiftyDropbox" */;
+			productName = SwiftyDropbox;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		745B1E2E1EC98C9B00D80421 /* MobileOrg2.xcdatamodeld */ = {

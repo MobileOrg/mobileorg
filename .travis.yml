@@ -9,7 +9,7 @@ branches:
     - develop
 
 before_install:
-  - export IOS_SIMULATOR_DESTINATION="platform=iOS Simulator,name=iPhone 8,OS=14"
+  - export IOS_SIMULATOR_DESTINATION="platform=iOS Simulator,name=iPhone 8,OS=14.0"
 
 before_script:
   - set -o pipefail

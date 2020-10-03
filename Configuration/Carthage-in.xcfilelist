@@ -1,2 +1,0 @@
-$(SRCROOT)/Carthage/Build/iOS/SwiftyDropbox.framework
-$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework

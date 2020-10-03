@@ -43,6 +43,8 @@
 
 ** Setting up your environment
 
+  Xcode >=12 is required to build the project.
+
   For the usage of the Dropbox API an application key is
   necessary. You can obtain it [[https://www.dropbox.com/developers/apps/create][from Dropbox.]] It is important to apply
   for keys of the *App Folder* type not the *Full Dropbox* type. 
@@ -50,13 +52,7 @@
   Find the file AppKey.plist in the project and obtain the information
   you've received from Dropbox there.
 
-  MobileOrg uses Carthage. Install Carthage by following the
-  instructions [[https://github.com/Carthage/Carthage#installing-carthage][from here.]]
-  Install the needed dependencies by running
-  #+BEGIN_SRC shell
-  carthage bootstrap --platform ios
-  #+END_SRC  
-  in your shell.
+  MobileOrg uses Swift Package Manager to resolve dependencies.
 
 *** WebDAV tests
 

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,13 +11,13 @@
 		18A3BBA716178DCD003D9320 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3BBA616178DCD003D9320 /* Reachability.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
-		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D801B30F44B63D00FB423F /* CoreData.framework */; };
 		5420E7C9234D15F20008ADAC /* CloudTransferManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5420E7C8234D15F20008ADAC /* CloudTransferManager.swift */; };
 		5420E7CD234FB4150008ADAC /* UIAlertController+MobileOrg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5420E7CC234FB4150008ADAC /* UIAlertController+MobileOrg.swift */; };
 		5420E7D1234FC7AA0008ADAC /* CloudTransferManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5420E7D0234FC7AA0008ADAC /* CloudTransferManagerTests.swift */; };
+		5459EDBF25288F44001A77EA /* SwiftyDropbox in Frameworks */ = {isa = PBXBuildFile; productRef = 5459EDBE25288F44001A77EA /* SwiftyDropbox */; };
 		549D4BC72417D27900039E1E /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549D4BC62417D27900039E1E /* PreviewViewController.swift */; };
 		54CD6301234BC02D00D485E1 /* UIColor+MobileOrg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CD6300234BC02D00D485E1 /* UIColor+MobileOrg.swift */; };
 		54CD6303234BC9A200D485E1 /* RoundedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CD6302234BC9A200D485E1 /* RoundedLabel.swift */; };
@@ -122,8 +122,6 @@
 		8322ED8B176AF1C7008B37C7 /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8322ED85176AF1C4008B37C7 /* settings@2x.png */; };
 		8322ED8C176AF1C7008B37C7 /* table_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8322ED86176AF1C6008B37C7 /* table_gray@2x.png */; };
 		83B1312C234AD16D0043D955 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83B1312B234AD16D0043D955 /* CloudKit.framework */; };
-		CE67A65B23A5CDD900B2B0BD /* SwiftyDropbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE67A65923A5CB6500B2B0BD /* SwiftyDropbox.framework */; };
-		CE67A65F23A5CE1800B2B0BD /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE67A65E23A5CE1800B2B0BD /* Alamofire.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -142,7 +140,6 @@
 		18A3BBA616178DCD003D9320 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* MobileOrg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobileOrg.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28AD733E0D9D9553002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		28D801B30F44B63D00FB423F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -294,8 +291,6 @@
 		8322ED86176AF1C6008B37C7 /* table_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "table_gray@2x.png"; sourceTree = "<group>"; };
 		83B1312B234AD16D0043D955 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		83BCC85D203E92C700064F22 /* MobileOrg.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = MobileOrg.entitlements; path = MobileOrg/MobileOrg.entitlements; sourceTree = "<group>"; };
-		CE67A65923A5CB6500B2B0BD /* SwiftyDropbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyDropbox.framework; path = Carthage/Build/iOS/SwiftyDropbox.framework; sourceTree = "<group>"; };
-		CE67A65E23A5CE1800B2B0BD /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		CECD59F423B8D6C200348D89 /* MobileOrgTests-AppStore.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "MobileOrgTests-AppStore.xcconfig"; path = "Configuration/MobileOrgTests-AppStore.xcconfig"; sourceTree = "<group>"; };
 		CECD59F523B8D6C200348D89 /* MobileOrg-AdHoc.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "MobileOrg-AdHoc.xcconfig"; path = "Configuration/MobileOrg-AdHoc.xcconfig"; sourceTree = "<group>"; };
 		CECD59F623B8D6C200348D89 /* MobileOrgTests-Shared.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "MobileOrgTests-Shared.xcconfig"; path = "Configuration/MobileOrgTests-Shared.xcconfig"; sourceTree = "<group>"; };
@@ -312,13 +307,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				747BF9811DFCBC3F00E800FB /* libicucore.tbd in Frameworks */,
-				CE67A65B23A5CDD900B2B0BD /* SwiftyDropbox.framework in Frameworks */,
 				18A3BBA316178BDD003D9320 /* QuartzCore.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
-				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
-				CE67A65F23A5CE1800B2B0BD /* Alamofire.framework in Frameworks */,
 				83B1312C234AD16D0043D955 /* CloudKit.framework in Frameworks */,
+				5459EDBF25288F44001A77EA /* SwiftyDropbox in Frameworks */,
 				28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */,
 				793F7F6C107CB5FC00674D0A /* SystemConfiguration.framework in Frameworks */,
 				7945F61211A807FD00731598 /* Security.framework in Frameworks */,
@@ -400,14 +393,11 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CE67A65E23A5CE1800B2B0BD /* Alamofire.framework */,
-				CE67A65923A5CB6500B2B0BD /* SwiftyDropbox.framework */,
 				83B1312B234AD16D0043D955 /* CloudKit.framework */,
 				747BF9801DFCBC3F00E800FB /* libicucore.tbd */,
 				18A3BBA216178BDD003D9320 /* QuartzCore.framework */,
 				7945F61111A807FD00731598 /* Security.framework */,
 				793F7F6B107CB5FC00674D0A /* SystemConfiguration.framework */,
-				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
 				28D801B30F44B63D00FB423F /* CoreData.framework */,
@@ -763,13 +753,15 @@
 				83E77D421E2727790049AB02 /* Update Bundle Version Script */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
-				CEE3E41823C5E55C004648D1 /* Copy Carthage Frameworks  Script */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = MobileOrg;
+			packageProductDependencies = (
+				5459EDBE25288F44001A77EA /* SwiftyDropbox */,
+			);
 			productName = MobileOrg;
 			productReference = 1D6058910D05DD3D006BFB54 /* MobileOrg.app */;
 			productType = "com.apple.product-type.application";
@@ -832,6 +824,9 @@
 				Base,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
+			packageReferences = (
+				5459EDBD25288F44001A77EA /* XCRemoteSwiftPackageReference "SwiftyDropbox" */,
+			);
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -940,26 +935,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "git=`sh /etc/profile; which git`\nappBuild=`\"$git\" rev-list HEAD --count`\nif [ $CONFIGURATION = \"Debug\" ]; then\nbranchName=`\"$git\" rev-parse --abbrev-ref HEAD`\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild-$branchName\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild-$branchName\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}.dSYM/Contents/Info.plist\"\nelse\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}.dSYM/Contents/Info.plist\"\nfi\necho \"Incremented the build number ${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n";
-		};
-		CEE3E41823C5E55C004648D1 /* Copy Carthage Frameworks  Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"$(SRCROOT)/Configuration/Carthage-in.xcfilelist",
-			);
-			inputPaths = (
-			);
-			name = "Copy Carthage Frameworks  Script";
-			outputFileListPaths = (
-				"$(SRCROOT)/Configuration/Carthage-out.xcfilelist",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "carthage copy-frameworks\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1136,6 +1111,25 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5459EDBD25288F44001A77EA /* XCRemoteSwiftPackageReference "SwiftyDropbox" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dropbox/SwiftyDropbox.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5459EDBE25288F44001A77EA /* SwiftyDropbox */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5459EDBD25288F44001A77EA /* XCRemoteSwiftPackageReference "SwiftyDropbox" */;
+			productName = SwiftyDropbox;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		745B1E2E1EC98C9B00D80421 /* MobileOrg2.xcdatamodeld */ = {

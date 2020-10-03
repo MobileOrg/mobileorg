@@ -75,12 +75,12 @@ import SwiftyDropbox
 
 
   /// Handle Dropbox Authorisation FLow
-  /// Triggerd by AppDelegate
+  /// Triggered by AppDelegate
   ///
   /// - Parameter url: URL used for Authorisation
   /// - Returns: always true 🙄
   func handleAuthFlow(url: URL) -> Bool {
-    if let authResult = DropboxClientsManager.handleRedirectURL(url) {
+    DropboxClientsManager.handleRedirectURL(url, completion: { authResult in
       switch authResult {
       case .success:
         NotificationCenter.default.post(name: Notification.Name(rawValue: "dropboxloginsuccess"), object: nil)
@@ -89,9 +89,11 @@ import SwiftyDropbox
       case .cancel:
         print("Authorization flow was manually cancelled by user!")
       case .error(_, let description):
-        print("Error: \(description)")
+        print("Error: \(description ?? "Unknown")")
+      case .none:
+        print("Unknown result.")
       }
-    }
+    })
     return true
   }
 

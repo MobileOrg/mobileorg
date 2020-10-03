@@ -1,30 +1,21 @@
 # Travis
 
 os: osx
-osx_image: xcode11.3
-language: objective-c
+osx_image: xcode12
+language: swift
 
 branches:
   only:
     - develop
 
-cache:
-  directories:
-  - Carthage
-
 before_install:
-  - export IOS_SIMULATOR_DESTINATION="platform=iOS Simulator,name=iPhone 8,OS=13.3"
-
-install:
-- brew install carthage || true
-- brew outdated carthage || brew upgrade carthage
-- travis_wait 20 carthage bootstrap --platform iOS --cache-builds
+  - export IOS_SIMULATOR_DESTINATION="platform=iOS Simulator,name=iPhone 8,OS=14"
 
 before_script:
   - set -o pipefail
 
 script:
-  - travis_retry xcodebuild test -scheme MobileOrg -destination "$IOS_SIMULATOR_DESTINATION" | xcpretty -c
+  - travis_retry xcodebuild clean test -scheme MobileOrg -destination "$IOS_SIMULATOR_DESTINATION" | xcpretty -c
 
 notifications:
   irc: 

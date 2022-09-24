@@ -71,7 +71,7 @@ class SyncSettingsController: UITableViewController {
   
   override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
     if section == 1 { // server settings section
-      return "For help on configuration, visit https://mobileorg.github.io/support"
+      return "For help on configuration, visit https://mobileorg.github.io/documentation/#using-icloud"
     } else {
       return ""
     }

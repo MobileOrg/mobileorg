@@ -158,9 +158,10 @@ jobs:
         task:
           type: manual_approval
           prompt: >-
-            The IPA is built and verified. Read the verifyIpa result for the
-            build number, then confirm in App Store Connect that this build
-            number is not already used for this version. Approve to upload.
+            Upload version ${{ inputs.version }} build ${{ data.latest("mobileorg-release", "verifyIpa").attributes.build }}
+            to App Store Connect? Confirm in App Store Connect that this build
+            number is not already used for this version. The upload step
+            refuses any other build. Approve to upload.
           timeout: 86400
         dependsOn: []
 
@@ -183,4 +184,5 @@ jobs:
             teamId: ${{ inputs.teamId }}
           inputs:
             version: ${{ inputs.version }}
+            expectedBuild: '${{ data.latest("mobileorg-release", "verifyIpa").attributes.build }}'
         dependsOn: []

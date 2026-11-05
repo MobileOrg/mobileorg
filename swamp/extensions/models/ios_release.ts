@@ -1,5 +1,5 @@
-import { z } from "npm:zod@4";
-import { join, resolve } from "node:path";
+import { z } from "npm:zod@4.1.5";
+import { join, resolve, sep } from "node:path";
 
 const ARCHIVE_NAME = "MobileOrg.xcarchive";
 const SOURCE_INFO_PLIST = "MobileOrg-Info.plist";
@@ -9,18 +9,30 @@ const PLACEHOLDER_APP_KEY = "YourAppKey";
 const MINIMUM_DEPLOYMENT_TARGET = 13;
 const PLIST_BUDDY = "/usr/libexec/PlistBuddy";
 
+const SECOND = 1000;
+const QUICK_TIMEOUT = 60 * SECOND;
+const TOOL_TIMEOUT = 5 * 60 * SECOND;
+const BUILD_TIMEOUT = 30 * 60 * SECOND;
+const UPLOAD_TIMEOUT = 60 * 60 * SECOND;
+
+/** A value xcodebuild receives as an argument. It must not start with "-". */
+const XcodebuildArgSchema = z.string().regex(
+  /^[A-Za-z0-9][A-Za-z0-9 ._,=-]*$/,
+  "must start with a letter or digit and use only letters, digits, spaces and . _ , = -",
+);
+
 const GlobalArgsSchema = z.object({
   projectDir: z.string().default("..").describe(
     "MobileOrg checkout, relative to the swamp repository",
   ),
   outputDir: z.string().default("swamp/build/release").describe(
-    "Archive and export directory, relative to projectDir",
+    "Archive and export directory. It must resolve inside projectDir",
   ),
   teamId: z.string().regex(/^[A-Z0-9]{10}$/).describe(
     "Apple Developer team ID used to sign the export and upload",
   ),
-  scheme: z.string().default("MobileOrg"),
-  configuration: z.string().default("AppStore"),
+  scheme: XcodebuildArgSchema.default("MobileOrg"),
+  configuration: XcodebuildArgSchema.default("AppStore"),
 });
 
 const VersionSchema = z.string().regex(
@@ -44,11 +56,21 @@ interface ReleaseContext {
   globalArgs: GlobalArgs;
   repoDir: string;
   signal: AbortSignal;
+  readResource: (
+    instanceName: string,
+  ) => Promise<Record<string, unknown> | null>;
   writeResource: (
     specName: string,
     name: string,
     data: Record<string, unknown>,
   ) => Promise<{ name: string }>;
+}
+
+/** Where and how long a command runs. */
+interface Where {
+  cwd: string;
+  signal: AbortSignal;
+  timeoutMs: number;
 }
 
 interface CommandResult {
@@ -102,35 +124,119 @@ export function exportOptionsPlist(
 `;
 }
 
+/** Whether `child` is a path strictly inside `parent`. */
+export function isInside(parent: string, child: string): boolean {
+  return resolve(child).startsWith(resolve(parent) + sep);
+}
+
+/** Whether a MinimumOSVersion string such as "13.0" meets the App Store floor. */
+export function meetsDeploymentTarget(
+  minimumOs: string,
+  minimum = MINIMUM_DEPLOYMENT_TARGET,
+): boolean {
+  const major = Number.parseInt(minimumOs, 10);
+  return Number.isInteger(major) && major >= minimum;
+}
+
+/** What `upload` compares before it sends a build to App Store Connect. */
+export interface UploadCheck {
+  version: string;
+  expectedBuild: string;
+  archiveVersion: string;
+  archiveBuild: string;
+  ipaVersion: string;
+  ipaBuild: string;
+  verified: Record<string, unknown> | null;
+  archiveBuiltAt: Date;
+}
+
+/**
+ * Throw unless the archive and IPA on disk are the build that `verifyIpa`
+ * checked and the build the operator approved. An upload cannot be undone.
+ */
+export function assertUploadable(check: UploadCheck): void {
+  const problems: string[] = [];
+  if (check.expectedBuild === "") problems.push("no approved build number");
+  if (check.verified === null) {
+    problems.push("verifyIpa has not recorded a result");
+  } else {
+    if (check.verified.version !== check.version) {
+      problems.push(
+        `verifyIpa checked version ${check.verified.version}, not ${check.version}`,
+      );
+    }
+    if (check.verified.build !== check.expectedBuild) {
+      problems.push(
+        `verifyIpa checked build ${check.verified.build}, not the approved build ${check.expectedBuild}`,
+      );
+    }
+    const verifiedAt = Date.parse(String(check.verified.completedAt));
+    if (!(verifiedAt >= check.archiveBuiltAt.getTime())) {
+      problems.push("the archive was rebuilt after verifyIpa checked it");
+    }
+  }
+  if (check.archiveVersion !== check.version) {
+    problems.push(
+      `the archive has version ${check.archiveVersion}, not ${check.version}`,
+    );
+  }
+  if (check.archiveBuild !== check.expectedBuild) {
+    problems.push(
+      `the archive has build ${check.archiveBuild}, not the approved build ${check.expectedBuild}`,
+    );
+  }
+  if (check.ipaVersion !== check.version) {
+    problems.push(
+      `the verified IPA has version ${check.ipaVersion}, not ${check.version}`,
+    );
+  }
+  if (check.ipaBuild !== check.expectedBuild) {
+    problems.push(
+      `the verified IPA has build ${check.ipaBuild}, not the approved build ${check.expectedBuild}`,
+    );
+  }
+  if (problems.length > 0) {
+    throw new Error(`refusing to upload:\n- ${problems.join("\n- ")}`);
+  }
+}
+
 async function run(
   command: string,
   args: string[],
-  cwd: string,
-  signal: AbortSignal,
+  where: Where,
 ): Promise<CommandResult> {
-  const output = await new Deno.Command(command, {
-    args,
-    cwd,
-    stdout: "piped",
-    stderr: "piped",
-    signal,
-  }).output();
-  const decoder = new TextDecoder();
-  return {
-    code: output.code,
-    stdout: decoder.decode(output.stdout),
-    stderr: decoder.decode(output.stderr),
-  };
+  const deadline = AbortSignal.timeout(where.timeoutMs);
+  try {
+    const output = await new Deno.Command(command, {
+      args,
+      cwd: where.cwd,
+      stdout: "piped",
+      stderr: "piped",
+      signal: AbortSignal.any([where.signal, deadline]),
+    }).output();
+    const decoder = new TextDecoder();
+    return {
+      code: output.code,
+      stdout: decoder.decode(output.stdout),
+      stderr: decoder.decode(output.stderr),
+    };
+  } catch (error) {
+    if (deadline.aborted) {
+      throw new Error(
+        `${command} timed out after ${where.timeoutMs / SECOND} seconds`,
+      );
+    }
+    throw error;
+  }
 }
 
 async function runOrThrow(
   label: string,
   command: string,
   args: string[],
-  cwd: string,
-  signal: AbortSignal,
+  where: Where,
 ): Promise<CommandResult> {
-  const result = await run(command, args, cwd, signal);
+  const result = await run(command, args, where);
   if (result.code !== 0) {
     throw new Error(
       commandFailure(label, result.code, result.stderr, result.stdout),
@@ -142,26 +248,34 @@ async function runOrThrow(
 async function plistValue(
   file: string,
   keyPath: string,
-  cwd: string,
-  signal: AbortSignal,
+  where: Where,
 ): Promise<string> {
   const result = await runOrThrow(
     `reading ${keyPath} from ${file}`,
     PLIST_BUDDY,
     ["-c", `print :${keyPath}`, file],
-    cwd,
-    signal,
+    where,
   );
   return result.stdout.trim();
 }
 
+/** Remove a file or directory, ignoring only that it does not exist. */
+async function removeIfExists(path: string): Promise<void> {
+  try {
+    await Deno.remove(path, { recursive: true });
+  } catch (error) {
+    if (!(error instanceof Deno.errors.NotFound)) throw error;
+  }
+}
+
 function paths(context: ReleaseContext, version: string) {
   const project = resolve(context.repoDir, context.globalArgs.projectDir);
-  const releaseDir = resolve(
-    project,
-    context.globalArgs.outputDir,
-    version,
-  );
+  const releaseDir = resolve(project, context.globalArgs.outputDir, version);
+  if (!isInside(project, releaseDir)) {
+    throw new Error(
+      `outputDir ${context.globalArgs.outputDir} resolves outside projectDir`,
+    );
+  }
   return {
     project,
     releaseDir,
@@ -169,7 +283,16 @@ function paths(context: ReleaseContext, version: string) {
     app: join(releaseDir, ARCHIVE_NAME, "Products/Applications/MobileOrg.app"),
     exportDir: join(releaseDir, "export"),
     ipaPayload: join(releaseDir, "ipa"),
+    ipaApp: join(releaseDir, "ipa", "Payload/MobileOrg.app"),
   };
+}
+
+function inProject(
+  context: ReleaseContext,
+  project: string,
+  timeoutMs: number,
+): Where {
+  return { cwd: project, signal: context.signal, timeoutMs };
 }
 
 async function record(
@@ -179,14 +302,13 @@ async function record(
   summary: string,
   build?: string,
 ) {
-  const handle = await context.writeResource("result", step, {
+  return await context.writeResource("result", step, {
     step,
     version,
     summary,
     ...(build ? { build } : {}),
     completedAt: new Date().toISOString(),
   });
-  return { dataHandles: [handle] };
 }
 
 async function exportArchive(
@@ -194,6 +316,7 @@ async function exportArchive(
   version: string,
   destination: "export" | "upload",
   exportPath: string,
+  timeoutMs: number,
 ): Promise<CommandResult> {
   const p = paths(context, version);
   const optionsFile = join(p.releaseDir, `${destination}-options.plist`);
@@ -201,7 +324,7 @@ async function exportArchive(
     optionsFile,
     exportOptionsPlist(context.globalArgs.teamId, destination),
   );
-  await Deno.remove(exportPath, { recursive: true }).catch(() => {});
+  await removeIfExists(exportPath);
   return await runOrThrow(
     `xcodebuild -exportArchive (${destination})`,
     "xcodebuild",
@@ -215,14 +338,13 @@ async function exportArchive(
       exportPath,
       "-allowProvisioningUpdates",
     ],
-    p.project,
-    context.signal,
+    inProject(context, p.project, timeoutMs),
   );
 }
 
 export const model = {
   type: "@mobileorg/ios-release",
-  version: "2026.11.05.1",
+  version: "2026.11.05.2",
   globalArguments: GlobalArgsSchema,
   resources: {
     result: {
@@ -242,14 +364,13 @@ export const model = {
         context: ReleaseContext,
       ) => {
         const { project } = paths(context, args.version);
-        const { signal } = context;
+        const quick = inProject(context, project, QUICK_TIMEOUT);
 
         const branch = (await runOrThrow(
           "reading the current branch",
           "git",
           ["rev-parse", "--abbrev-ref", "HEAD"],
-          project,
-          signal,
+          quick,
         )).stdout.trim();
         if (branch !== `release/${args.version}`) {
           throw new Error(
@@ -261,8 +382,7 @@ export const model = {
           "reading the working tree status",
           "git",
           ["status", "--porcelain", "--untracked-files=no"],
-          project,
-          signal,
+          quick,
         )).stdout.trim();
         if (changes) {
           throw new Error(
@@ -273,8 +393,7 @@ export const model = {
         const sourceVersion = await plistValue(
           join(project, SOURCE_INFO_PLIST),
           "CFBundleShortVersionString",
-          project,
-          signal,
+          quick,
         );
         if (sourceVersion !== args.version) {
           throw new Error(
@@ -285,8 +404,7 @@ export const model = {
         const appKey = await plistValue(
           join(project, APP_KEY_PLIST),
           APP_KEY_PATH,
-          project,
-          signal,
+          quick,
         );
         if (appKey === "" || appKey === PLACEHOLDER_APP_KEY) {
           throw new Error(`${APP_KEY_PLIST} still holds the placeholder key`);
@@ -295,8 +413,7 @@ export const model = {
           "reading the AppKey.plist index flags",
           "git",
           ["ls-files", "-v", APP_KEY_PLIST],
-          project,
-          signal,
+          quick,
         )).stdout;
         if (!flags.startsWith("S")) {
           throw new Error(
@@ -304,12 +421,13 @@ export const model = {
           );
         }
 
-        return await record(
+        const handle = await record(
           context,
           "verifySource",
           args.version,
           `branch ${branch}, clean tree, version ${sourceVersion}, Dropbox key set`,
         );
+        return { dataHandles: [handle] };
       },
     },
 
@@ -317,7 +435,7 @@ export const model = {
       description: "Run the unit tests on a simulator",
       arguments: z.object({
         version: VersionSchema,
-        destination: z.string().default(
+        destination: XcodebuildArgSchema.default(
           "platform=iOS Simulator,name=iPhone 17",
         ).describe("xcodebuild destination for the tests"),
       }),
@@ -326,25 +444,20 @@ export const model = {
         context: ReleaseContext,
       ) => {
         const { project } = paths(context, args.version);
-        await runOrThrow(
-          "xcodebuild test",
-          "xcodebuild",
-          [
-            "test",
-            "-scheme",
-            context.globalArgs.scheme,
-            "-destination",
-            args.destination,
-          ],
-          project,
-          context.signal,
-        );
-        return await record(
+        await runOrThrow("xcodebuild test", "xcodebuild", [
+          "test",
+          "-scheme",
+          context.globalArgs.scheme,
+          "-destination",
+          args.destination,
+        ], inProject(context, project, BUILD_TIMEOUT));
+        const handle = await record(
           context,
           "test",
           args.version,
           `unit tests passed on ${args.destination}`,
         );
+        return { dataHandles: [handle] };
       },
     },
 
@@ -357,90 +470,84 @@ export const model = {
         context: ReleaseContext,
       ) => {
         const p = paths(context, args.version);
-        await Deno.remove(p.releaseDir, { recursive: true }).catch(() => {});
+        await removeIfExists(p.releaseDir);
         await Deno.mkdir(p.releaseDir, { recursive: true });
-        await runOrThrow(
-          "xcodebuild archive",
-          "xcodebuild",
-          [
-            "archive",
-            "-scheme",
-            context.globalArgs.scheme,
-            "-configuration",
-            context.globalArgs.configuration,
-            "-destination",
-            "generic/platform=iOS",
-            "-archivePath",
-            p.archive,
-            "-allowProvisioningUpdates",
-          ],
-          p.project,
-          context.signal,
-        );
-        return await record(
+        await runOrThrow("xcodebuild archive", "xcodebuild", [
+          "archive",
+          "-scheme",
+          context.globalArgs.scheme,
+          "-configuration",
+          context.globalArgs.configuration,
+          "-destination",
+          "generic/platform=iOS",
+          "-archivePath",
+          p.archive,
+          "-allowProvisioningUpdates",
+        ], inProject(context, p.project, BUILD_TIMEOUT));
+        const handle = await record(
           context,
           "archive",
           args.version,
           `archived to ${p.archive}`,
         );
+        return { dataHandles: [handle] };
       },
     },
 
     verifyArchive: {
       description:
-        "Check the archived app's version, deployment target and Dropbox key",
+        "Check the archived app's version, deployment target and Dropbox URL scheme",
       arguments: VersionArgsSchema,
       execute: async (
         args: z.infer<typeof VersionArgsSchema>,
         context: ReleaseContext,
       ) => {
         const p = paths(context, args.version);
+        const quick = inProject(context, p.project, QUICK_TIMEOUT);
         const plist = join(p.app, "Info.plist");
-        const { signal } = context;
         const version = await plistValue(
           plist,
           "CFBundleShortVersionString",
-          p.project,
-          signal,
+          quick,
         );
-        const build = await plistValue(
-          plist,
-          "CFBundleVersion",
-          p.project,
-          signal,
-        );
-        const minimumOs = await plistValue(
-          plist,
-          "MinimumOSVersion",
-          p.project,
-          signal,
-        );
+        const build = await plistValue(plist, "CFBundleVersion", quick);
+        const minimumOs = await plistValue(plist, "MinimumOSVersion", quick);
         const scheme = await plistValue(
           plist,
           "CFBundleURLTypes:0:CFBundleURLSchemes:0",
-          p.project,
-          signal,
+          quick,
+        );
+        const appKey = await plistValue(
+          join(p.project, APP_KEY_PLIST),
+          APP_KEY_PATH,
+          quick,
         );
         if (version !== args.version) {
           throw new Error(
             `archive has version ${version}, expected ${args.version}`,
           );
         }
-        if (Number.parseInt(minimumOs, 10) < MINIMUM_DEPLOYMENT_TARGET) {
+        if (!meetsDeploymentTarget(minimumOs)) {
           throw new Error(
-            `archive targets iOS ${minimumOs}; App Store Connect requires ${MINIMUM_DEPLOYMENT_TARGET} or later`,
+            `archive targets iOS "${minimumOs}"; App Store Connect requires ${MINIMUM_DEPLOYMENT_TARGET} or later`,
           );
         }
-        if (scheme === `db-${PLACEHOLDER_APP_KEY}`) {
-          throw new Error("archive carries the placeholder Dropbox key");
+        if (appKey === "" || appKey === PLACEHOLDER_APP_KEY) {
+          throw new Error(`${APP_KEY_PLIST} still holds the placeholder key`);
         }
-        return await record(
+        if (scheme !== `db-${appKey}`) {
+          throw new Error(
+            "the archive's Dropbox URL scheme does not match the key in AppKey.plist",
+          );
+        }
+        const handle = await record(
           context,
           "verifyArchive",
           args.version,
-          `version ${version} build ${build}, minimum iOS ${minimumOs}`,
+          `version ${version} build ${build}, minimum iOS ${minimumOs}, Dropbox URL scheme matches the key`,
           build,
         );
+        return { dataHandles: [handle] };
       },
     },
 
@@ -452,49 +559,55 @@ export const model = {
         context: ReleaseContext,
       ) => {
         const p = paths(context, args.version);
-        await exportArchive(context, args.version, "export", p.exportDir);
-        return await record(
+        await exportArchive(
+          context,
+          args.version,
+          "export",
+          p.exportDir,
+          BUILD_TIMEOUT,
+        );
+        const handle = await record(
           context,
           "exportIpa",
           args.version,
           `exported to ${p.exportDir}`,
         );
+        return { dataHandles: [handle] };
       },
     },
 
     verifyIpa: {
       description:
-        "Check the IPA is signed for distribution with a production push entitlement",
+        "Check the IPA's version, that its signature is valid and from the Apple Distribution certificate, and that its signed entitlements have production push and no debugging",
       arguments: VersionArgsSchema,
       execute: async (
         args: z.infer<typeof VersionArgsSchema>,
         context: ReleaseContext,
       ) => {
         const p = paths(context, args.version);
-        const { signal } = context;
-        await Deno.remove(p.ipaPayload, { recursive: true }).catch(() => {});
+        const quick = inProject(context, p.project, QUICK_TIMEOUT);
+        const tool = inProject(context, p.project, TOOL_TIMEOUT);
+        await removeIfExists(p.ipaPayload);
         await Deno.mkdir(p.ipaPayload, { recursive: true });
-        await runOrThrow(
-          "unzipping the IPA",
-          "unzip",
-          [
-            "-q",
-            join(p.exportDir, "MobileOrg.ipa"),
-            "-d",
-            p.ipaPayload,
-          ],
-          p.project,
-          signal,
-        );
-        const app = join(p.ipaPayload, "Payload/MobileOrg.app");
+        await runOrThrow("unzipping the IPA", "unzip", [
+          "-q",
+          join(p.exportDir, "MobileOrg.ipa"),
+          "-d",
+          p.ipaPayload,
+        ], tool);
 
-        // codesign reports on stderr.
+        await runOrThrow(
+          "verifying the code signature",
+          "codesign",
+          ["--verify", "--deep", "--strict", p.ipaApp],
+          tool,
+        );
+        // codesign reports the signing authority on stderr.
         const signature = (await runOrThrow(
           "reading the code signature",
           "codesign",
-          ["-dvv", app],
-          p.project,
-          signal,
+          ["-dvv", p.ipaApp],
+          tool,
         )).stderr;
         const distribution = new RegExp(
           `Authority=Apple Distribution: .* \\(${context.globalArgs.teamId}\\)`,
@@ -505,88 +618,126 @@ export const model = {
           );
         }
 
-        const profile = join(p.releaseDir, "profile.plist");
-        const decoded = await runOrThrow(
-          "decoding the provisioning profile",
-          "security",
-          ["cms", "-D", "-i", join(app, "embedded.mobileprovision")],
-          p.project,
-          signal,
+        const entitlements = join(p.releaseDir, "entitlements.plist");
+        const signed = await runOrThrow(
+          "reading the signed entitlements",
+          "codesign",
+          ["-d", "--entitlements", ":-", p.ipaApp],
+          tool,
         );
-        await Deno.writeTextFile(profile, decoded.stdout);
+        await Deno.writeTextFile(entitlements, signed.stdout);
         const push = await plistValue(
-          profile,
-          "Entitlements:aps-environment",
-          p.project,
-          signal,
+          entitlements,
+          "aps-environment",
+          quick,
         );
         if (push !== "production") {
           throw new Error(
-            `profile has aps-environment=${push}, expected production`,
+            `signed entitlements have aps-environment=${push}, expected production`,
           );
         }
-        const debuggable = await plistValue(
-          profile,
-          "Entitlements:get-task-allow",
-          p.project,
-          signal,
+        // An App Store signature normally omits get-task-allow. Only a value
+        // of true is a problem.
+        const debuggable = await run(
+          PLIST_BUDDY,
+          ["-c", "print :get-task-allow", entitlements],
+          quick,
         );
-        if (debuggable !== "false") {
-          throw new Error("profile allows debugging (get-task-allow)");
+        if (debuggable.code === 0 && debuggable.stdout.trim() === "true") {
+          throw new Error(
+            "signed entitlements allow debugging (get-task-allow)",
+          );
         }
 
-        const infoPlist = join(app, "Info.plist");
+        const infoPlist = join(p.ipaApp, "Info.plist");
         const version = await plistValue(
           infoPlist,
           "CFBundleShortVersionString",
-          p.project,
-          signal,
+          quick,
         );
-        const build = await plistValue(
-          infoPlist,
-          "CFBundleVersion",
-          p.project,
-          signal,
-        );
-        return await record(
+        const build = await plistValue(infoPlist, "CFBundleVersion", quick);
+        if (version !== args.version) {
+          throw new Error(
+            `IPA has version ${version}, expected ${args.version}`,
+          );
+        }
+        const handle = await record(
           context,
           "verifyIpa",
           args.version,
-          `Apple Distribution, production push, version ${version} build ${build}`,
+          `valid Apple Distribution signature, production push, version ${version} build ${build}`,
           build,
         );
+        return { dataHandles: [handle] };
       },
     },
 
     upload: {
       description:
-        "Upload the archive to App Store Connect. This cannot be undone; run it only after approval",
-      arguments: VersionArgsSchema,
+        "Upload the archive to App Store Connect. This cannot be undone. It refuses unless the archive and the verified IPA are the approved build",
+      arguments: z.object({
+        version: VersionSchema,
+        expectedBuild: z.string().min(1).describe(
+          "The build number verifyIpa reported and the operator approved",
+        ),
+      }),
       execute: async (
-        args: z.infer<typeof VersionArgsSchema>,
+        args: { version: string; expectedBuild: string },
         context: ReleaseContext,
       ) => {
         const p = paths(context, args.version);
+        const quick = inProject(context, p.project, QUICK_TIMEOUT);
+        const archiveInfo = join(p.app, "Info.plist");
+        const ipaInfo = join(p.ipaApp, "Info.plist");
+
+        assertUploadable({
+          version: args.version,
+          expectedBuild: args.expectedBuild,
+          archiveVersion: await plistValue(
+            archiveInfo,
+            "CFBundleShortVersionString",
+            quick,
+          ),
+          archiveBuild: await plistValue(archiveInfo, "CFBundleVersion", quick),
+          ipaVersion: await plistValue(
+            ipaInfo,
+            "CFBundleShortVersionString",
+            quick,
+          ),
+          ipaBuild: await plistValue(ipaInfo, "CFBundleVersion", quick),
+          verified: await context.readResource("verifyIpa"),
+          archiveBuiltAt: (await Deno.stat(archiveInfo)).mtime ?? new Date(),
+        });
+
+        // Recorded before the upload so a cancelled or timed-out run still
+        // shows that an upload may have reached App Store Connect.
+        const attempted = await record(
+          context,
+          "uploadAttempted",
+          args.version,
+          `uploading build ${args.expectedBuild}`,
+          args.expectedBuild,
+        );
         const result = await exportArchive(
           context,
           args.version,
           "upload",
           join(p.releaseDir, "upload"),
+          UPLOAD_TIMEOUT,
         );
-        const output = `${result.stdout}\n${result.stderr}`;
-        if (!output.includes("Upload succeeded")) {
-          throw new Error(
-            `xcodebuild finished without reporting a successful upload:\n${
-              excerpt(output)
-            }`,
-          );
-        }
-        return await record(
+        const confirmed = /upload succeeded/i.test(
+          `${result.stdout}\n${result.stderr}`,
+        );
+        const uploaded = await record(
           context,
           "upload",
           args.version,
-          "uploaded to App Store Connect",
+          confirmed
+            ? `uploaded build ${args.expectedBuild} to App Store Connect`
+            : `xcodebuild exited 0 for build ${args.expectedBuild} without printing an upload confirmation; check App Store Connect before running again`,
+          args.expectedBuild,
         );
+        return { dataHandles: [attempted, uploaded] };
       },
     },
   },

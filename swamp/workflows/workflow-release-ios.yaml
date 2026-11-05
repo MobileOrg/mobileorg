@@ -171,6 +171,8 @@ jobs:
             approvedBuild=BUILD" with the build number above. The upload
             refuses any other build. A run keeps the first value it is given,
             so a wrong build cannot be corrected: cancel the run and start again.
+            Do not commit between verify-ipa and the upload. If HEAD moves,
+            the upload refuses and you must start a new run.
           timeout: 86400
         dependsOn: []
 

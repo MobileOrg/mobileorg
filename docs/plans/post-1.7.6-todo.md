@@ -79,6 +79,10 @@ branch. It does not yet cover:
 - [ ] A wrong `approvedBuild` cannot be corrected, because a run keeps the first
       value it is given. Cancel the run and start again. The upload refuses a
       build that does not match, so the cost is a rebuild, not a wrong upload.
+- [ ] Do not commit between `verify-ipa` and the upload. The upload refuses when
+      HEAD is not the commit that `verifyArchive` and `verifyIpa` recorded, or
+      when a tracked file differs from the commit, so the fix is a new run that
+      rebuilds. The build number is the commit count, so it changes too.
 - [ ] A timed-out or cancelled `xcodebuild` may leave helper processes running,
       because Deno ends only the direct child. A later `archive` deletes the
       release directory those processes may still write to. Decide whether to

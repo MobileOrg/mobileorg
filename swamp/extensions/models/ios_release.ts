@@ -79,7 +79,7 @@ export interface ReleasePaths {
 }
 
 /** Where and how long a command runs. */
-interface Where {
+export interface Where {
   cwd: string;
   signal: AbortSignal;
   timeoutMs: number;
@@ -159,6 +159,7 @@ export interface UploadCheck {
   ipaVersion: string;
   ipaBuild: string;
   verified: Record<string, unknown> | null;
+  archiveVerified: Record<string, unknown> | null;
   archiveBuiltAt: Date;
   headCommit: string;
 }
@@ -191,6 +192,28 @@ export function assertUploadable(check: UploadCheck): void {
     const verifiedAt = Date.parse(String(check.verified.completedAt));
     if (!(verifiedAt >= check.archiveBuiltAt.getTime())) {
       problems.push("the archive was rebuilt after verifyIpa checked it");
+    }
+  }
+  if (check.archiveVerified === null) {
+    problems.push("verifyArchive has not recorded a result");
+  } else {
+    if (check.archiveVerified.version !== check.version) {
+      problems.push(
+        `verifyArchive checked version ${check.archiveVerified.version}, not ${check.version}`,
+      );
+    }
+    if (check.archiveVerified.build !== check.expectedBuild) {
+      problems.push(
+        `verifyArchive checked build ${check.archiveVerified.build}, not the approved build ${check.expectedBuild}`,
+      );
+    }
+    if (
+      check.verified !== null &&
+      check.archiveVerified.commit !== check.verified.commit
+    ) {
+      problems.push(
+        `the archive was checked at commit ${check.archiveVerified.commit}, but the IPA at commit ${check.verified.commit}`,
+      );
     }
   }
   if (check.archiveVersion !== check.version) {
@@ -242,6 +265,25 @@ export class CommandFailed extends Error {
  */
 export function exitedBySignal(code: number): boolean {
   return code > 128;
+}
+
+/** What an upload that threw tells us about whether the build was sent. */
+export type UploadFailure = "unknown" | "failed" | "notStarted";
+
+export function classifyUploadFailure(
+  error: unknown,
+  aborted: boolean,
+): UploadFailure {
+  if (error instanceof CommandTimeout || aborted) return "unknown";
+  if (error instanceof CommandFailed) {
+    return exitedBySignal(error.code) ? "unknown" : "failed";
+  }
+  return "notStarted";
+}
+
+/** Whether xcodebuild's output says the upload finished. */
+export function uploadConfirmed(output: string): boolean {
+  return /upload succeeded/i.test(output);
 }
 
 /** The build number script sets CFBundleVersion to the commit count. */
@@ -343,6 +385,19 @@ async function plistValue(
   return result.stdout.trim();
 }
 
+/** Refuse to continue when a tracked file differs from the commit. */
+export async function assertCleanTree(where: Where): Promise<void> {
+  const changes = (await runOrThrow(
+    "reading the working tree status",
+    "git",
+    ["status", "--porcelain", "--untracked-files=no"],
+    where,
+  )).stdout.trim();
+  if (changes) {
+    throw new Error(`tracked files have uncommitted changes:\n${changes}`);
+  }
+}
+
 async function headCommit(where: Where): Promise<string> {
   return (await runOrThrow(
     "reading the current commit",
@@ -378,6 +433,7 @@ export async function readUploadCheck(
     ipaVersion: await plistValue(ipaInfo, "CFBundleShortVersionString", quick),
     ipaBuild: await plistValue(ipaInfo, "CFBundleVersion", quick),
     verified: await context.readResource("verifyIpa"),
+    archiveVerified: await context.readResource("verifyArchive"),
     archiveBuiltAt: (await Deno.stat(archiveInfo)).mtime ?? new Date(),
   };
 }
@@ -511,17 +567,7 @@ export const model = {
           );
         }
 
-        const changes = (await runOrThrow(
-          "reading the working tree status",
-          "git",
-          ["status", "--porcelain", "--untracked-files=no"],
-          quick,
-        )).stdout.trim();
-        if (changes) {
-          throw new Error(
-            `tracked files have uncommitted changes:\n${changes}`,
-          );
-        }
+        await assertCleanTree(quick);
 
         const sourceVersion = await plistValue(
           join(project, SOURCE_INFO_PLIST),
@@ -660,6 +706,7 @@ export const model = {
             `archive has version ${version}, expected ${args.version}`,
           );
         }
+        await assertCleanTree(quick);
         const commits = (await runOrThrow(
           "counting commits",
           "git",
@@ -835,6 +882,7 @@ export const model = {
         context: ReleaseContext,
       ) => {
         const p = paths(context, args.version);
+        await assertCleanTree(inProject(context, p.project, QUICK_TIMEOUT));
         assertUploadable({
           ...(await readUploadCheck(
             context,
@@ -881,26 +929,23 @@ export const model = {
           );
         } catch (error) {
           // A timeout, a cancellation or a signal such as Ctrl-C leaves the
-          // outcome unknown. Any other failure is xcodebuild reporting that
-          // the upload did not complete, so record it and allow a retry.
-          if (
-            error instanceof CommandTimeout || context.signal.aborted ||
-            (error instanceof CommandFailed && exitedBySignal(error.code))
-          ) {
-            throw error;
-          }
+          // outcome unknown, so nothing is recorded and a retry stays blocked.
+          // Any other failure means the build was not sent.
+          const failure = classifyUploadFailure(error, context.signal.aborted);
+          if (failure === "unknown") throw error;
           await record(
             context,
             "uploadFailed",
             args.version,
-            "xcodebuild reported that the upload failed",
+            failure === "failed"
+              ? "xcodebuild reported that the upload failed"
+              : "the upload did not start",
             args.expectedBuild,
           );
           throw error;
         }
-        const confirmed = /upload succeeded/i.test(
-          `${result.stdout}\n${result.stderr}`,
-        );
+        const confirmed = uploadConfirmed(`${result.stdout}
+${result.stderr}`);
         if (!confirmed) {
           // The attempt stays unsettled, so a retry is blocked until the
           // archive is rebuilt.

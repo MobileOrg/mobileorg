@@ -6,8 +6,10 @@ import {
 } from "jsr:@std/assert@1.0.13";
 import { join } from "node:path";
 import {
+  assertCleanTree,
   assertUploadable,
   buildMatchesCommits,
+  classifyUploadFailure,
   CommandFailed,
   commandFailure,
   CommandTimeout,
@@ -20,7 +22,9 @@ import {
   readUploadCheck,
   type ReleasePaths,
   type UploadCheck,
+  uploadConfirmed,
   type UploadHistory,
+  type Where,
 } from "./ios_release.ts";
 
 Deno.test("excerpt leaves short output alone", () => {
@@ -106,6 +110,12 @@ function approvedBuild(overrides: Partial<UploadCheck> = {}): UploadCheck {
       build: "421",
       commit: "c0ffee",
       completedAt: "2026-11-05T05:21:00.000Z",
+    },
+    archiveVerified: {
+      version: "1.7.6",
+      build: "421",
+      commit: "c0ffee",
+      completedAt: "2026-11-05T05:20:50.000Z",
     },
     archiveBuiltAt: new Date("2026-11-05T05:20:47.000Z"),
     headCommit: "c0ffee",
@@ -556,4 +566,154 @@ Deno.test({
       await Deno.remove(paths.project, { recursive: true });
     }
   },
+});
+
+Deno.test("upload is refused without a verifyArchive result", () => {
+  assertThrows(
+    () => assertUploadable(approvedBuild({ archiveVerified: null })),
+    Error,
+    "verifyArchive has not recorded a result",
+  );
+});
+
+Deno.test("upload is refused when verifyArchive checked another build", () => {
+  assertThrows(
+    () =>
+      assertUploadable(
+        approvedBuild({
+          archiveVerified: {
+            version: "1.7.6",
+            build: "418",
+            commit: "c0ffee",
+            completedAt: "2026-11-05T05:20:50.000Z",
+          },
+        }),
+      ),
+    Error,
+    "verifyArchive checked build 418",
+  );
+});
+
+Deno.test("upload is refused when the source moved between the archive and the IPA checks", () => {
+  assertThrows(
+    () =>
+      assertUploadable(
+        approvedBuild({
+          archiveVerified: {
+            version: "1.7.6",
+            build: "421",
+            commit: "0ldc0de",
+            completedAt: "2026-11-05T05:20:50.000Z",
+          },
+        }),
+      ),
+    Error,
+    "the archive was checked at commit 0ldc0de, but the IPA at commit c0ffee",
+  );
+});
+
+Deno.test("a timeout, a cancellation or a signal leaves the upload outcome unknown", () => {
+  assertEquals(
+    classifyUploadFailure(new CommandTimeout("xcodebuild", 1000), false),
+    "unknown",
+  );
+  assertEquals(classifyUploadFailure(new Error("stopped"), true), "unknown");
+  for (const code of [130, 137]) {
+    assertEquals(
+      classifyUploadFailure(
+        new CommandFailed("xcodebuild", { code, stdout: "", stderr: "" }),
+        false,
+      ),
+      "unknown",
+    );
+  }
+});
+
+Deno.test("a non-zero xcodebuild exit is a failed upload", () => {
+  for (const code of [1, 64, 65, 70]) {
+    assertEquals(
+      classifyUploadFailure(
+        new CommandFailed("xcodebuild", { code, stdout: "", stderr: "" }),
+        false,
+      ),
+      "failed",
+    );
+  }
+});
+
+Deno.test("an error from before xcodebuild ran means the upload did not start", () => {
+  assertEquals(
+    classifyUploadFailure(new Deno.errors.PermissionDenied("denied"), false),
+    "notStarted",
+  );
+});
+
+Deno.test("xcodebuild's confirmation line is recognized", () => {
+  assertEquals(
+    uploadConfirmed("Progress 90%: Completing upload...\nUpload succeeded."),
+    true,
+  );
+  assertEquals(uploadConfirmed("Progress 90%: Upload SUCCEEDED"), true);
+  assertEquals(uploadConfirmed("Uploaded MobileOrg"), false);
+  assertEquals(uploadConfirmed(""), false);
+});
+
+async function git(cwd: string, ...args: string[]): Promise<void> {
+  const output = await new Deno.Command("git", {
+    args: [
+      "-c",
+      "user.name=Test",
+      "-c",
+      "user.email=test@example.com",
+      "-c",
+      "commit.gpgsign=false",
+      ...args,
+    ],
+    cwd,
+    stdout: "null",
+    stderr: "piped",
+  }).output();
+  if (output.code !== 0) {
+    throw new Error(new TextDecoder().decode(output.stderr));
+  }
+}
+
+async function commitedRepo(): Promise<{ root: string; where: Where }> {
+  const root = await Deno.makeTempDir({ prefix: "ios-release-git-" });
+  await git(root, "init", "-q");
+  await Deno.writeTextFile(join(root, "tracked.txt"), "one\n");
+  await git(root, "add", "tracked.txt");
+  await git(root, "commit", "-q", "-m", "first");
+  return {
+    root,
+    where: {
+      cwd: root,
+      signal: new AbortController().signal,
+      timeoutMs: 60_000,
+    },
+  };
+}
+
+Deno.test("a clean tree passes, even with an untracked file", async () => {
+  const { root, where } = await commitedRepo();
+  try {
+    await Deno.writeTextFile(join(root, "untracked.txt"), "new\n");
+    await assertCleanTree(where);
+  } finally {
+    await Deno.remove(root, { recursive: true });
+  }
+});
+
+Deno.test("a modified tracked file fails the clean-tree check", async () => {
+  const { root, where } = await commitedRepo();
+  try {
+    await Deno.writeTextFile(join(root, "tracked.txt"), "two\n");
+    await assertRejects(
+      () => assertCleanTree(where),
+      Error,
+      "tracked files have uncommitted changes",
+    );
+  } finally {
+    await Deno.remove(root, { recursive: true });
+  }
 });

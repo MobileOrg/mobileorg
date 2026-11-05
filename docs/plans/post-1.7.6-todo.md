@@ -46,7 +46,9 @@ Nothing has been pushed.
       the release workflow on an iPhone 17 on iOS 26.2 the test step failed once
       and passed on the next run with no code change. The names of the tests in
       that second failure were not captured. The git history mentions a flaky-test
-      revert. Find the cause before making the tests a hard gate for releases.
+      revert. The workflow's test step is a hard gate by default, so a flaky failure
+      blocks a release: rerun it, or pass `runTests=false`, which the run records.
+      Find the cause so the gate can be trusted.
 - [ ] Run the tests in CI or locally before each release. The `release-ios`
       workflow does this with `runTests` (on by default).
 
@@ -59,8 +61,11 @@ branch. It does not yet cover:
 - [ ] Tagging the release commit, committing, and pushing, behind a second
       approval gate.
 - [ ] Submitting the build for review. That stays manual in App Store Connect.
-- [ ] A test of the `upload` step. Only the earlier hand-run upload exercised
-      that command.
+- [ ] An end-to-end test of the `upload` step. Its preconditions (the archive
+      and IPA match the build that `verifyIpa` checked and the operator
+      approved) have unit tests, but the upload itself has only been exercised
+      by hand. The first real release through the workflow is the first full
+      run.
 - [ ] Reproducing the uploaded build number. Build 418 was uploaded for 1.7.6.
       The build number is the git commit count, so the tagged commit `ac03720`
       builds as 421. The tag matches the source, not the number.

@@ -40,11 +40,33 @@ Nothing has been pushed.
 
 ## Tests
 
-- [ ] Investigate `OrgfileParserTests.testParseOrgFileDifferentTodoWords`, which
-      fails at `OrgfileParserTests.swift:96` and `:106`. It failed on Xcode 26.3
-      with iOS 18.3.1 before any of the release changes touched app code. The
-      cause is unknown. The git history mentions a flaky-test revert.
-- [ ] Run the tests in CI or locally before each release.
+- [ ] Investigate the flaky parser test. `OrgfileParserTests.testParseOrgFileDifferentTodoWords`
+      failed at `OrgfileParserTests.swift:96` and `:106` on Xcode 26.3 with an
+      iPhone 16 on iOS 18.3.1, before any release change touched app code. Through
+      the release workflow on an iPhone 17 on iOS 26.2 the test step failed once
+      and passed on the next run with no code change. The names of the tests in
+      that second failure were not captured. The git history mentions a flaky-test
+      revert. Find the cause before making the tests a hard gate for releases.
+- [ ] Run the tests in CI or locally before each release. The `release-ios`
+      workflow does this with `runTests` (on by default).
+
+## Release workflow (`swamp/`)
+
+The `release-ios` swamp workflow builds, verifies, exports and uploads a release,
+and stops at an approval gate before the upload. Run it from the `release/<version>`
+branch. It does not yet cover:
+
+- [ ] Tagging the release commit, committing, and pushing, behind a second
+      approval gate.
+- [ ] Submitting the build for review. That stays manual in App Store Connect.
+- [ ] A test of the `upload` step. Only the earlier hand-run upload exercised
+      that command.
+- [ ] Reproducing the uploaded build number. Build 418 was uploaded for 1.7.6.
+      The build number is the git commit count, so the tagged commit `ac03720`
+      builds as 421. The tag matches the source, not the number.
+- [ ] The default test simulator is `iPhone 17`, because xcodebuild resolves a
+      missing OS to the latest runtime. Change the `testDestination` input if
+      that device is not installed.
 
 ## Worth reviewing
 

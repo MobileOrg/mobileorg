@@ -17,8 +17,8 @@ const UPLOAD_TIMEOUT = 60 * 60 * SECOND;
 
 /** A value xcodebuild receives as an argument. It must not start with "-". */
 const XcodebuildArgSchema = z.string().regex(
-  /^[A-Za-z0-9][A-Za-z0-9 ._,=-]*$/,
-  "must start with a letter or digit and use only letters, digits, spaces and . _ , = -",
+  /^[A-Za-z0-9][A-Za-z0-9 ._,=:/()'-]*$/,
+  "must start with a letter or digit and use only letters, digits, spaces and . _ , = : / ( ) ' -",
 );
 
 const GlobalArgsSchema = z.object({
@@ -64,6 +64,17 @@ interface ReleaseContext {
     name: string,
     data: Record<string, unknown>,
   ) => Promise<{ name: string }>;
+}
+
+/** The files and directories one release version works with. */
+export interface ReleasePaths {
+  project: string;
+  releaseDir: string;
+  archive: string;
+  app: string;
+  exportDir: string;
+  ipaPayload: string;
+  ipaApp: string;
 }
 
 /** Where and how long a command runs. */
@@ -200,6 +211,53 @@ export function assertUploadable(check: UploadCheck): void {
   }
 }
 
+/** A command that ran past its deadline, so its outcome is unknown. */
+export class CommandTimeout extends Error {
+  constructor(command: string, timeoutMs: number) {
+    super(`${command} timed out after ${timeoutMs / SECOND} seconds`);
+    this.name = "CommandTimeout";
+  }
+}
+
+/** The recorded outcomes of earlier upload attempts. */
+export interface UploadHistory {
+  version: string;
+  build: string;
+  attempted: Record<string, unknown> | null;
+  uploaded: Record<string, unknown> | null;
+  failed: Record<string, unknown> | null;
+  archived: Record<string, unknown> | null;
+}
+
+function recordedAt(record: Record<string, unknown> | null): number {
+  return record === null ? Number.NaN : Date.parse(String(record.completedAt));
+}
+
+function isFor(
+  record: Record<string, unknown> | null,
+  version: string,
+  build: string,
+): boolean {
+  return record !== null && record.version === version &&
+    record.build === build;
+}
+
+/**
+ * Whether an earlier upload of this build started and never reported an
+ * outcome, so it may have reached App Store Connect. Rebuilding the archive
+ * starts a new attempt.
+ */
+export function interruptedUpload(history: UploadHistory): boolean {
+  const { version, build } = history;
+  if (!isFor(history.attempted, version, build)) return false;
+  const attemptedAt = recordedAt(history.attempted);
+  if (Number.isNaN(attemptedAt)) return true;
+  if (recordedAt(history.archived) > attemptedAt) return false;
+  return ![history.uploaded, history.failed].some((outcome) =>
+    isFor(outcome, version, build) && recordedAt(outcome) >= attemptedAt
+  );
+}
+
 async function run(
   command: string,
   args: string[],
@@ -222,9 +280,7 @@ async function run(
     };
   } catch (error) {
     if (deadline.aborted) {
-      throw new Error(
-        `${command} timed out after ${where.timeoutMs / SECOND} seconds`,
-      );
+      throw new CommandTimeout(command, where.timeoutMs);
     }
     throw error;
   }
@@ -259,6 +315,36 @@ async function plistValue(
   return result.stdout.trim();
 }
 
+/** Read what is on disk and in the stored results for `assertUploadable`. */
+export async function readUploadCheck(
+  context: Pick<ReleaseContext, "signal" | "readResource">,
+  p: ReleasePaths,
+  version: string,
+  expectedBuild: string,
+): Promise<UploadCheck> {
+  const quick: Where = {
+    cwd: p.project,
+    signal: context.signal,
+    timeoutMs: QUICK_TIMEOUT,
+  };
+  const archiveInfo = join(p.app, "Info.plist");
+  const ipaInfo = join(p.ipaApp, "Info.plist");
+  return {
+    version,
+    expectedBuild,
+    archiveVersion: await plistValue(
+      archiveInfo,
+      "CFBundleShortVersionString",
+      quick,
+    ),
+    archiveBuild: await plistValue(archiveInfo, "CFBundleVersion", quick),
+    ipaVersion: await plistValue(ipaInfo, "CFBundleShortVersionString", quick),
+    ipaBuild: await plistValue(ipaInfo, "CFBundleVersion", quick),
+    verified: await context.readResource("verifyIpa"),
+    archiveBuiltAt: (await Deno.stat(archiveInfo)).mtime ?? new Date(),
+  };
+}
+
 /** Remove a file or directory, ignoring only that it does not exist. */
 async function removeIfExists(path: string): Promise<void> {
   try {
@@ -268,7 +354,7 @@ async function removeIfExists(path: string): Promise<void> {
   }
 }
 
-function paths(context: ReleaseContext, version: string) {
+function paths(context: ReleaseContext, version: string): ReleasePaths {
   const project = resolve(context.repoDir, context.globalArgs.projectDir);
   const releaseDir = resolve(project, context.globalArgs.outputDir, version);
   if (!isInside(project, releaseDir)) {
@@ -354,6 +440,14 @@ export const model = {
       garbageCollection: 10,
     },
   },
+  upgrades: [
+    {
+      toVersion: "2026.11.05.2",
+      description:
+        "Stricter validation of scheme and configuration; no fields added, removed or renamed",
+      upgradeAttributes: (old: Record<string, unknown>) => old,
+    },
+  ],
   methods: {
     verifySource: {
       description:
@@ -527,6 +621,17 @@ export const model = {
             `archive has version ${version}, expected ${args.version}`,
           );
         }
+        const commits = (await runOrThrow(
+          "counting commits",
+          "git",
+          ["rev-list", "HEAD", "--count"],
+          quick,
+        )).stdout.trim();
+        if (build !== commits) {
+          throw new Error(
+            `archive has build ${build}, but the source has ${commits} commits; the build number script did not run on this commit`,
+          );
+        }
         if (!meetsDeploymentTarget(minimumOs)) {
           throw new Error(
             `archive targets iOS "${minimumOs}"; App Store Connect requires ${MINIMUM_DEPLOYMENT_TARGET} or later`,
@@ -674,10 +779,13 @@ export const model = {
 
     upload: {
       description:
-        "Upload the archive to App Store Connect. This cannot be undone. It refuses unless the archive and the verified IPA are the approved build",
+        "Upload the archive to App Store Connect. This cannot be undone. It refuses unless the archive and the verified IPA are the approved build. It exports and signs again from the archive, so the signature checks of verifyIpa cover the earlier export, not the file that is sent",
       arguments: z.object({
         version: VersionSchema,
-        expectedBuild: z.string().min(1).describe(
+        expectedBuild: z.string().min(
+          1,
+          "no approved build: resume the run with --input approvedBuild=<the build shown at the approval>",
+        ).describe(
           "The build number verifyIpa reported and the operator approved",
         ),
       }),
@@ -686,28 +794,23 @@ export const model = {
         context: ReleaseContext,
       ) => {
         const p = paths(context, args.version);
-        const quick = inProject(context, p.project, QUICK_TIMEOUT);
-        const archiveInfo = join(p.app, "Info.plist");
-        const ipaInfo = join(p.ipaApp, "Info.plist");
-
-        assertUploadable({
-          version: args.version,
-          expectedBuild: args.expectedBuild,
-          archiveVersion: await plistValue(
-            archiveInfo,
-            "CFBundleShortVersionString",
-            quick,
-          ),
-          archiveBuild: await plistValue(archiveInfo, "CFBundleVersion", quick),
-          ipaVersion: await plistValue(
-            ipaInfo,
-            "CFBundleShortVersionString",
-            quick,
-          ),
-          ipaBuild: await plistValue(ipaInfo, "CFBundleVersion", quick),
-          verified: await context.readResource("verifyIpa"),
-          archiveBuiltAt: (await Deno.stat(archiveInfo)).mtime ?? new Date(),
-        });
+        assertUploadable(
+          await readUploadCheck(context, p, args.version, args.expectedBuild),
+        );
+        if (
+          interruptedUpload({
+            version: args.version,
+            build: args.expectedBuild,
+            attempted: await context.readResource("uploadAttempted"),
+            uploaded: await context.readResource("upload"),
+            failed: await context.readResource("uploadFailed"),
+            archived: await context.readResource("archive"),
+          })
+        ) {
+          throw new Error(
+            `an earlier upload of build ${args.expectedBuild} did not report an outcome, so it may have reached App Store Connect. Check App Store Connect. If the build is not there, run the workflow again to rebuild the archive`,
+          );
+        }
 
         // Recorded before the upload so a cancelled or timed-out run still
         // shows that an upload may have reached App Store Connect.
@@ -718,13 +821,31 @@ export const model = {
           `uploading build ${args.expectedBuild}`,
           args.expectedBuild,
         );
-        const result = await exportArchive(
-          context,
-          args.version,
-          "upload",
-          join(p.releaseDir, "upload"),
-          UPLOAD_TIMEOUT,
-        );
+        let result: CommandResult;
+        try {
+          result = await exportArchive(
+            context,
+            args.version,
+            "upload",
+            join(p.releaseDir, "upload"),
+            UPLOAD_TIMEOUT,
+          );
+        } catch (error) {
+          // A timeout or a cancellation leaves the outcome unknown. Any other
+          // failure is xcodebuild reporting that the upload did not complete,
+          // so record it and allow a retry.
+          if (error instanceof CommandTimeout || context.signal.aborted) {
+            throw error;
+          }
+          await record(
+            context,
+            "uploadFailed",
+            args.version,
+            "xcodebuild reported that the upload failed",
+            args.expectedBuild,
+          );
+          throw error;
+        }
         const confirmed = /upload succeeded/i.test(
           `${result.stdout}\n${result.stderr}`,
         );

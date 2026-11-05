@@ -31,6 +31,11 @@ inputs:
       type: boolean
       description: Run the unit tests before building. Skipping is recorded in the run.
       default: true
+    approvedBuild:
+      type: string
+      description: >-
+        The build number you approved at the gate. Supply it when you resume
+        the run after approving. The upload refuses any other build.
   required:
     - version
 version: 1
@@ -159,9 +164,12 @@ jobs:
           type: manual_approval
           prompt: >-
             Upload version ${{ inputs.version }} build ${{ data.latest("mobileorg-release", "verifyIpa").attributes.build }}
-            to App Store Connect? Confirm in App Store Connect that this build
-            number is not already used for this version. The upload step
-            refuses any other build. Approve to upload.
+            to App Store Connect? First confirm in App Store Connect that this
+            build number is not already used for this version. To approve, run
+            "swamp workflow approve release-ios confirm-upload --run RUN_ID",
+            then "swamp workflow resume release-ios --run RUN_ID --input
+            approvedBuild=BUILD" with the build number above. The upload
+            refuses any other build.
           timeout: 86400
         dependsOn: []
 
@@ -184,5 +192,5 @@ jobs:
             teamId: ${{ inputs.teamId }}
           inputs:
             version: ${{ inputs.version }}
-            expectedBuild: '${{ data.latest("mobileorg-release", "verifyIpa").attributes.build }}'
+            expectedBuild: "${{ inputs.?approvedBuild.orValue('') }}"
         dependsOn: []

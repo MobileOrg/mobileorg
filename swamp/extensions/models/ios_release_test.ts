@@ -1,16 +1,23 @@
 import {
   assertEquals,
+  assertRejects,
   assertStringIncludes,
   assertThrows,
 } from "jsr:@std/assert@1.0.13";
+import { join } from "node:path";
 import {
   assertUploadable,
   commandFailure,
+  CommandTimeout,
   excerpt,
   exportOptionsPlist,
+  interruptedUpload,
   isInside,
   meetsDeploymentTarget,
+  readUploadCheck,
+  type ReleasePaths,
   type UploadCheck,
+  type UploadHistory,
 } from "./ios_release.ts";
 
 Deno.test("excerpt leaves short output alone", () => {
@@ -184,4 +191,287 @@ Deno.test("an upload refusal lists every problem", () => {
   assertStringIncludes(error.message, "verifyIpa has not recorded a result");
   assertStringIncludes(error.message, "archive has build 9");
   assertStringIncludes(error.message, "verified IPA has build 9");
+});
+
+Deno.test("upload is refused when the verified IPA has another version", () => {
+  assertThrows(
+    () => assertUploadable(approvedBuild({ ipaVersion: "1.7.5" })),
+    Error,
+    "verified IPA has version 1.7.5",
+  );
+});
+
+Deno.test("upload is refused when verifyIpa checked another version", () => {
+  assertThrows(
+    () =>
+      assertUploadable(
+        approvedBuild({
+          verified: {
+            version: "1.7.5",
+            build: "421",
+            completedAt: "2026-11-05T05:21:00.000Z",
+          },
+        }),
+      ),
+    Error,
+    "verifyIpa checked version 1.7.5",
+  );
+});
+
+Deno.test("upload is refused when the verification time cannot be read", () => {
+  assertThrows(
+    () =>
+      assertUploadable(
+        approvedBuild({
+          verified: { version: "1.7.6", build: "421", completedAt: "unknown" },
+        }),
+      ),
+    Error,
+    "rebuilt after verifyIpa",
+  );
+});
+
+Deno.test("upload is allowed when verification is as new as the archive", () => {
+  assertUploadable(
+    approvedBuild({ archiveBuiltAt: new Date("2026-11-05T05:21:00.000Z") }),
+  );
+});
+
+function history(overrides: Partial<UploadHistory> = {}): UploadHistory {
+  return {
+    version: "1.7.6",
+    build: "421",
+    attempted: {
+      version: "1.7.6",
+      build: "421",
+      completedAt: "2026-11-05T06:00:00.000Z",
+    },
+    uploaded: null,
+    failed: null,
+    archived: {
+      version: "1.7.6",
+      completedAt: "2026-11-05T05:20:00.000Z",
+    },
+    ...overrides,
+  };
+}
+
+Deno.test("an attempt with no outcome is an interrupted upload", () => {
+  assertEquals(interruptedUpload(history()), true);
+});
+
+Deno.test("no attempt is not an interrupted upload", () => {
+  assertEquals(interruptedUpload(history({ attempted: null })), false);
+});
+
+Deno.test("an attempt for another build is not interrupted", () => {
+  assertEquals(
+    interruptedUpload(
+      history({
+        attempted: {
+          version: "1.7.6",
+          build: "418",
+          completedAt: "2026-11-05T06:00:00.000Z",
+        },
+      }),
+    ),
+    false,
+  );
+});
+
+Deno.test("a later upload result settles the attempt", () => {
+  assertEquals(
+    interruptedUpload(
+      history({
+        uploaded: {
+          version: "1.7.6",
+          build: "421",
+          completedAt: "2026-11-05T06:10:00.000Z",
+        },
+      }),
+    ),
+    false,
+  );
+});
+
+Deno.test("a later failure result settles the attempt", () => {
+  assertEquals(
+    interruptedUpload(
+      history({
+        failed: {
+          version: "1.7.6",
+          build: "421",
+          completedAt: "2026-11-05T06:10:00.000Z",
+        },
+      }),
+    ),
+    false,
+  );
+});
+
+Deno.test("an upload result for another build does not settle the attempt", () => {
+  assertEquals(
+    interruptedUpload(
+      history({
+        uploaded: {
+          version: "1.7.6",
+          build: "418",
+          completedAt: "2026-11-05T06:10:00.000Z",
+        },
+      }),
+    ),
+    true,
+  );
+});
+
+Deno.test("an outcome older than the attempt does not settle it", () => {
+  assertEquals(
+    interruptedUpload(
+      history({
+        uploaded: {
+          version: "1.7.6",
+          build: "421",
+          completedAt: "2026-11-05T05:00:00.000Z",
+        },
+      }),
+    ),
+    true,
+  );
+});
+
+Deno.test("rebuilding the archive starts a new attempt", () => {
+  assertEquals(
+    interruptedUpload(
+      history({
+        archived: {
+          version: "1.7.6",
+          completedAt: "2026-11-05T07:00:00.000Z",
+        },
+      }),
+    ),
+    false,
+  );
+});
+
+Deno.test("an attempt with an unreadable time counts as interrupted", () => {
+  assertEquals(
+    interruptedUpload(
+      history({
+        attempted: { version: "1.7.6", build: "421", completedAt: "?" },
+      }),
+    ),
+    true,
+  );
+});
+
+Deno.test("a timeout names the command and the limit", () => {
+  const error = new CommandTimeout("xcodebuild", 90_000);
+  assertEquals(error.message, "xcodebuild timed out after 90 seconds");
+  assertEquals(error instanceof Error, true);
+});
+
+function infoPlist(version: string, build: string): string {
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+<key>CFBundleShortVersionString</key><string>${version}</string>
+<key>CFBundleVersion</key><string>${build}</string>
+</dict></plist>
+`;
+}
+
+async function releaseTree(
+  archive: { version: string; build: string },
+  ipa: { version: string; build: string },
+): Promise<ReleasePaths> {
+  const root = await Deno.makeTempDir({ prefix: "ios-release-test-" });
+  const paths: ReleasePaths = {
+    project: root,
+    releaseDir: root,
+    archive: join(root, "MobileOrg.xcarchive"),
+    app: join(root, "MobileOrg.xcarchive/Products/Applications/MobileOrg.app"),
+    exportDir: join(root, "export"),
+    ipaPayload: join(root, "ipa"),
+    ipaApp: join(root, "ipa/Payload/MobileOrg.app"),
+  };
+  await Deno.mkdir(paths.app, { recursive: true });
+  await Deno.mkdir(paths.ipaApp, { recursive: true });
+  await Deno.writeTextFile(
+    join(paths.app, "Info.plist"),
+    infoPlist(archive.version, archive.build),
+  );
+  await Deno.writeTextFile(
+    join(paths.ipaApp, "Info.plist"),
+    infoPlist(ipa.version, ipa.build),
+  );
+  return paths;
+}
+
+const verifiedResult = {
+  version: "1.7.6",
+  build: "421",
+  completedAt: "2026-11-05T05:21:00.000Z",
+};
+
+Deno.test({
+  name: "the upload check reads the archive and the IPA from their own paths",
+  ignore: Deno.build.os !== "darwin",
+  fn: async () => {
+    const paths = await releaseTree(
+      { version: "1.7.6", build: "421" },
+      { version: "1.7.5", build: "999" },
+    );
+    try {
+      const check = await readUploadCheck(
+        {
+          signal: new AbortController().signal,
+          readResource: (name) =>
+            Promise.resolve(name === "verifyIpa" ? verifiedResult : null),
+        },
+        paths,
+        "1.7.6",
+        "421",
+      );
+      assertEquals(check.archiveVersion, "1.7.6");
+      assertEquals(check.archiveBuild, "421");
+      assertEquals(check.ipaVersion, "1.7.5");
+      assertEquals(check.ipaBuild, "999");
+      assertEquals(check.verified, verifiedResult);
+      assertEquals(check.expectedBuild, "421");
+      assertEquals(check.version, "1.7.6");
+      assertEquals(check.archiveBuiltAt instanceof Date, true);
+    } finally {
+      await Deno.remove(paths.project, { recursive: true });
+    }
+  },
+});
+
+Deno.test({
+  name: "the upload check fails when the IPA has not been unpacked",
+  ignore: Deno.build.os !== "darwin",
+  fn: async () => {
+    const paths = await releaseTree(
+      { version: "1.7.6", build: "421" },
+      { version: "1.7.6", build: "421" },
+    );
+    try {
+      await Deno.remove(paths.ipaPayload, { recursive: true });
+      await assertRejects(
+        () =>
+          readUploadCheck(
+            {
+              signal: new AbortController().signal,
+              readResource: () => Promise.resolve(null),
+            },
+            paths,
+            "1.7.6",
+            "421",
+          ),
+        Error,
+        "failed",
+      );
+    } finally {
+      await Deno.remove(paths.project, { recursive: true });
+    }
+  },
 });

@@ -61,11 +61,24 @@ branch. It does not yet cover:
 - [ ] Tagging the release commit, committing, and pushing, behind a second
       approval gate.
 - [ ] Submitting the build for review. That stays manual in App Store Connect.
-- [ ] An end-to-end test of the `upload` step. Its preconditions (the archive
-      and IPA match the build that `verifyIpa` checked and the operator
-      approved) have unit tests, but the upload itself has only been exercised
-      by hand. The first real release through the workflow is the first full
-      run.
+- [ ] An end-to-end test of the `upload` step. Its preconditions have unit
+      tests, including one that reads real plists from disk: the archive, the
+      unpacked IPA and the stored `verifyIpa` result must all match the build
+      you approved, and an interrupted earlier upload of that build blocks a
+      retry until the archive is rebuilt. The upload itself has only been
+      exercised by hand. The first real release through the workflow is the
+      first full run.
+- [ ] Approving the upload takes two commands: `swamp workflow approve` and then
+      `swamp workflow resume --input approvedBuild=<build>`, with the build the
+      gate prompt shows. The build you type is what the upload is held to, so a
+      second run cannot change what ships. Confirm that the resume input works
+      at the first real release.
+- [ ] `upload` exports and signs again from the archive. The signature and
+      entitlement checks in `verifyIpa` cover the earlier export, not the file
+      that is sent, and `destination upload` leaves no file to check afterwards.
+- [ ] Run the extension tests with
+      `~/.swamp/deno/deno test --allow-read --allow-write --allow-run extensions/models/`
+      from `swamp/`. Two tests read plists with PlistBuddy and run on macOS only.
 - [ ] Reproducing the uploaded build number. Build 418 was uploaded for 1.7.6.
       The build number is the git commit count, so the tagged commit `ac03720`
       builds as 421. The tag matches the source, not the number.

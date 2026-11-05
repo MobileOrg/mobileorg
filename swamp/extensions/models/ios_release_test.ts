@@ -248,7 +248,7 @@ Deno.test("upload is refused when the verification time cannot be read", () => {
 
 Deno.test("upload is allowed when verification is as new as the archive", () => {
   assertUploadable(
-    approvedBuild({ archiveBuiltAt: new Date("2026-11-05T05:21:00.000Z") }),
+    approvedBuild({ archiveBuiltAt: new Date("2026-11-05T05:20:50.000Z") }),
   );
 });
 
@@ -716,4 +716,33 @@ Deno.test("a modified tracked file fails the clean-tree check", async () => {
   } finally {
     await Deno.remove(root, { recursive: true });
   }
+});
+
+Deno.test("upload is refused when the archive was rebuilt after verifyArchive", () => {
+  assertThrows(
+    () =>
+      assertUploadable(
+        approvedBuild({ archiveBuiltAt: new Date("2026-11-05T05:20:55.000Z") }),
+      ),
+    Error,
+    "rebuilt after verifyArchive",
+  );
+});
+
+Deno.test("upload is refused when the verifyArchive time cannot be read", () => {
+  assertThrows(
+    () =>
+      assertUploadable(
+        approvedBuild({
+          archiveVerified: {
+            version: "1.7.6",
+            build: "421",
+            commit: "c0ffee",
+            completedAt: "unknown",
+          },
+        }),
+      ),
+    Error,
+    "rebuilt after verifyArchive",
+  );
 });

@@ -89,7 +89,7 @@ branch. It does not yet cover:
       add a process-group wrapper or check for running processes first.
 - [ ] Run the extension tests with
       `~/.swamp/deno/deno test --allow-read --allow-write --allow-run extensions/models/`
-      from `swamp/`. Two tests read plists with PlistBuddy and run on macOS only.
+      from `swamp/`. Three tests read plists with PlistBuddy and run on macOS only.
 - [ ] Reproducing the uploaded build number. Build 418 was uploaded for 1.7.6.
       The build number is the git commit count, so the tagged commit `ac03720`
       builds as 421. The tag matches the source, not the number.

@@ -207,6 +207,12 @@ export function assertUploadable(check: UploadCheck): void {
         `verifyArchive checked build ${check.archiveVerified.build}, not the approved build ${check.expectedBuild}`,
       );
     }
+    const archiveVerifiedAt = Date.parse(
+      String(check.archiveVerified.completedAt),
+    );
+    if (!(archiveVerifiedAt >= check.archiveBuiltAt.getTime())) {
+      problems.push("the archive was rebuilt after verifyArchive checked it");
+    }
     if (
       check.verified !== null &&
       check.archiveVerified.commit !== check.verified.commit

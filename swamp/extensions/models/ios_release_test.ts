@@ -7,9 +7,12 @@ import {
 import { join } from "node:path";
 import {
   assertUploadable,
+  buildMatchesCommits,
+  CommandFailed,
   commandFailure,
   CommandTimeout,
   excerpt,
+  exitedBySignal,
   exportOptionsPlist,
   interruptedUpload,
   isInside,
@@ -101,9 +104,11 @@ function approvedBuild(overrides: Partial<UploadCheck> = {}): UploadCheck {
     verified: {
       version: "1.7.6",
       build: "421",
+      commit: "c0ffee",
       completedAt: "2026-11-05T05:21:00.000Z",
     },
     archiveBuiltAt: new Date("2026-11-05T05:20:47.000Z"),
+    headCommit: "c0ffee",
     ...overrides,
   };
 }
@@ -468,8 +473,85 @@ Deno.test({
             "421",
           ),
         Error,
-        "failed",
+        "reading CFBundleShortVersionString",
       );
+    } finally {
+      await Deno.remove(paths.project, { recursive: true });
+    }
+  },
+});
+
+Deno.test("upload is refused when the source moved after verification", () => {
+  assertThrows(
+    () => assertUploadable(approvedBuild({ headCommit: "badc0de" })),
+    Error,
+    "the source is at commit badc0de, but verifyIpa checked commit c0ffee",
+  );
+});
+
+Deno.test("an archive record for another version does not settle an attempt", () => {
+  assertEquals(
+    interruptedUpload(
+      history({
+        archived: {
+          version: "1.7.7",
+          completedAt: "2026-11-05T07:00:00.000Z",
+        },
+      }),
+    ),
+    true,
+  );
+});
+
+Deno.test("an exit caused by a signal is not a definite result", () => {
+  assertEquals(exitedBySignal(130), true);
+  assertEquals(exitedBySignal(137), true);
+  assertEquals(exitedBySignal(65), false);
+  assertEquals(exitedBySignal(1), false);
+  assertEquals(exitedBySignal(0), false);
+});
+
+Deno.test("a failed command carries its exit code and its output", () => {
+  const error = new CommandFailed("xcodebuild test", {
+    code: 65,
+    stdout: "Failing tests: SomeTests",
+    stderr: "",
+  });
+  assertEquals(error.code, 65);
+  assertStringIncludes(error.message, "xcodebuild test failed (exit 65)");
+  assertStringIncludes(error.message, "SomeTests");
+  assertEquals(error instanceof Error, true);
+});
+
+Deno.test("the build number must be the commit count", () => {
+  assertEquals(buildMatchesCommits("421", "421"), true);
+  assertEquals(buildMatchesCommits("32", "421"), false);
+  assertEquals(buildMatchesCommits("421-develop", "421"), false);
+  assertEquals(buildMatchesCommits("", ""), false);
+});
+
+Deno.test({
+  name: "the upload check reports when the archive was built",
+  ignore: Deno.build.os !== "darwin",
+  fn: async () => {
+    const paths = await releaseTree(
+      { version: "1.7.6", build: "421" },
+      { version: "1.7.6", build: "421" },
+    );
+    try {
+      const builtAt = new Date("2026-01-02T03:04:05.000Z");
+      await Deno.utime(join(paths.app, "Info.plist"), builtAt, builtAt);
+      const check = await readUploadCheck(
+        {
+          signal: new AbortController().signal,
+          readResource: () => Promise.resolve(null),
+        },
+        paths,
+        "1.7.6",
+        "421",
+      );
+      assertEquals(check.archiveBuiltAt.getTime(), builtAt.getTime());
+      assertEquals(check.verified, null);
     } finally {
       await Deno.remove(paths.project, { recursive: true });
     }

@@ -76,6 +76,13 @@ branch. It does not yet cover:
 - [ ] `upload` exports and signs again from the archive. The signature and
       entitlement checks in `verifyIpa` cover the earlier export, not the file
       that is sent, and `destination upload` leaves no file to check afterwards.
+- [ ] A wrong `approvedBuild` cannot be corrected, because a run keeps the first
+      value it is given. Cancel the run and start again. The upload refuses a
+      build that does not match, so the cost is a rebuild, not a wrong upload.
+- [ ] A timed-out or cancelled `xcodebuild` may leave helper processes running,
+      because Deno ends only the direct child. A later `archive` deletes the
+      release directory those processes may still write to. Decide whether to
+      add a process-group wrapper or check for running processes first.
 - [ ] Run the extension tests with
       `~/.swamp/deno/deno test --allow-read --allow-write --allow-run extensions/models/`
       from `swamp/`. Two tests read plists with PlistBuddy and run on macOS only.

@@ -47,6 +47,7 @@ const ResultSchema = z.object({
   version: z.string(),
   summary: z.string(),
   build: z.string().optional(),
+  commit: z.string().optional(),
   completedAt: z.string(),
 });
 
@@ -159,6 +160,7 @@ export interface UploadCheck {
   ipaBuild: string;
   verified: Record<string, unknown> | null;
   archiveBuiltAt: Date;
+  headCommit: string;
 }
 
 /**
@@ -179,6 +181,11 @@ export function assertUploadable(check: UploadCheck): void {
     if (check.verified.build !== check.expectedBuild) {
       problems.push(
         `verifyIpa checked build ${check.verified.build}, not the approved build ${check.expectedBuild}`,
+      );
+    }
+    if (check.verified.commit !== check.headCommit) {
+      problems.push(
+        `the source is at commit ${check.headCommit}, but verifyIpa checked commit ${check.verified.commit}`,
       );
     }
     const verifiedAt = Date.parse(String(check.verified.completedAt));
@@ -219,6 +226,29 @@ export class CommandTimeout extends Error {
   }
 }
 
+/** A command that exited non-zero. */
+export class CommandFailed extends Error {
+  readonly code: number;
+  constructor(label: string, result: CommandResult) {
+    super(commandFailure(label, result.code, result.stderr, result.stdout));
+    this.name = "CommandFailed";
+    this.code = result.code;
+  }
+}
+
+/**
+ * Whether an exit code means a signal ended the process, such as Ctrl-C or a
+ * kill. The command did not report a result, so its outcome is unknown.
+ */
+export function exitedBySignal(code: number): boolean {
+  return code > 128;
+}
+
+/** The build number script sets CFBundleVersion to the commit count. */
+export function buildMatchesCommits(build: string, commits: string): boolean {
+  return /^\d+$/.test(build) && build === commits;
+}
+
 /** The recorded outcomes of earlier upload attempts. */
 export interface UploadHistory {
   version: string;
@@ -252,7 +282,9 @@ export function interruptedUpload(history: UploadHistory): boolean {
   if (!isFor(history.attempted, version, build)) return false;
   const attemptedAt = recordedAt(history.attempted);
   if (Number.isNaN(attemptedAt)) return true;
-  if (recordedAt(history.archived) > attemptedAt) return false;
+  const rebuilt = history.archived !== null &&
+    history.archived.version === version;
+  if (rebuilt && recordedAt(history.archived) > attemptedAt) return false;
   return ![history.uploaded, history.failed].some((outcome) =>
     isFor(outcome, version, build) && recordedAt(outcome) >= attemptedAt
   );
@@ -293,11 +325,7 @@ async function runOrThrow(
   where: Where,
 ): Promise<CommandResult> {
   const result = await run(command, args, where);
-  if (result.code !== 0) {
-    throw new Error(
-      commandFailure(label, result.code, result.stderr, result.stdout),
-    );
-  }
+  if (result.code !== 0) throw new CommandFailed(label, result);
   return result;
 }
 
@@ -315,13 +343,22 @@ async function plistValue(
   return result.stdout.trim();
 }
 
+async function headCommit(where: Where): Promise<string> {
+  return (await runOrThrow(
+    "reading the current commit",
+    "git",
+    ["rev-parse", "HEAD"],
+    where,
+  )).stdout.trim();
+}
+
 /** Read what is on disk and in the stored results for `assertUploadable`. */
 export async function readUploadCheck(
   context: Pick<ReleaseContext, "signal" | "readResource">,
   p: ReleasePaths,
   version: string,
   expectedBuild: string,
-): Promise<UploadCheck> {
+): Promise<Omit<UploadCheck, "headCommit">> {
   const quick: Where = {
     cwd: p.project,
     signal: context.signal,
@@ -387,12 +424,14 @@ async function record(
   version: string,
   summary: string,
   build?: string,
+  commit?: string,
 ) {
   return await context.writeResource("result", step, {
     step,
     version,
     summary,
     ...(build ? { build } : {}),
+    ...(commit ? { commit } : {}),
     completedAt: new Date().toISOString(),
   });
 }
@@ -627,7 +666,7 @@ export const model = {
           ["rev-list", "HEAD", "--count"],
           quick,
         )).stdout.trim();
-        if (build !== commits) {
+        if (!buildMatchesCommits(build, commits)) {
           throw new Error(
             `archive has build ${build}, but the source has ${commits} commits; the build number script did not run on this commit`,
           );
@@ -651,6 +690,7 @@ export const model = {
           args.version,
           `version ${version} build ${build}, minimum iOS ${minimumOs}, Dropbox URL scheme matches the key`,
           build,
+          await headCommit(quick),
         );
         return { dataHandles: [handle] };
       },
@@ -772,6 +812,7 @@ export const model = {
           args.version,
           `valid Apple Distribution signature, production push, version ${version} build ${build}`,
           build,
+          await headCommit(quick),
         );
         return { dataHandles: [handle] };
       },
@@ -794,9 +835,17 @@ export const model = {
         context: ReleaseContext,
       ) => {
         const p = paths(context, args.version);
-        assertUploadable(
-          await readUploadCheck(context, p, args.version, args.expectedBuild),
-        );
+        assertUploadable({
+          ...(await readUploadCheck(
+            context,
+            p,
+            args.version,
+            args.expectedBuild,
+          )),
+          headCommit: await headCommit(
+            inProject(context, p.project, QUICK_TIMEOUT),
+          ),
+        });
         if (
           interruptedUpload({
             version: args.version,
@@ -831,10 +880,13 @@ export const model = {
             UPLOAD_TIMEOUT,
           );
         } catch (error) {
-          // A timeout or a cancellation leaves the outcome unknown. Any other
-          // failure is xcodebuild reporting that the upload did not complete,
-          // so record it and allow a retry.
-          if (error instanceof CommandTimeout || context.signal.aborted) {
+          // A timeout, a cancellation or a signal such as Ctrl-C leaves the
+          // outcome unknown. Any other failure is xcodebuild reporting that
+          // the upload did not complete, so record it and allow a retry.
+          if (
+            error instanceof CommandTimeout || context.signal.aborted ||
+            (error instanceof CommandFailed && exitedBySignal(error.code))
+          ) {
             throw error;
           }
           await record(
@@ -849,13 +901,18 @@ export const model = {
         const confirmed = /upload succeeded/i.test(
           `${result.stdout}\n${result.stderr}`,
         );
+        if (!confirmed) {
+          // The attempt stays unsettled, so a retry is blocked until the
+          // archive is rebuilt.
+          throw new Error(
+            `xcodebuild exited 0 for build ${args.expectedBuild} without printing an upload confirmation, so the build may be in App Store Connect. Check App Store Connect before running again`,
+          );
+        }
         const uploaded = await record(
           context,
           "upload",
           args.version,
-          confirmed
-            ? `uploaded build ${args.expectedBuild} to App Store Connect`
-            : `xcodebuild exited 0 for build ${args.expectedBuild} without printing an upload confirmation; check App Store Connect before running again`,
+          `uploaded build ${args.expectedBuild} to App Store Connect`,
           args.expectedBuild,
         );
         return { dataHandles: [attempted, uploaded] };

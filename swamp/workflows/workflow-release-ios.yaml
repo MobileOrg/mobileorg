@@ -169,7 +169,8 @@ jobs:
             "swamp workflow approve release-ios confirm-upload --run RUN_ID",
             then "swamp workflow resume release-ios --run RUN_ID --input
             approvedBuild=BUILD" with the build number above. The upload
-            refuses any other build.
+            refuses any other build. A run keeps the first value it is given,
+            so a wrong build cannot be corrected: cancel the run and start again.
           timeout: 86400
         dependsOn: []
 

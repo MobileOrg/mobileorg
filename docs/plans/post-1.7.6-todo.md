@@ -1,8 +1,7 @@
 # Todo after the 1.7.6 submission
 
-Version 1.7.6 (build 418) was uploaded to App Store Connect on 2026-11-04 and
+Version 1.7.6 (build 420) was uploaded to App Store Connect on 2026-11-04 and
 submitted for review. It is tagged `v1.7.6` on `release/1.7.6` (`ac03720`).
-Nothing has been pushed.
 
 ## Finish the release
 
@@ -90,9 +89,10 @@ branch. It does not yet cover:
 - [ ] Run the extension tests with
       `~/.swamp/deno/deno test --allow-read --allow-write --allow-run extensions/models/`
       from `swamp/`. Three tests read plists with PlistBuddy and run on macOS only.
-- [ ] Reproducing the uploaded build number. Build 418 was uploaded for 1.7.6.
-      The build number is the git commit count, so the tagged commit `ac03720`
-      builds as 421. The tag matches the source, not the number.
+- [ ] Reproducing the uploaded build number. Build 420 was uploaded for 1.7.6,
+      from `d999596`. The build number is the git commit count, so the tagged
+      commit `ac03720`, which adds the iOS 13 deployment target, builds as 421.
+      The tag matches the shipped source, not the number.
 - [ ] The default test simulator is `iPhone 17`, because xcodebuild resolves a
       missing OS to the latest runtime. Change the `testDestination` input if
       that device is not installed.

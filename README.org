@@ -122,5 +122,7 @@ toward that you can use the Sponsor button on the Github Repo.
 You support MobileOrg just by using it or assisting with bug fixes and feature
 development. Thanks for your continued interest.
 * License
-MobileOrg is distributed under the GNU Public License version 2.
-See LICENSE.txt for more info.
+MobileOrg is distributed under the GNU General Public License, version 2
+or (at your option) any later version. Third-party code under
+Classes/ThirdParty keeps its own license. See LICENSE.txt for the
+GPLv2 text.

@@ -749,10 +749,10 @@
 			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "MobileOrg" */;
 			buildPhases = (
 				1D60588D0D05DD3D006BFB54 /* Resources */,
-				743C12F21DFEC9A80051EC6F /* Update Dropbox Keys Script */,
-				83E77D421E2727790049AB02 /* Update Bundle Version Script */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+				743C12F21DFEC9A80051EC6F /* Update Dropbox Keys Script */,
+				83E77D421E2727790049AB02 /* Update Bundle Version Script */,
 			);
 			buildRules = (
 			);
@@ -914,6 +914,7 @@
 			files = (
 			);
 			inputPaths = (
+				"$(TARGET_BUILD_DIR)/$(INFOPLIST_PATH)",
 			);
 			name = "Update Dropbox Keys Script";
 			outputPaths = (
@@ -928,6 +929,7 @@
 			files = (
 			);
 			inputPaths = (
+				"$(TARGET_BUILD_DIR)/$(INFOPLIST_PATH)",
 			);
 			name = "Update Bundle Version Script";
 			outputPaths = (

@@ -41,6 +41,8 @@
   Of course, the main thing is to simply feel free to contribute any
   and all code. It's much appreciated!
 
+  Contributions that use AI tools must follow the [[file:AI_POLICY.md][AI contribution policy]].
+
 ** Setting up your environment
 
   Xcode >=12 is required to build the project.

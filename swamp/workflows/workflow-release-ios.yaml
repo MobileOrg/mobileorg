@@ -1,0 +1,199 @@
+id: 84e8d322-350e-43b9-8d0c-3f3c52095f61
+name: release-ios
+description: >-
+  Build, verify, export and upload a MobileOrg App Store release. Run it from
+  the release/<version> branch with a clean tree and the local Dropbox key in
+  Configuration/AppKey.plist. Nothing is uploaded until the approval gate is
+  approved. Tagging, pushing and the App Store Connect submission are manual.
+tags: {}
+inputs:
+  properties:
+    version:
+      type: string
+      description: Marketing version to release, e.g. 1.7.6
+    projectDir:
+      type: string
+      description: MobileOrg checkout, relative to the swamp repository.
+      default: ..
+    outputDir:
+      type: string
+      description: Archive and export directory, relative to projectDir.
+      default: swamp/build/release
+    teamId:
+      type: string
+      description: Apple Developer team ID used for export and upload.
+      default: 59B7VFRF7R
+    testDestination:
+      type: string
+      description: xcodebuild destination for the unit tests.
+      default: platform=iOS Simulator,name=iPhone 17
+    runTests:
+      type: boolean
+      description: Run the unit tests before building. Skipping is recorded in the run.
+      default: true
+    approvedBuild:
+      type: string
+      description: >-
+        The build number you approved at the gate. Supply it when you resume
+        the run after approving. The upload refuses any other build.
+  required:
+    - version
+version: 1
+jobs:
+  - name: preflight
+    description: Refuse to build from the wrong branch, a dirty tree, or without the real Dropbox key.
+    steps:
+      - name: verify-source
+        task:
+          type: behavior
+          behaviorType: "@mobileorg/ios-release"
+          behaviorName: mobileorg-release
+          methodName: verifySource
+          globalArgs:
+            projectDir: ${{ inputs.projectDir }}
+            outputDir: ${{ inputs.outputDir }}
+            teamId: ${{ inputs.teamId }}
+          inputs:
+            version: ${{ inputs.version }}
+        dependsOn: []
+
+  - name: build
+    description: Run the unit tests, archive the AppStore configuration and verify the archive.
+    dependsOn:
+      - job: preflight
+        condition:
+          type: succeeded
+    steps:
+      - name: test
+        guard: ${{ !inputs.runTests }}
+        task:
+          type: behavior
+          behaviorType: "@mobileorg/ios-release"
+          behaviorName: mobileorg-release
+          methodName: test
+          globalArgs:
+            projectDir: ${{ inputs.projectDir }}
+            outputDir: ${{ inputs.outputDir }}
+            teamId: ${{ inputs.teamId }}
+          inputs:
+            version: ${{ inputs.version }}
+            destination: ${{ inputs.testDestination }}
+        dependsOn: []
+      - name: archive
+        task:
+          type: behavior
+          behaviorType: "@mobileorg/ios-release"
+          behaviorName: mobileorg-release
+          methodName: archive
+          globalArgs:
+            projectDir: ${{ inputs.projectDir }}
+            outputDir: ${{ inputs.outputDir }}
+            teamId: ${{ inputs.teamId }}
+          inputs:
+            version: ${{ inputs.version }}
+        dependsOn:
+          - step: test
+            condition:
+              type: or
+              conditions:
+                - type: succeeded
+                - type: skipped
+      - name: verify-archive
+        task:
+          type: behavior
+          behaviorType: "@mobileorg/ios-release"
+          behaviorName: mobileorg-release
+          methodName: verifyArchive
+          globalArgs:
+            projectDir: ${{ inputs.projectDir }}
+            outputDir: ${{ inputs.outputDir }}
+            teamId: ${{ inputs.teamId }}
+          inputs:
+            version: ${{ inputs.version }}
+        dependsOn:
+          - step: archive
+            condition:
+              type: succeeded
+
+  - name: export
+    description: Export a distribution-signed IPA and check its signing.
+    dependsOn:
+      - job: build
+        condition:
+          type: succeeded
+    steps:
+      - name: export-ipa
+        task:
+          type: behavior
+          behaviorType: "@mobileorg/ios-release"
+          behaviorName: mobileorg-release
+          methodName: exportIpa
+          globalArgs:
+            projectDir: ${{ inputs.projectDir }}
+            outputDir: ${{ inputs.outputDir }}
+            teamId: ${{ inputs.teamId }}
+          inputs:
+            version: ${{ inputs.version }}
+        dependsOn: []
+      - name: verify-ipa
+        task:
+          type: behavior
+          behaviorType: "@mobileorg/ios-release"
+          behaviorName: mobileorg-release
+          methodName: verifyIpa
+          globalArgs:
+            projectDir: ${{ inputs.projectDir }}
+            outputDir: ${{ inputs.outputDir }}
+            teamId: ${{ inputs.teamId }}
+          inputs:
+            version: ${{ inputs.version }}
+        dependsOn:
+          - step: export-ipa
+            condition:
+              type: succeeded
+
+  - name: approve-upload
+    description: Stop before the one step that cannot be undone.
+    dependsOn:
+      - job: export
+        condition:
+          type: succeeded
+    steps:
+      - name: confirm-upload
+        task:
+          type: manual_approval
+          prompt: >-
+            Upload version ${{ inputs.version }} build ${{ data.latest("mobileorg-release", "verifyIpa").attributes.build }}
+            to App Store Connect? First confirm in App Store Connect that this
+            build number is not already used for this version. To approve, run
+            "swamp workflow approve release-ios confirm-upload --run RUN_ID",
+            then "swamp workflow resume release-ios --run RUN_ID --input
+            approvedBuild=BUILD" with the build number above. The upload
+            refuses any other build. A run keeps the first value it is given,
+            so a wrong build cannot be corrected: cancel the run and start again.
+            Do not commit between verify-ipa and the upload. If HEAD moves,
+            the upload refuses and you must start a new run.
+          timeout: 86400
+        dependsOn: []
+
+  - name: upload
+    description: Upload the archive to App Store Connect.
+    dependsOn:
+      - job: approve-upload
+        condition:
+          type: succeeded
+    steps:
+      - name: upload-to-app-store-connect
+        task:
+          type: behavior
+          behaviorType: "@mobileorg/ios-release"
+          behaviorName: mobileorg-release
+          methodName: upload
+          globalArgs:
+            projectDir: ${{ inputs.projectDir }}
+            outputDir: ${{ inputs.outputDir }}
+            teamId: ${{ inputs.teamId }}
+          inputs:
+            version: ${{ inputs.version }}
+            expectedBuild: "${{ inputs.?approvedBuild.orValue('') }}"
+        dependsOn: []
